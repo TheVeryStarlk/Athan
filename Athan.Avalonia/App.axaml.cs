@@ -1,4 +1,6 @@
 using System;
+using System.Net.Http;
+using Athan.Avalonia.Services;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
@@ -22,6 +24,8 @@ internal sealed class App : Application
         Services = new ServiceCollection()
             .AddTransient<ShellView>()
             .AddTransient<ShellViewModel>()
+            .AddTransient<PrayerService>()
+            .AddSingleton<HttpClient>()
             .BuildServiceProvider();
     }
 
