@@ -1,0 +1,17 @@
+<Application x:Class="Athan.Avalonia.App"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:Athan.Avalonia">
+
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
+    <Application.Resources>
+        <local:ViewModelLocator x:Key="ViewModelLocator" />
+    </Application.Resources>
+
+    <Application.Styles>
+        <FluentTheme Mode="Light" />
+    </Application.Styles>
+</Application>
