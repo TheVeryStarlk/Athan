@@ -6,9 +6,13 @@ namespace Athan.Avalonia.Views;
 
 internal sealed partial class ShellView : Window
 {
+    private readonly ShellViewModel viewModel = App.Current.Services.GetRequiredService<ShellViewModel>();
+
     public ShellView()
     {
-        DataContext = App.Current.Services.GetRequiredService<ShellViewModel>();
+        DataContext = viewModel;
         InitializeComponent();
+
+        Activated += (_, _) => viewModel.CheckForInternetConnectionCommand.Execute(null);
     }
 }

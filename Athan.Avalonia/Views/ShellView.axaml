@@ -5,4 +5,12 @@
 
         d:DataContext="{Binding Path=ShellViewModel, Source={StaticResource ViewModelLocator}}"
         Title="Athan" Icon="/Assets/avalonia-logo.ico">
+
+    <Grid RowDefinitions="75 *">
+        <TextBlock Text="{Binding Navigable.Title}" VerticalAlignment="Center"
+                   Margin="25 25" FontSize="25" Grid.Row="0" />
+
+        <ContentControl Content="{Binding Navigable}" HorizontalAlignment="Center"
+                        VerticalAlignment="Center" Grid.Row="1" />
+    </Grid>
 </Window>

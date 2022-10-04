@@ -24,6 +24,7 @@ internal sealed class App : Application
         Services = new ServiceCollection()
             .AddTransient<ShellView>()
             .AddTransient<ShellViewModel>()
+            .AddTransient<YouSeemToBeOfflineViewModel>()
             .AddTransient<PrayerService>()
             .AddSingleton<HttpClient>()
             .BuildServiceProvider();

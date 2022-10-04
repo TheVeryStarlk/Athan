@@ -7,4 +7,7 @@ namespace Athan.Avalonia;
 internal sealed class ViewModelLocator
 {
     public ShellViewModel ShellViewModel => App.Current.Services.GetRequiredService<ShellViewModel>();
+
+    public YouSeemToBeOfflineViewModel YouSeemToBeOfflineViewModel =>
+        App.Current.Services.GetRequiredService<YouSeemToBeOfflineViewModel>();
 }
