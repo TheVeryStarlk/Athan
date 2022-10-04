@@ -13,6 +13,18 @@
 
     <Application.Styles>
         <FluentTheme Mode="Light" />
+
+        <Style Selector="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style Selector="Border.container">
+            <Setter Property="Padding" Value="50" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+            <Setter Property="Background" Value="{DynamicResource SystemChromeMediumColor}" />
+        </Style>
     </Application.Styles>
 
     <TrayIcon.Icons>
