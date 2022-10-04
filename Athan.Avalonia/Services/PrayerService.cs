@@ -16,7 +16,7 @@ internal sealed class PrayerService
         this.httpClient = httpClient;
     }
 
-    public async Task<Prayer> GetTimings(string city, string country)
+    public async Task<Prayer> GetTimingsAsync(string city, string country)
     {
         var request =
             await httpClient.GetAsync($"http://api.aladhan.com/v1/timingsByCity?city={city}&country={country}");
