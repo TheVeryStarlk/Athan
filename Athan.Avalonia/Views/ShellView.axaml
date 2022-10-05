@@ -6,6 +6,12 @@
         d:DataContext="{Binding Path=ShellViewModel, Source={StaticResource ViewModelLocator}}"
         Title="Athan" Icon="/Assets/avalonia-logo.ico">
 
+    <Interaction.Behaviors>
+        <EventTriggerBehavior EventName="Activated">
+            <InvokeCommandAction Command="{Binding CheckForInternetConnectionCommand}" />
+        </EventTriggerBehavior>
+    </Interaction.Behaviors>
+
     <Border Classes="container">
         <Grid RowDefinitions="Auto 10 *">
             <TextBlock Text="{Binding Navigable.Title}"
