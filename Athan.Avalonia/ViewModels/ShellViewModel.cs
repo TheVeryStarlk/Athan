@@ -7,14 +7,14 @@ namespace Athan.Avalonia.ViewModels;
 
 internal sealed partial class ShellViewModel : ObservableObject
 {
-    private readonly YouSeemToBeOfflineViewModel youSeemToBeOfflineViewModel;
+    private readonly OfflineViewModel offlineViewModel;
 
     [ObservableProperty]
     private INavigable? navigable;
 
-    public ShellViewModel(YouSeemToBeOfflineViewModel youSeemToBeOfflineViewModel)
+    public ShellViewModel(OfflineViewModel offlineViewModel)
     {
-        this.youSeemToBeOfflineViewModel = youSeemToBeOfflineViewModel;
+        this.offlineViewModel = offlineViewModel;
     }
 
     [RelayCommand]
@@ -22,7 +22,7 @@ internal sealed partial class ShellViewModel : ObservableObject
     {
         if (NetworkInterface.GetIsNetworkAvailable())
         {
-            Navigable = youSeemToBeOfflineViewModel;
+            Navigable = offlineViewModel;
         }
     }
 }

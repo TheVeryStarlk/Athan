@@ -8,6 +8,5 @@ internal sealed class ViewModelLocator
 {
     public ShellViewModel ShellViewModel => App.Current.Services.GetRequiredService<ShellViewModel>();
 
-    public YouSeemToBeOfflineViewModel YouSeemToBeOfflineViewModel =>
-        App.Current.Services.GetRequiredService<YouSeemToBeOfflineViewModel>();
+    public OfflineViewModel OfflineViewModel => App.Current.Services.GetRequiredService<OfflineViewModel>();
 }

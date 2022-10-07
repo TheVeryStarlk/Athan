@@ -5,11 +5,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Athan.Avalonia.Views;
 
-internal sealed partial class YouSeemToBeOfflineView : UserControl
+internal sealed partial class OfflineView : UserControl
 {
-    public YouSeemToBeOfflineView()
+    public OfflineView()
     {
-        DataContext = App.Current.Services.GetRequiredService<YouSeemToBeOfflineViewModel>();
+        DataContext = App.Current.Services.GetRequiredService<OfflineViewModel>();
         InitializeComponent();
     }
 
