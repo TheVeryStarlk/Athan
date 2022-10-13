@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ internal sealed class PrayerService
         this.httpClient = httpClient;
     }
 
-    public async Task<Dictionary<string, string>?> GetTimingsAsync(string city, string country)
+    public async Task<Dictionary<string, DateTime>?> GetTimingsAsync(string city, string country)
     {
         var request =
             await httpClient.GetAsync($"http://api.aladhan.com/v1/timingsByCity?city={city}&country={country}");
@@ -24,7 +25,7 @@ internal sealed class PrayerService
 
         var timings = json["data"]?["timings"]?
             .ToObject<Dictionary<string, string>>()?
-            .Take(7).ToDictionary(key => key.Key, value => value.Value);
+            .Take(7).ToDictionary(key => key.Key, value => DateTime.Parse(value.Value));
 
         return timings;
     }
