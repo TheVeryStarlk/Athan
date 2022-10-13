@@ -1,0 +1,7 @@
+﻿<UserControl x:Class="Athan.Avalonia.Views.LocationView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+
+             d:DataContext="{Binding Path=ShellViewModel, Source={StaticResource ViewModelLocator}}">
+</UserControl>

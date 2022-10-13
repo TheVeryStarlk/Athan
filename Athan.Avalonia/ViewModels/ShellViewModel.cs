@@ -10,17 +10,21 @@ internal sealed partial class ShellViewModel : ObservableObject
     private readonly OfflineViewModel offlineViewModel;
 
     [ObservableProperty]
-    private INavigable? navigable;
+    private INavigable navigable;
 
-    public ShellViewModel(OfflineViewModel offlineViewModel)
+    public ShellViewModel(LocationViewModel locationViewModel, OfflineViewModel offlineViewModel)
     {
+        SetProperty(ref navigable, NetworkInterface.GetIsNetworkAvailable()
+            ? locationViewModel
+            : offlineViewModel);
+
         this.offlineViewModel = offlineViewModel;
     }
 
     [RelayCommand]
     private void CheckForInternetConnection()
     {
-        if (NetworkInterface.GetIsNetworkAvailable())
+        if (!NetworkInterface.GetIsNetworkAvailable())
         {
             Navigable = offlineViewModel;
         }
