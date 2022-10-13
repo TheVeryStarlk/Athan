@@ -33,6 +33,7 @@ internal sealed class App : Application
 
             // Other
             .AddTransient<PrayerService>()
+            .AddTransient<LocationService>()
             .AddSingleton<HttpClient>()
             .BuildServiceProvider();
     }

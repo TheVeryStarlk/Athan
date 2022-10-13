@@ -3,5 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 
-             d:DataContext="{Binding Path=ShellViewModel, Source={StaticResource ViewModelLocator}}">
+             d:DataContext="{Binding Path=LocationViewModel, Source={StaticResource ViewModelLocator}}">
+
+    <Grid>
+        <ProgressBar IsVisible="{Binding !HasGotLocation}" IsIndeterminate="True" />
+
+        <StackPanel IsVisible="{Binding HasGotLocation}" Spacing="10">
+            <TextBlock Text="{Binding Message}" />
+            <Button Content="Continue" Classes="accent" HorizontalAlignment="Right" />
+        </StackPanel>
+    </Grid>
 </UserControl>
