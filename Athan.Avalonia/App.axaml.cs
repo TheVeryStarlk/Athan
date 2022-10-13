@@ -17,14 +17,20 @@ internal sealed class App : Application
 
     public IServiceProvider Services { get; }
 
-    private IClassicDesktopStyleApplicationLifetime? lifetime;
+    // It is always initialized
+    private IClassicDesktopStyleApplicationLifetime lifetime = null!;
 
     public App()
     {
         Services = new ServiceCollection()
-            .AddTransient<ShellView>()
+            // View-models
             .AddTransient<ShellViewModel>()
             .AddTransient<OfflineViewModel>()
+
+            // Views
+            .AddTransient<ShellView>()
+
+            // Other
             .AddTransient<PrayerService>()
             .AddSingleton<HttpClient>()
             .BuildServiceProvider();
@@ -48,7 +54,7 @@ internal sealed class App : Application
 
     private void OpenTrayIcon(object? sender, EventArgs eventArgs)
     {
-        var window = lifetime?.MainWindow ?? throw new NullReferenceException();
+        var window = lifetime.MainWindow!;
 
         window.WindowState = window.WindowState is WindowState.Minimized
             ? WindowState.Normal
@@ -57,6 +63,6 @@ internal sealed class App : Application
 
     private void CloseTrayIcon(object? sender, EventArgs eventArgs)
     {
-        lifetime?.Shutdown();
+        lifetime.Shutdown();
     }
 }
