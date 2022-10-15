@@ -5,12 +5,8 @@
 
              d:DataContext="{Binding Path=LocationViewModel, Source={StaticResource ViewModelLocator}}">
 
-    <Grid>
-        <ProgressBar IsVisible="{Binding !HasGotLocation}" IsIndeterminate="True" />
-
-        <StackPanel IsVisible="{Binding HasGotLocation}" Spacing="10">
-            <TextBlock Text="{Binding Message}" />
-            <Button Content="Continue" Classes="accent" HorizontalAlignment="Right" />
-        </StackPanel>
-    </Grid>
+    <StackPanel Spacing="10">
+        <TextBlock Text="{Binding Message}" />
+        <Button Content="Continue" Classes="accent" HorizontalAlignment="Right" />
+    </StackPanel>
 </UserControl>

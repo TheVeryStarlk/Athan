@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 
         d:DataContext="{Binding Path=ShellViewModel, Source={StaticResource ViewModelLocator}}"
-        Title="Athan" Icon="/Assets/avalonia-logo.ico" MinWidth="550" MinHeight="550">
+        Title="Athan" Icon="/Assets/avalonia-logo.ico" MinWidth="720" MinHeight="480">
 
     <Interaction.Behaviors>
         <EventTriggerBehavior EventName="Activated">

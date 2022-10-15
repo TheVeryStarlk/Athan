@@ -8,13 +8,10 @@ namespace Athan.Avalonia.ViewModels;
 
 internal sealed partial class LocationViewModel : ObservableObject, INavigable
 {
-    public string Title => "Where do you live";
+    public string Title => "Where are you";
 
     [ObservableProperty]
-    private bool hasGotLocation;
-
-    [ObservableProperty]
-    private string? message;
+    private string message = "Hang tight...";
 
     private readonly LocationService locationService;
 
@@ -26,7 +23,6 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
     [RelayCommand]
     private async Task GetLocationAsync()
     {
-        HasGotLocation = true;
         var location = await locationService.GetLocationAsync();
         Message = $"Your location has been auto-detected to be in {location.City} {location.Country}.";
     }
