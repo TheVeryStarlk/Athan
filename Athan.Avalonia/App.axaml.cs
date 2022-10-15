@@ -35,6 +35,7 @@ internal sealed class App : Application
             .AddTransient<PrayerService>()
             .AddTransient<LocationService>()
             .AddTransient<StorageService>()
+            .AddTransient<NavigationService>()
             .AddSingleton<HttpClient>()
             .BuildServiceProvider();
     }

@@ -7,12 +7,6 @@
         ExtendClientAreaToDecorationsHint="True" ExtendClientAreaTitleBarHeightHint="50"
         Title="Athan" Icon="/Assets/avalonia-logo.ico" MinWidth="720" MinHeight="480">
 
-    <Interaction.Behaviors>
-        <EventTriggerBehavior EventName="Activated">
-            <InvokeCommandAction Command="{Binding CheckForInternetConnectionCommand}" />
-        </EventTriggerBehavior>
-    </Interaction.Behaviors>
-
     <Grid RowDefinitions="50 *">
         <TextBlock Text="{Binding Navigable.Title, StringFormat='{}Athan • {0}'}"
                    Margin="20 15" IsHitTestVisible="False" Grid.Row="0" />
