@@ -9,38 +9,39 @@ namespace Athan.Avalonia.Services;
 
 internal sealed class StorageService
 {
-    private readonly string path = Path.Combine(Environment.SpecialFolder.CommonApplicationData.ToString(), "Athan");
+    private readonly string storage = 
+        Path.Combine(Environment.SpecialFolder.CommonApplicationData.ToString(), nameof(Athan));
 
     public async Task WriteAsync<T>(string key, T value) where T : notnull
     {
-        var storage = await TryReadAllLinesAsync(path);
+        var elements = await TryReadAllLinesAsync(storage);
 
-        if (storage.Any(line => line == key))
+        if (elements.Any(line => line == key))
         {
-            var index = storage.IndexOf(key);
-            storage[index] = ConvertType<string>(value);
+            var index = elements.IndexOf(key);
+            elements[index + 1] = ConvertType<string>(value);
 
-            await File.WriteAllLinesAsync(path, storage);
+            await File.WriteAllLinesAsync(storage, elements);
         }
         else
         {
-            var list = new List<string>(storage)
+            var list = new List<string>(elements)
             {
                 key,
                 ConvertType<string>(value)
             };
 
-            await File.WriteAllLinesAsync(path, list);
+            await File.WriteAllLinesAsync(storage, list);
         }
     }
 
     public async Task<T> ReadAsync<T>(string key)
     {
-        var storage = await TryReadAllLinesAsync(path);
+        var elements = await TryReadAllLinesAsync(storage);
 
-        var index = storage.IndexOf(key);
+        var index = elements.IndexOf(key);
 
-        return ConvertType<T>(storage[index + 1]);
+        return ConvertType<T>(elements[index + 1]);
     }
 
     private async Task<string[]> TryReadAllLinesAsync(string path)
@@ -54,7 +55,7 @@ internal sealed class StorageService
             return Array.Empty<string>();
         }
     }
-    
+
     private T ConvertType<T>(object value)
     {
         return (T) Convert.ChangeType(value, typeof(T));
