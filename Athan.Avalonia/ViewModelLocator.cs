@@ -11,4 +11,6 @@ internal sealed class ViewModelLocator
     public OfflineViewModel OfflineViewModel => App.Current.Services.GetRequiredService<OfflineViewModel>();
 
     public LocationViewModel LocationViewModel => App.Current.Services.GetRequiredService<LocationViewModel>();
+
+    public DashboardViewModel DashboardViewModel => App.Current.Services.GetRequiredService<DashboardViewModel>();
 }

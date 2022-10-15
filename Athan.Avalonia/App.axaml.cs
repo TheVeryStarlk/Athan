@@ -27,6 +27,7 @@ internal sealed class App : Application
             .AddTransient<ShellViewModel>()
             .AddTransient<OfflineViewModel>()
             .AddTransient<LocationViewModel>()
+            .AddTransient<DashboardViewModel>()
 
             // Views
             .AddTransient<ShellView>()

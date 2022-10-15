@@ -8,15 +8,15 @@ namespace Athan.Avalonia.Services;
 
 internal sealed class SettingsService
 {
-    private readonly string path = 
-        Path.Combine(Environment.SpecialFolder.CommonApplicationData.ToString(), nameof(Athan));
+    private readonly string path =
+        Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), nameof(Athan));
 
     public async Task UpdateAsync(Settings settings)
     {
         var json = JsonSerializer.Serialize(settings);
         await File.WriteAllTextAsync(path, json);
     }
-    
+
     public async Task<Settings> ReadAsync()
     {
         try
@@ -25,8 +25,9 @@ internal sealed class SettingsService
         }
         catch (FileNotFoundException)
         {
-            File.Create(path);
-            return new Settings(null);
+            var settings = new Settings(null);
+            await File.WriteAllTextAsync(path, JsonSerializer.Serialize(settings));
+            return settings;
         }
     }
 }
