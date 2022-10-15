@@ -10,5 +10,7 @@ internal sealed partial class ShellView : Window
     {
         DataContext = App.Current.Services.GetRequiredService<ShellViewModel>();
         InitializeComponent();
+
+        Margin = OffScreenMargin;
     }
 }
