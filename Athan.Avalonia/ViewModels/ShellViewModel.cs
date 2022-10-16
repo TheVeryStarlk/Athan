@@ -11,7 +11,7 @@ internal sealed partial class ShellViewModel : ObservableObject
 {
     // It gets initialized by its property
     [ObservableProperty]
-    private INavigable navigable = null!;
+    private INavigable navigable;
 
     private readonly NavigationService navigationService;
     private readonly SettingsService settingsService;
@@ -29,6 +29,8 @@ internal sealed partial class ShellViewModel : ObservableObject
         this.offlineViewModel = offlineViewModel;
 
         Navigable = navigationService.GoForward(locationViewModel);
+        SetProperty(ref navigable, Navigable);
+        
         NetworkChange.NetworkAvailabilityChanged += NetworkChangeOnNetworkAvailabilityChanged;
     }
 
