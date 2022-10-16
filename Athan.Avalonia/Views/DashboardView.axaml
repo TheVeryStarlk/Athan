@@ -13,8 +13,8 @@
 
     <Grid MinWidth="500" RowDefinitions="Auto 10 *">
         <Grid ColumnDefinitions="Auto * Auto" Grid.Row="0">
-            <TextBlock Text="{Binding Location}" Opacity="0.5" Grid.Column="0" />
-            <TextBlock Text="{Binding Date}" Opacity="0.5" Grid.Column="2" />
+            <TextBlock Text="{Binding Location}" Opacity="0.75" Grid.Column="0" />
+            <TextBlock Text="{Binding Date}" Opacity="0.75" Grid.Column="2" />
         </Grid>
     </Grid>
 </UserControl>

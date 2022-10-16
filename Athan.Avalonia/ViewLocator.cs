@@ -16,7 +16,7 @@ internal sealed class ViewLocator : IDataTemplate
             ? (Control) Activator.CreateInstance(type)!
             : new TextBlock()
             {
-                Text = $"Could not find the view: '{name}'"
+                Text = $"Could not find the view: '{name}'."
             };
     }
 
