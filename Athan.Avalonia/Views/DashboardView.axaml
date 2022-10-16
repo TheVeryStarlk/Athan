@@ -5,5 +5,16 @@
 
              d:DataContext="{Binding Path=DashboardViewModel, Source={StaticResource ViewModelLocator}}">
 
-    Welcome to Avalonia!
+    <Interaction.Behaviors>
+        <EventTriggerBehavior EventName="Initialized">
+            <InvokeCommandAction Command="{Binding InitializedCommand}" />
+        </EventTriggerBehavior>
+    </Interaction.Behaviors>
+
+    <Grid MinWidth="500" RowDefinitions="Auto 10 *">
+        <Grid ColumnDefinitions="Auto * Auto" Grid.Row="0">
+            <TextBlock Text="{Binding Location}" Opacity="0.5" Grid.Column="0" />
+            <TextBlock Text="{Binding Date}" Opacity="0.5" Grid.Column="2" />
+        </Grid>
+    </Grid>
 </UserControl>
