@@ -9,7 +9,6 @@ namespace Athan.Avalonia.ViewModels;
 
 internal sealed partial class ShellViewModel : ObservableObject
 {
-    // It gets initialized by its property
     [ObservableProperty]
     private INavigable navigable;
 
@@ -30,7 +29,7 @@ internal sealed partial class ShellViewModel : ObservableObject
 
         Navigable = navigationService.GoForward(locationViewModel);
         SetProperty(ref navigable, Navigable);
-        
+
         NetworkChange.NetworkAvailabilityChanged += NetworkChangeOnNetworkAvailabilityChanged;
     }
 
@@ -42,7 +41,7 @@ internal sealed partial class ShellViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private async Task ActivatedAsync()
+    private async Task InitializedAsync()
     {
         var settings = await settingsService.ReadAsync();
 
