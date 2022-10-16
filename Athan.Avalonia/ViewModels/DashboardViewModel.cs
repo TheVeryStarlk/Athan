@@ -26,9 +26,12 @@ internal sealed partial class DashboardViewModel : ObservableObject, INavigable
 
         var calendar = new HijriCalendar();
 
-        date = $"{calendar.GetYear(DateTime.Now)}/" +
-               $"{calendar.GetMonth(DateTime.Now)}/" +
-               $"{(int) calendar.GetDayOfWeek(DateTime.Now) + 1}";
+        var hijri =
+            $"{calendar.GetYear(DateTime.Now)}/" +
+            $"{calendar.GetMonth(DateTime.Now)}/" +
+            $"{calendar.GetDayOfMonth(DateTime.Now)}";
+
+        date = DateTime.Parse(hijri).ToShortDateString();
     }
 
     [RelayCommand]
