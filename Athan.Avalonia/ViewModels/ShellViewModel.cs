@@ -9,8 +9,9 @@ namespace Athan.Avalonia.ViewModels;
 
 internal sealed partial class ShellViewModel : ObservableObject
 {
+    // Initialized by another method
     [ObservableProperty]
-    private INavigable navigable;
+    private INavigable navigable = null!;
 
     private readonly NavigationService navigationService;
     private readonly SettingsService settingsService;
@@ -26,9 +27,6 @@ internal sealed partial class ShellViewModel : ObservableObject
         this.locationViewModel = locationViewModel;
         this.dashboardViewModel = dashboardViewModel;
         this.offlineViewModel = offlineViewModel;
-
-        Navigable = navigationService.GoForward(locationViewModel);
-        SetProperty(ref navigable, Navigable);
 
         NetworkChange.NetworkAvailabilityChanged += NetworkChangeOnNetworkAvailabilityChanged;
     }
