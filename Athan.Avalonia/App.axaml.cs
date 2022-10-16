@@ -1,12 +1,13 @@
 using System;
 using System.Net.Http;
+using Athan.Avalonia.Messages;
 using Athan.Avalonia.Services;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Athan.Avalonia.ViewModels;
 using Athan.Avalonia.Views;
-using Avalonia.Controls;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Athan.Avalonia;
@@ -17,8 +18,7 @@ internal sealed class App : Application
 
     public IServiceProvider Services { get; }
 
-    // It is always initialized
-    private IClassicDesktopStyleApplicationLifetime lifetime = null!;
+    private IClassicDesktopStyleApplicationLifetime? lifetime;
 
     public App()
     {
@@ -59,15 +59,11 @@ internal sealed class App : Application
 
     private void OpenTrayIcon(object? sender, EventArgs eventArgs)
     {
-        var window = lifetime.MainWindow!;
-
-        window.WindowState = window.WindowState is WindowState.Minimized
-            ? WindowState.Normal
-            : window.WindowState;
+        WeakReferenceMessenger.Default.Send<OpenTrayIconMessage>();
     }
 
     private void CloseTrayIcon(object? sender, EventArgs eventArgs)
     {
-        lifetime.Shutdown();
+        lifetime?.TryShutdown();
     }
 }
