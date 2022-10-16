@@ -1,3 +1,3 @@
 ﻿namespace Athan.Avalonia.Models;
 
-internal sealed record Settings(string? Location);
+internal sealed record Settings(Location? Location);

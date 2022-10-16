@@ -45,7 +45,7 @@ internal sealed partial class ShellViewModel : ObservableObject
     {
         var settings = await settingsService.ReadAsync();
 
-        Navigable = navigationService.GoForward(string.IsNullOrWhiteSpace(settings.Location)
+        Navigable = navigationService.GoForward(settings.Location is null
             ? locationViewModel
             : dashboardViewModel);
     }

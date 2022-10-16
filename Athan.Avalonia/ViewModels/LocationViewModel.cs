@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Athan.Avalonia.Contracts;
+using Athan.Avalonia.Models;
 using Athan.Avalonia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -14,16 +15,20 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
     private string message = "Hang tight...";
 
     private readonly LocationService locationService;
+    private readonly SettingsService settingsService;
 
-    public LocationViewModel(LocationService locationService)
+    public LocationViewModel(LocationService locationService, SettingsService settingsService)
     {
         this.locationService = locationService;
+        this.settingsService = settingsService;
     }
 
     [RelayCommand]
     private async Task GetLocationAsync()
     {
-        var location = await locationService.GetLocationAsync();
-        Message = $"Your location has been auto-detected to be in {location.City} {location.Country}.";
+        var (city, country) = await locationService.GetLocationAsync();
+        await settingsService.UpdateAsync(new Settings(new Location(city, country)));
+
+        Message = $"Your location has been auto-detected to be in {city} {country}.";
     }
 }
