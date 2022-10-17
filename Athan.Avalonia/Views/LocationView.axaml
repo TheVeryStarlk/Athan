@@ -7,6 +7,7 @@
 
     <StackPanel Spacing="10">
         <TextBlock Text="{Binding Message}" />
-        <Button Content="Continue" Classes="accent" HorizontalAlignment="Right" />
+        <Button Content="Continue" Classes="accent" HorizontalAlignment="Right" 
+                Command="{Binding ContinueCommand}" />
     </StackPanel>
 </UserControl>

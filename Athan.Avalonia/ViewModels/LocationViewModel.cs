@@ -1,9 +1,11 @@
 ﻿using System.Threading.Tasks;
 using Athan.Avalonia.Contracts;
+using Athan.Avalonia.Messages;
 using Athan.Avalonia.Models;
 using Athan.Avalonia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace Athan.Avalonia.ViewModels;
 
@@ -30,5 +32,11 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
         await settingsService.UpdateAsync(new Settings(new Location(city, country)));
 
         Message = $"Your location has been auto-detected to be in {city} {country}.";
+    }
+
+    [RelayCommand]
+    private void Continue()
+    {
+        WeakReferenceMessenger.Default.Send(new NavigationRequestedMessage(nameof(DashboardViewModel)));
     }
 }
