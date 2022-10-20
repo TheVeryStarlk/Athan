@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using Athan.Avalonia.Contracts;
 using Athan.Avalonia.Services;
@@ -18,11 +19,16 @@ internal sealed partial class DashboardViewModel : ObservableObject, INavigable
     [ObservableProperty]
     private string date;
 
-    private readonly SettingsService settingsService;
+    [ObservableProperty]
+    private string? prayer;
 
-    public DashboardViewModel(SettingsService settingsService)
+    private readonly SettingsService settingsService;
+    private readonly PrayerService prayerService;
+
+    public DashboardViewModel(SettingsService settingsService, PrayerService prayerService)
     {
         this.settingsService = settingsService;
+        this.prayerService = prayerService;
 
         var calendar = new HijriCalendar();
 
@@ -38,6 +44,16 @@ internal sealed partial class DashboardViewModel : ObservableObject, INavigable
     private async Task InitializedAsync()
     {
         var settings = await settingsService.ReadAsync();
-        Location = $"{settings.Location?.City}, {settings.Location?.Country}";
+
+        var (city, country) = settings.Location!;
+        Location = $"{city}, {country}";
+
+        var prayerTimings = await prayerService.GetTimingsAsync(city, country);
+
+        var closestTime = prayerTimings
+            .OrderBy(timing => Math.Abs((timing.Time - DateTime.Now).Ticks))
+            .First();
+
+        Prayer = closestTime.Name;
     }
 }

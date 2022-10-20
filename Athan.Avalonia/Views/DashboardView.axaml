@@ -11,10 +11,26 @@
         </EventTriggerBehavior>
     </Interaction.Behaviors>
 
-    <Grid MinWidth="500" RowDefinitions="Auto 10 *">
+    <Grid Width="500" RowDefinitions="Auto 10 *">
         <Grid ColumnDefinitions="Auto * Auto" Grid.Row="0">
             <TextBlock Text="{Binding Location}" Opacity="0.75" Grid.Column="0" />
             <TextBlock Text="{Binding Date}" Opacity="0.75" Grid.Column="2" />
+        </Grid>
+
+        <Grid RowDefinitions="Auto 10 *" Grid.Row="2">
+            <Grid.Styles>
+                <Style Selector="Border.container">
+                    <Setter Property="Padding" Value="25" />
+                    <Setter Property="Background" Value="{DynamicResource SystemChromeHighColor}" />
+                </Style>
+            </Grid.Styles>
+
+            <Border Width="250" Classes="container" Grid.Row="0">
+                <StackPanel Spacing="10">
+                    <TextBlock Text="Your next prayer is" HorizontalAlignment="Center" Opacity="0.75" />
+                    <TextBlock Text="{Binding Prayer}" FontSize="20" FontWeight="SemiBold" Classes="header" />
+                </StackPanel>
+            </Border>
         </Grid>
     </Grid>
 </UserControl>

@@ -19,10 +19,11 @@
 
         <Border Classes="container" Grid.Row="1">
             <Grid RowDefinitions="Auto 10 *">
-                <TextBlock Text="{Binding Navigable.Title}"
-                           HorizontalAlignment="Center" FontWeight="SemiBold" FontSize="25" Grid.Row="0" />
+                <TextBlock Text="{Binding Navigable.Title}" Classes="header" Grid.Row="0" />
 
-                <ContentControl Content="{Binding Navigable}" Grid.Row="2" />
+                <ScrollViewer Grid.Row="2">
+                    <ContentControl Content="{Binding Navigable}" />
+                </ScrollViewer>
             </Grid>
         </Border>
     </Grid>
