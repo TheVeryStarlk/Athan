@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
 using Athan.Avalonia.Contracts;
 using Athan.Avalonia.Services;
@@ -32,12 +31,9 @@ internal sealed partial class DashboardViewModel : ObservableObject, INavigable
 
         var calendar = new HijriCalendar();
 
-        var hijri =
-            $"{calendar.GetYear(DateTime.Now)}/" +
-            $"{calendar.GetMonth(DateTime.Now)}/" +
-            $"{calendar.GetDayOfMonth(DateTime.Now)}";
-
-        date = DateTime.Parse(hijri).ToShortDateString();
+        date = DateTime.Parse($"{calendar.GetYear(DateTime.Now)}/" +
+                              $"{calendar.GetMonth(DateTime.Now)}/" +
+                              $"{calendar.GetDayOfMonth(DateTime.Now)}").ToShortDateString();
     }
 
     [RelayCommand]
@@ -49,11 +45,6 @@ internal sealed partial class DashboardViewModel : ObservableObject, INavigable
         Location = $"{city}, {country}";
 
         var prayerTimings = await prayerService.GetTimingsAsync(city, country);
-
-        var closestTime = prayerTimings
-            .OrderBy(timing => Math.Abs((timing.Time - DateTime.Now).Ticks))
-            .First();
-
-        Prayer = closestTime.Name;
+        Prayer = prayerService.GetClosest(prayerTimings).Name;
     }
 }

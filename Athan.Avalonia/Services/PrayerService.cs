@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Athan.Avalonia.Models;
+using DynamicData;
 using Newtonsoft.Json.Linq;
 
 namespace Athan.Avalonia.Services;
@@ -34,5 +35,22 @@ internal sealed class PrayerService
             .ToArray();
 
         return prayers;
+    }
+
+    public Prayer GetClosest(Prayer[] prayers)
+    {
+        var now = DateTime.Now;
+        
+        var closestPrayer = prayers
+            .OrderBy(timing => Math.Abs((timing.Time - now).Ticks))
+            .First();
+
+        if (now > closestPrayer.Time)
+        {
+            var index = prayers.IndexOf(closestPrayer) + 1;
+            return index >= prayers.Length ? prayers.First() : prayers[index];
+        }
+
+        return closestPrayer;
     }
 }

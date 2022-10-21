@@ -25,7 +25,12 @@
                 </Style>
             </Grid.Styles>
 
-            <Border Width="250" Classes="container" Grid.Row="0">
+            <ProgressBar IsVisible="{Binding Prayer, Converter={x:Static StringConverters.IsNullOrEmpty}}"
+                         IsIndeterminate="True" Width="250" Grid.Row="0" />
+
+            <Border IsVisible="{Binding Prayer, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                    Width="250" Classes="container" Grid.Row="0">
+
                 <StackPanel Spacing="10">
                     <TextBlock Text="Your next prayer is" HorizontalAlignment="Center" Opacity="0.75" />
                     <TextBlock Text="{Binding Prayer}" FontSize="20" FontWeight="SemiBold" Classes="header" />
