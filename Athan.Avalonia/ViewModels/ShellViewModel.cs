@@ -12,9 +12,8 @@ namespace Athan.Avalonia.ViewModels;
 
 internal sealed partial class ShellViewModel : ObservableObject
 {
-    // Initialized by another method
     [ObservableProperty]
-    private INavigable navigable = null!;
+    private INavigable? navigable;
 
     private readonly NavigationService navigationService;
     private readonly SettingsService settingsService;

@@ -5,6 +5,12 @@
 
              d:DataContext="{Binding Path=LocationViewModel, Source={StaticResource ViewModelLocator}}">
 
+    <Interaction.Behaviors>
+        <EventTriggerBehavior EventName="Initialized">
+            <InvokeCommandAction Command="{Binding GetLocationCommand}" />
+        </EventTriggerBehavior>
+    </Interaction.Behaviors>
+    
     <StackPanel Spacing="10">
         <TextBlock Text="{Binding Message}" />
         <Button Content="Continue" Classes="accent" HorizontalAlignment="Right" 

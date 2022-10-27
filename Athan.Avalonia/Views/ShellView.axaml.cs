@@ -14,7 +14,10 @@ internal sealed partial class ShellView : Window
     {
         DataContext = App.Current.Services.GetRequiredService<ShellViewModel>();
         InitializeComponent();
+    }
 
+    protected override void OnInitialized()
+    {
         WeakReferenceMessenger.Default.Register<OpenTrayIconMessage>(this, OpenTrayIconMessageHandler);
         Margin = OffScreenMargin;
     }
