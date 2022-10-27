@@ -11,10 +11,12 @@ internal sealed class SettingsService
     private readonly string path =
         Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), nameof(Athan));
 
-    public async Task UpdateAsync(Settings settings)
+    public async Task<Settings> UpdateAsync(Settings settings)
     {
         var json = JsonSerializer.Serialize(settings);
         await File.WriteAllTextAsync(path, json);
+        
+        return settings;
     }
 
     public async Task<Settings> ReadAsync()
@@ -27,6 +29,7 @@ internal sealed class SettingsService
         {
             var settings = new Settings(null);
             await File.WriteAllTextAsync(path, JsonSerializer.Serialize(settings));
+            
             return settings;
         }
     }

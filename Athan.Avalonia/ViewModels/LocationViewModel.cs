@@ -16,6 +16,9 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
     [ObservableProperty]
     private string message = "Hang tight...";
 
+    [ObservableProperty]
+    private Settings? settings;
+
     private readonly LocationService locationService;
     private readonly SettingsService settingsService;
 
@@ -28,15 +31,15 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
     [RelayCommand]
     private async Task GetLocationAsync()
     {
-        var (city, country) = await locationService.GetLocationAsync();
-        await settingsService.UpdateAsync(new Settings(new Location(city, country)));
+        var location = await locationService.GetLocationAsync();
+        Settings = await settingsService.UpdateAsync(new Settings(location));
 
-        Message = $"Your location has been auto-detected to be in {city} {country}.";
+        Message = $"Your location has been auto-detected to be in {location}.";
     }
 
     [RelayCommand]
     private void Continue()
     {
-        WeakReferenceMessenger.Default.Send(new NavigationRequestedMessage(nameof(DashboardViewModel)));
+        WeakReferenceMessenger.Default.Send(new NavigationRequestedMessage(nameof(DashboardViewModel), settings));
     }
 }

@@ -34,6 +34,17 @@ internal sealed partial class ShellViewModel : ObservableObject
         WeakReferenceMessenger.Default.Register<NavigationRequestedMessage>(this, NavigationRequestedMessageHandler);
     }
 
+
+    [RelayCommand]
+    private async Task InitializedAsync()
+    {
+        var settings = await settingsService.ReadAsync();
+
+        Navigable = settings.Location is null
+            ? navigationService.GoForward(locationViewModel)
+            : navigationService.GoForward(dashboardViewModel, settings);
+    }
+
     private void NetworkChangeOnNetworkAvailabilityChanged(object? sender, NetworkAvailabilityEventArgs eventArgs)
     {
         Navigable = eventArgs.IsAvailable
@@ -47,16 +58,6 @@ internal sealed partial class ShellViewModel : ObservableObject
         {
             nameof(DashboardViewModel) => dashboardViewModel,
             _ => throw new ArgumentOutOfRangeException()
-        });
-    }
-
-    [RelayCommand]
-    private async Task InitializedAsync()
-    {
-        var settings = await settingsService.ReadAsync();
-
-        Navigable = navigationService.GoForward(settings.Location is null
-            ? locationViewModel
-            : dashboardViewModel);
+        }, message.Settings);
     }
 }

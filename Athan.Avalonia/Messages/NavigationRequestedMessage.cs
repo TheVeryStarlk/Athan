@@ -1,3 +1,5 @@
-﻿namespace Athan.Avalonia.Messages;
+﻿using Athan.Avalonia.Models;
 
-internal sealed record NavigationRequestedMessage(string Navigable);
+namespace Athan.Avalonia.Messages;
+
+internal sealed record NavigationRequestedMessage(string Navigable, Settings? Settings = null);

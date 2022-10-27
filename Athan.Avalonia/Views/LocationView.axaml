@@ -10,10 +10,11 @@
             <InvokeCommandAction Command="{Binding GetLocationCommand}" />
         </EventTriggerBehavior>
     </Interaction.Behaviors>
-    
+
     <StackPanel Spacing="10">
         <TextBlock Text="{Binding Message}" />
-        <Button Content="Continue" Classes="accent" HorizontalAlignment="Right" 
-                Command="{Binding ContinueCommand}" />
+
+        <Button Content="Continue" Classes="accent" HorizontalAlignment="Right" Command="{Binding ContinueCommand}"
+                IsEnabled="{Binding Settings, Converter={x:Static ObjectConverters.IsNotNull}}" />
     </StackPanel>
 </UserControl>
