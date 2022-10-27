@@ -14,12 +14,12 @@
     </Interaction.Behaviors>
 
     <Grid RowDefinitions="50 *">
-        <TextBlock Text="{Binding Navigable.Title, StringFormat='{}Athan • {0}'}"
+        <TextBlock Text="{Binding Navigable.Title, StringFormat='{}Athan • {0}', FallbackValue='Athan'}"
                    Margin="20 15" IsHitTestVisible="False" Grid.Row="0" />
 
         <Border Classes="container" Grid.Row="1">
             <Grid RowDefinitions="Auto 10 *">
-                <TextBlock Text="{Binding Navigable.Title}" Classes="header" Grid.Row="0" />
+                <TextBlock Text="{Binding Navigable.Title, FallbackValue='Something went wrong'}" Classes="header" Grid.Row="0" />
 
                 <ScrollViewer Grid.Row="2">
                     <ContentControl Content="{Binding Navigable}" />
