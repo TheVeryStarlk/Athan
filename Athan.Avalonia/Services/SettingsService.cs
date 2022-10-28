@@ -9,7 +9,7 @@ namespace Athan.Avalonia.Services;
 internal sealed class SettingsService
 {
     private readonly string path =
-        Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), nameof(Athan));
+        Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), nameof(Athan));
 
     public async Task<Settings> UpdateAsync(Settings settings)
     {
