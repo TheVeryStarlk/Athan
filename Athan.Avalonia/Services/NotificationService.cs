@@ -43,17 +43,17 @@ internal sealed class NotificationService
         }
     }
 
-    public async Task ShowNotificationAsync(string title, string body)
-    {
+    public async Task ScheduleNotificationAsync(string title, string body, TimeSpan timeSpan)
+    {        
         if (!initialized)
         {
             throw new InvalidOperationException("The notification manager was not initialized.");
         }
 
-        await manager.ShowNotification(new Notification()
+        await manager.ScheduleNotification(new Notification()
         {
-            Body = title,
-            Title = body
-        });
+            Title = title,
+            Body = body
+        }, DateTimeOffset.Now + timeSpan);
     }
 }
