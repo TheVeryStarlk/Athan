@@ -11,6 +11,10 @@
         <EventTriggerBehavior EventName="Initialized">
             <InvokeCommandAction Command="{Binding InitializedCommand}" />
         </EventTriggerBehavior>
+        
+        <EventTriggerBehavior EventName="Activated">
+            <InvokeCommandAction Command="{Binding ActivatedCommand}" />
+        </EventTriggerBehavior>
     </Interaction.Behaviors>
 
     <Grid RowDefinitions="50 *">

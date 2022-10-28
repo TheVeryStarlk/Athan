@@ -44,6 +44,12 @@ internal sealed partial class ShellViewModel : ObservableObject
             ? navigationService.GoForward(locationViewModel)
             : navigationService.GoForward(dashboardViewModel, settings);
     }
+    
+    [RelayCommand]
+    private void Activated()
+    {
+        WeakReferenceMessenger.Default.Send<ActivatedMessage>();
+    }
 
     private void NetworkChangeOnNetworkAvailabilityChanged(object? sender, NetworkAvailabilityEventArgs eventArgs)
     {
