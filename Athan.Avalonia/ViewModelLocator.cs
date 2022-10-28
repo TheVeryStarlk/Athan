@@ -13,4 +13,6 @@ internal sealed class ViewModelLocator
     public LocationViewModel LocationViewModel => App.Current.Services.GetRequiredService<LocationViewModel>();
 
     public DashboardViewModel DashboardViewModel => App.Current.Services.GetRequiredService<DashboardViewModel>();
+    
+    public PrayersViewModel PrayersViewModel => App.Current.Services.GetRequiredService<PrayersViewModel>();
 }

@@ -2,13 +2,16 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:views="clr-namespace:Athan.Avalonia.Views"
 
              d:DataContext="{Binding Path=DashboardViewModel, Source={StaticResource ViewModelLocator}}">
 
-    <Grid Width="500" RowDefinitions="Auto 10 *">
+    <Grid Width="500" RowDefinitions="Auto 35 *">
         <Grid ColumnDefinitions="Auto * Auto" Grid.Row="0">
             <TextBlock Text="{Binding Location}" Opacity="0.75" Grid.Column="0" />
             <TextBlock Text="{Binding Date}" Opacity="0.75" Grid.Column="2" />
         </Grid>
+
+        <views:PrayersView DataContext="{Binding PrayersViewModel}" Grid.Row="2" />
     </Grid>
 </UserControl>

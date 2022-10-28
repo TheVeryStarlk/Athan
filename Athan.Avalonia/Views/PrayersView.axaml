@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Athan.Avalonia.Views.PrayersView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+
+             d:DataContext="{Binding Path=PrayersViewModel, Source={StaticResource ViewModelLocator}}">
+
+    <Interaction.Behaviors>
+        <EventTriggerBehavior EventName="Initialized">
+            <InvokeCommandAction Command="{Binding InitializedCommand}" />
+        </EventTriggerBehavior>
+    </Interaction.Behaviors>
+
+    <Border Width="250" Padding="25" Classes="container"
+            Background="{DynamicResource SystemAltMediumHighColor}">
+
+        <Grid>
+            <ProgressBar IsVisible="{Binding ClosestPrayer, Converter={x:Static StringConverters.IsNullOrEmpty}}"
+                         IsIndeterminate="True" />
+
+            <StackPanel HorizontalAlignment="Center" Spacing="10"
+                        IsVisible="{Binding ClosestPrayer, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+
+                <TextBlock Text="Next prayer" Opacity="0.75" />
+                <TextBlock Text="{Binding ClosestPrayer}" Classes="header" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

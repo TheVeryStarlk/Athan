@@ -16,9 +16,19 @@ internal sealed partial class DashboardViewModel : ObservableObject, INavigable
     [ObservableProperty]
     private string? date;
 
+    [ObservableProperty]
+    private PrayersViewModel prayersViewModel;
+
+    public DashboardViewModel(PrayersViewModel prayersViewModel)
+    {
+        this.prayersViewModel = prayersViewModel;
+    }
+
     public void Navigated(Settings settings)
     {
         Location = settings.Location?.ToString();
+
+        PrayersViewModel.Location = settings.Location;
 
         var calendar = new HijriCalendar();
 
