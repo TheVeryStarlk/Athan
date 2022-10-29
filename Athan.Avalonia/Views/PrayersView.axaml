@@ -21,7 +21,7 @@
             <StackPanel HorizontalAlignment="Center" Spacing="10"
                         IsVisible="{Binding ClosestPrayer, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
 
-                <TextBlock Text="Next prayer" Opacity="0.75" />
+                <TextBlock Text="Next prayer" HorizontalAlignment="Center" Opacity="0.75" />
                 <TextBlock Text="{Binding ClosestPrayer}" Classes="header" />
             </StackPanel>
         </Grid>

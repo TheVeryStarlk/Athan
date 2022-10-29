@@ -27,6 +27,8 @@ internal sealed partial class ShellView : Window
         WindowState = WindowState is WindowState.Minimized
             ? oldState
             : WindowState;
+        
+        Activate();
     }
 
     protected override void HandleWindowStateChanged(WindowState state)
