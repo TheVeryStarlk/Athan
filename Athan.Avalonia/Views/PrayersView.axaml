@@ -12,7 +12,7 @@
     </Interaction.Behaviors>
 
     <Border Width="250" Padding="25" Classes="container"
-            Background="{DynamicResource SystemAltMediumHighColor}">
+            Background="{DynamicResource SystemChromeDisabledHighColor}">
 
         <Grid>
             <ProgressBar IsVisible="{Binding ClosestPrayer, Converter={x:Static StringConverters.IsNullOrEmpty}}"
