@@ -1,0 +1,4 @@
+﻿<UserControl x:Class="Athan.Avalonia.Views.SuspenseView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+</UserControl>
