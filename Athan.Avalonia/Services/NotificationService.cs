@@ -22,7 +22,7 @@ internal sealed class NotificationService
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
-            manager = new WindowsNotificationManager();
+            manager = new WindowsNotificationManager(WindowsApplicationContext.FromCurrentProcess(nameof(Athan)));
         }
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
@@ -58,7 +58,7 @@ internal sealed class NotificationService
 
         var dateTime = DateTimeOffset.Now + timeSpan;
 
-        if (scheduledNotifications.Any(date => date.Hour == dateTime.Hour))
+        if (scheduledNotifications.Any(date => date.Minute == dateTime.Minute))
         {
             return;
         }
@@ -74,7 +74,7 @@ internal sealed class NotificationService
 
     private void OnNotificationActivated(object? sender, NotificationActivatedEventArgs eventArgs)
     {
-        var notification = scheduledNotifications.FirstOrDefault(date => date.Hour == DateTimeOffset.Now.Hour);
+        var notification = scheduledNotifications.FirstOrDefault(date => date.Minute == DateTimeOffset.Now.Minute);
         scheduledNotifications.Remove(notification);
     }
 }
