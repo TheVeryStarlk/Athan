@@ -13,14 +13,14 @@ internal sealed class NavigationService
 
     public void GoForward(INavigable navigable)
     {
-        stack[1] ??= stack[0];
+        stack[1] = stack[0];
         stack[0] = navigable;
         Navigated?.Invoke(navigable);
     }
 
     public async Task GoForwardAsync(INavigable navigable, Setting setting)
     {
-        stack[1] ??= stack[0];
+        stack[1] = stack[0];
         stack[0] = navigable;
 
         Navigated?.Invoke(navigable);

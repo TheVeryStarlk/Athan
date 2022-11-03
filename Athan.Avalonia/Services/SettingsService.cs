@@ -6,7 +6,7 @@ using Athan.Avalonia.Models;
 
 namespace Athan.Avalonia.Services;
 
-internal sealed class SettingService
+internal sealed class SettingsService
 {
     private readonly string path =
         Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), nameof(Athan));

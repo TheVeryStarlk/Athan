@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="Athan.Avalonia.Views.SettingsView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+
+             d:DataContext="{Binding Path=SettingsViewModel, Source={StaticResource ViewModelLocator}}">
+
+    <StackPanel Width="300" Spacing="10">
+        <Border Classes="light_container">
+            <StackPanel Spacing="7.5">
+                <TextBlock Text="Application Theme" />
+
+                <ComboBox Width="100" SelectedIndex="{Binding SelectedThemeIndex}">
+                    <ComboBoxItem Content="Light" />
+                    <ComboBoxItem Content="Dark" />
+                </ComboBox>
+            </StackPanel>
+        </Border>
+
+        <Border Classes="light_container">
+            <StackPanel Spacing="7.5">
+                <TextBlock Text="Geographical Location" />
+                <Button Content="Relocate" Command="{Binding RelocateCommand}" />
+            </StackPanel>
+        </Border>
+
+        <Button Content="Go back" Classes="accent" HorizontalAlignment="Right" 
+                Command="{Binding NavigateBackwardCommand}" />
+    </StackPanel>
+</UserControl>

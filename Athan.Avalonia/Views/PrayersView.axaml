@@ -7,14 +7,7 @@
              d:DataContext="{Binding Path=PrayersViewModel, Source={StaticResource ViewModelLocator}}">
 
     <Grid RowDefinitions="Auto 40 *">
-        <Grid.Styles>
-            <Style Selector="Border.container">
-                <Setter Property="Background" Value="{DynamicResource SystemChromeDisabledHighColor}" />
-                <Setter Property="Padding" Value="25" />
-            </Style>
-        </Grid.Styles>
-
-        <Border Width="250" Classes="container" Grid.Row="0">
+        <Border Width="250" Classes="light_container" Grid.Row="0">
             <views:SuspenseView
                 Condition="{Binding NextPrayer, 
                 Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
@@ -32,7 +25,7 @@
             </views:SuspenseView>
         </Border>
 
-        <Border HorizontalAlignment="Stretch" Classes="container" Grid.Row="2">
+        <Border HorizontalAlignment="Stretch" Classes="light_container" Grid.Row="2">
             <views:SuspenseView
                 Condition="{Binding TodayPrayers, 
                 Converter={x:Static ObjectConverters.IsNotNull}}">

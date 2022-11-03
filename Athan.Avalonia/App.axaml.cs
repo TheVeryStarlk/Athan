@@ -28,6 +28,7 @@ internal sealed class App : Application
             .AddTransient<LocationViewModel>()
             .AddTransient<OfflineViewModel>()
             .AddTransient<PrayersViewModel>()
+            .AddTransient<SettingsViewModel>()
             .AddTransient<ShellViewModel>()
 
             // Views
@@ -38,7 +39,8 @@ internal sealed class App : Application
             .AddSingleton<NavigationService>()
             .AddTransient<NotificationService>()
             .AddTransient<PrayerService>()
-            .AddTransient<SettingService>()
+            .AddTransient<SettingsService>()
+            .AddTransient<ThemeService>()
             .AddSingleton<HttpClient>()
             .BuildServiceProvider();
     }

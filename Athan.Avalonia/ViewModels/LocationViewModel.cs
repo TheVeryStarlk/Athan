@@ -19,14 +19,14 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
     private Setting? setting;
 
     private readonly LocationService locationService;
-    private readonly SettingService settingService;
+    private readonly SettingsService settingsService;
     private readonly NavigationService navigationService;
 
-    public LocationViewModel(LocationService locationService, SettingService settingService,
+    public LocationViewModel(LocationService locationService, SettingsService settingsService,
         NavigationService navigationService)
     {
         this.locationService = locationService;
-        this.settingService = settingService;
+        this.settingsService = settingsService;
         this.navigationService = navigationService;
     }
 
@@ -34,7 +34,7 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
     private async Task InitializeAsync()
     {
         var location = await locationService.GetLocationAsync();
-        Setting = await settingService.UpdateAsync(new Setting(location));
+        Setting = await settingsService.UpdateAsync(new Setting(location));
 
         Message = $"Your location has been auto-detected to be in {location}.";
     }

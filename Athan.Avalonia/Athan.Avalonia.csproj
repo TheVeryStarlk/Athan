@@ -35,6 +35,7 @@
         <PackageReference Include="DesktopNotifications.Apple" Version="1.2.0" />
         <PackageReference Include="DesktopNotifications.Avalonia" Version="1.2.0" />
         <PackageReference Include="DesktopNotifications.Windows" Version="1.2.0" />
+        <PackageReference Include="Material.Icons.Avalonia" Version="1.1.10" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
         <PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
