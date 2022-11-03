@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using Athan.Avalonia.Models;
 using Athan.Avalonia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -9,6 +10,9 @@ internal sealed partial class PrayersViewModel : ObservableObject
 {
     [ObservableProperty]
     private string? nextPrayer;
+
+    [ObservableProperty]
+    private ObservableCollection<Prayer>? todayPrayers;
 
     private readonly PrayerService prayerService;
     private readonly NotificationService notificationService;
@@ -21,16 +25,17 @@ internal sealed partial class PrayersViewModel : ObservableObject
 
     public async Task InitializeAsync(Location location)
     {
-        await notificationService.InitializeAsync();
-
         var prayers = await prayerService.GetTimingsAsync(location.City, location.Country);
-        var closest = prayerService.GetClosest(prayers);
+        TodayPrayers = new ObservableCollection<Prayer>(prayers);
 
+        var closest = prayerService.GetClosest(prayers);
         NextPrayer = closest.Name;
+
+        await notificationService.InitializeAsync();
 
         await notificationService.ScheduleNotificationAsync(
             closest.Name,
             $"You have entered the prayer time for {closest.Name}.",
-            closest.Time.TimeOfDay);
+            closest.DateTime.TimeOfDay);
     }
 }

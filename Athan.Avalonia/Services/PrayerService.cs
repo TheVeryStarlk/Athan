@@ -30,8 +30,12 @@ internal sealed class PrayerService
             .Take(7);
 
         var prayers = timings!
-            .Select(time => new Prayer(time.Key, DateTime.Parse(time.Value)))
-            .Where(time => time.Name is not "Sunset" or "Sunrise")
+            .Select(time =>
+            {
+                var date = DateTime.Parse(time.Value);
+                return new Prayer(time.Key, date.ToShortTimeString(), date);
+            })
+            .Where(time => !time.Name.Contains("Sun"))
             .ToArray();
 
         return prayers;
@@ -40,12 +44,12 @@ internal sealed class PrayerService
     public Prayer GetClosest(Prayer[] prayers)
     {
         var now = DateTime.Now;
-        
+
         var closestPrayer = prayers
-            .OrderBy(timing => Math.Abs((timing.Time - now).Ticks))
+            .OrderBy(timing => Math.Abs((timing.DateTime - now).Ticks))
             .First();
 
-        if (now > closestPrayer.Time)
+        if (now > closestPrayer.DateTime)
         {
             var index = prayers.IndexOf(closestPrayer) + 1;
             return index >= prayers.Length ? prayers.First() : prayers[index];

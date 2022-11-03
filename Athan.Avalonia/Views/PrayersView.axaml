@@ -6,20 +6,60 @@
 
              d:DataContext="{Binding Path=PrayersViewModel, Source={StaticResource ViewModelLocator}}">
 
-    <Border Width="250" Padding="25" Classes="container"
-            Background="{DynamicResource SystemChromeDisabledHighColor}">
+    <Grid RowDefinitions="Auto 40 *">
+        <Grid.Styles>
+            <Style Selector="Border.container">
+                <Setter Property="Background" Value="{DynamicResource SystemChromeDisabledHighColor}" />
+                <Setter Property="Padding" Value="25" />
+            </Style>
+        </Grid.Styles>
 
-        <views:SuspenseView Condition="{Binding NextPrayer, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
-            <views:SuspenseView.Fallback>
-                <ProgressBar IsIndeterminate="True" />
-            </views:SuspenseView.Fallback>
+        <Border Width="250" Classes="container" Grid.Row="0">
+            <views:SuspenseView
+                Condition="{Binding NextPrayer, 
+                Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
 
-            <views:SuspenseView.Active>
-                <StackPanel HorizontalAlignment="Center" Spacing="10">
-                    <TextBlock Text="Next prayer" HorizontalAlignment="Center" Opacity="0.75" />
-                    <TextBlock Text="{Binding NextPrayer}" Classes="header" />
-                </StackPanel>
-            </views:SuspenseView.Active>
-        </views:SuspenseView>
-    </Border>
+                <views:SuspenseView.Fallback>
+                    <ProgressBar IsIndeterminate="True" />
+                </views:SuspenseView.Fallback>
+
+                <views:SuspenseView.Active>
+                    <StackPanel HorizontalAlignment="Center" Spacing="10">
+                        <TextBlock Text="Next prayer" HorizontalAlignment="Center" Opacity="0.75" />
+                        <TextBlock Text="{Binding NextPrayer}" Classes="header" />
+                    </StackPanel>
+                </views:SuspenseView.Active>
+            </views:SuspenseView>
+        </Border>
+
+        <Border HorizontalAlignment="Stretch" Classes="container" Grid.Row="2">
+            <views:SuspenseView
+                Condition="{Binding TodayPrayers, 
+                Converter={x:Static ObjectConverters.IsNotNull}}">
+
+                <views:SuspenseView.Fallback>
+                    <ProgressBar IsIndeterminate="True" />
+                </views:SuspenseView.Fallback>
+
+                <views:SuspenseView.Active>
+                    <ListBox Background="Transparent" Items="{Binding TodayPrayers}">
+                        <ListBox.Styles>
+                            <Style Selector="ListBoxItem">
+                                <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+                            </Style>
+                        </ListBox.Styles>
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid ColumnDefinitions="Auto * Auto">
+                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Grid.Column="0" />
+                                    <TextBlock Text="{Binding ReadableTime}" Opacity="0.75" Grid.Column="2" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </views:SuspenseView.Active>
+            </views:SuspenseView>
+        </Border>
+    </Grid>
 </UserControl>

@@ -2,4 +2,4 @@
 
 namespace Athan.Avalonia.Models;
 
-internal sealed record Prayer(string Name, DateTime Time);
+internal sealed record Prayer(string Name, string ReadableTime, DateTime DateTime);
