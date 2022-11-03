@@ -35,8 +35,11 @@
         </Style>
 
         <Style Selector="Border.light_container">
-            <Setter Property="Background" Value="{DynamicResource SystemChromeDisabledHighColor}" />
             <Setter Property="Padding" Value="25" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+            <Setter Property="Background" Value="{DynamicResource SystemChromeDisabledHighColor}" />
         </Style>
     </Application.Styles>
 

@@ -6,6 +6,12 @@
              d:DataContext="{Binding Path=SettingsViewModel, Source={StaticResource ViewModelLocator}}">
 
     <StackPanel Width="300" Spacing="10">
+        <StackPanel.Styles>
+            <Style Selector="Border.light_container">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+            </Style>
+        </StackPanel.Styles>
+
         <Border Classes="light_container">
             <StackPanel Spacing="7.5">
                 <TextBlock Text="Application Theme" />
@@ -24,7 +30,7 @@
             </StackPanel>
         </Border>
 
-        <Button Content="Go back" Classes="accent" HorizontalAlignment="Right" 
+        <Button Content="Go back" Classes="accent" HorizontalAlignment="Right"
                 Command="{Binding NavigateBackwardCommand}" />
     </StackPanel>
 </UserControl>
