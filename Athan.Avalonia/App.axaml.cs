@@ -14,7 +14,7 @@ namespace Athan.Avalonia;
 
 internal sealed class App : Application
 {
-    public new static App Current => (App?) Application.Current!;
+    public new static App Current => (App?) Application.Current ?? throw new NullReferenceException();
 
     public IServiceProvider Services { get; }
 
@@ -24,21 +24,21 @@ internal sealed class App : Application
     {
         Services = new ServiceCollection()
             // View-models
-            .AddTransient<ShellViewModel>()
-            .AddTransient<OfflineViewModel>()
-            .AddTransient<LocationViewModel>()
             .AddSingleton<DashboardViewModel>()
+            .AddTransient<LocationViewModel>()
+            .AddTransient<OfflineViewModel>()
             .AddTransient<PrayersViewModel>()
+            .AddTransient<ShellViewModel>()
 
             // Views
             .AddTransient<ShellView>()
 
             // Other
-            .AddTransient<PrayerService>()
             .AddTransient<LocationService>()
-            .AddTransient<SettingsService>()
             .AddSingleton<NavigationService>()
             .AddTransient<NotificationService>()
+            .AddTransient<PrayerService>()
+            .AddTransient<SettingService>()
             .AddSingleton<HttpClient>()
             .BuildServiceProvider();
     }
@@ -61,7 +61,7 @@ internal sealed class App : Application
 
     private void OpenTrayIcon(object? sender, EventArgs eventArgs)
     {
-        WeakReferenceMessenger.Default.Send<OpenTrayIconMessage>();
+        WeakReferenceMessenger.Default.Send<TrayIconOpenedMessage>();
     }
 
     private void CloseTrayIcon(object? sender, EventArgs eventArgs)

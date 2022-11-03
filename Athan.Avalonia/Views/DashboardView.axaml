@@ -8,8 +8,8 @@
 
     <Grid Width="500" RowDefinitions="Auto 40 *">
         <Grid ColumnDefinitions="Auto * Auto" Grid.Row="0">
-            <TextBlock Text="{Binding Location}" Opacity="0.75" Grid.Column="0" />
-            <TextBlock Text="{Binding Date}" Opacity="0.75" Grid.Column="2" />
+            <TextBlock Text="{Binding ReadableLocation}" Opacity="0.75" Grid.Column="0" />
+            <TextBlock Text="{Binding ReadableDate}" Opacity="0.75" Grid.Column="2" />
         </Grid>
 
         <views:PrayersView DataContext="{Binding PrayersViewModel}" Grid.Row="2" />

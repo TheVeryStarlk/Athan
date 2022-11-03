@@ -6,13 +6,13 @@ namespace Athan.Avalonia;
 // To feed the design time property of each view that needs it
 internal sealed class ViewModelLocator
 {
-    public ShellViewModel ShellViewModel => App.Current.Services.GetRequiredService<ShellViewModel>();
+    public static DashboardViewModel DashboardViewModel => App.Current.Services.GetRequiredService<DashboardViewModel>();
 
-    public OfflineViewModel OfflineViewModel => App.Current.Services.GetRequiredService<OfflineViewModel>();
+    public static LocationViewModel LocationViewModel => App.Current.Services.GetRequiredService<LocationViewModel>();
 
-    public LocationViewModel LocationViewModel => App.Current.Services.GetRequiredService<LocationViewModel>();
+    public static OfflineViewModel OfflineViewModel => App.Current.Services.GetRequiredService<OfflineViewModel>();
 
-    public DashboardViewModel DashboardViewModel => App.Current.Services.GetRequiredService<DashboardViewModel>();
-    
-    public PrayersViewModel PrayersViewModel => App.Current.Services.GetRequiredService<PrayersViewModel>();
+    public static PrayersViewModel PrayersViewModel => App.Current.Services.GetRequiredService<PrayersViewModel>();
+
+    public static ShellViewModel ShellViewModel => App.Current.Services.GetRequiredService<ShellViewModel>();
 }

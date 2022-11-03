@@ -9,11 +9,7 @@
 
     <Interaction.Behaviors>
         <EventTriggerBehavior EventName="Initialized">
-            <InvokeCommandAction Command="{Binding InitializedCommand}" />
-        </EventTriggerBehavior>
-        
-        <EventTriggerBehavior EventName="Activated">
-            <InvokeCommandAction Command="{Binding ActivatedCommand}" />
+            <InvokeCommandAction Command="{Binding InitializeCommand}" />
         </EventTriggerBehavior>
     </Interaction.Behaviors>
 
@@ -23,7 +19,8 @@
 
         <Border Classes="container" Grid.Row="1">
             <Grid RowDefinitions="Auto 10 *">
-                <TextBlock Text="{Binding Navigable.Title, FallbackValue='Something went wrong'}" Classes="header" Grid.Row="0" />
+                <TextBlock Text="{Binding Navigable.Title, FallbackValue='Something went wrong'}"
+                           Classes="header" Grid.Row="0" />
 
                 <ScrollViewer Grid.Row="2">
                     <ContentControl Content="{Binding Navigable}" />

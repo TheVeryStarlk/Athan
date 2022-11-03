@@ -6,16 +6,10 @@
 
              d:DataContext="{Binding Path=PrayersViewModel, Source={StaticResource ViewModelLocator}}">
 
-    <Interaction.Behaviors>
-        <EventTriggerBehavior EventName="Initialized">
-            <InvokeCommandAction Command="{Binding InitializedCommand}" />
-        </EventTriggerBehavior>
-    </Interaction.Behaviors>
-
     <Border Width="250" Padding="25" Classes="container"
             Background="{DynamicResource SystemChromeDisabledHighColor}">
 
-        <views:SuspenseView Condition="{Binding ClosestPrayer, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+        <views:SuspenseView Condition="{Binding NextPrayer, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
             <views:SuspenseView.Fallback>
                 <ProgressBar IsIndeterminate="True" />
             </views:SuspenseView.Fallback>
@@ -23,7 +17,7 @@
             <views:SuspenseView.Active>
                 <StackPanel HorizontalAlignment="Center" Spacing="10">
                     <TextBlock Text="Next prayer" HorizontalAlignment="Center" Opacity="0.75" />
-                    <TextBlock Text="{Binding ClosestPrayer}" Classes="header" />
+                    <TextBlock Text="{Binding NextPrayer}" Classes="header" />
                 </StackPanel>
             </views:SuspenseView.Active>
         </views:SuspenseView>

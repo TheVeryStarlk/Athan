@@ -12,6 +12,8 @@ namespace Athan.Avalonia.Services;
 
 internal sealed class NotificationService
 {
+    private const int Threshold = 10;
+
     private bool initialized;
 
     private readonly List<DateTimeOffset> scheduledNotifications = new List<DateTimeOffset>();
@@ -56,9 +58,9 @@ internal sealed class NotificationService
             throw new InvalidOperationException("The notification manager was not initialized.");
         }
 
-        var dateTime = DateTimeOffset.Now + timeSpan;
+        var schedule = DateTimeOffset.Now + timeSpan;
 
-        if (scheduledNotifications.Any(date => date.Minute == dateTime.Minute))
+        if (scheduledNotifications.Any(dateTime => (schedule.Ticks - dateTime.Ticks) > Threshold))
         {
             return;
         }
@@ -67,14 +69,16 @@ internal sealed class NotificationService
         {
             Title = title,
             Body = body
-        }, dateTime);
+        }, schedule);
 
-        scheduledNotifications.Add(dateTime);
+        scheduledNotifications.Add(schedule);
     }
 
     private void OnNotificationActivated(object? sender, NotificationActivatedEventArgs eventArgs)
     {
-        var notification = scheduledNotifications.FirstOrDefault(date => date.Minute == DateTimeOffset.Now.Minute);
+        var notification =
+            scheduledNotifications.FirstOrDefault(date => (date.Ticks - DateTimeOffset.Now.Ticks) > Threshold);
+
         scheduledNotifications.Remove(notification);
     }
 }

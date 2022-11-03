@@ -7,7 +7,7 @@
 
     <Interaction.Behaviors>
         <EventTriggerBehavior EventName="Initialized">
-            <InvokeCommandAction Command="{Binding GetLocationCommand}" />
+            <InvokeCommandAction Command="{Binding InitializeCommand}" />
         </EventTriggerBehavior>
     </Interaction.Behaviors>
 
@@ -15,6 +15,6 @@
         <TextBlock Text="{Binding Message}" />
 
         <Button Content="Continue" Classes="accent" HorizontalAlignment="Right" Command="{Binding ContinueCommand}"
-                IsEnabled="{Binding Settings, Converter={x:Static ObjectConverters.IsNotNull}}" />
+                IsEnabled="{Binding Setting, Converter={x:Static ObjectConverters.IsNotNull}}" />
     </StackPanel>
 </UserControl>

@@ -1,11 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Athan.Avalonia.Contracts;
-using Athan.Avalonia.Messages;
 using Athan.Avalonia.Models;
 using Athan.Avalonia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
 
 namespace Athan.Avalonia.ViewModels;
 
@@ -17,29 +16,33 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
     private string message = "Hang tight...";
 
     [ObservableProperty]
-    private Settings? settings;
+    private Setting? setting;
 
     private readonly LocationService locationService;
-    private readonly SettingsService settingsService;
+    private readonly SettingService settingService;
+    private readonly NavigationService navigationService;
 
-    public LocationViewModel(LocationService locationService, SettingsService settingsService)
+    public LocationViewModel(LocationService locationService, SettingService settingService,
+        NavigationService navigationService)
     {
         this.locationService = locationService;
-        this.settingsService = settingsService;
+        this.settingService = settingService;
+        this.navigationService = navigationService;
     }
 
     [RelayCommand]
-    private async Task GetLocationAsync()
+    private async Task InitializeAsync()
     {
         var location = await locationService.GetLocationAsync();
-        Settings = await settingsService.UpdateAsync(new Settings(location));
+        Setting = await settingService.UpdateAsync(new Setting(location));
 
         Message = $"Your location has been auto-detected to be in {location}.";
     }
 
     [RelayCommand]
-    private void Continue()
+    private async Task ContinueAsync()
     {
-        WeakReferenceMessenger.Default.Send(new NavigationRequestedMessage(nameof(DashboardViewModel), settings));
+        await navigationService.GoForwardAsync(ViewModelLocator.DashboardViewModel,
+            Setting ?? throw new NullReferenceException());
     }
 }

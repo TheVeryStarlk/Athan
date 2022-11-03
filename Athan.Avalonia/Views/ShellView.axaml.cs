@@ -1,8 +1,6 @@
 using Athan.Avalonia.Messages;
-using Athan.Avalonia.ViewModels;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Athan.Avalonia.Views;
 
@@ -12,22 +10,22 @@ internal sealed partial class ShellView : Window
 
     public ShellView()
     {
-        DataContext = App.Current.Services.GetRequiredService<ShellViewModel>();
+        DataContext = ViewModelLocator.ShellViewModel;
         InitializeComponent();
     }
 
     protected override void OnInitialized()
     {
-        WeakReferenceMessenger.Default.Register<OpenTrayIconMessage>(this, OpenTrayIconMessageHandler);
+        WeakReferenceMessenger.Default.Register<TrayIconOpenedMessage>(this, TrayIconOpenedMessageHandler);
         Margin = OffScreenMargin;
     }
 
-    private void OpenTrayIconMessageHandler(object recipient, OpenTrayIconMessage message)
+    private void TrayIconOpenedMessageHandler(object recipient, TrayIconOpenedMessage message)
     {
         WindowState = WindowState is WindowState.Minimized
             ? oldState
             : WindowState;
-        
+
         Activate();
     }
 

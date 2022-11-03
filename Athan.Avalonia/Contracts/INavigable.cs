@@ -1,4 +1,5 @@
-﻿using Athan.Avalonia.Models;
+﻿using System.Threading.Tasks;
+using Athan.Avalonia.Models;
 
 namespace Athan.Avalonia.Contracts;
 
@@ -6,7 +7,8 @@ internal interface INavigable
 {
     public string Title { get; }
 
-    public void Navigated(Settings settings)
+    public Task Navigated(Setting setting)
     {
+        return Task.CompletedTask;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Threading.Tasks;
 using Athan.Avalonia.Contracts;
 using Athan.Avalonia.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -11,10 +12,10 @@ internal sealed partial class DashboardViewModel : ObservableObject, INavigable
     public string Title => DateTime.Now.DayOfWeek.ToString();
 
     [ObservableProperty]
-    private string? location;
+    private string? readableLocation;
 
     [ObservableProperty]
-    private string? date;
+    private string? readableDate;
 
     [ObservableProperty]
     private PrayersViewModel prayersViewModel;
@@ -24,16 +25,16 @@ internal sealed partial class DashboardViewModel : ObservableObject, INavigable
         this.prayersViewModel = prayersViewModel;
     }
 
-    public void Navigated(Settings settings)
+    public async Task Navigated(Setting setting)
     {
-        Location = settings.Location?.ToString();
-
-        PrayersViewModel.Location = settings.Location;
+        ReadableLocation = setting.Location.ToString();
 
         var calendar = new HijriCalendar();
 
-        Date = DateTime.Parse($"{calendar.GetYear(DateTime.Now)}/" +
+        ReadableDate = DateTime.Parse($"{calendar.GetYear(DateTime.Now)}/" +
                               $"{calendar.GetMonth(DateTime.Now)}/" +
                               $"{calendar.GetDayOfMonth(DateTime.Now)}").ToShortDateString();
+
+        await PrayersViewModel.InitializeAsync(setting.Location);
     }
 }
