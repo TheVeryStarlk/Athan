@@ -28,7 +28,7 @@ internal sealed class App : Application
             .AddTransient<LocationViewModel>()
             .AddTransient<OfflineViewModel>()
             .AddTransient<PrayersViewModel>()
-            .AddTransient<SettingsViewModel>()
+            .AddSingleton<SettingsViewModel>()
             .AddTransient<ShellViewModel>()
 
             // Views

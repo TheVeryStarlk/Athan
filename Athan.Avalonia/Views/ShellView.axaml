@@ -14,8 +14,12 @@
     </Interaction.Behaviors>
 
     <Grid RowDefinitions="50 *">
-        <TextBlock Text="{Binding Navigable.Title, StringFormat='{}Athan • {0}', FallbackValue='Athan'}"
-                   Margin="20 15" IsHitTestVisible="False" Grid.Row="0" />
+        <StackPanel HorizontalAlignment="Left" IsHitTestVisible="False" Orientation="Horizontal" Spacing="15" Grid.Row="0">
+            <Image Source="../Assets/athan-logo.ico" Margin="15 15 0 15" />
+
+            <TextBlock Text="{Binding Navigable.Title, StringFormat='{}Athan • {0}', FallbackValue='Athan'}"
+                       Margin="-3 1 0 0"/>
+        </StackPanel>
 
         <Border Classes="container" Grid.Row="1">
             <Grid RowDefinitions="Auto 10 *">

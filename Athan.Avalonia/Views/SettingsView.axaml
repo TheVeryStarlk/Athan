@@ -36,7 +36,7 @@
             </StackPanel>
         </Border>
 
-        <Button Content="Go back" Classes="accent" HorizontalAlignment="Right"
+        <Button Content="Save" Classes="accent" HorizontalAlignment="Right"
                 Command="{Binding NavigateBackwardCommand}" />
     </StackPanel>
 </UserControl>
