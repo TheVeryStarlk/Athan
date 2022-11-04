@@ -5,7 +5,7 @@
 
         d:DataContext="{Binding Path=ShellViewModel, Source={StaticResource ViewModelLocator}}"
         ExtendClientAreaToDecorationsHint="True" ExtendClientAreaTitleBarHeightHint="50"
-        Title="Athan" Icon="/Assets/avalonia-logo.ico" MinWidth="720" MinHeight="480">
+        Title="Athan" Icon="/Assets/athan-logo.ico" MinWidth="720" MinHeight="480">
 
     <Interaction.Behaviors>
         <EventTriggerBehavior EventName="Initialized">

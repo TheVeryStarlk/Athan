@@ -11,6 +11,10 @@
         <!--Avalonia doesen't support TrimMode=link currently,but we are working on that https://github.com/AvaloniaUI/Avalonia/issues/6892 -->
         <TrimMode>copyused</TrimMode>
         <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+        <ApplicationIcon>Assets\athan-logo.ico</ApplicationIcon>
+        <Company>Starlk</Company>
+        <Product>Athan</Product>
+        <NeutralLanguage>en</NeutralLanguage>
     </PropertyGroup>
     <ItemGroup>
         <Folder Include="Models\" />
