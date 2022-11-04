@@ -5,9 +5,11 @@ namespace Athan.Avalonia.Services;
 
 internal sealed class ThemeService
 {
-    public void Toggle()
+    public FluentThemeMode Theme => ((FluentTheme) App.Current.Styles.First(style => style is FluentTheme)).Mode;
+
+    public void Update(FluentThemeMode mode)
     {
         var theme = (FluentTheme) App.Current.Styles.First(style => style is FluentTheme);
-        theme.Mode = theme.Mode is FluentThemeMode.Dark ? FluentThemeMode.Light : FluentThemeMode.Dark;
+        theme.Mode = mode;
     }
 }

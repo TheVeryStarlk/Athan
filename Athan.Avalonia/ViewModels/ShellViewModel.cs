@@ -17,15 +17,18 @@ internal sealed partial class ShellViewModel : ObservableObject
     private readonly LocationViewModel locationViewModel;
     private readonly DashboardViewModel dashboardViewModel;
     private readonly OfflineViewModel offlineViewModel;
+    private readonly ThemeService themeService;
 
     public ShellViewModel(NavigationService navigationService, SettingsService settingsService,
-        LocationViewModel locationViewModel, DashboardViewModel dashboardViewModel, OfflineViewModel offlineViewModel)
+        LocationViewModel locationViewModel, DashboardViewModel dashboardViewModel, 
+        OfflineViewModel offlineViewModel, ThemeService themeService)
     {
         this.navigationService = navigationService;
         this.settingsService = settingsService;
         this.locationViewModel = locationViewModel;
         this.dashboardViewModel = dashboardViewModel;
         this.offlineViewModel = offlineViewModel;
+        this.themeService = themeService;
 
         navigationService.Navigated += toNavigate => Navigable = toNavigate;
         NetworkChange.NetworkAvailabilityChanged += NetworkChangeOnNetworkAvailabilityChanged;
@@ -36,12 +39,13 @@ internal sealed partial class ShellViewModel : ObservableObject
     {
         var settings = await settingsService.ReadAsync();
 
-        if (settings is null)
+        if (settings?.Location is null)
         {
             navigationService.GoForward(locationViewModel);
         }
         else
         {
+            themeService.Update(settings.Theme);
             await navigationService.GoForwardAsync(dashboardViewModel, settings);
         }
     }

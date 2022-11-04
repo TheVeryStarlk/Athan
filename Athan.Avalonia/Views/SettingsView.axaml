@@ -5,6 +5,12 @@
 
              d:DataContext="{Binding Path=SettingsViewModel, Source={StaticResource ViewModelLocator}}">
 
+    <Interaction.Behaviors>
+        <EventTriggerBehavior EventName="Initialized">
+            <InvokeCommandAction Command="{Binding InitializeCommand}" />
+        </EventTriggerBehavior>
+    </Interaction.Behaviors>
+
     <StackPanel Width="300" Spacing="10">
         <StackPanel.Styles>
             <Style Selector="Border.light_container">

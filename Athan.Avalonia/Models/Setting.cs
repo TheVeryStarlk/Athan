@@ -1,3 +1,5 @@
-﻿namespace Athan.Avalonia.Models;
+﻿using Avalonia.Themes.Fluent;
 
-internal sealed record Setting(Location Location);
+namespace Athan.Avalonia.Models;
+
+internal sealed record Setting(Location Location, FluentThemeMode Theme);

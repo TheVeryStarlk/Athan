@@ -50,7 +50,6 @@ internal sealed partial class DashboardViewModel : ObservableObject, INavigable
     [RelayCommand]
     private async Task NavigateToSettingsAsync()
     {
-        await navigationService.GoForwardAsync(ViewModelLocator.SettingsViewModel,
-            loadedSetting ?? throw new NullReferenceException());
+        await navigationService.GoForwardAsync(ViewModelLocator.SettingsViewModel, loadedSetting!);
     }
 }

@@ -14,7 +14,7 @@ namespace Athan.Avalonia;
 
 internal sealed class App : Application
 {
-    public new static App Current => (App?) Application.Current ?? throw new NullReferenceException();
+    public new static App Current => (App?) Application.Current!;
 
     public IServiceProvider Services { get; }
 

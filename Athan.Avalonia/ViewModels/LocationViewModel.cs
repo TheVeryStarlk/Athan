@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Athan.Avalonia.Contracts;
 using Athan.Avalonia.Models;
 using Athan.Avalonia.Services;
@@ -20,13 +19,15 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
 
     private readonly LocationService locationService;
     private readonly SettingsService settingsService;
+    private readonly ThemeService themeService;
     private readonly NavigationService navigationService;
 
     public LocationViewModel(LocationService locationService, SettingsService settingsService,
-        NavigationService navigationService)
+        ThemeService themeService, NavigationService navigationService)
     {
         this.locationService = locationService;
         this.settingsService = settingsService;
+        this.themeService = themeService;
         this.navigationService = navigationService;
     }
 
@@ -34,7 +35,7 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
     private async Task InitializeAsync()
     {
         var location = await locationService.GetLocationAsync();
-        Setting = await settingsService.UpdateAsync(new Setting(location));
+        Setting = await settingsService.UpdateAsync(new Setting(location, themeService.Theme));
 
         Message = $"Your location has been auto-detected to be in {location}.";
     }
@@ -42,7 +43,6 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
     [RelayCommand]
     private async Task ContinueAsync()
     {
-        await navigationService.GoForwardAsync(ViewModelLocator.DashboardViewModel,
-            Setting ?? throw new NullReferenceException());
+        await navigationService.GoForwardAsync(ViewModelLocator.DashboardViewModel, Setting!);
     }
 }
