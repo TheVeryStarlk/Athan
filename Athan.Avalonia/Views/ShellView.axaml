@@ -5,7 +5,9 @@
 
         d:DataContext="{Binding Path=ShellViewModel, Source={StaticResource ViewModelLocator}}"
         ExtendClientAreaToDecorationsHint="True" ExtendClientAreaTitleBarHeightHint="50"
-        Title="Athan" Icon="/Assets/athan-logo.ico" MinWidth="720" MinHeight="480">
+        TransparencyLevelHint="AcrylicBlur" Background="Transparent" Title="Athan" 
+        WindowStartupLocation="CenterScreen" Width="770" Height="815"
+        Icon="/Assets/athan-logo.ico" MinWidth="720" MinHeight="480">
 
     <Interaction.Behaviors>
         <EventTriggerBehavior EventName="Initialized">
@@ -13,23 +15,33 @@
         </EventTriggerBehavior>
     </Interaction.Behaviors>
 
-    <Grid RowDefinitions="50 *">
-        <StackPanel HorizontalAlignment="Left" IsHitTestVisible="False" Orientation="Horizontal" Spacing="15" Grid.Row="0">
-            <Image Source="../Assets/athan-logo.ico" Margin="15 15 0 15" />
+    <Panel>
+        <ExperimentalAcrylicBorder IsHitTestVisible="False">
+            <ExperimentalAcrylicBorder.Material>
+                <ExperimentalAcrylicMaterial TintColor="{DynamicResource SystemAltHighColor}"
+                                             TintOpacity="1" MaterialOpacity="0.5" />
+            </ExperimentalAcrylicBorder.Material>
+        </ExperimentalAcrylicBorder>
 
-            <TextBlock Text="{Binding Navigable.Title, StringFormat='{}Athan • {0}', FallbackValue='Athan'}"
-                       Margin="-3 1 0 0"/>
-        </StackPanel>
+        <Grid RowDefinitions="50 *">
+            <StackPanel HorizontalAlignment="Left" IsHitTestVisible="False" 
+                        Orientation="Horizontal" Spacing="15" Grid.Row="0">
+                <Image Source="../Assets/athan-logo.ico" Margin="15 15 0 15" />
 
-        <Border Classes="container" Grid.Row="1">
-            <Grid RowDefinitions="Auto 10 *">
-                <TextBlock Text="{Binding Navigable.Title, FallbackValue='Something went wrong'}"
-                           Classes="header" Grid.Row="0" />
+                <TextBlock Text="{Binding Navigable.Title, StringFormat='{}Athan • {0}', FallbackValue='Athan'}"
+                           Margin="-3 1 0 0" />
+            </StackPanel>
 
-                <ScrollViewer Grid.Row="2">
-                    <ContentControl Content="{Binding Navigable}" />
-                </ScrollViewer>
-            </Grid>
-        </Border>
-    </Grid>
+            <Border Classes="container" Grid.Row="1">
+                <Grid RowDefinitions="Auto 10 *">
+                    <TextBlock Text="{Binding Navigable.Title, FallbackValue='Something went wrong'}"
+                               Classes="header" Grid.Row="0" />
+
+                    <ScrollViewer Grid.Row="2">
+                        <ContentControl Content="{Binding Navigable}" />
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+    </Panel>
 </Window>

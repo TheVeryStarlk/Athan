@@ -35,22 +35,16 @@
                 </views:SuspenseView.Fallback>
 
                 <views:SuspenseView.Active>
-                    <ListBox Background="Transparent" Items="{Binding TodayPrayers}">
-                        <ListBox.Styles>
-                            <Style Selector="ListBoxItem">
-                                <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
-                            </Style>
-                        </ListBox.Styles>
-
-                        <ListBox.ItemTemplate>
+                    <ItemsControl Margin="0 -7.5 0 -7.5" Items="{Binding TodayPrayers}">
+                        <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid ColumnDefinitions="Auto * Auto">
+                                <Grid Margin="10" ColumnDefinitions="Auto * Auto">
                                     <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Grid.Column="0" />
                                     <TextBlock Text="{Binding ReadableTime}" Opacity="0.75" Grid.Column="2" />
                                 </Grid>
                             </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </views:SuspenseView.Active>
             </views:SuspenseView>
         </Border>

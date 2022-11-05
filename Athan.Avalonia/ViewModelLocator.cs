@@ -13,7 +13,7 @@ internal sealed class ViewModelLocator
     public static OfflineViewModel OfflineViewModel => App.Current.Services.GetRequiredService<OfflineViewModel>();
 
     public static PrayersViewModel PrayersViewModel => App.Current.Services.GetRequiredService<PrayersViewModel>();
-    
+
     public static SettingsViewModel SettingsViewModel => App.Current.Services.GetRequiredService<SettingsViewModel>();
 
     public static ShellViewModel ShellViewModel => App.Current.Services.GetRequiredService<ShellViewModel>();
