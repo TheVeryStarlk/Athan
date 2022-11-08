@@ -5,9 +5,9 @@
 
         d:DataContext="{Binding Path=ShellViewModel, Source={StaticResource ViewModelLocator}}"
         ExtendClientAreaToDecorationsHint="True" ExtendClientAreaTitleBarHeightHint="50"
-        TransparencyLevelHint="AcrylicBlur" Background="Transparent" Title="Athan" 
-        WindowStartupLocation="CenterScreen" Width="770" Height="815"
-        Icon="/Assets/athan-logo.ico" MinWidth="720" MinHeight="480">
+        TransparencyLevelHint="AcrylicBlur" Background="Transparent" Title="Athan"
+        WindowStartupLocation="CenterScreen" Icon="/Assets/athan-logo.ico"
+        MinWidth="720" MinHeight="480" Width="770" Height="815">
 
     <Interaction.Behaviors>
         <EventTriggerBehavior EventName="Initialized">
@@ -24,23 +24,22 @@
         </ExperimentalAcrylicBorder>
 
         <Grid RowDefinitions="50 *">
-            <StackPanel HorizontalAlignment="Left" IsHitTestVisible="False" 
-                        Orientation="Horizontal" Spacing="15" Grid.Row="0">
-                <Image Source="../Assets/athan-logo.ico" Margin="15 15 0 15" />
+            <StackPanel HorizontalAlignment="Left" IsHitTestVisible="False"
+                        Orientation="Horizontal" Spacing="15" Margin="15" Grid.Row="0">
 
-                <TextBlock Text="{Binding Navigable.Title, StringFormat='{}Athan • {0}', FallbackValue='Athan'}"
-                           Margin="-3 1 0 0" />
+                <Image Source="../Assets/athan-logo.ico" />
+                <TextBlock Text="{Binding Navigable.Title, StringFormat='{}Athan • {0}', FallbackValue='Athan'}" />
             </StackPanel>
 
             <Border Classes="container" Grid.Row="1">
-                <Grid RowDefinitions="Auto 10 *">
+                <StackPanel Spacing="15">
                     <TextBlock Text="{Binding Navigable.Title, FallbackValue='Something went wrong'}"
-                               Classes="header" Grid.Row="0" />
+                               Classes="header" />
 
-                    <ScrollViewer Grid.Row="2">
+                    <ScrollViewer>
                         <ContentControl Content="{Binding Navigable}" />
                     </ScrollViewer>
-                </Grid>
+                </StackPanel>
             </Border>
         </Grid>
     </Panel>

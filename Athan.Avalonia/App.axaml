@@ -20,6 +20,10 @@
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
 
+        <Style Selector="TextBlock.light">
+            <Setter Property="Opacity" Value="0.75" />
+        </Style>
+
         <Style Selector="TextBlock.header">
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="FontWeight" Value="SemiBold" />
@@ -42,7 +46,7 @@
         <Style Selector="Border.light_container">
             <Setter Property="Background">
                 <Setter.Value>
-                    <SolidColorBrush Color="{DynamicResource SystemChromeMediumColor}" />
+                    <SolidColorBrush Color="{DynamicResource SystemChromeMediumColor}" Opacity="0.75" />
                 </Setter.Value>
             </Setter>
 
@@ -50,6 +54,10 @@
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+        </Style>
+
+        <Style Selector="Button.accent">
+            <Setter Property="HorizontalAlignment" Value="Right" />
         </Style>
     </Application.Styles>
 

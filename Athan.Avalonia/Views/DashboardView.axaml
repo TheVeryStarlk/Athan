@@ -7,18 +7,18 @@
 
              d:DataContext="{Binding Path=DashboardViewModel, Source={StaticResource ViewModelLocator}}">
 
-    <Grid Width="500" RowDefinitions="Auto 40 *">
-        <Grid ColumnDefinitions="Auto * Auto" Grid.Row="0">
-            <TextBlock Text="{Binding ReadableLocation}" Opacity="0.75" Grid.Column="0" />
-            <TextBlock Text="{Binding ReadableDate}" Opacity="0.75" Grid.Column="2" />
+    <StackPanel Width="500" Spacing="25">
+        <Grid ColumnDefinitions="Auto * Auto">
+            <TextBlock Text="{Binding ReadableLocation}" Classes="light" Grid.Column="0" />
+            <TextBlock Text="{Binding ReadableDate}" Classes="light" Grid.Column="2" />
         </Grid>
 
-        <StackPanel Grid.Row="2" Spacing="10">
+        <StackPanel Spacing="10">
             <views:PrayersView DataContext="{Binding PrayersViewModel}" />
 
             <Button Command="{Binding NavigateToSettingsCommand}" HorizontalAlignment="Right">
                 <icons:MaterialIcon Kind="CogOutline" />
             </Button>
         </StackPanel>
-    </Grid>
+    </StackPanel>
 </UserControl>

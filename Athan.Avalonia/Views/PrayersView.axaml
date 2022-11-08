@@ -6,8 +6,8 @@
 
              d:DataContext="{Binding Path=PrayersViewModel, Source={StaticResource ViewModelLocator}}">
 
-    <Grid RowDefinitions="Auto 40 *">
-        <Border Width="250" Classes="light_container" Grid.Row="0">
+    <StackPanel Spacing="10">
+        <Border Width="250" Classes="light_container">
             <views:SuspenseView
                 Condition="{Binding NextPrayer, 
                 Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
@@ -18,14 +18,14 @@
 
                 <views:SuspenseView.Active>
                     <StackPanel HorizontalAlignment="Center" Spacing="10">
-                        <TextBlock Text="Next prayer" HorizontalAlignment="Center" Opacity="0.75" />
+                        <TextBlock Text="Next prayer" HorizontalAlignment="Center" Classes="light" />
                         <TextBlock Text="{Binding NextPrayer}" Classes="header" />
                     </StackPanel>
                 </views:SuspenseView.Active>
             </views:SuspenseView>
         </Border>
 
-        <Border HorizontalAlignment="Stretch" Classes="light_container" Grid.Row="2">
+        <Border HorizontalAlignment="Stretch" Classes="light_container">
             <views:SuspenseView
                 Condition="{Binding TodayPrayers, 
                 Converter={x:Static ObjectConverters.IsNotNull}}">
@@ -40,7 +40,7 @@
                             <DataTemplate>
                                 <Grid Margin="10" ColumnDefinitions="Auto * Auto">
                                     <TextBlock Text="{Binding Name}" FontWeight="SemiBold" Grid.Column="0" />
-                                    <TextBlock Text="{Binding ReadableTime}" Opacity="0.75" Grid.Column="2" />
+                                    <TextBlock Text="{Binding ReadableTime}" Classes="light" Grid.Column="2" />
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
@@ -48,5 +48,5 @@
                 </views:SuspenseView.Active>
             </views:SuspenseView>
         </Border>
-    </Grid>
+    </StackPanel>
 </UserControl>

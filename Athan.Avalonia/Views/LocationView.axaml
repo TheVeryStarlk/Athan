@@ -14,7 +14,7 @@
     <StackPanel Spacing="10">
         <TextBlock Text="{Binding Message}" />
 
-        <Button Content="Continue" Classes="accent" HorizontalAlignment="Right" Command="{Binding ContinueCommand}"
+        <Button Content="Continue" Classes="accent" Command="{Binding ContinueCommand}"
                 IsEnabled="{Binding Setting, Converter={x:Static ObjectConverters.IsNotNull}}" />
     </StackPanel>
 </UserControl>
