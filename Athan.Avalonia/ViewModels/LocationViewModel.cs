@@ -2,8 +2,11 @@
 using Athan.Avalonia.Contracts;
 using Athan.Avalonia.Models;
 using Athan.Avalonia.Services;
+using Athan.Services;
+using Athan.Services.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Polly;
 
 namespace Athan.Avalonia.ViewModels;
 
@@ -34,9 +37,13 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
     [RelayCommand]
     private async Task InitializeAsync()
     {
-        var location = await locationService.GetLocationAsync();
-        Setting = await settingsService.UpdateAsync(new Setting(location, themeService.Theme));
+        var policy = Policy
+            .HandleResult<Location?>(result => result is null)
+            .RetryForeverAsync();
 
+        var location = await policy.ExecuteAsync(async () => await locationService.GetLocationAsync());
+
+        Setting = await settingsService.UpdateAsync(new Setting(location!, themeService.Theme));
         Message = $"Your location has been auto-detected to be in {location}.";
     }
 

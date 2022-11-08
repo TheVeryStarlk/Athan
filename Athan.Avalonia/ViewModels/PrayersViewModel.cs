@@ -1,8 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Athan.Avalonia.Models;
 using Athan.Avalonia.Services;
+using Athan.Services;
+using Athan.Services.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Polly;
 
 namespace Athan.Avalonia.ViewModels;
 
@@ -25,10 +27,16 @@ internal sealed partial class PrayersViewModel : ObservableObject
 
     public async Task InitializeAsync(Location location)
     {
-        var prayers = await prayerService.GetTimingsAsync(location.City, location.Country);
-        TodayPrayers = new ObservableCollection<Prayer>(prayers);
+        var policy = Policy
+            .HandleResult<Prayer[]?>(result => result is null)
+            .RetryForeverAsync();
 
-        var closest = prayerService.GetClosest(prayers);
+        var prayers = await policy.ExecuteAsync(async () =>
+            await prayerService.GetTimingsAsync(location.City, location.Country));
+
+        TodayPrayers = new ObservableCollection<Prayer>(prayers!);
+
+        var closest = prayerService.GetClosest(prayers!);
         NextPrayer = closest.Name;
 
         await notificationService.InitializeAsync();

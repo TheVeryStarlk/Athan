@@ -1,4 +1,5 @@
-﻿using Avalonia.Themes.Fluent;
+﻿using Athan.Services.Models;
+using Avalonia.Themes.Fluent;
 
 namespace Athan.Avalonia.Models;
 

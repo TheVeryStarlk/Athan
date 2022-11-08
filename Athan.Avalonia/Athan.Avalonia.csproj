@@ -42,6 +42,10 @@
         <PackageReference Include="Material.Icons.Avalonia" Version="1.1.10" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="Polly" Version="7.2.3" />
         <PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Athan.Services\Athan.Services.csproj" />
     </ItemGroup>
 </Project>

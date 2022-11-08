@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Athan.Avalonia.Models;
-using DynamicData;
+﻿using Athan.Services.Models;
 using Newtonsoft.Json.Linq;
 
-namespace Athan.Avalonia.Services;
+namespace Athan.Services;
 
-internal sealed class PrayerService
+public sealed class PrayerService
 {
     private readonly HttpClient httpClient;
 
@@ -18,7 +12,7 @@ internal sealed class PrayerService
         this.httpClient = httpClient;
     }
 
-    public async Task<Prayer[]> GetTimingsAsync(string city, string country)
+    public async Task<Prayer[]?> GetTimingsAsync(string city, string country)
     {
         var request =
             await httpClient.GetAsync($"http://api.aladhan.com/v1/timingsByCity?city={city}&country={country}");
@@ -29,7 +23,7 @@ internal sealed class PrayerService
             .ToObject<Dictionary<string, string>>()?
             .Take(7);
 
-        var prayers = timings!
+        var prayers = timings?
             .Select(time =>
             {
                 var date = DateTime.Parse(time.Value);
@@ -51,7 +45,7 @@ internal sealed class PrayerService
 
         if (now > closestPrayer.DateTime)
         {
-            var index = prayers.IndexOf(closestPrayer) + 1;
+            var index = prayers.TakeWhile(prayer => prayer != closestPrayer).Count() + 1;
             return index >= prayers.Length ? prayers.First() : prayers[index];
         }
 
