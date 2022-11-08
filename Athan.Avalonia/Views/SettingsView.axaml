@@ -32,7 +32,7 @@
         <Border Classes="light_container">
             <StackPanel Spacing="7.5">
                 <TextBlock Text="Geographical Location" />
-                <Button Content="Relocate" Command="{Binding RelocateCommand}" />
+                <Button Content="Relocate" Command="{Binding NavigateToLocationCommand}" />
             </StackPanel>
         </Border>
 

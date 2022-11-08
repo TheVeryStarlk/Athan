@@ -11,14 +11,14 @@ internal sealed class NavigationService
 
     private readonly INavigable?[] stack = new INavigable?[2];
 
-    public void GoForward(INavigable navigable)
+    public void NavigateTo(INavigable navigable)
     {
         stack[1] = stack[0];
         stack[0] = navigable;
         Navigated?.Invoke(navigable);
     }
 
-    public async Task GoForwardAsync(INavigable navigable, Setting setting)
+    public async Task NavigateToAsync(INavigable navigable, Setting setting)
     {
         stack[1] = stack[0];
         stack[0] = navigable;
@@ -27,7 +27,7 @@ internal sealed class NavigationService
         await navigable.Navigated(setting);
     }
 
-    public void GoBackward()
+    public void NavigateBackward()
     {
         (stack[0], stack[1]) = (stack[1], stack[0]);
         Navigated?.Invoke(stack[0]);

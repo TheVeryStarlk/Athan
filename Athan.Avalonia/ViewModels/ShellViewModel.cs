@@ -14,23 +14,16 @@ internal sealed partial class ShellViewModel : ObservableObject
 
     private readonly NavigationService navigationService;
     private readonly SettingsService settingsService;
-    private readonly LocationViewModel locationViewModel;
-    private readonly DashboardViewModel dashboardViewModel;
-    private readonly OfflineViewModel offlineViewModel;
     private readonly ThemeService themeService;
 
     public ShellViewModel(NavigationService navigationService, SettingsService settingsService,
-        LocationViewModel locationViewModel, DashboardViewModel dashboardViewModel, 
-        OfflineViewModel offlineViewModel, ThemeService themeService)
+        ThemeService themeService)
     {
         this.navigationService = navigationService;
         this.settingsService = settingsService;
-        this.locationViewModel = locationViewModel;
-        this.dashboardViewModel = dashboardViewModel;
-        this.offlineViewModel = offlineViewModel;
         this.themeService = themeService;
 
-        navigationService.Navigated += toNavigate => Navigable = toNavigate;
+        navigationService.Navigated += viewModel => Navigable = viewModel;
         NetworkChange.NetworkAvailabilityChanged += NetworkChangeOnNetworkAvailabilityChanged;
     }
 
@@ -41,12 +34,12 @@ internal sealed partial class ShellViewModel : ObservableObject
 
         if (settings?.Location is null)
         {
-            navigationService.GoForward(locationViewModel);
+            navigationService.NavigateTo(ViewModelLocator.LocationViewModel);
         }
         else
         {
             themeService.Update(settings.Theme);
-            await navigationService.GoForwardAsync(dashboardViewModel, settings);
+            await navigationService.NavigateToAsync(ViewModelLocator.DashboardViewModel, settings);
         }
     }
 
@@ -54,11 +47,11 @@ internal sealed partial class ShellViewModel : ObservableObject
     {
         if (eventArgs.IsAvailable)
         {
-            navigationService.GoBackward();
+            navigationService.NavigateBackward();
         }
         else
         {
-            navigationService.GoForward(offlineViewModel);
+            navigationService.NavigateTo(ViewModelLocator.OfflineViewModel);
         }
     }
 }

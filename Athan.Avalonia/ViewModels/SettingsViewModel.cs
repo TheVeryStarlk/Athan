@@ -21,7 +21,7 @@ internal sealed partial class SettingsViewModel : ObservableObject, INavigable
         }
         get => selectedThemeIndex;
     }
-    
+
     private int selectedThemeIndex;
 
     private Setting? loadedSetting;
@@ -43,7 +43,7 @@ internal sealed partial class SettingsViewModel : ObservableObject, INavigable
     {
         SelectedThemeIndex = (int) themeService.Theme;
     }
-    
+
     public Task Navigated(Setting setting)
     {
         loadedSetting = setting;
@@ -51,15 +51,15 @@ internal sealed partial class SettingsViewModel : ObservableObject, INavigable
     }
 
     [RelayCommand]
-    private void Relocate()
+    private void NavigateToLocation()
     {
-        navigationService.GoForward(ViewModelLocator.LocationViewModel);
+        navigationService.NavigateTo(ViewModelLocator.LocationViewModel);
     }
 
     [RelayCommand]
     private async Task NavigateBackwardAsync()
     {
         await settingsService.UpdateAsync(new Setting(loadedSetting?.Location!, themeService.Theme));
-        navigationService.GoBackward();
+        navigationService.NavigateBackward();
     }
 }

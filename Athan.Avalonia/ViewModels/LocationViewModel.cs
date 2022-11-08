@@ -41,8 +41,8 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
     }
 
     [RelayCommand]
-    private async Task ContinueAsync()
+    private async Task NavigateToDashboardAsync()
     {
-        await navigationService.GoForwardAsync(ViewModelLocator.DashboardViewModel, Setting!);
+        await navigationService.NavigateToAsync(ViewModelLocator.DashboardViewModel, Setting!);
     }
 }
