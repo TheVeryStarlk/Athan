@@ -45,7 +45,7 @@ internal sealed partial class PrayersViewModel : ObservableObject
 
         await notificationService.InitializeAsync();
 
-        await notificationService.ScheduleNotificationAsync(
+        notificationService.ScheduleNotification(
             closest.Name,
             $"You have entered the prayer time for {closest.Name}.",
             closest.DateTime);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using System.Timers;
 using DesktopNotifications;
 using DesktopNotifications.Apple;
 using DesktopNotifications.FreeDesktop;
@@ -16,7 +17,7 @@ internal sealed class NotificationService
 
     private bool initialized;
 
-    private readonly List<DateTimeOffset> scheduledNotifications = new List<DateTimeOffset>();
+    private readonly List<DateTime> notifications = new List<DateTime>();
 
     private readonly INotificationManager manager;
 
@@ -51,32 +52,44 @@ internal sealed class NotificationService
         }
     }
 
-    public async Task ScheduleNotificationAsync(string title, string body, DateTime date)
+    public void ScheduleNotification(string title, string body, DateTime date)
     {
         if (!initialized)
         {
             throw new InvalidOperationException("The notification manager was not initialized.");
         }
 
-        if (scheduledNotifications.Any(dateTime => (date.Ticks - dateTime.Ticks) > Threshold))
+        if (notifications.Any(dateTime => (date.Ticks - dateTime.Ticks) > Threshold))
         {
             return;
         }
 
-        await manager.ScheduleNotification(new Notification()
+        var timer = new Timer()
         {
-            Title = title,
-            Body = body
-        }, date);
+            Interval = date > DateTime.Now
+                ? (date - DateTime.Now).TotalMilliseconds
+                : (DateTime.Now - date).TotalMilliseconds,
 
-        scheduledNotifications.Add(date);
+            Enabled = true
+        };
+
+        timer.Start();
+
+        timer.Elapsed += async (_, _) =>
+        {
+            await manager.ShowNotification(new Notification()
+            {
+                Title = title,
+                Body = body
+            });
+        };
+
+        notifications.Add(date);
     }
 
     private void OnNotificationActivated(object? sender, NotificationActivatedEventArgs eventArgs)
     {
-        var notification =
-            scheduledNotifications.FirstOrDefault(date => (date.Ticks - DateTimeOffset.Now.Ticks) > Threshold);
-
-        scheduledNotifications.Remove(notification);
+        var notification = notifications.FirstOrDefault(date => (date.Ticks - DateTimeOffset.Now.Ticks) > Threshold);
+        notifications.Remove(notification);
     }
 }
