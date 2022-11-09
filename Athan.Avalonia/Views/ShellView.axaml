@@ -7,7 +7,7 @@
         ExtendClientAreaToDecorationsHint="True" ExtendClientAreaTitleBarHeightHint="50"
         TransparencyLevelHint="AcrylicBlur" Background="Transparent" Title="Athan"
         WindowStartupLocation="CenterScreen" Icon="/Assets/athan-logo.ico"
-        MinWidth="720" MinHeight="480" Width="770" Height="790">
+        MinWidth="720" MinHeight="480" Width="775" Height="790">
 
     <Interaction.Behaviors>
         <EventTriggerBehavior EventName="Initialized">
