@@ -27,14 +27,14 @@ internal sealed partial class SettingsViewModel : ObservableObject, INavigable
     private Setting? loadedSetting;
 
     private readonly ThemeService themeService;
-    private readonly SettingsService settingsService;
+    private readonly SettingService settingService;
     private readonly NavigationService navigationService;
 
-    public SettingsViewModel(ThemeService themeService, SettingsService settingsService,
+    public SettingsViewModel(ThemeService themeService, SettingService settingService,
         NavigationService navigationService)
     {
         this.themeService = themeService;
-        this.settingsService = settingsService;
+        this.settingService = settingService;
         this.navigationService = navigationService;
     }
 
@@ -59,7 +59,7 @@ internal sealed partial class SettingsViewModel : ObservableObject, INavigable
     [RelayCommand]
     private async Task NavigateBackwardAsync()
     {
-        await settingsService.UpdateAsync(new Setting(loadedSetting?.Location!, themeService.Theme));
+        await settingService.UpdateAsync(new Setting(loadedSetting?.Location!, themeService.Theme));
         await navigationService.NavigateBackwardAsync();
     }
 }

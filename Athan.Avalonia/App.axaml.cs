@@ -44,7 +44,7 @@ internal sealed class App : Application
             .AddTransient<NotificationService>()
             .AddTransient<PollyService>()
             .AddTransient<PrayerService>()
-            .AddTransient<SettingsService>()
+            .AddTransient<SettingService>()
             .AddTransient<ThemeService>()
             .AddSingleton<HttpClient>()
             .BuildServiceProvider();
@@ -63,7 +63,7 @@ internal sealed class App : Application
             lifetime = desktop;
 
             // To show the correct locally saved theme almost before anything runs
-            var setting = await Services.GetRequiredService<SettingsService>().ReadAsync();
+            var setting = await Services.GetRequiredService<SettingService>().ReadAsync();
             Services.GetRequiredService<ThemeService>().Update(setting?.Theme ?? FluentThemeMode.Light);
         }
 

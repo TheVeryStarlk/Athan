@@ -9,7 +9,7 @@ internal sealed class NavigationService
 {
     public event Action<INavigable?>? Navigated;
 
-    private Setting? oldSetting;
+    private Setting? loadedSetting;
 
     private readonly INavigable?[] stack = new INavigable?[2];
 
@@ -25,7 +25,7 @@ internal sealed class NavigationService
         stack[1] = stack[0];
         stack[0] = navigable;
 
-        oldSetting = setting;
+        loadedSetting = setting;
         Navigated?.Invoke(navigable);
         await navigable.Navigated(setting);
     }
@@ -35,9 +35,10 @@ internal sealed class NavigationService
         (stack[0], stack[1]) = (stack[1], stack[0]);
 
         var navigable = stack[0];
-        if (oldSetting is not null && navigable is not null)
+
+        if (loadedSetting is not null && navigable is not null)
         {
-            await navigable.Navigated(oldSetting);
+            await navigable.Navigated(loadedSetting);
         }
 
         Navigated?.Invoke(stack[0]);

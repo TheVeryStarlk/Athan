@@ -13,14 +13,14 @@ internal sealed partial class ShellViewModel : ObservableObject
     private INavigable? navigable;
 
     private readonly NavigationService navigationService;
-    private readonly SettingsService settingsService;
+    private readonly SettingService settingService;
     private readonly ThemeService themeService;
 
-    public ShellViewModel(NavigationService navigationService, SettingsService settingsService,
+    public ShellViewModel(NavigationService navigationService, SettingService settingService,
         ThemeService themeService)
     {
         this.navigationService = navigationService;
-        this.settingsService = settingsService;
+        this.settingService = settingService;
         this.themeService = themeService;
 
         navigationService.Navigated += viewModel => Navigable = viewModel;
@@ -30,7 +30,7 @@ internal sealed partial class ShellViewModel : ObservableObject
     [RelayCommand]
     private async Task InitializeAsync()
     {
-        var settings = await settingsService.ReadAsync();
+        var settings = await settingService.ReadAsync();
 
         if (settings?.Location is null)
         {

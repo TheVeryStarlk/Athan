@@ -19,16 +19,16 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
     private Setting? setting;
 
     private readonly LocationService locationService;
-    private readonly SettingsService settingsService;
+    private readonly SettingService settingService;
     private readonly PollyService pollyService;
     private readonly ThemeService themeService;
     private readonly NavigationService navigationService;
 
-    public LocationViewModel(LocationService locationService, SettingsService settingsService,
+    public LocationViewModel(LocationService locationService, SettingService settingService,
         PollyService pollyService, ThemeService themeService, NavigationService navigationService)
     {
         this.locationService = locationService;
-        this.settingsService = settingsService;
+        this.settingService = settingService;
         this.pollyService = pollyService;
         this.themeService = themeService;
         this.navigationService = navigationService;
@@ -46,7 +46,7 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
             return;
         }
 
-        Setting = await settingsService.UpdateAsync(new Setting(location, themeService.Theme));
+        Setting = await settingService.UpdateAsync(new Setting(location, themeService.Theme));
         Message = $"Your location has been auto-detected to be in {location}.";
     }
 
