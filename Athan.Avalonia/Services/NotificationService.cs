@@ -51,16 +51,14 @@ internal sealed class NotificationService
         }
     }
 
-    public async Task ScheduleNotificationAsync(string title, string body, TimeSpan timeSpan)
+    public async Task ScheduleNotificationAsync(string title, string body, DateTime date)
     {
         if (!initialized)
         {
             throw new InvalidOperationException("The notification manager was not initialized.");
         }
 
-        var schedule = DateTimeOffset.Now + timeSpan;
-
-        if (scheduledNotifications.Any(dateTime => (schedule.Ticks - dateTime.Ticks) > Threshold))
+        if (scheduledNotifications.Any(dateTime => (date.Ticks - dateTime.Ticks) > Threshold))
         {
             return;
         }
@@ -69,9 +67,9 @@ internal sealed class NotificationService
         {
             Title = title,
             Body = body
-        }, schedule);
+        }, date);
 
-        scheduledNotifications.Add(schedule);
+        scheduledNotifications.Add(date);
     }
 
     private void OnNotificationActivated(object? sender, NotificationActivatedEventArgs eventArgs)

@@ -48,6 +48,6 @@ internal sealed partial class PrayersViewModel : ObservableObject
         await notificationService.ScheduleNotificationAsync(
             closest.Name,
             $"You have entered the prayer time for {closest.Name}.",
-            closest.DateTime.ToLocalTime().TimeOfDay);
+            closest.DateTime);
     }
 }
