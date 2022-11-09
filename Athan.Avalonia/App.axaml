@@ -18,6 +18,7 @@
 
         <Style Selector="TextBlock">
             <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="TextWrapping" Value="Wrap" />
         </Style>
 
         <Style Selector="TextBlock.light">

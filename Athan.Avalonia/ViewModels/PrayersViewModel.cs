@@ -4,7 +4,6 @@ using Athan.Avalonia.Services;
 using Athan.Services;
 using Athan.Services.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
-using Polly;
 
 namespace Athan.Avalonia.ViewModels;
 
@@ -17,26 +16,31 @@ internal sealed partial class PrayersViewModel : ObservableObject
     private ObservableCollection<Prayer>? todayPrayers;
 
     private readonly PrayerService prayerService;
+    private readonly PollyService pollyService;
     private readonly NotificationService notificationService;
 
-    public PrayersViewModel(PrayerService prayerService, NotificationService notificationService)
+    public PrayersViewModel(PrayerService prayerService, PollyService pollyService,
+        NotificationService notificationService)
     {
         this.prayerService = prayerService;
+        this.pollyService = pollyService;
         this.notificationService = notificationService;
     }
 
     public async Task InitializeAsync(Location location)
     {
-        var policy = Policy
-            .HandleResult<Prayer[]?>(result => result is null)
-            .RetryForeverAsync();
+        var prayers = await pollyService.HandleAsync(
+            result => result is null,
+            async () => await prayerService.GetTimingsAsync(location.City, location.Country));
 
-        var prayers = await policy.ExecuteAsync(async () =>
-            await prayerService.GetTimingsAsync(location.City, location.Country));
+        if (prayers is null)
+        {
+            return;
+        }
 
-        TodayPrayers = new ObservableCollection<Prayer>(prayers!);
+        TodayPrayers = new ObservableCollection<Prayer>(prayers);
 
-        var closest = prayerService.GetClosest(prayers!);
+        var closest = prayerService.GetClosest(prayers);
         NextPrayer = closest.Name;
 
         await notificationService.InitializeAsync();

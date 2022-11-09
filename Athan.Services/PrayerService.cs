@@ -1,4 +1,5 @@
-﻿using Athan.Services.Models;
+﻿using Athan.Services.Extensions;
+using Athan.Services.Models;
 using Newtonsoft.Json.Linq;
 
 namespace Athan.Services;
@@ -15,7 +16,12 @@ public sealed class PrayerService
     public async Task<Prayer[]?> GetTimingsAsync(string city, string country)
     {
         var request =
-            await httpClient.GetAsync($"http://api.aladhan.com/v1/timingsByCity?city={city}&country={country}");
+            await httpClient.TryGetAsync($"http://api.aladhan.com/v1/timingsByCity?city={city}&country={country}");
+
+        if (request is null)
+        {
+            return null;
+        }
 
         var json = JObject.Parse(await request.Content.ReadAsStringAsync());
 

@@ -9,6 +9,8 @@ internal sealed class NavigationService
 {
     public event Action<INavigable?>? Navigated;
 
+    private Setting? oldSetting;
+
     private readonly INavigable?[] stack = new INavigable?[2];
 
     public void NavigateTo(INavigable navigable)
@@ -23,13 +25,21 @@ internal sealed class NavigationService
         stack[1] = stack[0];
         stack[0] = navigable;
 
+        oldSetting = setting;
         Navigated?.Invoke(navigable);
         await navigable.Navigated(setting);
     }
 
-    public void NavigateBackward()
+    public async Task NavigateBackwardAsync()
     {
         (stack[0], stack[1]) = (stack[1], stack[0]);
+
+        var navigable = stack[0];
+        if (oldSetting is not null && navigable is not null)
+        {
+            await navigable.Navigated(oldSetting);
+        }
+
         Navigated?.Invoke(stack[0]);
     }
 }

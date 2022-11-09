@@ -5,5 +5,7 @@
 
              d:DataContext="{Binding Path=OfflineViewModel, Source={StaticResource ViewModelLocator}}">
 
-    Athan needs access to internet for it to function as expected.
+    <TextBlock
+        Text="Athan needs access to internet for it to function as expected. You will be automatically navigated back when Athan connects back."
+        Width="500" />
 </UserControl>

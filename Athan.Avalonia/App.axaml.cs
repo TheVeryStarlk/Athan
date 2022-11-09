@@ -42,6 +42,7 @@ internal sealed class App : Application
             .AddTransient<LocationService>()
             .AddSingleton<NavigationService>()
             .AddTransient<NotificationService>()
+            .AddTransient<PollyService>()
             .AddTransient<PrayerService>()
             .AddTransient<SettingsService>()
             .AddTransient<ThemeService>()
