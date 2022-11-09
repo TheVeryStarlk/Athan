@@ -13,6 +13,8 @@ namespace Athan.Avalonia.Services;
 
 internal sealed class NotificationService
 {
+    public event Action? NotificationActivated;
+
     private const int Threshold = 10;
 
     private bool initialized;
@@ -91,5 +93,7 @@ internal sealed class NotificationService
     {
         var notification = notifications.FirstOrDefault(date => (date.Ticks - DateTimeOffset.Now.Ticks) > Threshold);
         notifications.Remove(notification);
+
+        NotificationActivated?.Invoke();
     }
 }
