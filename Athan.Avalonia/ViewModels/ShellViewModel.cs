@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Athan.Avalonia.Contracts;
 using Athan.Avalonia.Services;
+using Avalonia.Themes.Fluent;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -31,6 +32,7 @@ internal sealed partial class ShellViewModel : ObservableObject
     private async Task InitializeAsync()
     {
         var settings = await settingService.ReadAsync();
+        themeService.Update(settings?.Theme ?? FluentThemeMode.Light);
 
         if (settings?.Location is null)
         {
@@ -38,7 +40,6 @@ internal sealed partial class ShellViewModel : ObservableObject
         }
         else
         {
-            themeService.Update(settings.Theme);
             await navigationService.NavigateToAsync(ViewModelLocator.DashboardViewModel, settings);
         }
     }

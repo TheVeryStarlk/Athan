@@ -1,16 +1,23 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Avalonia.Themes.Fluent;
 
 namespace Athan.Avalonia.Services;
 
 internal sealed class ThemeService
 {
-    public FluentThemeMode Theme => fluentTheme.Mode;
+    public FluentThemeMode Theme => FluentTheme!.Mode;
 
-    private readonly FluentTheme fluentTheme = (FluentTheme) App.Current.Styles.First(style => style is FluentTheme);
+    private FluentTheme? FluentTheme => (FluentTheme?) App.Current.Styles.FirstOrDefault(style => style is FluentTheme);
 
     public void Update(FluentThemeMode theme)
     {
-        fluentTheme.Mode = theme;
+        if (FluentTheme is null)
+        {
+            App.Current.Styles.Add(
+                new FluentTheme(new Uri($"avares://Avalonia.Themes.Fluent/Accents/Base{theme}.xaml")));
+        }
+
+        FluentTheme!.Mode = theme;
     }
 }

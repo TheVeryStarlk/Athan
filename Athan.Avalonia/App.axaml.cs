@@ -8,7 +8,6 @@ using Avalonia.Markup.Xaml;
 using Athan.Avalonia.ViewModels;
 using Athan.Avalonia.Views;
 using Athan.Services;
-using Avalonia.Themes.Fluent;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -55,16 +54,12 @@ internal sealed class App : Application
         AvaloniaXamlLoader.Load(this);
     }
 
-    public override async void OnFrameworkInitializationCompleted()
+    public override void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = Services.GetRequiredService<ShellView>();
             lifetime = desktop;
-
-            // To show the correct locally saved theme almost before anything runs
-            var setting = await Services.GetRequiredService<SettingService>().ReadAsync();
-            Services.GetRequiredService<ThemeService>().Update(setting?.Theme ?? FluentThemeMode.Light);
         }
 
         base.OnFrameworkInitializationCompleted();
