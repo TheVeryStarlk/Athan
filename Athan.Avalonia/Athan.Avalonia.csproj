@@ -16,6 +16,8 @@
         <Product>Athan</Product>
         <NeutralLanguage>en</NeutralLanguage>
         <ApplicationManifest>app.manifest</ApplicationManifest>
+        <AssemblyVersion>1.0</AssemblyVersion>
+        <FileVersion>1.0</FileVersion>
     </PropertyGroup>
     <ItemGroup>
         <Folder Include="Models\" />
