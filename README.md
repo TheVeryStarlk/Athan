@@ -1,1 +1,1 @@
-<a href="https://ibb.co/frqKpMy"><img src="https://i.ibb.co/xzXcjhB/Athan.png" alt="Athan" border="0"></a>
+<img align="center" src="Assets/Screenshot.png">
