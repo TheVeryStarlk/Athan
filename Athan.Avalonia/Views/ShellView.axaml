@@ -2,6 +2,7 @@
         xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:views="clr-namespace:Athan.Avalonia.Views"
 
         d:DataContext="{Binding Path=ShellViewModel, Source={StaticResource ViewModelLocator}}"
         ExtendClientAreaToDecorationsHint="True" ExtendClientAreaTitleBarHeightHint="50"
@@ -33,12 +34,21 @@
 
             <ScrollViewer Grid.Row="1">
                 <Border Classes="container">
-                    <StackPanel Spacing="15">
-                        <TextBlock Text="{Binding Navigable.Title, FallbackValue='Something went wrong'}"
-                                   Classes="header" />
+                    <views:SuspenseView
+                        Condition="{Binding Navigable, 
+                        Converter={x:Static ObjectConverters.IsNotNull}}">
 
-                        <ContentControl Content="{Binding Navigable}" />
-                    </StackPanel>
+                        <views:SuspenseView.Fallback>
+                            <ProgressBar IsIndeterminate="True" />
+                        </views:SuspenseView.Fallback>
+
+                        <views:SuspenseView.Active>
+                            <StackPanel Spacing="15">
+                                <TextBlock Text="{Binding Navigable.Title}" Classes="header" />
+                                <ContentControl Content="{Binding Navigable}" />
+                            </StackPanel>
+                        </views:SuspenseView.Active>
+                    </views:SuspenseView>
                 </Border>
             </ScrollViewer>
         </Grid>
