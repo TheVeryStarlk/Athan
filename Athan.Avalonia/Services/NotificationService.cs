@@ -61,7 +61,7 @@ internal sealed class NotificationService
             throw new InvalidOperationException("The notification manager was not initialized.");
         }
 
-        if (notifications.Any(dateTime => (date.Ticks - dateTime.Ticks) > Threshold))
+        if (notifications.Any(dateTime => (date.Ticks - dateTime.Ticks) < Threshold))
         {
             return;
         }
