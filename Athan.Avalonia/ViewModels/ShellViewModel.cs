@@ -44,6 +44,12 @@ internal sealed partial class ShellViewModel : ObservableObject
         }
     }
 
+    [RelayCommand]
+    private async Task ClosingAsync()
+    {
+        await settingService.SaveAsync();
+    }
+
     private async void NetworkChangeOnNetworkAvailabilityChanged(object? sender, NetworkAvailabilityEventArgs eventArgs)
     {
         if (eventArgs.IsAvailable)

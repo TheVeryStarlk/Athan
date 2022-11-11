@@ -11,19 +11,26 @@ internal sealed class SettingService
     private readonly string path =
         Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), nameof(Athan));
 
-    public async Task<Setting> UpdateAsync(Setting setting)
-    {
-        var json = JsonSerializer.Serialize(setting);
-        await File.WriteAllTextAsync(path, json);
+    private Setting? loadedSetting;
 
+    public Setting Update(Setting setting)
+    {
+        loadedSetting = setting;
         return setting;
+    }
+
+    public async Task SaveAsync()
+    {
+        var json = JsonSerializer.Serialize(loadedSetting);
+        await File.WriteAllTextAsync(path, json);
     }
 
     public async Task<Setting?> ReadAsync()
     {
         try
         {
-            return JsonSerializer.Deserialize<Setting>(await File.ReadAllTextAsync(path))!;
+            loadedSetting = JsonSerializer.Deserialize<Setting>(await File.ReadAllTextAsync(path));
+            return loadedSetting;
         }
         catch (Exception)
         {

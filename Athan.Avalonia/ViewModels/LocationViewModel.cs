@@ -46,7 +46,7 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
             return;
         }
 
-        Setting = await settingService.UpdateAsync(new Setting(location, themeService.Theme));
+        Setting = settingService.Update(new Setting(location, themeService.Theme));
         Message = $"You seem to be in {location}.";
     }
 

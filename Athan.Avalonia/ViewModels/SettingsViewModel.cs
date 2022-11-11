@@ -59,7 +59,7 @@ internal sealed partial class SettingsViewModel : ObservableObject, INavigable
     [RelayCommand]
     private async Task NavigateBackwardAsync()
     {
-        await settingService.UpdateAsync(new Setting(loadedSetting?.Location!, themeService.Theme));
+        settingService.Update(new Setting(loadedSetting?.Location!, themeService.Theme));
         await navigationService.NavigateBackwardAsync();
     }
 }

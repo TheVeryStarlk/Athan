@@ -43,7 +43,7 @@ internal sealed class App : Application
             .AddTransient<NotificationService>()
             .AddTransient<PollyService>()
             .AddTransient<PrayerService>()
-            .AddTransient<SettingService>()
+            .AddSingleton<SettingService>()
             .AddTransient<ThemeService>()
             .AddSingleton<HttpClient>()
             .BuildServiceProvider();
