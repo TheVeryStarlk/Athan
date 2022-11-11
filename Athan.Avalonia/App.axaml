@@ -62,7 +62,7 @@
 
     <TrayIcon.Icons>
         <TrayIcons>
-            <TrayIcon Icon="/Assets/athan-logo.ico" Clicked="OpenTrayIcon">
+            <TrayIcon ToolTipText="Athan" Icon="/Assets/athan-logo.ico" Clicked="OpenTrayIcon">
                 <TrayIcon.Menu>
                     <NativeMenu>
                         <NativeMenuItem Header="Close" Click="CloseTrayIcon" />
