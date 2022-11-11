@@ -6,8 +6,8 @@
 
         d:DataContext="{Binding Path=ShellViewModel, Source={StaticResource ViewModelLocator}}"
         ExtendClientAreaToDecorationsHint="True" ExtendClientAreaTitleBarHeightHint="50"
-        TransparencyLevelHint="AcrylicBlur" Background="Transparent" Title="Athan"
-        WindowStartupLocation="CenterScreen" Icon="/Assets/athan-logo.ico"
+        TransparencyLevelHint="AcrylicBlur" ShowInTaskbar="False" Background="Transparent"
+        WindowStartupLocation="CenterScreen" Title="Athan" Icon="/Assets/athan-logo.ico"
         MinWidth="600" MinHeight="575" Width="770" Height="770">
 
     <Interaction.Behaviors>
