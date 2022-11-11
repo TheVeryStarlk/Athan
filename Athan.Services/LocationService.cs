@@ -7,8 +7,7 @@ namespace Athan.Services;
 public sealed class LocationService
 {
     private sealed record Root(string Status, string Country, string CountryCode, string Region, string RegionName,
-        string City, string Zip, float Lat, float Lon, string Timezone, string Isp, string Org, string As,
-        string Query);
+        string City, string Zip, float Lat, float Lon, string Timezone, string Isp, string Org, string As, string Query);
 
     private readonly HttpClient httpClient;
 

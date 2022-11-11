@@ -47,7 +47,7 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
         }
 
         Setting = await settingService.UpdateAsync(new Setting(location, themeService.Theme));
-        Message = $"Your location has been auto-detected to be in {location}.";
+        Message = $"You seem to be in {location}.";
     }
 
     [RelayCommand]
