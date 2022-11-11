@@ -14,13 +14,13 @@ public static class AnimatableExtension
     {
         var animation = new Animation()
         {
-            Duration = TimeSpan.FromSeconds(1),
+            Duration = TimeSpan.FromMilliseconds(750),
             Easing = new ExponentialEaseOut(),
             Children =
             {
                 new KeyFrame()
                 {
-                    KeyTime = TimeSpan.FromSeconds(0),
+                    KeyTime = TimeSpan.FromMilliseconds(0),
                     Setters =
                     {
                         new Setter(Visual.OpacityProperty, 0.0),
@@ -29,7 +29,7 @@ public static class AnimatableExtension
                 },
                 new KeyFrame()
                 {
-                    KeyTime = TimeSpan.FromSeconds(1),
+                    KeyTime = TimeSpan.FromMilliseconds(750),
                     Setters =
                     {
                         new Setter(Visual.OpacityProperty, 1),
