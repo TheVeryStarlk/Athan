@@ -45,7 +45,7 @@
         <Style Selector="Border.light_container">
             <Setter Property="Background">
                 <Setter.Value>
-                    <SolidColorBrush Color="{DynamicResource SystemChromeMediumColor}" Opacity="0.75" />
+                    <SolidColorBrush Color="{DynamicResource SystemChromeLowColor}" Opacity="0.75" />
                 </Setter.Value>
             </Setter>
 
