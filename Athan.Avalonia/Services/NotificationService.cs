@@ -48,8 +48,6 @@ internal sealed class NotificationService
         if (!initialized)
         {
             await manager.Initialize();
-            manager.NotificationActivated += OnNotificationActivated;
-
             initialized = true;
         }
     }
@@ -84,14 +82,18 @@ internal sealed class NotificationService
                 Title = title,
                 Body = body
             });
+
+            OnNotificationActivated();
+            
+            timer.Dispose();
         };
 
         notifications.Add(date);
     }
 
-    private void OnNotificationActivated(object? sender, NotificationActivatedEventArgs eventArgs)
+    private void OnNotificationActivated()
     {
-        var notification = notifications.FirstOrDefault(date => (date.Ticks - DateTimeOffset.Now.Ticks) > Threshold);
+        var notification = notifications.FirstOrDefault(date => (date.Ticks - DateTimeOffset.Now.Ticks) < Threshold);
         notifications.Remove(notification);
 
         NotificationActivated?.Invoke();
