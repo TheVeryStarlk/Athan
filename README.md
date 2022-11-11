@@ -18,7 +18,7 @@ Just run the application and with the click of a button you're ready to go.
 ### Installation Guide
 
 Go to the latest [release](https://google.com), download the appropriate file for your operating system, extract the
-application binary double click on it, and voila!
+application binary, double click on it, and voila!
 
 <p align="center">
   <img align="center" src="Assets/Screenshot.png">
