@@ -26,8 +26,9 @@ internal sealed class NavigationService
         stack[0] = navigable;
 
         loadedSetting = setting;
-        Navigated?.Invoke(navigable);
         await navigable.Navigated(setting);
+
+        Navigated?.Invoke(navigable);
     }
 
     public async Task NavigateBackwardAsync()
