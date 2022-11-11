@@ -1,4 +1,5 @@
-﻿using Avalonia.Controls;
+﻿using Athan.Avalonia.Extensions;
+using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
 namespace Athan.Avalonia.Views;
@@ -9,6 +10,11 @@ internal sealed partial class DashboardView : UserControl
     {
         DataContext = ViewModelLocator.DashboardViewModel;
         InitializeComponent();
+    }
+
+    protected override async void OnInitialized()
+    {
+        await this.AnimateAsync();
     }
 
     private void InitializeComponent()

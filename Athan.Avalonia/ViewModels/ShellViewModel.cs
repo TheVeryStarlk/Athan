@@ -50,11 +50,11 @@ internal sealed partial class ShellViewModel : ObservableObject
         await settingService.SaveAsync();
     }
 
-    private async void NetworkChangeOnNetworkAvailabilityChanged(object? sender, NetworkAvailabilityEventArgs eventArgs)
+    private void NetworkChangeOnNetworkAvailabilityChanged(object? sender, NetworkAvailabilityEventArgs eventArgs)
     {
         if (eventArgs.IsAvailable)
         {
-            await navigationService.NavigateBackwardAsync();
+            navigationService.NavigateBackward();
         }
         else
         {
