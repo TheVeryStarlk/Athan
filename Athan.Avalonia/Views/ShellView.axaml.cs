@@ -24,13 +24,13 @@ internal sealed partial class ShellView : Window
             {
                 var animation = new Animation()
                 {
-                    Duration = TimeSpan.FromMilliseconds(750),
+                    Duration = TimeSpan.FromSeconds(1),
                     Easing = new ExponentialEaseOut(),
                     Children =
                     {
                         new KeyFrame()
                         {
-                            KeyTime = TimeSpan.FromMilliseconds(0),
+                            KeyTime = TimeSpan.FromSeconds(0),
                             Setters =
                             {
                                 new Setter(OpacityProperty, 0.5),
@@ -40,7 +40,7 @@ internal sealed partial class ShellView : Window
                         },
                         new KeyFrame()
                         {
-                            KeyTime = TimeSpan.FromMilliseconds(750),
+                            KeyTime = TimeSpan.FromSeconds(1),
                             Setters =
                             {
                                 new Setter(OpacityProperty, 1),
