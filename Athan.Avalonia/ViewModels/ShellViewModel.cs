@@ -31,17 +31,14 @@ internal sealed partial class ShellViewModel : ObservableObject
     [RelayCommand]
     private async Task InitializeAsync()
     {
-        var settings = await settingService.ReadAsync();
-        themeService.Update(settings?.Theme ?? FluentThemeMode.Light);
+        var setting = await settingService.ReadAsync();
 
-        if (settings?.Location is null)
-        {
-            navigationService.NavigateTo(ViewModelLocator.LocationViewModel);
-        }
-        else
-        {
-            await navigationService.NavigateToAsync(ViewModelLocator.DashboardViewModel, settings);
-        }
+        themeService.Update(setting?.Theme ?? FluentThemeMode.Light);
+
+        navigationService.NavigateForward(
+            setting?.Validate() is true
+                ? ViewModelLocator.DashboardViewModel
+                : ViewModelLocator.LocationViewModel);
     }
 
     [RelayCommand]
@@ -58,7 +55,7 @@ internal sealed partial class ShellViewModel : ObservableObject
         }
         else
         {
-            navigationService.NavigateTo(ViewModelLocator.OfflineViewModel);
+            navigationService.NavigateForward(ViewModelLocator.OfflineViewModel);
         }
     }
 }

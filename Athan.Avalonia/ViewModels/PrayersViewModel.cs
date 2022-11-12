@@ -28,30 +28,20 @@ internal sealed partial class PrayersViewModel : ObservableObject
         this.pollyService = pollyService;
         this.notificationService = notificationService;
 
-        notificationService.NotificationActivated += async () => await InitializeAsync(loadedLocation);
+        notificationService.NotificationActivated += async () => await InitializeAsync(loadedLocation!);
     }
 
-    public async Task InitializeAsync(Location? location)
+    public async Task InitializeAsync(Location location)
     {
-        if (location is null)
-        {
-            return;
-        }
-
         loadedLocation = location;
 
         var prayers = await pollyService.HandleAsync(
             result => result is null,
             async () => await prayerService.GetTimingsAsync(location.City, location.Country));
 
-        if (prayers is null)
-        {
-            return;
-        }
+        TodayPrayers = new ObservableCollection<Prayer>(prayers!);
 
-        TodayPrayers = new ObservableCollection<Prayer>(prayers);
-
-        var closest = prayerService.GetClosest(prayers);
+        var closest = prayerService.GetClosest(prayers!);
         NextPrayer = closest.Name;
 
         await notificationService.InitializeAsync();

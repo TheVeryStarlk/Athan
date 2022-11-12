@@ -1,5 +1,4 @@
-﻿using Athan.Avalonia.Extensions;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
@@ -44,9 +43,8 @@ internal sealed partial class SuspenseView : UserControl
         AvaloniaXamlLoader.Load(this);
     }
 
-    protected override async void OnInitialized()
+    protected override void OnInitialized()
     {
-        await this.AnimateAsync();
         Content = Condition ? Active : Fallback;
     }
 

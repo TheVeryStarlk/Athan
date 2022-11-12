@@ -14,7 +14,7 @@
     <StackPanel MinWidth="400" Spacing="10">
         <TextBlock Text="{Binding Message}" />
 
-        <Button Content="Continue" Classes="accent" Command="{Binding NavigateToDashboardCommand}"
-                IsEnabled="{Binding Setting, Converter={x:Static ObjectConverters.IsNotNull}}" />
+        <Button Content="Continue" Classes="accent" Command="{Binding NavigateForwardCommand}"
+                IsEnabled="{Binding CanContinue}" />
     </StackPanel>
 </UserControl>

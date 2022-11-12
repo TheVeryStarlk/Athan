@@ -17,7 +17,7 @@ internal sealed class NotificationService
 
     private const int Threshold = 10;
 
-    private bool initialized;
+    private bool isInitialized;
 
     private readonly List<DateTime> notifications = new List<DateTime>();
 
@@ -45,18 +45,18 @@ internal sealed class NotificationService
 
     public async Task InitializeAsync()
     {
-        if (!initialized)
+        if (!isInitialized)
         {
             await manager.Initialize();
-            initialized = true;
+            isInitialized = true;
         }
     }
 
     public void ScheduleNotification(string title, string body, DateTime date)
     {
-        if (!initialized)
+        if (!isInitialized)
         {
-            throw new InvalidOperationException("The notification manager was not initialized.");
+            throw new InvalidOperationException("The notification manager was not isInitialized.");
         }
 
         if (notifications.Any(dateTime => (date.Ticks - dateTime.Ticks) < Threshold))
@@ -83,15 +83,15 @@ internal sealed class NotificationService
                 Body = body
             });
 
-            OnNotificationActivated();
-            
+            HandleNotificationActivated();
+
             timer.Dispose();
         };
 
         notifications.Add(date);
     }
 
-    private void OnNotificationActivated()
+    private void HandleNotificationActivated()
     {
         var notification = notifications.FirstOrDefault(date => (date.Ticks - DateTimeOffset.Now.Ticks) < Threshold);
         notifications.Remove(notification);

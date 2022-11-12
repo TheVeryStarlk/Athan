@@ -2,7 +2,6 @@
 using System.Globalization;
 using System.Threading.Tasks;
 using Athan.Avalonia.Contracts;
-using Athan.Avalonia.Models;
 using Athan.Avalonia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -22,21 +21,24 @@ internal sealed partial class DashboardViewModel : ObservableObject, INavigable
     [ObservableProperty]
     private PrayersViewModel prayersViewModel;
 
-    private Setting? loadedSetting;
+    private readonly SettingService settingService;
 
     private readonly NavigationService navigationService;
 
-    public DashboardViewModel(PrayersViewModel prayersViewModel, NavigationService navigationService)
+    public DashboardViewModel(PrayersViewModel prayersViewModel, SettingService settingService,
+        NavigationService navigationService)
     {
         this.prayersViewModel = prayersViewModel;
+        this.settingService = settingService;
         this.navigationService = navigationService;
     }
 
-    public async Task Navigated(Setting setting)
+    [RelayCommand]
+    private async Task InitializeAsync()
     {
-        loadedSetting = setting;
+        var setting = await settingService.ReadAsync();
 
-        ReadableLocation = setting.Location.ToString();
+        ReadableLocation = setting!.Location!.ToString();
 
         var calendar = new HijriCalendar();
 
@@ -48,8 +50,8 @@ internal sealed partial class DashboardViewModel : ObservableObject, INavigable
     }
 
     [RelayCommand]
-    private async Task NavigateToSettingsAsync()
+    private void NavigateForward()
     {
-        await navigationService.NavigateToAsync(ViewModelLocator.SettingsViewModel, loadedSetting!);
+        navigationService.NavigateForward(ViewModelLocator.SettingsViewModel);
     }
 }

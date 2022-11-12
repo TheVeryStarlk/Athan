@@ -32,10 +32,10 @@
         <Border Classes="light_container">
             <StackPanel Spacing="7.5">
                 <TextBlock Text="Geographical Location" />
-                <Button Content="Relocate" Command="{Binding NavigateToLocationCommand}" />
+                <Button Content="Relocate" Command="{Binding RelocateAsyncCommand}" />
             </StackPanel>
         </Border>
 
-        <Button Content="Save" Classes="accent" Command="{Binding NavigateBackwardCommand}" />
+        <Button Content="Save" Classes="accent" Command="{Binding SaveAsyncCommand}" />
     </StackPanel>
 </UserControl>

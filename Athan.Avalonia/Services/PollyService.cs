@@ -6,6 +6,8 @@ namespace Athan.Avalonia.Services;
 
 internal sealed class PollyService
 {
+    private const int Threshold = 3;
+
     private readonly NavigationService navigationService;
 
     public PollyService(NavigationService navigationService)
@@ -17,11 +19,11 @@ internal sealed class PollyService
     {
         return await Policy
             .HandleResult(predicate)
-            .RetryAsync(retryCount: 3, (_, count) =>
+            .RetryAsync(retryCount: Threshold, (_, count) =>
             {
-                if (count == 3)
+                if (count is Threshold)
                 {
-                    navigationService.NavigateTo(ViewModelLocator.OfflineViewModel);
+                    navigationService.NavigateForward(ViewModelLocator.OfflineViewModel);
                 }
             })
             .ExecuteAsync(async () => await task());

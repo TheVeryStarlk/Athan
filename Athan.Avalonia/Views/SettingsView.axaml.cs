@@ -1,5 +1,4 @@
-﻿using Athan.Avalonia.Extensions;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
 namespace Athan.Avalonia.Views;
@@ -10,11 +9,6 @@ internal sealed partial class SettingsView : UserControl
     {
         DataContext = ViewModelLocator.SettingsViewModel;
         InitializeComponent();
-    }
-
-    protected override async void OnInitialized()
-    {
-        await this.AnimateAsync();
     }
 
     private void InitializeComponent()

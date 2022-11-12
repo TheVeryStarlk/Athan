@@ -13,24 +13,27 @@ internal sealed class SettingService
 
     private Setting? loadedSetting;
 
-    public Setting Update(Setting setting)
+    public void Update(Setting setting)
     {
         loadedSetting = setting;
-        return setting;
     }
 
     public async Task SaveAsync()
     {
-        var json = JsonSerializer.Serialize(loadedSetting);
+        var json = JsonSerializer.Serialize(loadedSetting ?? await ReadAsync());
         await File.WriteAllTextAsync(path, json);
     }
 
     public async Task<Setting?> ReadAsync()
     {
+        if (loadedSetting?.Validate() is true)
+        {
+            return loadedSetting;
+        }
+
         try
         {
-            loadedSetting = JsonSerializer.Deserialize<Setting>(await File.ReadAllTextAsync(path));
-            return loadedSetting;
+            return JsonSerializer.Deserialize<Setting>(await File.ReadAllTextAsync(path));
         }
         catch (Exception)
         {

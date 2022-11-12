@@ -39,25 +39,20 @@ internal sealed partial class SettingsViewModel : ObservableObject, INavigable
     }
 
     [RelayCommand]
-    private void Initialize()
+    private async Task InitializeAsync()
     {
         SelectedThemeIndex = (int) themeService.Theme;
-    }
-
-    public Task Navigated(Setting setting)
-    {
-        loadedSetting = setting;
-        return Task.CompletedTask;
+        loadedSetting = await settingService.ReadAsync();
     }
 
     [RelayCommand]
-    private void NavigateToLocation()
+    private void RelocateAsync()
     {
-        navigationService.NavigateTo(ViewModelLocator.LocationViewModel);
+        navigationService.NavigateForward(ViewModelLocator.LocationViewModel);
     }
 
     [RelayCommand]
-    private void NavigateBackward()
+    private void SaveAsync()
     {
         settingService.Update(new Setting(loadedSetting?.Location!, themeService.Theme));
         navigationService.NavigateBackward();

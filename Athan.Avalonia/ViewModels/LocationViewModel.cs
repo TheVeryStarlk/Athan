@@ -16,7 +16,7 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
     private string message = "Hang tight...";
 
     [ObservableProperty]
-    private Setting? setting;
+    private bool canContinue;
 
     private readonly LocationService locationService;
     private readonly SettingService settingService;
@@ -41,18 +41,14 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
             result => result is null,
             async () => await locationService.GetLocationAsync());
 
-        if (location is null)
-        {
-            return;
-        }
-
-        Setting = settingService.Update(new Setting(location, themeService.Theme));
+        settingService.Update(new Setting(location!, themeService.Theme));
         Message = $"You seem to be in {location}.";
+        CanContinue = true;
     }
 
     [RelayCommand]
-    private async Task NavigateToDashboardAsync()
+    private void NavigateForward()
     {
-        await navigationService.NavigateToAsync(ViewModelLocator.DashboardViewModel, Setting!);
+        navigationService.NavigateForward(ViewModelLocator.DashboardViewModel);
     }
 }
