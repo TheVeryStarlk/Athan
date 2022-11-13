@@ -1,5 +1,4 @@
 ﻿using System.Net.NetworkInformation;
-using System.Threading.Tasks;
 using Athan.Avalonia.Contracts;
 using Athan.Avalonia.Services;
 using Avalonia.Themes.Fluent;

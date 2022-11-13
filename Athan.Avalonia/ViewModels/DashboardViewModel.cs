@@ -1,6 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 using Athan.Avalonia.Contracts;
 using Athan.Avalonia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;

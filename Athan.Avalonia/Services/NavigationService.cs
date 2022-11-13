@@ -1,5 +1,4 @@
-﻿using System;
-using Athan.Avalonia.Contracts;
+﻿using Athan.Avalonia.Contracts;
 
 namespace Athan.Avalonia.Services;
 

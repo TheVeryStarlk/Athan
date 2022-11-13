@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using Athan.Avalonia.Services;
 using Athan.Services;
 using Athan.Services.Models;

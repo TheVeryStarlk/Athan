@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Avalonia.Themes.Fluent;
+﻿using Avalonia.Themes.Fluent;
 
 namespace Athan.Avalonia.Services;
 

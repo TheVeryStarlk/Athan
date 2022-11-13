@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Athan.Avalonia.Contracts;
+﻿using Athan.Avalonia.Contracts;
 using Athan.Avalonia.Models;
 using Athan.Avalonia.Services;
 using Athan.Services;

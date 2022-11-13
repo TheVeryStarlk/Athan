@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using System.Timers;
+﻿using System.Runtime.InteropServices;
 using DesktopNotifications;
-using DesktopNotifications.Apple;
 using DesktopNotifications.FreeDesktop;
 using DesktopNotifications.Windows;
 
@@ -21,25 +15,19 @@ internal sealed class NotificationService
 
     private readonly List<DateTime> notifications = new List<DateTime>();
 
-    private readonly INotificationManager manager;
+    private readonly INotificationManager? manager;
 
     public NotificationService()
     {
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
-            manager = new WindowsNotificationManager(WindowsApplicationContext.FromCurrentProcess(nameof(Athan)));
+            manager = new WindowsNotificationManager(
+                WindowsApplicationContext.FromCurrentProcess(nameof(Athan)));
         }
         else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
         {
-            manager = new FreeDesktopNotificationManager();
-        }
-        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-        {
-            manager = new AppleNotificationManager();
-        }
-        else
-        {
-            throw new PlatformNotSupportedException();
+            manager = new FreeDesktopNotificationManager(
+                FreeDesktopApplicationContext.FromCurrentProcess(nameof(Athan)));
         }
     }
 
@@ -47,7 +35,11 @@ internal sealed class NotificationService
     {
         if (!isInitialized)
         {
-            await manager.Initialize();
+            if (manager is not null)
+            {
+                await manager.Initialize();
+            }
+
             isInitialized = true;
         }
     }
@@ -56,7 +48,7 @@ internal sealed class NotificationService
     {
         if (!isInitialized)
         {
-            throw new InvalidOperationException("The notification manager was not isInitialized.");
+            throw new InvalidOperationException("The notification manager was not initialized.");
         }
 
         if (notifications.Any(dateTime => (date.Ticks - dateTime.Ticks) < Threshold))
@@ -64,7 +56,7 @@ internal sealed class NotificationService
             return;
         }
 
-        var timer = new Timer()
+        var timer = new System.Timers.Timer()
         {
             Interval = date > DateTime.Now
                 ? (date - DateTime.Now).TotalMilliseconds
@@ -77,6 +69,11 @@ internal sealed class NotificationService
 
         timer.Elapsed += async (_, _) =>
         {
+            if (manager is null)
+            {
+                return;
+            }
+
             await manager.ShowNotification(new Notification()
             {
                 Title = title,

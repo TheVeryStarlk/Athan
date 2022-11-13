@@ -1,4 +1,3 @@
-using System;
 using Athan.Avalonia.Messages;
 using Avalonia.Animation;
 using Avalonia.Animation.Easings;

@@ -1,5 +1,3 @@
-using System;
-using System.Net.Http;
 using Athan.Avalonia.Messages;
 using Athan.Avalonia.Services;
 using Avalonia;
