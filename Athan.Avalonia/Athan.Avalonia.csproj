@@ -36,19 +36,18 @@
     </ItemGroup>
 
     <ItemGroup>
-        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Condition=" '$(Configuration)' == 'Debug' " Include="Avalonia.Diagnostics" Version="0.10.18" />
 
         <PackageReference Include="Avalonia" Version="0.10.18" />
         <PackageReference Include="Avalonia.Desktop" Version="0.10.18" />
         <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.18" />
+        <PackageReference Condition=" '$(Configuration)' == 'Debug' " Include="Avalonia.Diagnostics" Version="0.10.18" />
         <PackageReference Include="Material.Icons.Avalonia" Version="1.1.10" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
         <PackageReference Include="Polly" Version="7.2.3" />
         <PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
         <PackageReference Include="DesktopNotifications.FreeDesktop" Version="1.2.0" />
-        <PackageReference Include="DesktopNotifications.Windows" Version="1.2.0" />
+        <PackageReference Condition=" '$(OS)' == 'Windows_NT' " Include="DesktopNotifications.Windows" Version="1.2.0" />
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Athan.Services\Athan.Services.csproj" />
