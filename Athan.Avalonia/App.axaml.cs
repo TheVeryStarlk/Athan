@@ -15,6 +15,9 @@ internal sealed class App : Application
 {
     public new static App Current => (App?) Application.Current!;
 
+    public static string Directory =>
+        Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), nameof(Athan));
+
     public IServiceProvider Services { get; }
 
     private IClassicDesktopStyleApplicationLifetime? lifetime;
