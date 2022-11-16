@@ -48,6 +48,8 @@ internal sealed class App : Application
             .AddTransient<ThemeService>()
             .AddSingleton<HttpClient>()
             .BuildServiceProvider();
+
+        System.IO.Directory.CreateDirectory(Directory);
     }
 
     public override void Initialize()

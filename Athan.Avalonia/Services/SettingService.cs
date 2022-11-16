@@ -5,7 +5,7 @@ namespace Athan.Avalonia.Services;
 
 internal sealed class SettingService
 {
-    private readonly string path = Path.Join(App.Directory, "Settings.json");
+    private readonly string path = Path.Join(App.Directory, "Settings");
 
     private Setting? loadedSetting;
 
@@ -29,12 +29,10 @@ internal sealed class SettingService
 
         try
         {
-            if (!File.Exists(path))
-            {
-                await using var stream = File.Create(path);
-            }
+            await using var file = File.Open(path, FileMode.OpenOrCreate);
+            using var stream = new StreamReader(file);
 
-            return JsonSerializer.Deserialize<Setting>(await File.ReadAllTextAsync(path));
+            return JsonSerializer.Deserialize<Setting>(await stream.ReadToEndAsync());
         }
         catch (JsonException)
         {
