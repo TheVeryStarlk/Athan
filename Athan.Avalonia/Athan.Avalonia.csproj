@@ -41,6 +41,7 @@
         <PackageReference Include="Avalonia.Desktop" Version="0.10.18" />
         <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.18" />
         <PackageReference Condition=" '$(Configuration)' == 'Debug' " Include="Avalonia.Diagnostics" Version="0.10.18" />
+        <PackageReference Include="FluentResults" Version="3.15.0" />
         <PackageReference Include="Material.Icons.Avalonia" Version="1.1.10" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />

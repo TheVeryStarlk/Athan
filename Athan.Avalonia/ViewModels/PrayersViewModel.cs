@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Athan.Avalonia.Extensions;
 using Athan.Avalonia.Services;
 using Athan.Services;
 using Athan.Services.Models;
@@ -35,19 +36,22 @@ internal sealed partial class PrayersViewModel : ObservableObject
         loadedLocation = location;
 
         var prayers = await pollyService.HandleAsync(
-            result => result is null,
+            result => result.IsFailed,
             async () => await prayerService.GetTimingsAsync(location.City, location.Country));
 
-        TodayPrayers = new ObservableCollection<Prayer>(prayers!);
+        prayers?.IfSuccess(async () =>
+        {
+            TodayPrayers = new ObservableCollection<Prayer>(prayers.Value!);
 
-        var closest = prayerService.GetClosest(prayers!);
-        NextPrayer = closest.Name;
+            var closest = prayerService.GetClosest(prayers.Value!);
+            NextPrayer = closest.Name;
 
-        await notificationService.InitializeAsync();
+            await notificationService.InitializeAsync();
 
-        notificationService.ScheduleNotification(
-            closest.Name,
-            $"You have entered the prayer time for {closest.Name}.",
-            closest.DateTime);
+            notificationService.ScheduleNotification(
+                closest.Name,
+                $"You have entered the prayer time for {closest.Name}.",
+                closest.DateTime);
+        });
     }
 }

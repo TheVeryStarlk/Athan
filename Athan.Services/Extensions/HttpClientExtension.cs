@@ -1,17 +1,22 @@
-﻿namespace Athan.Services.Extensions;
+﻿using FluentResults;
+
+namespace Athan.Services.Extensions;
 
 public static class HttpClientExtension
 {
-    public static async Task<HttpResponseMessage?> TryGetAsync(this HttpClient client, string requestUrl)
+    public static async Task<Result<HttpResponseMessage>> TryGetAsync(this HttpClient client, string requestUrl)
     {
         try
         {
             var response = await client.GetAsync(requestUrl);
-            return response.IsSuccessStatusCode ? response : null;
+
+            return response.IsSuccessStatusCode
+                ? Result.Ok(response)
+                : Result.Fail("Request response does not indicate success.");
         }
         catch (HttpRequestException)
         {
-            return null;
+            return Result.Fail("An error has occured while processing the request.");
         }
     }
 }

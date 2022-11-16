@@ -36,7 +36,8 @@ internal sealed class SettingService
         }
         catch (JsonException)
         {
-            return null;
+            File.Delete(path);
+            return loadedSetting;
         }
     }
 }

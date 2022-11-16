@@ -1,4 +1,5 @@
 ﻿using Athan.Avalonia.Contracts;
+using Athan.Avalonia.Extensions;
 using Athan.Avalonia.Models;
 using Athan.Avalonia.Services;
 using Athan.Services;
@@ -37,12 +38,15 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
     private async Task InitializeAsync()
     {
         var location = await pollyService.HandleAsync(
-            result => result is null,
+            result => result.IsFailed,
             async () => await locationService.GetLocationAsync());
 
-        settingService.Update(new Setting(location!, themeService.Theme));
-        Message = $"You seem to be in {location}.";
-        CanContinue = true;
+        location?.IfSuccess(() =>
+        {
+            settingService.Update(new Setting(location.Value, themeService.Theme));
+            Message = $"You seem to be in {location.Value}.";
+            CanContinue = true;
+        });
     }
 
     [RelayCommand]

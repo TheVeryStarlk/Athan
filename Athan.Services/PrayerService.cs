@@ -1,5 +1,6 @@
 ﻿using Athan.Services.Extensions;
 using Athan.Services.Models;
+using FluentResults;
 using Newtonsoft.Json.Linq;
 
 namespace Athan.Services;
@@ -13,17 +14,17 @@ public sealed class PrayerService
         this.httpClient = httpClient;
     }
 
-    public async Task<Prayer[]?> GetTimingsAsync(string city, string country)
+    public async Task<Result<Prayer[]?>> GetTimingsAsync(string city, string country)
     {
         var request =
             await httpClient.TryGetAsync($"http://api.aladhan.com/v1/timingsByCity?city={city}&country={country}");
 
-        if (request is null)
+        if (request.IsFailed)
         {
-            return null;
+            return Result.Fail(request.Errors);
         }
 
-        var json = JObject.Parse(await request.Content.ReadAsStringAsync());
+        var json = JObject.Parse(await request.Value.Content.ReadAsStringAsync());
 
         var timings = json["data"]?["timings"]?
             .ToObject<Dictionary<string, string>>()?
@@ -38,7 +39,7 @@ public sealed class PrayerService
             .Where(time => !time.Name.Contains("Sun"))
             .ToArray();
 
-        return prayers;
+        return Result.Ok(prayers);
     }
 
     public Prayer GetClosest(Prayer[] prayers)
