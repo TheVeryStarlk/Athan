@@ -29,6 +29,7 @@ internal sealed class App : Application
         Services = new ServiceCollection()
             // View-models
             .AddSingleton<DashboardViewModel>()
+            .AddTransient<DialogViewModel>()
             .AddTransient<LocationViewModel>()
             .AddTransient<OfflineViewModel>()
             .AddTransient<PrayersViewModel>()
@@ -42,7 +43,7 @@ internal sealed class App : Application
             .AddTransient<LocationService>()
             .AddSingleton<NavigationService>()
             .AddTransient<NotificationService>()
-            .AddTransient<PollyService>()
+            .AddTransient<PollService>()
             .AddTransient<PrayerService>()
             .AddSingleton<SettingService>()
             .AddTransient<ThemeService>()

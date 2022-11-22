@@ -1,9 +1,11 @@
 ﻿using System.Net.NetworkInformation;
 using Athan.Avalonia.Contracts;
+using Athan.Avalonia.Messages;
 using Athan.Avalonia.Services;
 using Avalonia.Themes.Fluent;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace Athan.Avalonia.ViewModels;
 
@@ -12,16 +14,23 @@ internal sealed partial class ShellViewModel : ObservableObject
     [ObservableProperty]
     private INavigable? navigable;
 
+    [ObservableProperty]
+    private DialogViewModel dialogViewModel;
+
     private readonly NavigationService navigationService;
     private readonly SettingService settingService;
     private readonly ThemeService themeService;
 
     public ShellViewModel(NavigationService navigationService, SettingService settingService,
-        ThemeService themeService)
+        ThemeService themeService, DialogViewModel dialogViewModel)
     {
         this.navigationService = navigationService;
         this.settingService = settingService;
         this.themeService = themeService;
+        this.dialogViewModel = dialogViewModel;
+
+        SetProperty(ref dialogViewModel, dialogViewModel);
+        WeakReferenceMessenger.Default.Register<DialogRequestMessage>(this, DialogRequestMessageHandler);
 
         navigationService.Navigated += viewModel => Navigable = viewModel;
         NetworkChange.NetworkAvailabilityChanged += NetworkChangeOnNetworkAvailabilityChanged;
@@ -44,6 +53,13 @@ internal sealed partial class ShellViewModel : ObservableObject
     private async Task ClosingAsync()
     {
         await settingService.SaveAsync();
+    }
+
+    private void DialogRequestMessageHandler(object recipient, DialogRequestMessage message)
+    {
+        dialogViewModel.Title = message.Title;
+        dialogViewModel.Message = message.Message;
+        dialogViewModel.IsVisible = true;
     }
 
     private void NetworkChangeOnNetworkAvailabilityChanged(object? sender, NetworkAvailabilityEventArgs eventArgs)

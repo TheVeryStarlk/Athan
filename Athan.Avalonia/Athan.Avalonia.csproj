@@ -45,7 +45,6 @@
         <PackageReference Include="Material.Icons.Avalonia" Version="1.1.10" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
-        <PackageReference Include="Polly" Version="7.2.3" />
         <PackageReference Include="XamlNameReferenceGenerator" Version="1.3.4" />
         <PackageReference Include="DesktopNotifications.FreeDesktop" Version="1.2.0" />
         <PackageReference Condition=" '$(OS)' == 'Windows_NT' " Include="DesktopNotifications.Windows" Version="1.2.0" />

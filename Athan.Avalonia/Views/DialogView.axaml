@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="Athan.Avalonia.Views.DialogView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+
+             d:DataContext="{Binding Path=DialogViewModel, Source={StaticResource ViewModelLocator}}"
+             IsVisible="{Binding IsVisible}">
+
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.Background>
+            <SolidColorBrush Color="Black" Opacity="0.5" />
+        </Grid.Background>
+
+        <Border MinWidth="300" Background="{DynamicResource SystemChromeMediumColor}" Classes="container">
+            <StackPanel Spacing="10">
+                <TextBlock Text="{Binding Title}" Classes="header" />
+                <TextBlock Text="{Binding Message}" />
+
+                <Button Content="Close" Command="{Binding CloseCommand}" HorizontalAlignment="Right" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

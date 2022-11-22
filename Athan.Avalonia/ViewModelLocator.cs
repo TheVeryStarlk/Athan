@@ -8,6 +8,8 @@ internal sealed class ViewModelLocator
 {
     public static DashboardViewModel DashboardViewModel => App.Current.Services.GetRequiredService<DashboardViewModel>();
 
+    public static DialogViewModel DialogViewModel => App.Current.Services.GetRequiredService<DialogViewModel>();
+
     public static LocationViewModel LocationViewModel => App.Current.Services.GetRequiredService<LocationViewModel>();
 
     public static OfflineViewModel OfflineViewModel => App.Current.Services.GetRequiredService<OfflineViewModel>();

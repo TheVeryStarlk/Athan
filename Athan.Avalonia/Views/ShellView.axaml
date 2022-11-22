@@ -54,6 +54,12 @@
                     </views:SuspenseView>
                 </Border>
             </ScrollViewer>
+
+            <!-- Dialog host -->
+            <Grid IsVisible="{Binding ElementName=DialogView, Path=IsVisible}"
+                  IsHitTestVisible="False" Background="Black" Opacity="0.5" Grid.Row="0" />
+
+            <views:DialogView x:Name="DialogView" DataContext="{Binding DialogViewModel}" Grid.Row="1" />
         </Grid>
     </Panel>
 </Window>

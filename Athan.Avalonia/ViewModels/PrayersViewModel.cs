@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using Athan.Avalonia.Extensions;
 using Athan.Avalonia.Services;
 using Athan.Services;
 using Athan.Services.Models;
@@ -18,14 +17,14 @@ internal sealed partial class PrayersViewModel : ObservableObject
     private Location? loadedLocation;
 
     private readonly PrayerService prayerService;
-    private readonly PollyService pollyService;
+    private readonly PollService pollService;
     private readonly NotificationService notificationService;
 
-    public PrayersViewModel(PrayerService prayerService, PollyService pollyService,
+    public PrayersViewModel(PrayerService prayerService, PollService pollService,
         NotificationService notificationService)
     {
         this.prayerService = prayerService;
-        this.pollyService = pollyService;
+        this.pollService = pollService;
         this.notificationService = notificationService;
 
         notificationService.NotificationActivated += async () => await InitializeAsync(loadedLocation!);
@@ -35,23 +34,24 @@ internal sealed partial class PrayersViewModel : ObservableObject
     {
         loadedLocation = location;
 
-        var prayers = await pollyService.HandleAsync(
-            result => result.IsFailed,
-            async () => await prayerService.GetTimingsAsync(location.City, location.Country));
+        var prayers = await pollService.HandleAsync(async () =>
+            await prayerService.GetTimingsAsync(location.City, location.Country));
 
-        prayers?.IfSuccess(async () =>
+        if (prayers is null)
         {
-            TodayPrayers = new ObservableCollection<Prayer>(prayers.Value!);
+            return;
+        }
 
-            var closest = prayerService.GetClosest(prayers.Value!);
-            NextPrayer = closest.Name;
+        TodayPrayers = new ObservableCollection<Prayer>(prayers);
 
-            await notificationService.InitializeAsync();
+        var closest = prayerService.GetClosest(prayers);
+        NextPrayer = closest.Name;
 
-            notificationService.ScheduleNotification(
-                closest.Name,
-                $"You have entered the prayer time for {closest.Name}.",
-                closest.DateTime);
-        });
+        await notificationService.InitializeAsync();
+
+        notificationService.ScheduleNotification(
+            closest.Name,
+            $"You have entered the prayer time for {closest.Name}.",
+            closest.DateTime);
     }
 }
