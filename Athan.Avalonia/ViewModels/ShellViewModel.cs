@@ -59,7 +59,7 @@ internal sealed partial class ShellViewModel : ObservableObject
     {
         dialogViewModel.Title = message.Title;
         dialogViewModel.Message = message.Message;
-        dialogViewModel.IsVisible = true;
+        dialogViewModel.Open();
     }
 
     private void NetworkChangeOnNetworkAvailabilityChanged(object? sender, NetworkAvailabilityEventArgs eventArgs)
