@@ -1,6 +1,4 @@
-﻿using Athan.Avalonia.Messages;
-using CommunityToolkit.Mvvm.Messaging;
-using FluentResults;
+﻿using FluentResults;
 
 namespace Athan.Avalonia.Services;
 
@@ -8,7 +6,7 @@ internal sealed class PollService
 {
     private const int Threshold = 3;
 
-    public async Task<T?> HandleAsync<T>(Func<Task<Result<T>>> task)
+    public async Task<Result<T>> HandleAsync<T>(Func<Task<Result<T>>> task)
     {
         var count = 0;
 
@@ -22,11 +20,10 @@ internal sealed class PollService
 
             if (result.IsSuccess)
             {
-                return result.Value;
+                return Result.Ok(result.Value);
             }
         }
 
-        WeakReferenceMessenger.Default.Send(new DialogRequestMessage("Oh no!", result.Errors[0].Message));
-        return default;
+        return Result.Fail(result.Errors);
     }
 }

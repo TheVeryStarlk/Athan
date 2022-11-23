@@ -1,3 +1,6 @@
-﻿namespace Athan.Avalonia.Messages;
+﻿using System.ComponentModel;
+using FluentResults;
 
-internal sealed record DialogRequestMessage(string Title, string Message);
+namespace Athan.Avalonia.Messages;
+
+internal sealed record DialogRequestMessage(INotifyPropertyChanged Requester, List<IError> Errors);

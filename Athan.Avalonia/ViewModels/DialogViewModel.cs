@@ -1,4 +1,5 @@
-﻿using Athan.Avalonia.Messages;
+﻿using System.ComponentModel;
+using Athan.Avalonia.Messages;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -7,8 +8,10 @@ namespace Athan.Avalonia.ViewModels;
 
 internal sealed partial class DialogViewModel : ObservableObject
 {
+    public INotifyPropertyChanged? Requester { get; private set; }
+
     [ObservableProperty]
-    private string? title;
+    private string? title = "Oh no!";
 
     [ObservableProperty]
     private string? message;
@@ -16,8 +19,10 @@ internal sealed partial class DialogViewModel : ObservableObject
     [ObservableProperty]
     private bool isVisible;
 
-    public void Open()
+    public void Open(INotifyPropertyChanged requester)
     {
+        Requester = requester;
+
         IsVisible = false;
         IsVisible = true;
     }
@@ -31,6 +36,6 @@ internal sealed partial class DialogViewModel : ObservableObject
     [RelayCommand]
     private void TryAgain()
     {
-        WeakReferenceMessenger.Default.Send<DialogTryAgainRequestMessage>();
+        WeakReferenceMessenger.Default.Send(new DialogTryAgainRequestMessage(Requester!));
     }
 }

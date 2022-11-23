@@ -37,6 +37,11 @@ internal sealed partial class PrayersViewModel : ObservableObject
 
     private async void DialogTryAgainRequestMessageHandlerAsync(object recipient, DialogTryAgainRequestMessage message)
     {
+        if (message.Requester is not PrayersViewModel)
+        {
+            return;
+        }
+
         await LoadDataAsync();
     }
 
@@ -51,14 +56,15 @@ internal sealed partial class PrayersViewModel : ObservableObject
         var prayers = await pollService.HandleAsync(async () =>
             await prayerService.GetTimingsAsync(loadedLocation!.City, loadedLocation.Country));
 
-        if (prayers is null)
+        if (prayers.IsFailed)
         {
+            WeakReferenceMessenger.Default.Send(new DialogRequestMessage(this, prayers.Errors));
             return;
         }
 
-        TodayPrayers = new ObservableCollection<Prayer>(prayers);
+        TodayPrayers = new ObservableCollection<Prayer>(prayers.Value!);
 
-        var closest = prayerService.GetClosest(prayers);
+        var closest = prayerService.GetClosest(prayers.Value!);
         NextPrayer = closest.Name;
 
         await notificationService.InitializeAsync();

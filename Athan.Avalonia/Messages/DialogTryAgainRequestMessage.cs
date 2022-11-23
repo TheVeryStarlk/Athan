@@ -1,3 +1,5 @@
-﻿namespace Athan.Avalonia.Messages;
+﻿using System.ComponentModel;
 
-internal sealed record DialogTryAgainRequestMessage();
+namespace Athan.Avalonia.Messages;
+
+internal sealed record DialogTryAgainRequestMessage(INotifyPropertyChanged Requester);

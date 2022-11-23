@@ -1,9 +1,11 @@
 ﻿using Athan.Avalonia.Contracts;
+using Athan.Avalonia.Messages;
 using Athan.Avalonia.Models;
 using Athan.Avalonia.Services;
 using Athan.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace Athan.Avalonia.ViewModels;
 
@@ -31,6 +33,20 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
         this.pollService = pollService;
         this.themeService = themeService;
         this.navigationService = navigationService;
+
+        WeakReferenceMessenger.Default.Register<DialogTryAgainRequestMessage>(this,
+            DialogTryAgainRequestMessageHandler);
+    }
+
+    private async void DialogTryAgainRequestMessageHandler(object recipient,
+        DialogTryAgainRequestMessage dialogTryAgainRequestMessage)
+    {
+        if (dialogTryAgainRequestMessage.Requester is not LocationViewModel)
+        {
+            return;
+        }
+
+        await InitializeAsync();
     }
 
     [RelayCommand]
@@ -38,13 +54,14 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
     {
         var location = await pollService.HandleAsync(async () => await locationService.GetLocationAsync());
 
-        if (location is null)
+        if (location.IsFailed)
         {
+            WeakReferenceMessenger.Default.Send(new DialogRequestMessage(this, location.Errors));
             return;
         }
 
-        settingService.Update(new Setting(location, themeService.Theme));
-        Message = $"You seem to be in {location}.";
+        settingService.Update(new Setting(location.Value, themeService.Theme));
+        Message = $"You seem to be in {location.Value}.";
         CanContinue = true;
     }
 
