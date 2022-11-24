@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Athan.Avalonia.Languages;
 using Athan.Avalonia.Messages;
 using Athan.Avalonia.Models;
 using Athan.Avalonia.Services;
@@ -70,7 +71,7 @@ internal sealed partial class PrayersViewModel : ObservableObject
 
         notificationService.ScheduleNotification(
             closest.Name,
-            $"You have entered the prayer time for {closest.Name}.",
+            $"{Language.YouHaveEnteredThePrayerTimeFor} {closest.Name}.",
             closest.DateTime);
     }
 }

@@ -45,7 +45,7 @@
         <value>في انك يبدو</value>
     </data>
     <data name="HangTight" xml:space="preserve">
-        <value>جيدا تمسك...</value>
+        <value>...جيدا تمسك</value>
     </data>
     <data name="Continue" xml:space="preserve">
         <value>حسنا</value>
@@ -97,5 +97,8 @@
     </data>
     <data name="ChangesWillApplyAfterTheSettingsAreSaved" xml:space="preserve">
         <value>الاعدادات بحفظ تقوم بعدما ستطبق التغييرات</value>
+    </data>
+    <data name="YouHaveEnteredThePrayerTimeFor" xml:space="preserve">
+        <value>صلاة اذان وقت حان لقد</value>
     </data>
 </root>

@@ -303,6 +303,15 @@ namespace Athan.Avalonia.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have entered the prayer time for.
+        /// </summary>
+        public static string YouHaveEnteredThePrayerTimeFor {
+            get {
+                return ResourceManager.GetString("YouHaveEnteredThePrayerTimeFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You seem to be in.
         /// </summary>
         public static string YouSeemToBeIn {

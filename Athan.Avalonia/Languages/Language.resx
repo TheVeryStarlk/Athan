@@ -105,4 +105,7 @@
     <data name="ChangesWillApplyAfterTheSettingsAreSaved" xml:space="preserve">
         <value>Changes will apply after the settings are saved</value>
     </data>
+    <data name="YouHaveEnteredThePrayerTimeFor" xml:space="preserve">
+        <value>You have entered the prayer time for</value>
+    </data>
 </root>
