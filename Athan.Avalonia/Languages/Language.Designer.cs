@@ -96,6 +96,15 @@ namespace Athan.Avalonia.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changes will apply after the settings are saved.
+        /// </summary>
+        public static string ChangesWillApplyAfterTheSettingsAreSaved {
+            get {
+                return ResourceManager.GetString("ChangesWillApplyAfterTheSettingsAreSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Continue.
         /// </summary>
         public static string Continue {

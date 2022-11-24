@@ -102,4 +102,7 @@
     <data name="Arabic" xml:space="preserve">
         <value>Arabic</value>
     </data>
+    <data name="ChangesWillApplyAfterTheSettingsAreSaved" xml:space="preserve">
+        <value>Changes will apply after the settings are saved</value>
+    </data>
 </root>
