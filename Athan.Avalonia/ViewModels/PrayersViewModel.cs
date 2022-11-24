@@ -42,16 +42,16 @@ internal sealed partial class PrayersViewModel : ObservableObject
             return;
         }
 
-        await LoadDataAsync();
+        await LoadPrayersAsync();
     }
 
     public async Task InitializeAsync(Location location)
     {
         loadedLocation = location;
-        await LoadDataAsync();
+        await LoadPrayersAsync();
     }
 
-    private async Task LoadDataAsync()
+    private async Task LoadPrayersAsync()
     {
         var prayers = await pollService.HandleAsync(async () =>
             await prayerService.GetTimingsAsync(loadedLocation!.City, loadedLocation.Country));

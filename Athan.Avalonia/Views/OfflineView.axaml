@@ -2,10 +2,9 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:language="clr-namespace:Athan.Avalonia.Languages"
 
              d:DataContext="{Binding Path=OfflineViewModel, Source={StaticResource ViewModelLocator}}">
 
-    <TextBlock
-        Text="An internet connection is required for Athan to function as expected. You may proceed when internet connectivity is established."
-        Width="500" />
+    <TextBlock Text="{x:Static language:Language.InternetConnectivityRequired}" Width="500" />
 </UserControl>

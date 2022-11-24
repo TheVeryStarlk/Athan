@@ -105,6 +105,15 @@ namespace Athan.Avalonia.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Continue.
         /// </summary>
         public static string Continue {
@@ -173,6 +182,15 @@ namespace Athan.Avalonia.Languages {
         public static string HangTight {
             get {
                 return ResourceManager.GetString("HangTight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An internet connection is required for Athan to function as expected. You may proceed when internet connectivity is established.
+        /// </summary>
+        public static string InternetConnectivityRequired {
+            get {
+                return ResourceManager.GetString("InternetConnectivityRequired", resourceCulture);
             }
         }
         
@@ -272,6 +290,15 @@ namespace Athan.Avalonia.Languages {
         public static string Thursday {
             get {
                 return ResourceManager.GetString("Thursday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TryAgain.
+        /// </summary>
+        public static string TryAgain {
+            get {
+                return ResourceManager.GetString("TryAgain", resourceCulture);
             }
         }
         

@@ -19,7 +19,9 @@
 
                 <views:SuspenseView.Active>
                     <StackPanel HorizontalAlignment="Center" Spacing="10">
-                        <TextBlock Text="{x:Static language:Language.NextPrayer}" HorizontalAlignment="Center" Classes="light" />
+                        <TextBlock Text="{x:Static language:Language.NextPrayer}"
+                                   HorizontalAlignment="Center" Classes="light" />
+
                         <TextBlock Text="{Binding NextPrayer}" Classes="header" />
                     </StackPanel>
                 </views:SuspenseView.Active>

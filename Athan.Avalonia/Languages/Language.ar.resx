@@ -101,4 +101,13 @@
     <data name="YouHaveEnteredThePrayerTimeFor" xml:space="preserve">
         <value>صلاة اذان وقت حان لقد</value>
     </data>
+    <data name="InternetConnectivityRequired" xml:space="preserve">
+        <value> التطبيق مميزات جميع استعمال من تتمكن لكي بالانترنت متصلا تكون ان يجب</value>
+    </data>
+    <data name="Close" xml:space="preserve">
+        <value>اغلاق</value>
+    </data>
+    <data name="TryAgain" xml:space="preserve">
+        <value>مجددا المحاولة</value>
+    </data>
 </root>

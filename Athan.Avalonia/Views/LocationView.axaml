@@ -2,6 +2,7 @@
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:language="clr-namespace:Athan.Avalonia.Languages"
 
              d:DataContext="{Binding Path=LocationViewModel, Source={StaticResource ViewModelLocator}}">
 
@@ -14,7 +15,8 @@
     <StackPanel MinWidth="400" Spacing="10">
         <TextBlock Text="{Binding Message}" />
 
-        <Button Content="Continue" Classes="accent" Command="{Binding NavigateForwardCommand}"
+        <Button Content="{x:Static language:Language.Continue}" Classes="accent"
+                Command="{Binding NavigateForwardCommand}"
                 IsEnabled="{Binding CanContinue}" />
     </StackPanel>
 </UserControl>

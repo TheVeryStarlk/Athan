@@ -47,7 +47,7 @@
                     <ComboBoxItem Content="{x:Static language:Language.Arabic}" />
                 </ComboBox>
 
-                <TextBlock Text="{x:Static language:Language.ChangesWillApplyAfterTheSettingsAreSaved}" 
+                <TextBlock Text="{x:Static language:Language.ChangesWillApplyAfterTheSettingsAreSaved}"
                            Opacity="0.5" />
             </StackPanel>
         </Border>

@@ -65,7 +65,7 @@ public sealed class PrayerService
         if (now > closestPrayer.DateTime)
         {
             var index = prayers.TakeWhile(prayer => prayer != closestPrayer).Count() + 1;
-            return index >= prayers.Length ? prayers.First() : prayers[index];
+            return index >= prayers.Length ? prayers[0] : prayers[index];
         }
 
         return closestPrayer;

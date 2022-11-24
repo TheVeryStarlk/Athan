@@ -108,4 +108,13 @@
     <data name="YouHaveEnteredThePrayerTimeFor" xml:space="preserve">
         <value>You have entered the prayer time for</value>
     </data>
+    <data name="InternetConnectivityRequired" xml:space="preserve">
+        <value>An internet connection is required for Athan to function as expected. You may proceed when internet connectivity is established</value>
+    </data>
+    <data name="Close" xml:space="preserve">
+        <value>Close</value>
+    </data>
+    <data name="TryAgain" xml:space="preserve">
+        <value>TryAgain</value>
+    </data>
 </root>

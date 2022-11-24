@@ -1,7 +1,8 @@
 <Application x:Class="Athan.Avalonia.App"
              xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="using:Athan.Avalonia">
+             xmlns:local="using:Athan.Avalonia"
+             xmlns:language="clr-namespace:Athan.Avalonia.Languages">
 
     <Application.DataTemplates>
         <local:ViewLocator />
@@ -65,7 +66,7 @@
             <TrayIcon ToolTipText="Athan" Icon="/Assets/athan-logo.ico" Clicked="OpenTrayIcon">
                 <TrayIcon.Menu>
                     <NativeMenu>
-                        <NativeMenuItem Header="Close" Click="CloseTrayIcon" />
+                        <NativeMenuItem Header="{x:Static language:Language.Close}" Click="CloseTrayIcon" />
                     </NativeMenu>
                 </TrayIcon.Menu>
             </TrayIcon>

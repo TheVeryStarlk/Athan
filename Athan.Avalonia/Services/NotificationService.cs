@@ -13,7 +13,7 @@ internal sealed class NotificationService
 
     private bool isInitialized;
 
-    private readonly List<DateTime> notifications = new List<DateTime>();
+    private readonly HashSet<DateTime> notifications = new HashSet<DateTime>();
 
     private readonly INotificationManager? manager;
 
@@ -69,27 +69,21 @@ internal sealed class NotificationService
 
         timer.Elapsed += async (_, _) =>
         {
-            if (manager is null)
-            {
-                return;
-            }
-
-            await manager.ShowNotification(new Notification()
-            {
-                Title = title,
-                Body = body
-            });
-
-            HandleNotificationActivated();
-
+            await HandleNotificationAsync(title, body);
             timer.Dispose();
         };
 
         notifications.Add(date);
     }
 
-    private void HandleNotificationActivated()
+    private async Task HandleNotificationAsync(string title, string body)
     {
+        await manager!.ShowNotification(new Notification()
+        {
+            Title = title,
+            Body = body
+        });
+
         var notification = notifications.FirstOrDefault(date => (date.Ticks - DateTimeOffset.Now.Ticks) < Threshold);
         notifications.Remove(notification);
 
