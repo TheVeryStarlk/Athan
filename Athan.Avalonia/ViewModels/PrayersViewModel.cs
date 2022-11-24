@@ -57,7 +57,7 @@ internal sealed partial class PrayersViewModel : ObservableObject
 
         if (prayers.IsFailed)
         {
-            WeakReferenceMessenger.Default.Send(new DialogRequestMessage(this, prayers.Errors));
+            WeakReferenceMessenger.Default.Send(new DialogRequestMessage(this, prayers.Errors.ToArray()));
             return;
         }
 

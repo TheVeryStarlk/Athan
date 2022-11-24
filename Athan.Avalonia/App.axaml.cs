@@ -71,7 +71,7 @@ internal sealed class App : Application
 
     private void OpenTrayIcon(object? sender, EventArgs eventArgs)
     {
-        WeakReferenceMessenger.Default.Send<TrayIconOpenedMessage>();
+        WeakReferenceMessenger.Default.Send<ApplicationRequestMessage>();
     }
 
     private void CloseTrayIcon(object? sender, EventArgs eventArgs)

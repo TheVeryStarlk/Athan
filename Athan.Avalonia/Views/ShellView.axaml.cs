@@ -57,11 +57,11 @@ internal sealed partial class ShellView : Window
 
     protected override void OnInitialized()
     {
-        WeakReferenceMessenger.Default.Register<TrayIconOpenedMessage>(this, TrayIconOpenedMessageHandler);
+        WeakReferenceMessenger.Default.Register<ApplicationRequestMessage>(this, TrayIconOpenedMessageHandler);
         Margin = OffScreenMargin;
     }
 
-    private void TrayIconOpenedMessageHandler(object recipient, TrayIconOpenedMessage message)
+    private void TrayIconOpenedMessageHandler(object recipient, ApplicationRequestMessage message)
     {
         WindowState = WindowState is WindowState.Minimized
             ? oldState

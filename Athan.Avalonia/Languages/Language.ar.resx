@@ -36,7 +36,7 @@
         <value>حفظ</value>
     </data>
     <data name="WhereAreYou" xml:space="preserve">
-        <value>انت اين...</value>
+        <value>...انت اين</value>
     </data>
     <data name="YouSeemToBeOffline" xml:space="preserve">
         <value>بالانترنت متصل غير تبدو</value>

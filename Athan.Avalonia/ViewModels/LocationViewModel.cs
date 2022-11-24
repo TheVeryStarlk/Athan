@@ -56,7 +56,7 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
 
         if (location.IsFailed)
         {
-            WeakReferenceMessenger.Default.Send(new DialogRequestMessage(this, location.Errors));
+            WeakReferenceMessenger.Default.Send(new DialogRequestMessage(this, location.Errors.ToArray()));
             return;
         }
 
