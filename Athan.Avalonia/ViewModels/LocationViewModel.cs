@@ -60,7 +60,11 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
             return;
         }
 
-        settingService.Update(new Setting(location.Value, themeService.Theme));
+        var oldSetting = await settingService.ReadAsync();
+
+        settingService.Update(new Setting(location.Value, themeService.Theme,
+            oldSetting?.Language ?? ApplicationLanguage.English));
+
         Message = $"{Language.YouSeemToBeIn} {location.Value}.";
         CanContinue = true;
     }

@@ -2,9 +2,9 @@ using Athan.Avalonia.Messages;
 using Athan.Avalonia.Services;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Markup.Xaml;
 using Athan.Avalonia.ViewModels;
 using Athan.Avalonia.Views;
+using Avalonia.Markup.Xaml;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -39,6 +39,7 @@ internal sealed class App : Application
             .AddTransient<ShellView>()
 
             // Other
+            .AddTransient<LanguageService>()
             .AddTransient<LocationService>()
             .AddSingleton<NavigationService>()
             .AddTransient<NotificationService>()

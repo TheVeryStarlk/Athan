@@ -1,5 +1,6 @@
 ﻿using Athan.Avalonia.Models;
 using Athan.Avalonia.Extensions;
+using Athan.Avalonia.Languages;
 using FluentResults;
 using Newtonsoft.Json.Linq;
 
@@ -31,12 +32,23 @@ public sealed class PrayerService
             .Take(7);
 
         var prayers = timings?
-            .Select(time =>
+            .Select(prayer =>
             {
-                var date = DateTime.Parse(time.Value);
-                return new Prayer(time.Key, date.ToShortTimeString(), date);
+                var date = DateTime.Parse(prayer.Value);
+
+                var name = prayer.Key switch
+                {
+                    "Fajr" => Language.Fajr,
+                    "Dhuhr" => Language.Dhuhr,
+                    "Asr" => Language.Asr,
+                    "Maghrib" => Language.Maghrib,
+                    "Isha" => Language.Isha,
+                    _ => string.Empty
+                };
+
+                return new Prayer(name, date.ToShortTimeString(), date);
             })
-            .Where(time => !time.Name.Contains("Sun"))
+            .Where(prayer => !string.IsNullOrWhiteSpace(prayer.Name))
             .ToArray();
 
         return Result.Ok(prayers);

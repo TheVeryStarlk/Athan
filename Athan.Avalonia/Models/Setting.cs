@@ -2,7 +2,7 @@
 
 namespace Athan.Avalonia.Models;
 
-internal sealed record Setting(Location? Location, FluentThemeMode Theme)
+internal sealed record Setting(Location? Location, FluentThemeMode Theme, ApplicationLanguage Language)
 {
     public bool Validate()
     {

@@ -72,4 +72,34 @@
     <data name="Isha" xml:space="preserve">
         <value>Isha</value>
     </data>
+    <data name="Sunday" xml:space="preserve">
+        <value>Sunday</value>
+    </data>
+    <data name="Monday" xml:space="preserve">
+        <value>Monday</value>
+    </data>
+    <data name="Tuesday" xml:space="preserve">
+        <value>Tuesday</value>
+    </data>
+    <data name="Thursday" xml:space="preserve">
+        <value>Thursday</value>
+    </data>
+    <data name="Wednesday" xml:space="preserve">
+        <value>Wednesday</value>
+    </data>
+    <data name="Friday" xml:space="preserve">
+        <value>Friday</value>
+    </data>
+    <data name="Saturday" xml:space="preserve">
+        <value>Saturday</value>
+    </data>
+    <data name="ApplicationLanguage" xml:space="preserve">
+        <value>Language</value>
+    </data>
+    <data name="English" xml:space="preserve">
+        <value>English</value>
+    </data>
+    <data name="Arabic" xml:space="preserve">
+        <value>Arabic</value>
+    </data>
 </root>

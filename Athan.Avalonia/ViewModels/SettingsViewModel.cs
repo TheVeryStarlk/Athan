@@ -24,17 +24,31 @@ internal sealed partial class SettingsViewModel : ObservableObject, INavigable
 
     private int selectedThemeIndex;
 
+    public int SelectedLanguageIndex
+    {
+        set
+        {
+            SetProperty(ref selectedLanguageIndex, value);
+            languageService.Update((ApplicationLanguage) value);
+        }
+        get => selectedLanguageIndex;
+    }
+
+    private int selectedLanguageIndex;
+
     private Setting? loadedSetting;
 
     private readonly ThemeService themeService;
     private readonly SettingService settingService;
+    private readonly LanguageService languageService;
     private readonly NavigationService navigationService;
 
     public SettingsViewModel(ThemeService themeService, SettingService settingService,
-        NavigationService navigationService)
+        LanguageService languageService, NavigationService navigationService)
     {
         this.themeService = themeService;
         this.settingService = settingService;
+        this.languageService = languageService;
         this.navigationService = navigationService;
     }
 
@@ -43,6 +57,7 @@ internal sealed partial class SettingsViewModel : ObservableObject, INavigable
     {
         SelectedThemeIndex = (int) themeService.Theme;
         loadedSetting = await settingService.ReadAsync();
+        SelectedLanguageIndex = (int) languageService.Read();
     }
 
     [RelayCommand]
@@ -54,7 +69,9 @@ internal sealed partial class SettingsViewModel : ObservableObject, INavigable
     [RelayCommand]
     private void SaveAsync()
     {
-        settingService.Update(new Setting(loadedSetting?.Location!, themeService.Theme));
+        settingService.Update(new Setting(loadedSetting?.Location!, themeService.Theme,
+            (ApplicationLanguage) SelectedLanguageIndex));
+
         navigationService.NavigateBackward();
     }
 }

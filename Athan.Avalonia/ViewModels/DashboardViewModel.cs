@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using Athan.Avalonia.Contracts;
+using Athan.Avalonia.Languages;
 using Athan.Avalonia.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -8,7 +9,17 @@ namespace Athan.Avalonia.ViewModels;
 
 internal sealed partial class DashboardViewModel : ObservableObject, INavigable
 {
-    public string Title => DateTime.Now.DayOfWeek.ToString();
+    public string Title => DateTime.Now.DayOfWeek switch
+    {
+        DayOfWeek.Sunday => Language.Sunday,
+        DayOfWeek.Monday => Language.Monday,
+        DayOfWeek.Tuesday => Language.Tuesday,
+        DayOfWeek.Wednesday => Language.Wednesday,
+        DayOfWeek.Thursday => Language.Thursday,
+        DayOfWeek.Friday => Language.Friday,
+        DayOfWeek.Saturday => Language.Saturday,
+        _ => throw new ArgumentOutOfRangeException()
+    };
 
     [ObservableProperty]
     private string? readableLocation;

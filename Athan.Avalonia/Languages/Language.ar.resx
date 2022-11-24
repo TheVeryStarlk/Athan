@@ -18,7 +18,7 @@
         <value>الاعدادات</value>
     </data>
     <data name="ApplicationTheme" xml:space="preserve">
-        <value>التطبيق شكل</value>
+        <value>التطبيق مظهر</value>
     </data>
     <data name="Dark" xml:space="preserve">
         <value>داكن</value>
@@ -64,5 +64,35 @@
     </data>
     <data name="Isha" xml:space="preserve">
         <value>العشاء</value>
+    </data>
+    <data name="Sunday" xml:space="preserve">
+        <value>الاحد</value>
+    </data>
+    <data name="Monday" xml:space="preserve">
+        <value>الاثنين</value>
+    </data>
+    <data name="Tuesday" xml:space="preserve">
+        <value>الثلاثاء</value>
+    </data>
+    <data name="Thursday" xml:space="preserve">
+        <value>الخميس</value>
+    </data>
+    <data name="Wednesday" xml:space="preserve">
+        <value>الاربعاء</value>
+    </data>
+    <data name="Friday" xml:space="preserve">
+        <value>الجمعة</value>
+    </data>
+    <data name="Saturday" xml:space="preserve">
+        <value>السبت</value>
+    </data>
+    <data name="ApplicationLanguage" xml:space="preserve">
+        <value>اللغة</value>
+    </data>
+    <data name="English" xml:space="preserve">
+        <value>الانجليزية</value>
+    </data>
+    <data name="Arabic" xml:space="preserve">
+        <value>العربية</value>
     </data>
 </root>

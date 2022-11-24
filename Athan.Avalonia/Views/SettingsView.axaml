@@ -33,12 +33,23 @@
         <Border Classes="light_container">
             <StackPanel Spacing="7.5">
                 <TextBlock Text="{x:Static language:Language.GeographicalLocation}" />
-                <Button Content="{x:Static language:Language.Relocate}" 
+                <Button Content="{x:Static language:Language.Relocate}"
                         Command="{Binding RelocateAsyncCommand}" />
             </StackPanel>
         </Border>
 
-        <Button Content="{x:Static language:Language.Save}" Classes="accent" 
+        <Border Classes="light_container">
+            <StackPanel Spacing="7.5">
+                <TextBlock Text="{x:Static language:Language.ApplicationLanguage}" />
+
+                <ComboBox Width="100" SelectedIndex="{Binding SelectedLanguageIndex}">
+                    <ComboBoxItem Content="{x:Static language:Language.English}" />
+                    <ComboBoxItem Content="{x:Static language:Language.Arabic}" />
+                </ComboBox>
+            </StackPanel>
+        </Border>
+
+        <Button Content="{x:Static language:Language.Save}" Classes="accent"
                 Command="{Binding SaveAsyncCommand}" />
     </StackPanel>
 </UserControl>
