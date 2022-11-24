@@ -1,4 +1,4 @@
-﻿namespace Athan.Services.Models;
+﻿namespace Athan.Avalonia.Models;
 
 public sealed record Location(string City, string Country)
 {

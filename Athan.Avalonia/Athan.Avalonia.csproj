@@ -50,9 +50,6 @@
         <PackageReference Condition=" '$(OS)' == 'Windows_NT' " Include="DesktopNotifications.Windows" Version="1.2.0" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Athan.Services\Athan.Services.csproj" />
-    </ItemGroup>
-    <ItemGroup>
       <EmbeddedResource Update="Languages\Language.resx">
         <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>Language.Designer.cs</LastGenOutput>

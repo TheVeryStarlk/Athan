@@ -1,8 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using Athan.Avalonia.Messages;
+using Athan.Avalonia.Models;
 using Athan.Avalonia.Services;
-using Athan.Services;
-using Athan.Services.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 

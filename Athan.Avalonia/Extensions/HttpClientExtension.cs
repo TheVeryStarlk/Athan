@@ -1,6 +1,6 @@
 ﻿using FluentResults;
 
-namespace Athan.Services.Extensions;
+namespace Athan.Avalonia.Extensions;
 
 public static class HttpClientExtension
 {

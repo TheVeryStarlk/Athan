@@ -1,9 +1,9 @@
-﻿using Athan.Services.Extensions;
-using Athan.Services.Models;
+﻿using Athan.Avalonia.Models;
+using Athan.Avalonia.Extensions;
 using FluentResults;
 using Newtonsoft.Json.Linq;
 
-namespace Athan.Services;
+namespace Athan.Avalonia.Services;
 
 public sealed class PrayerService
 {

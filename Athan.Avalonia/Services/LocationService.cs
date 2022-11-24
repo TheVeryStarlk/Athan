@@ -1,9 +1,9 @@
 ﻿using System.Text.Json;
-using Athan.Services.Extensions;
-using Athan.Services.Models;
+using Athan.Avalonia.Models;
+using Athan.Avalonia.Extensions;
 using FluentResults;
 
-namespace Athan.Services;
+namespace Athan.Avalonia.Services;
 
 public sealed class LocationService
 {
