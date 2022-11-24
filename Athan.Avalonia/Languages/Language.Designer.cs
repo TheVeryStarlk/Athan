@@ -240,15 +240,6 @@ namespace Athan.Avalonia.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to It is recommend to restart the application after changing the language.
-        /// </summary>
-        public static string RecommendedToRestartLanguageChange {
-            get {
-                return ResourceManager.GetString("RecommendedToRestartLanguageChange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Relocate.
         /// </summary>
         public static string Relocate {
@@ -263,6 +254,15 @@ namespace Athan.Avalonia.Languages {
         public static string RequestErrorOccured {
             get {
                 return ResourceManager.GetString("RequestErrorOccured", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A restart is required for some changes to take effect.
+        /// </summary>
+        public static string RestartRecommended {
+            get {
+                return ResourceManager.GetString("RestartRecommended", resourceCulture);
             }
         }
         

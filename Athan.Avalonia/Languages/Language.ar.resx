@@ -95,8 +95,8 @@
     <data name="Arabic" xml:space="preserve">
         <value>العربية</value>
     </data>
-    <data name="RecommendedToRestartLanguageChange" xml:space="preserve">
-        <value>اللغة تغير بعدما التطبيق تشغيل باعادة تقوم ان الافضل من</value>
+    <data name="RestartRecommended" xml:space="preserve">
+        <value>اللغة تغيير بعد التطبيق تشغيل باعادة تقوم ان الافضل من</value>
     </data>
     <data name="YouHaveEnteredThePrayerTimeFor" xml:space="preserve">
         <value>صلاة اذان وقت حان لقد</value>
