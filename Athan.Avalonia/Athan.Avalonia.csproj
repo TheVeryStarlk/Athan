@@ -52,4 +52,17 @@
     <ItemGroup>
         <ProjectReference Include="..\Athan.Services\Athan.Services.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Update="Languages\Language.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>Language.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="Languages\Language.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Language.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
 </Project>

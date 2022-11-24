@@ -1,4 +1,5 @@
 ﻿using Athan.Avalonia.Contracts;
+using Athan.Avalonia.Languages;
 using Athan.Avalonia.Models;
 using Athan.Avalonia.Services;
 using Avalonia.Themes.Fluent;
@@ -9,7 +10,7 @@ namespace Athan.Avalonia.ViewModels;
 
 internal sealed partial class SettingsViewModel : ObservableObject, INavigable
 {
-    public string Title => "Settings";
+    public string Title => Language.Settings;
 
     public int SelectedThemeIndex
     {

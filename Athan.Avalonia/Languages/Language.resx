@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="NextPrayer" xml:space="preserve">
+        <value>Next Prayer</value>
+    </data>
+    <data name="Settings" xml:space="preserve">
+        <value>Settings</value>
+    </data>
+    <data name="ApplicationTheme" xml:space="preserve">
+        <value>Application Theme</value>
+    </data>
+    <data name="Light" xml:space="preserve">
+        <value>Light</value>
+    </data>
+    <data name="Dark" xml:space="preserve">
+        <value>Dark</value>
+    </data>
+    <data name="GeographicalLocation" xml:space="preserve">
+        <value>Geographical Location</value>
+    </data>
+    <data name="Relocate" xml:space="preserve">
+        <value>Relocate</value>
+    </data>
+    <data name="Save" xml:space="preserve">
+        <value>Save</value>
+    </data>
+    <data name="WhereAreYou" xml:space="preserve">
+        <value>Where are you</value>
+    </data>
+    <data name="YouSeemToBeOffline" xml:space="preserve">
+        <value>You seem to be offline</value>
+    </data>
+    <data name="YouSeemToBeIn" xml:space="preserve">
+        <value>You seem to be in</value>
+    </data>
+    <data name="HangTight" xml:space="preserve">
+        <value>Hang tight...</value>
+    </data>
+    <data name="Continue" xml:space="preserve">
+        <value>Continue</value>
+    </data>
+    <data name="Fajr" xml:space="preserve">
+        <value>Fajr</value>
+    </data>
+    <data name="Dhuhr" xml:space="preserve">
+        <value>Dhuhr</value>
+    </data>
+    <data name="Asr" xml:space="preserve">
+        <value>Asr</value>
+    </data>
+    <data name="Maghrib" xml:space="preserve">
+        <value>Maghrib</value>
+    </data>
+    <data name="Isha" xml:space="preserve">
+        <value>Isha</value>
+    </data>
+</root>

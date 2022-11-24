@@ -1,4 +1,5 @@
 ﻿using Athan.Avalonia.Contracts;
+using Athan.Avalonia.Languages;
 using Athan.Avalonia.Messages;
 using Athan.Avalonia.Models;
 using Athan.Avalonia.Services;
@@ -11,10 +12,10 @@ namespace Athan.Avalonia.ViewModels;
 
 internal sealed partial class LocationViewModel : ObservableObject, INavigable
 {
-    public string Title => "Where are you";
+    public string Title => Language.WhereAreYou;
 
     [ObservableProperty]
-    private string message = "Hang tight...";
+    private string message = Language.HangTight;
 
     [ObservableProperty]
     private bool canContinue;
@@ -61,7 +62,7 @@ internal sealed partial class LocationViewModel : ObservableObject, INavigable
         }
 
         settingService.Update(new Setting(location.Value, themeService.Theme));
-        Message = $"You seem to be in {location.Value}.";
+        Message = $"{Language.YouSeemToBeIn} {location.Value}.";
         CanContinue = true;
     }
 

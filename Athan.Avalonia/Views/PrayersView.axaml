@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:views="clr-namespace:Athan.Avalonia.Views"
+             xmlns:language="clr-namespace:Athan.Avalonia.Languages"
 
              d:DataContext="{Binding Path=PrayersViewModel, Source={StaticResource ViewModelLocator}}">
 
@@ -18,7 +19,7 @@
 
                 <views:SuspenseView.Active>
                     <StackPanel HorizontalAlignment="Center" Spacing="10">
-                        <TextBlock Text="Next prayer" HorizontalAlignment="Center" Classes="light" />
+                        <TextBlock Text="{x:Static language:Language.NextPrayer}" HorizontalAlignment="Center" Classes="light" />
                         <TextBlock Text="{Binding NextPrayer}" Classes="header" />
                     </StackPanel>
                 </views:SuspenseView.Active>
