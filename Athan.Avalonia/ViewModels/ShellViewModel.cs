@@ -1,7 +1,6 @@
 ﻿using System.Net.NetworkInformation;
 using Athan.Avalonia.Contracts;
 using Athan.Avalonia.Messages;
-using Athan.Avalonia.Models;
 using Athan.Avalonia.Services;
 using Avalonia.Themes.Fluent;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -21,15 +20,13 @@ internal sealed partial class ShellViewModel : ObservableObject
     private readonly NavigationService navigationService;
     private readonly SettingService settingService;
     private readonly ThemeService themeService;
-    private readonly LanguageService languageService;
 
     public ShellViewModel(NavigationService navigationService, SettingService settingService,
-        ThemeService themeService, LanguageService languageService, DialogViewModel dialogViewModel)
+        ThemeService themeService, DialogViewModel dialogViewModel)
     {
         this.navigationService = navigationService;
         this.settingService = settingService;
         this.themeService = themeService;
-        this.languageService = languageService;
         this.dialogViewModel = dialogViewModel;
 
         SetProperty(ref dialogViewModel, dialogViewModel);
@@ -45,7 +42,6 @@ internal sealed partial class ShellViewModel : ObservableObject
         var setting = await settingService.ReadAsync();
 
         themeService.Update(setting?.Theme ?? FluentThemeMode.Light);
-        languageService.Update(setting?.Language ?? ApplicationLanguage.English);
 
         navigationService.NavigateForward(
             setting?.Validate() is true
