@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Athan.Avalonia.Languages;
 using Athan.Avalonia.Messages;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -6,12 +7,11 @@ using CommunityToolkit.Mvvm.Messaging;
 
 namespace Athan.Avalonia.ViewModels;
 
+// Used for displaying error messages for now
 internal sealed partial class DialogViewModel : ObservableObject
 {
-    public INotifyPropertyChanged? Requester { get; private set; }
-
     [ObservableProperty]
-    private string? title = "Oh no!";
+    private string? title;
 
     [ObservableProperty]
     private string? message;
@@ -19,10 +19,15 @@ internal sealed partial class DialogViewModel : ObservableObject
     [ObservableProperty]
     private bool isVisible;
 
-    public void Open(INotifyPropertyChanged requester)
-    {
-        Requester = requester;
+    private INotifyPropertyChanged? requester;
 
+    public void Open(INotifyPropertyChanged viewModel)
+    {
+        requester = viewModel;
+
+        Title = Language.OhNo;
+
+        // Trigger animation
         IsVisible = false;
         IsVisible = true;
     }
@@ -36,6 +41,7 @@ internal sealed partial class DialogViewModel : ObservableObject
     [RelayCommand]
     private void TryAgain()
     {
-        WeakReferenceMessenger.Default.Send(new DialogTryAgainRequestMessage(Requester!));
+        Close();
+        WeakReferenceMessenger.Default.Send(new DialogTryAgainRequestMessage(requester!));
     }
 }

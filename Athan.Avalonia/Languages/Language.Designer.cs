@@ -231,6 +231,15 @@ namespace Athan.Avalonia.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Oh no!.
+        /// </summary>
+        public static string OhNo {
+            get {
+                return ResourceManager.GetString("OhNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to It is recommend to restart the application after changing the language.
         /// </summary>
         public static string RecommendedToRestartLanguageChange {
@@ -245,6 +254,15 @@ namespace Athan.Avalonia.Languages {
         public static string Relocate {
             get {
                 return ResourceManager.GetString("Relocate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error has occured while processing the request.
+        /// </summary>
+        public static string RequestErrorOccured {
+            get {
+                return ResourceManager.GetString("RequestErrorOccured", resourceCulture);
             }
         }
         
@@ -294,7 +312,7 @@ namespace Athan.Avalonia.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to TryAgain.
+        ///   Looks up a localized string similar to Try Again.
         /// </summary>
         public static string TryAgain {
             get {

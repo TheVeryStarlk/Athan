@@ -110,4 +110,10 @@
     <data name="TryAgain" xml:space="preserve">
         <value>مجددا المحاولة</value>
     </data>
+    <data name="OhNo" xml:space="preserve">
+        <value>!لا اوه</value>
+    </data>
+    <data name="RequestErrorOccured" xml:space="preserve">
+        <value>الانترنت من البيانات طلب عملية اثناء في خطا حدث</value>
+    </data>
 </root>

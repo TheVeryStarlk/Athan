@@ -1,4 +1,5 @@
-﻿using FluentResults;
+﻿using Athan.Avalonia.Languages;
+using FluentResults;
 
 namespace Athan.Avalonia.Extensions;
 
@@ -10,13 +11,11 @@ public static class HttpClientExtension
         {
             var response = await client.GetAsync(requestUrl);
 
-            return response.IsSuccessStatusCode
-                ? Result.Ok(response)
-                : Result.Fail("Request response does not indicate success.");
+            return response.IsSuccessStatusCode ? Result.Ok(response) : Result.Fail(Language.RequestErrorOccured);
         }
         catch (HttpRequestException)
         {
-            return Result.Fail("An error has occured while processing the request.");
+            return Result.Fail(Language.RequestErrorOccured);
         }
     }
 }

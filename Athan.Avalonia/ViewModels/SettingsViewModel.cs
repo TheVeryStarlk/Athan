@@ -56,8 +56,9 @@ internal sealed partial class SettingsViewModel : ObservableObject, INavigable
     private async Task InitializeAsync()
     {
         SelectedThemeIndex = (int) themeService.Theme;
-        loadedSetting = await settingService.ReadAsync();
         SelectedLanguageIndex = (int) languageService.Read();
+
+        loadedSetting = await settingService.ReadAsync();
     }
 
     [RelayCommand]
