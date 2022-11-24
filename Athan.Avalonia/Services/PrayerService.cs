@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Athan.Avalonia.Services;
 
-public sealed class PrayerService
+internal sealed class PrayerService
 {
     private readonly HttpClient httpClient;
 

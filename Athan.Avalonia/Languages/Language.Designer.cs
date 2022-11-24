@@ -231,7 +231,7 @@ namespace Athan.Avalonia.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Oh no!.
+        ///   Looks up a localized string similar to Oh No!.
         /// </summary>
         public static string OhNo {
             get {

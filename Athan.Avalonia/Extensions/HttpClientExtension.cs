@@ -10,7 +10,6 @@ public static class HttpClientExtension
         try
         {
             var response = await client.GetAsync(requestUrl);
-
             return response.IsSuccessStatusCode ? Result.Ok(response) : Result.Fail(Language.RequestErrorOccured);
         }
         catch (HttpRequestException)

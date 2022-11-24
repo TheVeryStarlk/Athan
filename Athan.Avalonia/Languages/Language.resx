@@ -118,7 +118,7 @@
         <value>Try Again</value>
     </data>
     <data name="OhNo" xml:space="preserve">
-        <value>Oh no!</value>
+        <value>Oh No!</value>
     </data>
     <data name="RequestErrorOccured" xml:space="preserve">
         <value>An error has occured while processing the request</value>

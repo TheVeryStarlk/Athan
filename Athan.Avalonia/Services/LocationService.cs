@@ -5,7 +5,7 @@ using FluentResults;
 
 namespace Athan.Avalonia.Services;
 
-public sealed class LocationService
+internal sealed class LocationService
 {
     private readonly HttpClient httpClient;
 
