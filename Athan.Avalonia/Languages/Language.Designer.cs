@@ -96,15 +96,6 @@ namespace Athan.Avalonia.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Changes will apply after the settings are saved.
-        /// </summary>
-        public static string ChangesWillApplyAfterTheSettingsAreSaved {
-            get {
-                return ResourceManager.GetString("ChangesWillApplyAfterTheSettingsAreSaved", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
         public static string Close {
@@ -236,6 +227,15 @@ namespace Athan.Avalonia.Languages {
         public static string NextPrayer {
             get {
                 return ResourceManager.GetString("NextPrayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It is recommend to restart the application after changing the language.
+        /// </summary>
+        public static string RecommendedToRestartLanguageChange {
+            get {
+                return ResourceManager.GetString("RecommendedToRestartLanguageChange", resourceCulture);
             }
         }
         

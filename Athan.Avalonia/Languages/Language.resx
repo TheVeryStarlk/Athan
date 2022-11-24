@@ -102,8 +102,8 @@
     <data name="Arabic" xml:space="preserve">
         <value>Arabic</value>
     </data>
-    <data name="ChangesWillApplyAfterTheSettingsAreSaved" xml:space="preserve">
-        <value>Changes will apply after the settings are saved</value>
+    <data name="RecommendedToRestartLanguageChange" xml:space="preserve">
+        <value>It is recommend to restart the application after changing the language</value>
     </data>
     <data name="YouHaveEnteredThePrayerTimeFor" xml:space="preserve">
         <value>You have entered the prayer time for</value>

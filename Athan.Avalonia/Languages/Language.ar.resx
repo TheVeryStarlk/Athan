@@ -95,8 +95,8 @@
     <data name="Arabic" xml:space="preserve">
         <value>العربية</value>
     </data>
-    <data name="ChangesWillApplyAfterTheSettingsAreSaved" xml:space="preserve">
-        <value>الاعدادات بحفظ تقوم بعدما ستطبق التغييرات</value>
+    <data name="RecommendedToRestartLanguageChange" xml:space="preserve">
+        <value>اللغة تغير بعدما التطبيق تشغيل باعادة تقوم ان الافضل من</value>
     </data>
     <data name="YouHaveEnteredThePrayerTimeFor" xml:space="preserve">
         <value>صلاة اذان وقت حان لقد</value>
