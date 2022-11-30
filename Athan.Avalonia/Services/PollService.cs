@@ -16,7 +16,11 @@ internal sealed class PollService
         {
             count++;
 
-            result = await task();
+            if (result.IsFailed)
+            {
+                result = await task();
+                continue;
+            }
 
             if (result.IsSuccess)
             {

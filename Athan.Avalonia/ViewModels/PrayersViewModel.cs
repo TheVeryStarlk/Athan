@@ -53,6 +53,11 @@ internal sealed partial class PrayersViewModel : ObservableObject
 
     private async Task LoadPrayersAsync()
     {
+        if (TodayPrayers is not null)
+        {
+            return;
+        }
+
         var prayers = await pollService.HandleAsync(async () =>
             await prayerService.GetTimingsAsync(loadedLocation!.City, loadedLocation.Country));
 

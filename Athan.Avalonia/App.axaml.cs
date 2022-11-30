@@ -31,7 +31,7 @@ internal sealed class App : Application
             .AddTransient<DialogViewModel>()
             .AddTransient<LocationViewModel>()
             .AddTransient<OfflineViewModel>()
-            .AddTransient<PrayersViewModel>()
+            .AddSingleton<PrayersViewModel>()
             .AddTransient<SettingsViewModel>()
             .AddTransient<ShellViewModel>()
 
