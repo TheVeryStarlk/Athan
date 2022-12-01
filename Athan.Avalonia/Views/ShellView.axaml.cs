@@ -67,16 +67,21 @@ internal sealed partial class ShellView : Window
             ? oldState
             : WindowState;
 
+        ShowInTaskbar = true;
         Activate();
     }
 
     protected override void HandleWindowStateChanged(WindowState state)
     {
+        base.HandleWindowStateChanged(state);
+
         if (state is not WindowState.Minimized)
         {
             oldState = state;
         }
-
-        base.HandleWindowStateChanged(state);
+        else
+        {
+            ShowInTaskbar = false;
+        }
     }
 }
