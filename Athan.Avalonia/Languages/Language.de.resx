@@ -22,10 +22,10 @@
         <value>Nächstes Gebet</value>
     </data>
     <data name="Settings" xml:space="preserve">
-        <value>Settings</value>
+        <value>Einstellungen</value>
     </data>
     <data name="ApplicationTheme" xml:space="preserve">
-        <value>Application Theme</value>
+        <value>Anwendungsthema</value>
     </data>
     <data name="Light" xml:space="preserve">
         <value>Licht</value>
@@ -34,22 +34,22 @@
         <value>Dunkel</value>
     </data>
     <data name="GeographicalLocation" xml:space="preserve">
-        <value>Geographical Location</value>
+        <value>Geografische Position</value>
     </data>
     <data name="Relocate" xml:space="preserve">
-        <value>Relocate</value>
+        <value>Umziehen</value>
     </data>
     <data name="Save" xml:space="preserve">
-        <value>Save</value>
+        <value>Speichern</value>
     </data>
     <data name="WhereAreYou" xml:space="preserve">
         <value>Wo bist du</value>
     </data>
     <data name="YouSeemToBeOffline" xml:space="preserve">
-        <value>You seem to be offline</value>
+        <value>Du scheinst offline zu sein</value>
     </data>
     <data name="YouSeemToBeIn" xml:space="preserve">
-        <value>Du scheinst in ... zu leben You seem to be in</value> <!--TODO: This can't be easily translated, since in mot sentences you say the place, then the verb -->
+        <value>Du scheinst (zu leben) in </value> <!--TODO: This can't be easily translated, since in mot sentences you say the place, then the verb -->
     </data>
     <data name="HangTight" xml:space="preserve">
         <value>Warte bitte...</value>
