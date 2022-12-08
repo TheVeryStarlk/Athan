@@ -12,6 +12,7 @@ Thread.CurrentThread.CurrentUICulture = new CultureInfo(json?.Language switch
 {
     ApplicationLanguage.English or null => "en",
     ApplicationLanguage.Arabic => "ar",
+    ApplicationLanguage.German => "de",
     _ => throw new ArgumentOutOfRangeException(nameof(json.Language))
 });
 
