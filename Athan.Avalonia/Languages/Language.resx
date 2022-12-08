@@ -102,6 +102,9 @@
     <data name="Arabic" xml:space="preserve">
         <value>Arabic</value>
     </data>
+    <data name="German" xml:space="preserve">
+        <value>German</value>
+    </data>
     <data name="RestartRecommended" xml:space="preserve">
         <value>A restart is required for some changes to take effect</value>
     </data>
