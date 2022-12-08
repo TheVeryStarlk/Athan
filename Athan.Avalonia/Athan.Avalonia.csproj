@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup Condition=" '$(OS)' != 'Windows_NT' ">
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
-        <TargetFramework>net6.0-windows10.0.17763.0</TargetFramework>
+        <TargetFramework>net7.0-windows10.0.17763.0</TargetFramework>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -23,6 +23,10 @@
         <AssemblyVersion>2</AssemblyVersion>
         <FileVersion>2</FileVersion>
     </PropertyGroup>
+    <ItemGroup>
+        <AvaloniaResource Include="Assets\**" />
+        <TrimmerRootDescriptor Include="Roots.xml" />
+    </ItemGroup>
 
     <ItemGroup>
         <Folder Include="Models\" />
@@ -31,35 +35,31 @@
     </ItemGroup>
 
     <ItemGroup>
-        <TrimmableAssembly Include="Avalonia.Themes.Fluent" />
-        <TrimmableAssembly Include="Avalonia.Themes.Default" />
-    </ItemGroup>
 
-    <ItemGroup>
-
-        <PackageReference Include="Avalonia" Version="0.10.18" />
-        <PackageReference Include="Avalonia.Desktop" Version="0.10.18" />
-        <PackageReference Include="Avalonia.Xaml.Behaviors" Version="0.10.18" />
-        <PackageReference Condition=" '$(Configuration)' == 'Debug' " Include="Avalonia.Diagnostics" Version="0.10.18" />
+        <PackageReference Include="Avalonia" Version="11.0.0-preview4" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview4" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview4" />
+        <PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.0.0-preview3" />
+        <PackageReference Condition=" '$(Configuration)' == 'Debug' " Include="Avalonia.Diagnostics" Version="11.0.0-preview4" />
         <PackageReference Include="FluentResults" Version="3.15.0" />
-        <PackageReference Include="Material.Icons.Avalonia" Version="1.1.10" />
+        <PackageReference Include="Material.Icons.Avalonia" Version="1.2.0" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
-        <PackageReference Include="XamlNameReferenceGenerator" Version="1.4.2" />
+        <PackageReference Include="XamlNameReferenceGenerator" Version="1.5.1" />
         <PackageReference Include="DesktopNotifications.FreeDesktop" Version="1.2.0" />
         <PackageReference Condition=" '$(OS)' == 'Windows_NT' " Include="DesktopNotifications.Windows" Version="1.2.0" />
     </ItemGroup>
     <ItemGroup>
-      <EmbeddedResource Update="Languages\Language.resx">
-        <Generator>PublicResXFileCodeGenerator</Generator>
-        <LastGenOutput>Language.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
+        <EmbeddedResource Update="Languages\Language.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>Language.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
-      <Compile Update="Languages\Language.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Language.resx</DependentUpon>
-      </Compile>
+        <Compile Update="Languages\Language.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Language.resx</DependentUpon>
+        </Compile>
     </ItemGroup>
 </Project>

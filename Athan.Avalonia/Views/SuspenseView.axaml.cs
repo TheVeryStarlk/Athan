@@ -48,7 +48,7 @@ internal sealed partial class SuspenseView : UserControl
         Content = Condition ? Active : Fallback;
     }
 
-    protected override void OnPropertyChanged<T>(AvaloniaPropertyChangedEventArgs<T> change)
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
         base.OnPropertyChanged(change);
 
