@@ -95,9 +95,6 @@
     <data name="Arabic" xml:space="preserve">
         <value>العربية</value>
     </data>
-    <data name="German" xml:space="preserve">
-        <value>الماني</value>
-    </data>
     <data name="RestartRecommended" xml:space="preserve">
         <value>اللغة تغيير بعد التطبيق تشغيل باعادة تقوم ان الافضل من</value>
     </data>
@@ -118,5 +115,8 @@
     </data>
     <data name="RequestErrorOccured" xml:space="preserve">
         <value>الانترنت من البيانات طلب عملية اثناء في خطا حدث</value>
+    </data>
+    <data name="German" xml:space="preserve">
+        <value>الالمانيه</value>
     </data>
 </root>

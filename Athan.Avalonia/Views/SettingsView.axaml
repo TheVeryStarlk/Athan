@@ -45,6 +45,7 @@
                 <ComboBox Width="100" SelectedIndex="{Binding SelectedLanguageIndex}">
                     <ComboBoxItem Content="{x:Static language:Language.English}" />
                     <ComboBoxItem Content="{x:Static language:Language.Arabic}" />
+                    <ComboBoxItem Content="{x:Static language:Language.German}" />
                 </ComboBox>
 
                 <TextBlock Text="{x:Static language:Language.RestartRecommended}" Opacity="0.5" />

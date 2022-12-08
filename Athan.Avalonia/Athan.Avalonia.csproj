@@ -54,6 +54,9 @@
             <Generator>PublicResXFileCodeGenerator</Generator>
             <LastGenOutput>Language.Designer.cs</LastGenOutput>
         </EmbeddedResource>
+        <EmbeddedResource Update="Languages\Language.de.resx">
+          <LastGenOutput>Language.de.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
         <Compile Update="Languages\Language.Designer.cs">

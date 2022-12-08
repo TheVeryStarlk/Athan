@@ -102,9 +102,6 @@
     <data name="Arabic" xml:space="preserve">
         <value>Arabic</value>
     </data>
-    <data name="German" xml:space="preserve">
-        <value>German</value>
-    </data>
     <data name="RestartRecommended" xml:space="preserve">
         <value>A restart is required for some changes to take effect</value>
     </data>
@@ -125,5 +122,8 @@
     </data>
     <data name="RequestErrorOccured" xml:space="preserve">
         <value>An error has occured while processing the request</value>
+    </data>
+    <data name="German" xml:space="preserve">
+        <value>German</value>
     </data>
 </root>

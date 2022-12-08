@@ -3,5 +3,6 @@
 internal enum ApplicationLanguage
 {
     English,
-    Arabic
+    Arabic,
+    German
 }

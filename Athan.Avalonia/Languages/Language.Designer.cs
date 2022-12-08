@@ -168,6 +168,15 @@ namespace Athan.Avalonia.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to German.
+        /// </summary>
+        public static string German {
+            get {
+                return ResourceManager.GetString("German", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hang tight....
         /// </summary>
         public static string HangTight {

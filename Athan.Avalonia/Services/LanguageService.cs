@@ -11,6 +11,7 @@ internal sealed class LanguageService
         {
             ApplicationLanguage.English => "en",
             ApplicationLanguage.Arabic => "ar",
+            ApplicationLanguage.German => "de",
             _ => throw new ArgumentOutOfRangeException(nameof(language))
         });
     }
@@ -26,6 +27,10 @@ internal sealed class LanguageService
         else if (name.Contains("ar"))
         {
             return ApplicationLanguage.Arabic;
+        }
+        else if (name.Contains("de"))
+        {
+            return ApplicationLanguage.German;
         }
         else
         {
