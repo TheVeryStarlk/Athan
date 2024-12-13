@@ -5,6 +5,7 @@ using System.Linq;
 using Avalonia.Markup.Xaml;
 using Athan.Avalonia.ViewModels;
 using Athan.Avalonia.Views;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Athan.Avalonia;
 
@@ -17,22 +18,21 @@ internal sealed class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        var toRemove = BindingPlugins.DataValidators
-            .OfType<DataAnnotationsValidationPlugin>()
-            .ToArray();
+        var plugins = BindingPlugins.DataValidators.OfType<DataAnnotationsValidationPlugin>().ToArray();
 
-        foreach (var plugin in toRemove)
+        foreach (var plugin in plugins)
         {
             BindingPlugins.DataValidators.Remove(plugin);
         }
 
+        var services = new ServiceCollection()
+            .AddTransient<ShellViewModel>()
+            .AddTransient<ShellView>()
+            .BuildServiceProvider();
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-
-            desktop.MainWindow = new ShellView
-            {
-                DataContext = new ShellViewModel()
-            };
+            desktop.MainWindow = services.GetRequiredService<ShellView>();
         }
 
         base.OnFrameworkInitializationCompleted();
