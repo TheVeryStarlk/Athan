@@ -1,7 +1,6 @@
-using Athan.Avalonia.ViewModels;
 using Avalonia.Controls;
 
-namespace Athan.Avalonia.Views;
+namespace Athan.Avalonia.Features.Shell;
 
 internal sealed partial class ShellView : Window
 {

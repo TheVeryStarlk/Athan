@@ -2,9 +2,8 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
+using Athan.Avalonia.Features.Shell;
 using Avalonia.Markup.Xaml;
-using Athan.Avalonia.ViewModels;
-using Athan.Avalonia.Views;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Athan.Avalonia;

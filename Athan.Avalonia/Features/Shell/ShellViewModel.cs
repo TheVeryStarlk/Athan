@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace Athan.Avalonia.ViewModels;
+namespace Athan.Avalonia.Features.Shell;
 
 internal sealed class ShellViewModel : ObservableObject
 {

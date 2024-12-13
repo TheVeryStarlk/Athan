@@ -28,4 +28,11 @@
 
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Features\Shell\ShellView.axaml.cs">
+	    <DependentUpon>ShellView.axaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	</ItemGroup>
 </Project>
