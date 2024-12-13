@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
-        x:Class="Athan.UI.MainWindow"
+        x:Class="Athan.UI.Features.Shell.ShellView"
         mc:Ignorable="d"
 
         Title="Athan.UI">
@@ -16,5 +16,9 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="Athan" Margin="12.5 0 0 0" Grid.Row="0" />
+
+        <Button Content="{x:Bind ViewModel.Message, Mode=OneWay}" Command="{x:Bind ViewModel.GreetCommand}"
+                VerticalAlignment="Center" HorizontalAlignment="Center"
+                Grid.Row="1" />
     </Grid>
 </Window>
