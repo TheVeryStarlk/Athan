@@ -7,7 +7,7 @@
         x:Class="Athan.UI.Features.Shell.ShellView"
         mc:Ignorable="d"
 
-        Title="Athan.UI">
+        Title="Athan">
 
     <Grid>
         <Grid.RowDefinitions>
