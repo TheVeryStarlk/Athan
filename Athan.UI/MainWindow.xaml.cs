@@ -1,4 +1,5 @@
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media;
 
 namespace Athan.UI;
 
@@ -7,10 +8,8 @@ internal sealed partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-    }
 
-    private void myButton_Click(object sender, RoutedEventArgs e)
-    {
-        myButton.Content = "Clicked";
+        ExtendsContentIntoTitleBar = true;
+        SystemBackdrop = new MicaBackdrop();
     }
 }
