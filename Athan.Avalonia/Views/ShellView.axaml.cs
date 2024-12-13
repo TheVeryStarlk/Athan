@@ -2,9 +2,9 @@ using Avalonia.Controls;
 
 namespace Athan.Avalonia.Views;
 
-public partial class MainWindow : Window
+internal sealed partial class ShellView : Window
 {
-    public MainWindow()
+    public ShellView()
     {
         InitializeComponent();
     }

@@ -1,6 +1,5 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
@@ -9,7 +8,7 @@ using Athan.Avalonia.Views;
 
 namespace Athan.Avalonia;
 
-public partial class App : Application
+internal sealed class App : Application
 {
     public override void Initialize()
     {
@@ -18,31 +17,24 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        var toRemove = BindingPlugins.DataValidators
+            .OfType<DataAnnotationsValidationPlugin>()
+            .ToArray();
+
+        foreach (var plugin in toRemove)
+        {
+            BindingPlugins.DataValidators.Remove(plugin);
+        }
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
-            // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
-            DisableAvaloniaDataAnnotationValidation();
 
-            desktop.MainWindow = new MainWindow
+            desktop.MainWindow = new ShellView
             {
-                DataContext = new MainWindowViewModel(),
+                DataContext = new ShellViewModel()
             };
         }
 
         base.OnFrameworkInitializationCompleted();
-    }
-
-    private void DisableAvaloniaDataAnnotationValidation()
-    {
-        // Get an array of plugins to remove
-        var dataValidationPluginsToRemove =
-            BindingPlugins.DataValidators.OfType<DataAnnotationsValidationPlugin>().ToArray();
-
-        // remove each entry found
-        foreach (var plugin in dataValidationPluginsToRemove)
-        {
-            BindingPlugins.DataValidators.Remove(plugin);
-        }
     }
 }
