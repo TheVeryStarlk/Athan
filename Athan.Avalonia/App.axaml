@@ -1,6 +1,7 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="using:Athan.Avalonia"
+             xmlns:sty="clr-namespace:FluentAvalonia.Styling;assembly=FluentAvalonia"
 
              x:Class="Athan.Avalonia.App"
 
@@ -11,6 +12,8 @@
     </Application.DataTemplates>
 
     <Application.Styles>
-        <FluentTheme />
+        <sty:FluentAvaloniaTheme UseSystemFontOnWindows="True"
+                                 PreferSystemTheme="True"
+                                 PreferUserAccentColor="True" />
     </Application.Styles>
 </Application>

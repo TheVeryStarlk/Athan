@@ -10,14 +10,14 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 
         Icon="/Assets/avalonia-logo.ico" Title="Athan.Avalonia"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" ExtendClientAreaToDecorationsHint="True">
 
     <Design.DataContext>
         <vm:ShellViewModel />
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center" />
+    <Button Content="{Binding Greeting}"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center" />
 
 </Window>
