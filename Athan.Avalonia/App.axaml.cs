@@ -1,58 +1,16 @@
-using Athan.Avalonia.Messages;
-using Athan.Avalonia.Services;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Data.Core;
+using Avalonia.Data.Core.Plugins;
+using System.Linq;
+using Avalonia.Markup.Xaml;
 using Athan.Avalonia.ViewModels;
 using Athan.Avalonia.Views;
-using Avalonia.Markup.Xaml;
-using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Athan.Avalonia;
 
-internal sealed class App : Application
+public partial class App : Application
 {
-    public new static App Current => (App?) Application.Current!;
-
-    public static string Directory =>
-        Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), nameof(Athan));
-
-    public IServiceProvider Services { get; }
-
-    private IClassicDesktopStyleApplicationLifetime? lifetime;
-
-    public App()
-    {
-        Name = nameof(Athan);
-
-        Services = new ServiceCollection()
-            // View-models
-            .AddSingleton<DashboardViewModel>()
-            .AddTransient<DialogViewModel>()
-            .AddTransient<LocationViewModel>()
-            .AddTransient<OfflineViewModel>()
-            .AddSingleton<PrayersViewModel>()
-            .AddTransient<SettingsViewModel>()
-            .AddTransient<ShellViewModel>()
-
-            // Views
-            .AddTransient<ShellView>()
-
-            // Other
-            .AddTransient<LanguageService>()
-            .AddTransient<LocationService>()
-            .AddSingleton<NavigationService>()
-            .AddTransient<NotificationService>()
-            .AddTransient<PollService>()
-            .AddTransient<PrayerService>()
-            .AddSingleton<SettingService>()
-            .AddTransient<ThemeService>()
-            .AddSingleton<HttpClient>()
-            .BuildServiceProvider();
-
-        System.IO.Directory.CreateDirectory(Directory);
-    }
-
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -62,20 +20,29 @@ internal sealed class App : Application
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = Services.GetRequiredService<ShellView>();
-            lifetime = desktop;
+            // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
+            // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
+            DisableAvaloniaDataAnnotationValidation();
+
+            desktop.MainWindow = new MainWindow
+            {
+                DataContext = new MainWindowViewModel(),
+            };
         }
 
         base.OnFrameworkInitializationCompleted();
     }
 
-    private void OpenTrayIcon(object? sender, EventArgs eventArgs)
+    private void DisableAvaloniaDataAnnotationValidation()
     {
-        WeakReferenceMessenger.Default.Send<ApplicationRequestMessage>();
-    }
+        // Get an array of plugins to remove
+        var dataValidationPluginsToRemove =
+            BindingPlugins.DataValidators.OfType<DataAnnotationsValidationPlugin>().ToArray();
 
-    private void CloseTrayIcon(object? sender, EventArgs eventArgs)
-    {
-        lifetime?.TryShutdown();
+        // remove each entry found
+        foreach (var plugin in dataValidationPluginsToRemove)
+        {
+            BindingPlugins.DataValidators.Remove(plugin);
+        }
     }
 }

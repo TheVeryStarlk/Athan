@@ -1,38 +1,21 @@
-﻿using System.Globalization;
-using System.Text.Json;
-using Athan.Avalonia;
-using Athan.Avalonia.Models;
-using Avalonia;
+﻿using Avalonia;
+using System;
 
-var setting = await File.ReadAllTextAsync(Path.Join(App.Directory, "Settings"));
-var json = JsonSerializer.Deserialize<Setting>(setting);
+namespace Athan.Avalonia;
 
-// Force the language update before the application starts
-Thread.CurrentThread.CurrentUICulture = new CultureInfo(json?.Language switch
+sealed class Program
 {
-    ApplicationLanguage.English or null => "en",
-    ApplicationLanguage.Arabic => "ar",
-    ApplicationLanguage.German => "de",
-    _ => throw new ArgumentOutOfRangeException(nameof(json.Language))
-});
-
-try
-{
-    AppBuilder.Configure<App>()
-        .UsePlatformDetect()
-        .LogToTrace()
+    // Initialization code. Don't use any Avalonia, third-party APIs or any
+    // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
+    // yet and stuff might break.
+    [STAThread]
+    public static void Main(string[] args) => BuildAvaloniaApp()
         .StartWithClassicDesktopLifetime(args);
-}
-catch (Exception exception)
-{
-    var directory = Path.Join(App.Directory, "Crashes");
-    Directory.CreateDirectory(directory);
 
-    var crash = JsonSerializer.Serialize(new Crash(DateTime.UtcNow, exception.Message));
-
-    await File
-        .WriteAllTextAsync(Path.Join(directory, $"{Guid.NewGuid()}.txt"), crash)
-        .ConfigureAwait(false);
-
-    Environment.Exit(-1);
+    // Avalonia configuration, don't remove; also used by visual designer.
+    public static AppBuilder BuildAvaloniaApp()
+        => AppBuilder.Configure<App>()
+            .UsePlatformDetect()
+            .WithInterFont()
+            .LogToTrace();
 }

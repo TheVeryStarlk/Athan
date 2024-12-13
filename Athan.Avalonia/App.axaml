@@ -1,77 +1,15 @@
-<Application x:Class="Athan.Avalonia.App"
-             xmlns="https://github.com/avaloniaui"
+<Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Athan.Avalonia.App"
              xmlns:local="using:Athan.Avalonia"
-             xmlns:language="clr-namespace:Athan.Avalonia.Languages">
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.DataTemplates>
-        <local:ViewLocator />
+        <local:ViewLocator/>
     </Application.DataTemplates>
-
-    <Application.Resources>
-        <local:ViewModelLocator x:Key="ViewModelLocator" />
-    </Application.Resources>
-
+  
     <Application.Styles>
-        <FluentTheme Mode="Light" />
-
-        <StyleInclude Source="avares://Material.Icons.Avalonia/App.xaml" />
-
-        <Style Selector="TextBlock">
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="TextWrapping" Value="Wrap" />
-        </Style>
-
-        <Style Selector="TextBlock.light">
-            <Setter Property="Opacity" Value="0.75" />
-        </Style>
-
-        <Style Selector="TextBlock.header">
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="FontWeight" Value="SemiBold" />
-            <Setter Property="FontSize" Value="25" />
-        </Style>
-
-        <Style Selector="Border.container">
-            <Setter Property="Background">
-                <Setter.Value>
-                    <SolidColorBrush Color="{DynamicResource SystemChromeMediumColor}" Opacity="0.75" />
-                </Setter.Value>
-            </Setter>
-
-            <Setter Property="Padding" Value="50" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
-        </Style>
-
-        <Style Selector="Border.light_container">
-            <Setter Property="Background">
-                <Setter.Value>
-                    <SolidColorBrush Color="{DynamicResource SystemChromeLowColor}" Opacity="0.75" />
-                </Setter.Value>
-            </Setter>
-
-            <Setter Property="Padding" Value="25" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
-        </Style>
-
-        <Style Selector="Button.accent">
-            <Setter Property="HorizontalAlignment" Value="Right" />
-        </Style>
+        <FluentTheme />
     </Application.Styles>
-
-    <TrayIcon.Icons>
-        <TrayIcons>
-            <TrayIcon ToolTipText="Athan" Icon="/Assets/athan-logo.ico" Clicked="OpenTrayIcon">
-                <TrayIcon.Menu>
-                    <NativeMenu>
-                        <NativeMenuItem Header="{x:Static language:Language.Close}" Click="CloseTrayIcon" />
-                    </NativeMenu>
-                </TrayIcon.Menu>
-            </TrayIcon>
-        </TrayIcons>
-    </TrayIcon.Icons>
 </Application>

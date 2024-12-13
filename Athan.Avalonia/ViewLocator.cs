@@ -1,31 +1,30 @@
-using System.ComponentModel;
+using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
+using Athan.Avalonia.ViewModels;
 
 namespace Athan.Avalonia;
 
-internal sealed class ViewLocator : IDataTemplate
+public class ViewLocator : IDataTemplate
 {
-    public IControl? Build(object? data)
+    public Control? Build(object? param)
     {
-        if (data is null)
-        {
+        if (param is null)
             return null;
-        }
-        
-        var name = data.GetType().FullName!.Replace("ViewModel", "View");
+
+        var name = param.GetType().FullName!.Replace("ViewModel", "View", StringComparison.Ordinal);
         var type = Type.GetType(name);
 
-        return type is not null
-            ? (Control) Activator.CreateInstance(type)!
-            : new TextBlock()
-            {
-                Text = $"Could not find the view: '{name}'."
-            };
+        if (type != null)
+        {
+            return (Control) Activator.CreateInstance(type)!;
+        }
+
+        return new TextBlock { Text = "Not Found: " + name };
     }
 
     public bool Match(object? data)
     {
-        return data is INotifyPropertyChanged;
+        return data is ViewModelBase;
     }
 }
