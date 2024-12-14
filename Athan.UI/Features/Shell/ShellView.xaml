@@ -21,10 +21,7 @@
             </local:SplashView.OpacityTransition>
         </local:SplashView>
 
-        <ContentControl x:Name="Shell" Opacity="0"
-                        Content="{Binding Path=Current, Converter={StaticResource ViewModelConverter}}"
-                        Grid.Row="1">
-
+        <ContentControl x:Name="Shell" Opacity="0" Grid.Row="1">
             <ContentControl.ContentTransitions>
                 <NavigationThemeTransition />
             </ContentControl.ContentTransitions>

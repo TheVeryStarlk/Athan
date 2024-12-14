@@ -1,3 +1,4 @@
+using Athan.UI.Features.Welcome;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.UI.Xaml.Controls;
 
@@ -7,7 +8,7 @@ internal sealed partial class ShellView : Page
 {
     public ShellViewModel ViewModel { get; }
 
-    public ShellView(ShellViewModel viewModel)
+    public ShellView(ShellViewModel viewModel, ViewConverter viewConverter)
     {
         ViewModel = viewModel;
         InitializeComponent();
@@ -18,6 +19,8 @@ internal sealed partial class ShellView : Page
             {
                 SplashView.Opacity = 0;
                 Shell.Opacity = 1;
+
+                Shell.Content = viewConverter.Convert(ViewModel.Current!);
             });
 
         Loaded += async (_, _) =>
