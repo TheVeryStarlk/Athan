@@ -10,8 +10,11 @@ internal static class Bootstrapper
     {
         var services = new ServiceCollection();
 
-        services.AddView<ShellView, ShellViewModel>();
-        services.AddView<WelcomeView, WelcomeViewModel>();
+        services.AddSingleton<ShellView>();
+        services.AddSingleton<ShellViewModel>();
+
+        services.AddSingleton<WelcomeView>();
+        services.AddSingleton<WelcomeViewModel>();
 
         services.AddTransient<LocationService>();
 
