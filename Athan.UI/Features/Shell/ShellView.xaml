@@ -2,6 +2,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="using:Athan.UI.Features.Shell"
 
         x:Class="Athan.UI.Features.Shell.ShellView"
         mc:Ignorable="d"
@@ -14,10 +15,12 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Athan" Margin="12.5 0 0 0" Grid.Row="0" />
+        <local:SplashView x:Name="SplashView" Grid.Row="0" Grid.RowSpan="2">
+            <local:SplashView.OpacityTransition>
+                <ScalarTransition />
+            </local:SplashView.OpacityTransition>
+        </local:SplashView>
 
-        <Button Content="{x:Bind ViewModel.Message, Mode=OneWay}" Command="{x:Bind ViewModel.GreetCommand}"
-                VerticalAlignment="Center" HorizontalAlignment="Center"
-                Grid.Row="1" />
+        <TextBlock Text="Athan" Margin="12.5 0 0 0" Grid.Row="0" />
     </Grid>
 </Window>

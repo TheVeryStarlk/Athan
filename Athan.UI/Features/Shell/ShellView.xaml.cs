@@ -1,3 +1,6 @@
+using System;
+using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
 
@@ -15,5 +18,15 @@ internal sealed partial class ShellView : Window
 
         ExtendsContentIntoTitleBar = true;
         SystemBackdrop = new MicaBackdrop();
+
+        WeakReferenceMessenger.Default.Register<ReadyMessage>(
+            this,
+            (_, _) => SplashView.Opacity = 0);
+
+        Activated += async (_, _) =>
+        {
+            await Task.Delay(TimeSpan.FromSeconds(2.5));
+            WeakReferenceMessenger.Default.Send<ReadyMessage>();
+        };
     }
 }

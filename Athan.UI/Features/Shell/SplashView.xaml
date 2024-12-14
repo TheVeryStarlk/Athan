@@ -7,4 +7,6 @@
       mc:Ignorable="d"
 
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+      <Image Source="../../Assets/SplashScreen.scale-200.png" />
 </Page>
