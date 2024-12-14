@@ -3,10 +3,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
-      x:Class="Athan.UI.Features.Shell.SplashView"
-      mc:Ignorable="d"
+      x:Class="Athan.UI.Features.Prayers.PrayerView"
+      mc:Ignorable="d">
 
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
-    <Image Source="../../Assets/SplashScreen.scale-200.png" />
+    <TextBlock Text="Welcome!" />
 </Page>

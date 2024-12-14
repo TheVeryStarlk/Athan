@@ -7,8 +7,6 @@ namespace Athan.UI;
 
 public sealed partial class App : Application
 {
-    public static IServiceProvider Services { get; } = Bootstrapper.Create();
-
     public App()
     {
         InitializeComponent();
@@ -16,9 +14,11 @@ public sealed partial class App : Application
 
     protected override void OnLaunched(LaunchActivatedEventArgs eventArgs)
     {
+        var services = Bootstrapper.Create();
+
         var window = new Window
         {
-            Content = Services.GetRequiredService<ShellView>(),
+            Content = services.GetRequiredService<ShellView>(),
             ExtendsContentIntoTitleBar = true,
             SystemBackdrop = new MicaBackdrop()
         };

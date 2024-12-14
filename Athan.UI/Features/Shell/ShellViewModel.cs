@@ -4,8 +4,13 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Athan.UI.Features.Shell;
 
-internal sealed partial class ShellViewModel(WelcomeViewModel welcomeViewModel) : ObservableObject
+internal sealed partial class ShellViewModel : ObservableObject
 {
     [ObservableProperty]
-    public partial INotifyPropertyChanged? Current { get; set; } = welcomeViewModel;
+    public partial INotifyPropertyChanged? Current { get; set; }
+
+    public ShellViewModel(WelcomeViewModel welcomeViewModel)
+    {
+        Current = welcomeViewModel;
+    }
 }
