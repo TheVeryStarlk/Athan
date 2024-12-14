@@ -7,15 +7,17 @@ internal sealed partial class ShellView : Page
 {
     public ShellViewModel ViewModel { get; }
 
+    private readonly ViewModelConverter viewModelConverter;
+
     public ShellView(ShellViewModel viewModel, ViewModelConverter viewModelConverter)
     {
+        this.viewModelConverter = viewModelConverter;
         ViewModel = viewModel;
+
         InitializeComponent();
 
-        Shell.Content = viewModelConverter.Convert(ViewModel.Current!);
-
-        WeakReferenceMessenger.Default.Register<ReadyMessage>(
+        WeakReferenceMessenger.Default.Register<ShellView, NavigationRequest>(
             this,
-            (_, _) => Shell.Content = viewModelConverter.Convert(ViewModel.Current!));
+            static (self, request) => self.Shell.Content = self.viewModelConverter.Convert(request.ViewModel));
     }
 }

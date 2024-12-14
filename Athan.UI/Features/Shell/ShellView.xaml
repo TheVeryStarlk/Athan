@@ -18,7 +18,7 @@
 
         <ContentControl x:Name="Shell" Grid.Row="1">
             <ContentControl.ContentTransitions>
-                <NavigationThemeTransition />
+                <EntranceThemeTransition />
             </ContentControl.ContentTransitions>
         </ContentControl>
     </Grid>

@@ -1,4 +1,6 @@
 ﻿using Athan.UI.Features.Shell;
+using Athan.UI.Features.Welcome;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
@@ -24,5 +26,8 @@ public sealed partial class App : Application
         };
 
         window.Activate();
+
+        var request = new NavigationRequest(services.GetRequiredService<WelcomeViewModel>());
+        WeakReferenceMessenger.Default.Send(request);
     }
 }
