@@ -13,7 +13,6 @@ internal sealed partial class ShellView : Window
     public ShellView(ShellViewModel viewModel)
     {
         ViewModel = viewModel;
-
         InitializeComponent();
 
         ExtendsContentIntoTitleBar = true;
