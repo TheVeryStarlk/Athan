@@ -1,5 +1,4 @@
-﻿using System;
-using Athan.UI.Features.Shell;
+﻿using Athan.UI.Features.Shell;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 
@@ -7,7 +6,7 @@ namespace Athan.UI;
 
 public sealed partial class App : Application
 {
-    private readonly IServiceProvider provider = Bootstrapper.Create();
+    public static IServiceProvider Services { get; } = Bootstrapper.Create();
 
     public App()
     {
@@ -16,7 +15,7 @@ public sealed partial class App : Application
 
     protected override void OnLaunched(LaunchActivatedEventArgs eventArgs)
     {
-        var shell = provider.GetRequiredService<ShellView>();
+        var shell = Services.GetRequiredService<ShellView>();
         shell.Activate();
     }
 }

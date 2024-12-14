@@ -9,7 +9,7 @@
 
         Title="Athan">
 
-    <Grid>
+    <Grid DataContext="{x:Bind ViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition Height="30" />
             <RowDefinition Height="*" />
@@ -20,6 +20,20 @@
                 <ScalarTransition />
             </local:SplashView.OpacityTransition>
         </local:SplashView>
+
+        <!-- ReSharper disable once Xaml.ConstructorWarning -->
+        <ContentControl x:Name="Shell" Opacity="0"
+                        Content="{Binding Current, Converter={StaticResource ViewModelConverter}}"
+                        Grid.Row="1">
+
+            <ContentControl.ContentTransitions>
+                <NavigationThemeTransition />
+            </ContentControl.ContentTransitions>
+
+            <ContentControl.OpacityTransition>
+                <ScalarTransition />
+            </ContentControl.OpacityTransition>
+        </ContentControl>
 
         <TextBlock Text="Athan" Margin="12.5 0 0 0" Grid.Row="0" />
     </Grid>

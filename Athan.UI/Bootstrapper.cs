@@ -1,5 +1,4 @@
-﻿using System;
-using Athan.UI.Features.Shell;
+﻿using Athan.UI.Features.Shell;
 using Athan.UI.Features.Welcome;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,11 +10,8 @@ internal static class Bootstrapper
     {
         var services = new ServiceCollection();
 
-        services.AddTransient<ShellView>();
-        services.AddTransient<ShellViewModel>();
-
-        services.AddTransient<WelcomeView>();
-        services.AddTransient<WelcomeViewModel>();
+        services.AddView<ShellView, ShellViewModel>();
+        services.AddView<WelcomeView, WelcomeViewModel>();
 
         services.AddTransient<LocationService>();
 

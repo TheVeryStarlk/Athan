@@ -1,26 +1,11 @@
-﻿using System.Text;
+﻿using System.ComponentModel;
+using Athan.UI.Features.Welcome;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 
 namespace Athan.UI.Features.Shell;
 
-internal sealed partial class ShellViewModel : ObservableObject
+internal sealed partial class ShellViewModel(WelcomeViewModel welcomeViewModel) : ObservableObject
 {
     [ObservableProperty]
-    public partial string Message { get; set; } = "Greetings!";
-
-    private int count;
-
-    [RelayCommand]
-    private void Greet()
-    {
-        count++;
-
-        var result = new StringBuilder("Hell")
-            .Append(new string('o', count))
-            .Append('!')
-            .ToString();
-
-        Message = result;
-    }
+    public partial INotifyPropertyChanged? Current { get; set; } = welcomeViewModel;
 }

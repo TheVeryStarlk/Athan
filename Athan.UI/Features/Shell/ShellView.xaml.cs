@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
@@ -20,7 +18,11 @@ internal sealed partial class ShellView : Window
 
         WeakReferenceMessenger.Default.Register<ReadyMessage>(
             this,
-            (_, _) => SplashView.Opacity = 0);
+            (_, _) =>
+            {
+                SplashView.Opacity = 0;
+                Shell.Opacity = 1;
+            });
 
         Activated += async (_, _) =>
         {
