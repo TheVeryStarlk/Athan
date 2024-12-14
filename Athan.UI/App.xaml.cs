@@ -1,6 +1,7 @@
 ﻿using Athan.UI.Features.Shell;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media;
 
 namespace Athan.UI;
 
@@ -15,7 +16,13 @@ public sealed partial class App : Application
 
     protected override void OnLaunched(LaunchActivatedEventArgs eventArgs)
     {
-        var shell = Services.GetRequiredService<ShellView>();
-        shell.Activate();
+        var window = new Window
+        {
+            Content = Services.GetRequiredService<ShellView>(),
+            ExtendsContentIntoTitleBar = true,
+            SystemBackdrop = new MicaBackdrop()
+        };
+
+        window.Activate();
     }
 }

@@ -1,10 +1,9 @@
 using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Controls;
 
 namespace Athan.UI.Features.Shell;
 
-internal sealed partial class ShellView : Window
+internal sealed partial class ShellView : Page
 {
     public ShellViewModel ViewModel { get; }
 
@@ -12,9 +11,6 @@ internal sealed partial class ShellView : Window
     {
         ViewModel = viewModel;
         InitializeComponent();
-
-        ExtendsContentIntoTitleBar = true;
-        SystemBackdrop = new MicaBackdrop();
 
         WeakReferenceMessenger.Default.Register<ReadyMessage>(
             this,
@@ -24,7 +20,7 @@ internal sealed partial class ShellView : Window
                 Shell.Opacity = 1;
             });
 
-        Activated += async (_, _) =>
+        Loaded += async (_, _) =>
         {
             await Task.Delay(TimeSpan.FromSeconds(2.5));
             WeakReferenceMessenger.Default.Send<ReadyMessage>();

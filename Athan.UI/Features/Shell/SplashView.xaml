@@ -8,5 +8,5 @@
 
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-      <Image Source="../../Assets/SplashScreen.scale-200.png" />
+    <Image Source="../../Assets/SplashScreen.scale-200.png" />
 </Page>

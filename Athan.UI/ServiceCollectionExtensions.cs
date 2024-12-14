@@ -12,7 +12,7 @@ internal static class ServiceCollectionExtensions
             TViewModel>
         (this IServiceCollection services) where TView : class where TViewModel : class
     {
-        services.AddTransient<TView>();
+        services.AddSingleton<TView>();
         services.AddSingleton<TViewModel>();
 
         return services;
