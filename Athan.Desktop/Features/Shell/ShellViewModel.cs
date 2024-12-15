@@ -2,6 +2,7 @@
 using Athan.Desktop.Features.Setting;
 using Athan.Desktop.Features.Welcome;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 
 namespace Athan.Desktop.Features.Shell;
@@ -29,5 +30,11 @@ public sealed partial class ShellViewModel : ObservableObject
             });
 
         WeakReferenceMessenger.Default.Send(new NavigationRequest(Destination.Welcome));
+    }
+
+    [RelayCommand]
+    private void NavigateSetting()
+    {
+        WeakReferenceMessenger.Default.Send(new NavigationRequest(Destination.Setting));
     }
 }

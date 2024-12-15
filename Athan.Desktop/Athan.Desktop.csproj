@@ -7,8 +7,6 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UseWPF>true</UseWPF>
-		<DebugType>None</DebugType>
-		<DebugSymbols>False</DebugSymbols>
 		<ApplicationIcon>Athan.ico</ApplicationIcon>
 		<Company>Starlk</Company>
 		<Product>Athan</Product>
