@@ -28,6 +28,7 @@ public sealed partial class App : Application
         var request = new NavigationRequest(services.GetRequiredService<WelcomeViewModel>());
         WeakReferenceMessenger.Default.Send(request);
 
+        window.AppWindow.SetIcon("Assets/Icon/Athan.ico");
         window.Activate();
     }
 }
