@@ -11,10 +11,12 @@ public sealed partial class App
     private readonly IServiceProvider services = new ServiceCollection()
         .AddTransient<ShellView>()
         .AddTransient<ShellViewModel>()
-        .AddTransient<WelcomeView>()
+        .AddFactory<WelcomeView, WelcomeViewModel>()
         .AddTransient<WelcomeViewModel>()
-        .AddTransient<SettingView>()
+        .AddFactory<SettingView, SettingViewModel>()
         .AddTransient<SettingViewModel>()
+        .AddSingleton<UserControlFactory>()
+        .AddFactory<WelcomeView, WelcomeViewModel>()
         .BuildServiceProvider();
 
     protected override void OnStartup(StartupEventArgs eventArgs)

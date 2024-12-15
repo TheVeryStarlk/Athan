@@ -2,8 +2,8 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
                  xmlns:local="clr-namespace:Athan.Desktop.Features.Shell"
+                 xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
 
                  x:Class="Athan.Desktop.Features.Shell.ShellView"
 
@@ -21,7 +21,9 @@
         </Grid.RowDefinitions>
 
         <ui:TitleBar Height="30" ShowMaximize="False" Grid.Row="0" />
-        <TextBlock Text="Athan" Margin="12.5 0 0 0" Grid.Row="0" />
+
+        <TextBlock Text="{Binding Path=Title, RelativeSource={RelativeSource AncestorType={x:Type ui:FluentWindow}}}"
+                   Margin="12.5 0 0 0" Grid.Row="0" />
 
         <ContentControl x:Name="Shell" Grid.Row="1" />
     </Grid>
