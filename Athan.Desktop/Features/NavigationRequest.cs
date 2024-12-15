@@ -1,4 +1,4 @@
-﻿namespace Athan.Desktop.Features.Shell;
+﻿namespace Athan.Desktop.Features;
 
 internal sealed record NavigationRequest(Destination Destination);
 
