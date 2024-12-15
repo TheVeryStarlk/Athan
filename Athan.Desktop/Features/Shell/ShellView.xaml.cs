@@ -1,6 +1,6 @@
 ﻿using Wpf.Ui.Appearance;
 
-namespace Athan.Desktop;
+namespace Athan.Desktop.Features.Shell;
 
 public sealed partial class ShellView
 {
