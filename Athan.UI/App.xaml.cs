@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Athan.UI.Features.Shell;
+﻿using Athan.UI.Features.Shell;
 using Athan.UI.Features.Welcome;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,16 +16,6 @@ public sealed partial class App : Application
 
     protected override void OnLaunched(LaunchActivatedEventArgs eventArgs)
     {
-        const string name = ".lock";
-
-        if (File.Exists(name))
-        {
-            File.WriteAllBytes(name, [byte.MaxValue]);
-            Exit();
-
-            return;
-        }
-
         var services = Bootstrapper.Create();
 
         var window = new Window
@@ -40,23 +29,5 @@ public sealed partial class App : Application
         WeakReferenceMessenger.Default.Send(request);
 
         window.Activate();
-
-        File.WriteAllBytes(name, []);
-
-        var watcher = new FileSystemWatcher(
-            Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!,
-            "*.lock")
-        {
-            NotifyFilter = NotifyFilters.LastWrite,
-            EnableRaisingEvents = true
-        };
-
-        watcher.Changed += (_, _) => window.Show();
-
-        window.Closed += (_, _) =>
-        {
-            File.Delete(name);
-            watcher.Dispose();
-        };
     }
 }
