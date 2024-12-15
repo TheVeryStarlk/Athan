@@ -20,8 +20,9 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <ui:TitleBar Height="30" ShowMaximize="False" />
+        <ui:TitleBar Height="30" ShowMaximize="False" Grid.Row="0" />
+        <TextBlock Text="Athan" Margin="12.5 0 0 0" Grid.Row="0" />
 
-        <ui:Button Content="{Binding Message}" Grid.Row="1" />
+        <ContentControl x:Name="Shell" Grid.Row="1" />
     </Grid>
 </ui:FluentWindow>
