@@ -10,7 +10,7 @@ namespace Athan.Desktop.Features.Shell;
 public sealed partial class ShellViewModel : ObservableObject
 {
     [ObservableProperty]
-    public partial INotifyPropertyChanged? Current { get; set; }
+    public partial INotifyPropertyChanged Current { get; set; }
 
     private readonly WelcomeViewModel welcomeViewModel;
     private readonly SettingViewModel settingViewModel;
@@ -19,6 +19,8 @@ public sealed partial class ShellViewModel : ObservableObject
     {
         this.welcomeViewModel = welcomeViewModel;
         this.settingViewModel = settingViewModel;
+
+        Current = welcomeViewModel;
 
         WeakReferenceMessenger.Default.Register<ShellViewModel, NavigationRequest>(
             this,
@@ -29,7 +31,7 @@ public sealed partial class ShellViewModel : ObservableObject
                 _ => throw new ArgumentOutOfRangeException()
             });
 
-        WeakReferenceMessenger.Default.Send(new NavigationRequest(Destination.Welcome));
+        // WeakReferenceMessenger.Default.Send(new NavigationRequest(Destination.Welcome));
     }
 
     [RelayCommand]

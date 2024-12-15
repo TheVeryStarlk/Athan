@@ -36,9 +36,9 @@ public sealed partial class ShellView
 
     private void Update()
     {
-        Shell.Content = userControlFactory.Create(viewModel.Current!);
+        Shell.Content = userControlFactory.Create(viewModel.Current);
 
-        var name = viewModel.Current!.GetType().Name;
+        var name = viewModel.Current.GetType().Name;
         Title = $"Athan • {name[..name.IndexOf("ViewModel", StringComparison.Ordinal)]}";
     }
 }
