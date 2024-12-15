@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using System.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using Wpf.Ui.Appearance;
 
 namespace Athan.Desktop.Features.Shell;
@@ -16,7 +17,7 @@ public sealed partial class ShellView
         DataContext = viewModel;
         InitializeComponent();
 
-        ApplicationThemeManager.Apply(this);
+        SystemThemeWatcher.Watch(this);
 
         // Force the shell to show the current view.
         // We do this before registering the message to not update twice.
@@ -25,6 +26,12 @@ public sealed partial class ShellView
         WeakReferenceMessenger.Default.Register<ShellView, NavigationRequest>(
             this,
             static (self, _) => self.Update());
+    }
+
+    protected override void OnClosing(CancelEventArgs eventArgs)
+    {
+        base.OnClosing(eventArgs);
+        SystemThemeWatcher.UnWatch(this);
     }
 
     private void Update()
