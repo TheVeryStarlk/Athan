@@ -10,21 +10,25 @@
                  mc:Ignorable="d"
                  d:DataContext="{d:DesignInstance Type=local:ShellViewModel, IsDesignTimeCreatable=False}"
 
-                 Title="Athan"
-
+                 Title="Athan" Width="625" Height="750" MinWidth="425" MinHeight="550"
                  ExtendsContentIntoTitleBar="True" Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                  WindowBackdropType="Mica" WindowCornerPreference="Round" WindowStartupLocation="CenterScreen">
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="60" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <ui:TitleBar Height="30" ShowMaximize="False" Grid.Row="0" />
+        <ui:TitleBar Height="60" ShowMaximize="False" Grid.Row="0" />
 
         <TextBlock Text="{Binding Path=Title, RelativeSource={RelativeSource AncestorType={x:Type ui:FluentWindow}}}"
-                   Margin="12.5 0 0 0" Grid.Row="0" />
+                   Margin="25 15 15 15" Grid.Row="0" />
 
-        <ContentControl x:Name="Shell" Grid.Row="1" />
+        <Grid Grid.Row="1">
+            <ui:Card HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="40 0 40 40" Padding="40">
+                <ContentControl x:Name="Shell" />
+            </ui:Card>
+        </Grid>
     </Grid>
 </ui:FluentWindow>
