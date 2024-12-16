@@ -10,5 +10,8 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:WelcomeViewModel, IsDesignTimeCreatable=False}">
 
-    <ui:Button Content="Done" Command="{Binding DoneCommand}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+    <StackPanel>
+        <TextBlock Text="{Binding Location}" />
+        <ui:Button Content="Start" Command="{Binding StartCommand}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+    </StackPanel>
 </UserControl>

@@ -1,4 +1,5 @@
-﻿using Athan.Desktop.Features;
+﻿using System.Net.Http;
+using Athan.Desktop.Features;
 using Athan.Desktop.Features.Offline;
 using Athan.Desktop.Features.Settings;
 using Athan.Desktop.Features.Shell;
@@ -13,13 +14,15 @@ internal static class Bootstrapper
     {
         var collection = new ServiceCollection();
 
+        collection.AddSingleton<HttpClient>();
+
         collection.AddTransient<ShellView>();
         collection.AddTransient<ShellViewModel>();
-
         collection.AddSingleton<NavigationService>();
 
         collection.AddSingleton<WelcomeView>();
         collection.AddSingleton<WelcomeViewModel>();
+        collection.AddTransient<LocationService>();
 
         collection.AddSingleton<SettingsView>();
         collection.AddSingleton<SettingsViewModel>();
