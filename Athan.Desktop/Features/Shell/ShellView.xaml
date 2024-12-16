@@ -21,13 +21,10 @@
         </Grid.RowDefinitions>
 
         <ui:TitleBar Height="60" ShowMaximize="False" Grid.Row="0" />
-
-        <TextBlock Text="{Binding Path=Title, RelativeSource={RelativeSource AncestorType={x:Type ui:FluentWindow}}}"
-                   Margin="25 0 0 0" Grid.Row="0" />
+        <TextBlock Text="Athan" Margin="15.5 10 0 0" VerticalAlignment="Top" Grid.Row="0" />
 
         <Grid Grid.Row="1">
             <ui:Card Margin="40 0 40 40" Padding="40">
-
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />

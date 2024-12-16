@@ -11,7 +11,13 @@ public sealed partial class WelcomeViewModel(LocationService locationService, Na
     [RelayCommand]
     private async Task StartAsync()
     {
-        var result = await locationService.GetLocationAsync();
-        Location = result.Value.ToString();
+        // var result = await locationService.GetLocationAsync();
+        //
+        // if (result.IsFailed)
+        // {
+        //     return;
+        // }
+
+        navigationService.Navigate(Destination.Offline);
     }
 }

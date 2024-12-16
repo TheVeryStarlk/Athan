@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using FluentResults;
 
-namespace Athan.Desktop.Extensions;
+namespace Athan.Desktop.Features;
 
 public static class HttpClientExtension
 {

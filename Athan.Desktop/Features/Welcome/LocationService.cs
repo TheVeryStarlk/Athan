@@ -1,6 +1,5 @@
 ﻿using System.Net.Http;
 using System.Text.Json;
-using Athan.Desktop.Extensions;
 using FluentResults;
 
 namespace Athan.Desktop.Features.Welcome;
