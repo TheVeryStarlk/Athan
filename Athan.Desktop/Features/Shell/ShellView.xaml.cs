@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
-using CommunityToolkit.Mvvm.Messaging;
+using Athan.Desktop.Features.Settings;
+using Athan.Desktop.Features.Welcome;
 using Wpf.Ui.Appearance;
 
 namespace Athan.Desktop.Features.Shell;
@@ -7,38 +8,36 @@ namespace Athan.Desktop.Features.Shell;
 public sealed partial class ShellView
 {
     private readonly ShellViewModel viewModel;
-    private readonly UserControlFactory userControlFactory;
 
-    public ShellView(ShellViewModel viewModel, UserControlFactory userControlFactory)
+    public ShellView(
+        ShellViewModel viewModel,
+        NavigationService navigationService,
+        WelcomeView welcomeView,
+        SettingsView settingsView)
     {
         this.viewModel = viewModel;
-        this.userControlFactory = userControlFactory;
 
         DataContext = viewModel;
+
+        navigationService.Navigated += destination => Shell.Content = destination switch
+        {
+            Destination.Welcome => welcomeView,
+            Destination.Settings => settingsView,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+
         InitializeComponent();
+    }
 
-        SystemThemeWatcher.Watch(this);
-
-        // Force the shell to show the current view.
-        // We do this before registering the message to not update twice.
-        Update();
-
-        WeakReferenceMessenger.Default.Register<ShellView, NavigationRequest>(
-            this,
-            static (self, _) => self.Update());
+    protected override void OnInitialized(EventArgs eventArgs)
+    {
+        base.OnInitialized(eventArgs);
+        viewModel.Initialize();
     }
 
     protected override void OnClosing(CancelEventArgs eventArgs)
     {
         base.OnClosing(eventArgs);
         SystemThemeWatcher.UnWatch(this);
-    }
-
-    private void Update()
-    {
-        Shell.Content = userControlFactory.Create(viewModel.Current);
-
-        var name = viewModel.Current.GetType().Name;
-        Title = $"Athan • {name[..name.IndexOf("ViewModel", StringComparison.Ordinal)]}";
     }
 }
