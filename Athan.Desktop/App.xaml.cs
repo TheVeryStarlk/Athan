@@ -1,8 +1,9 @@
 ﻿using System.Windows;
-using Athan.Desktop.Features.Setting;
+using Athan.Desktop.Features.Settings;
 using Athan.Desktop.Features.Shell;
 using Athan.Desktop.Features.Welcome;
 using Microsoft.Extensions.DependencyInjection;
+using SettingsViewModel = Athan.Desktop.Features.Settings.SettingsViewModel;
 
 namespace Athan.Desktop;
 
@@ -13,8 +14,8 @@ public sealed partial class App
         .AddTransient<ShellViewModel>()
         .AddFactory<WelcomeView, WelcomeViewModel>()
         .AddTransient<WelcomeViewModel>()
-        .AddFactory<SettingView, SettingViewModel>()
-        .AddTransient<SettingViewModel>()
+        .AddFactory<SettingsView, SettingsViewModel>()
+        .AddTransient<SettingsViewModel>()
         .AddSingleton<UserControlFactory>()
         .AddFactory<WelcomeView, WelcomeViewModel>()
         .BuildServiceProvider();

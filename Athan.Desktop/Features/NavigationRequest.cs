@@ -5,5 +5,5 @@ internal sealed record NavigationRequest(Destination Destination);
 internal enum Destination
 {
     Welcome,
-    Setting
+    Settings
 }

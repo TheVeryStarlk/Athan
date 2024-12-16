@@ -1,11 +1,10 @@
-﻿using Athan.Desktop.Features.Shell;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 
-namespace Athan.Desktop.Features.Setting;
+namespace Athan.Desktop.Features.Settings;
 
-public sealed partial class SettingViewModel : ObservableObject
+public sealed partial class SettingsViewModel : ObservableObject
 {
     [RelayCommand]
     private void Save()

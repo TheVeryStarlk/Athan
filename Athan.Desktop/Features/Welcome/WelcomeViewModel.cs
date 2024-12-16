@@ -1,5 +1,4 @@
-﻿using Athan.Desktop.Features.Shell;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 
@@ -10,6 +9,6 @@ public sealed partial class WelcomeViewModel : ObservableObject
     [RelayCommand]
     private void Done()
     {
-        WeakReferenceMessenger.Default.Send(new NavigationRequest(Destination.Setting));
+        WeakReferenceMessenger.Default.Send(new NavigationRequest(Destination.Settings));
     }
 }

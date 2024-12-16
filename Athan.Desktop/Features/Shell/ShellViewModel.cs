@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel;
-using Athan.Desktop.Features.Setting;
 using Athan.Desktop.Features.Welcome;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using SettingsViewModel = Athan.Desktop.Features.Settings.SettingsViewModel;
 
 namespace Athan.Desktop.Features.Shell;
 
@@ -13,12 +13,12 @@ public sealed partial class ShellViewModel : ObservableObject
     public partial INotifyPropertyChanged Current { get; set; }
 
     private readonly WelcomeViewModel welcomeViewModel;
-    private readonly SettingViewModel settingViewModel;
+    private readonly SettingsViewModel settingsViewModel;
 
-    public ShellViewModel(WelcomeViewModel welcomeViewModel, SettingViewModel settingViewModel)
+    public ShellViewModel(WelcomeViewModel welcomeViewModel, SettingsViewModel settingsViewModel)
     {
         this.welcomeViewModel = welcomeViewModel;
-        this.settingViewModel = settingViewModel;
+        this.settingsViewModel = settingsViewModel;
 
         Current = welcomeViewModel;
 
@@ -27,7 +27,7 @@ public sealed partial class ShellViewModel : ObservableObject
             static (self, message) => self.Current = message.Destination switch
             {
                 Destination.Welcome => self.welcomeViewModel,
-                Destination.Setting => self.settingViewModel,
+                Destination.Settings => self.settingsViewModel,
                 _ => throw new ArgumentOutOfRangeException()
             });
 
@@ -35,8 +35,8 @@ public sealed partial class ShellViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void NavigateSetting()
+    private void NavigateSettings()
     {
-        WeakReferenceMessenger.Default.Send(new NavigationRequest(Destination.Setting));
+        WeakReferenceMessenger.Default.Send(new NavigationRequest(Destination.Settings));
     }
 }
