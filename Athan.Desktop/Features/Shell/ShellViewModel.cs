@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Net.NetworkInformation;
 using Athan.Desktop.Features.Offline;
 using Athan.Desktop.Features.Settings;
 using Athan.Desktop.Features.Welcome;
@@ -26,6 +27,18 @@ public sealed partial class ShellViewModel(
             Destination.Settings => settingsViewModel,
             Destination.Offline => offlineViewModel,
             _ => throw new ArgumentOutOfRangeException()
+        };
+
+        NetworkChange.NetworkAvailabilityChanged += (_, eventArgs) =>
+        {
+            if (eventArgs.IsAvailable)
+            {
+                navigationService.NavigateBackward();
+            }
+            else
+            {
+                navigationService.Navigate(Destination.Offline);
+            }
         };
     }
 
