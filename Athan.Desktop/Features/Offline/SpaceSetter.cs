@@ -1,0 +1,62 @@
+﻿using System.Windows;
+using System.Windows.Controls;
+
+namespace Athan.Desktop.Features.Offline;
+
+public sealed class SpacingSetter
+{
+    public static readonly DependencyProperty SpacingProperty =
+        DependencyProperty.RegisterAttached("Spacing", typeof(int), typeof(SpacingSetter),
+            new UIPropertyMetadata(0, MarginChanged));
+
+    public static int GetSpacing(DependencyObject dependencyObject)
+    {
+        return (int) dependencyObject.GetValue(SpacingProperty);
+    }
+
+    public static void SetSpacing(DependencyObject dependencyObject, int value)
+    {
+        dependencyObject.SetValue(SpacingProperty, value);
+    }
+
+    private static void MarginChanged(object sender, DependencyPropertyChangedEventArgs eventArgs)
+    {
+        if (sender is Panel panel)
+        {
+            panel.Loaded += PanelLoaded;
+        }
+    }
+
+    private static void PanelLoaded(object sender, RoutedEventArgs eventArgs)
+    {
+        var panel = (Panel) sender;
+
+        if (panel.Children.Count < 1)
+        {
+            return;
+        }
+
+        var thickness = panel is StackPanel { Orientation: Orientation.Horizontal }
+            ? new Thickness(GetSpacing(panel), 0, 0, 0)
+            : new Thickness(0, GetSpacing(panel), 0, 0);
+
+        var first = false;
+
+        foreach (var child in panel.Children)
+        {
+            if (child is not FrameworkElement frameworkElement)
+            {
+                continue;
+            }
+
+            if (!first)
+            {
+                frameworkElement.Margin = thickness;
+            }
+            else
+            {
+                first = false;
+            }
+        }
+    }
+}

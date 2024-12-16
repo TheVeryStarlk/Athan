@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Athan.Desktop.Features.Offline;
 using Athan.Desktop.Features.Settings;
 using Athan.Desktop.Features.Welcome;
 using Wpf.Ui.Appearance;
@@ -13,7 +14,8 @@ public sealed partial class ShellView
         ShellViewModel viewModel,
         NavigationService navigationService,
         WelcomeView welcomeView,
-        SettingsView settingsView)
+        SettingsView settingsView,
+        OfflineView offlineView)
     {
         this.viewModel = viewModel;
 
@@ -23,6 +25,7 @@ public sealed partial class ShellView
         {
             Destination.Welcome => welcomeView,
             Destination.Settings => settingsView,
+            Destination.Offline => offlineView,
             _ => throw new ArgumentOutOfRangeException()
         };
 

@@ -26,9 +26,7 @@
                    Margin="25 0 0 0" Grid.Row="0" />
 
         <Grid Grid.Row="1">
-            <ui:Card HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                     HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
-                     Margin="40 0 40 40" Padding="40">
+            <ui:Card Margin="40 0 40 40" Padding="40">
 
                 <Grid>
                     <Grid.RowDefinitions>

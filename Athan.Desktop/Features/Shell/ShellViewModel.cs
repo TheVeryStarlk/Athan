@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Athan.Desktop.Features.Offline;
 using Athan.Desktop.Features.Settings;
 using Athan.Desktop.Features.Welcome;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -9,7 +10,8 @@ namespace Athan.Desktop.Features.Shell;
 public sealed partial class ShellViewModel(
     NavigationService navigationService,
     WelcomeViewModel welcomeViewModel,
-    SettingsViewModel settingsViewModel) : ObservableObject
+    SettingsViewModel settingsViewModel,
+    OfflineViewModel offlineViewModel) : ObservableObject
 {
     [ObservableProperty]
     public partial INotifyPropertyChanged Current { get; set; } = welcomeViewModel;
@@ -22,6 +24,7 @@ public sealed partial class ShellViewModel(
         {
             Destination.Welcome => welcomeViewModel,
             Destination.Settings => settingsViewModel,
+            Destination.Offline => offlineViewModel,
             _ => throw new ArgumentOutOfRangeException()
         };
     }

@@ -24,5 +24,6 @@ public sealed class NavigationService
 public enum Destination
 {
     Welcome,
-    Settings
+    Settings,
+    Offline
 }
