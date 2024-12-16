@@ -2,6 +2,7 @@
 using Athan.Desktop.Features.Offline;
 using Athan.Desktop.Features.Settings;
 using Athan.Desktop.Features.Welcome;
+using Wpf.Ui;
 using Wpf.Ui.Appearance;
 
 namespace Athan.Desktop.Features.Shell;
@@ -13,6 +14,7 @@ public sealed partial class ShellView
     public ShellView(
         ShellViewModel viewModel,
         NavigationService navigationService,
+        SnackbarService snackbarService,
         WelcomeView welcomeView,
         SettingsView settingsView,
         OfflineView offlineView)
@@ -30,6 +32,8 @@ public sealed partial class ShellView
         };
 
         InitializeComponent();
+
+        snackbarService.SetSnackbarPresenter(SnackbarPresenter);
     }
 
     protected override void OnInitialized(EventArgs eventArgs)

@@ -41,5 +41,7 @@
                 </Grid>
             </ui:Card>
         </Grid>
+
+        <ui:SnackbarPresenter x:Name="SnackbarPresenter" Grid.Row="1" />
     </Grid>
 </ui:FluentWindow>
