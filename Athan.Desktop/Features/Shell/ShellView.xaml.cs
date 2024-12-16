@@ -20,8 +20,9 @@ public sealed partial class ShellView
         OfflineView offlineView)
     {
         this.viewModel = viewModel;
-
         DataContext = viewModel;
+
+        InitializeComponent();
 
         navigationService.Navigated += destination => Shell.Content = destination switch
         {
@@ -30,8 +31,6 @@ public sealed partial class ShellView
             Destination.Offline => offlineView,
             _ => throw new ArgumentOutOfRangeException()
         };
-
-        InitializeComponent();
 
         snackbarService.SetSnackbarPresenter(SnackbarPresenter);
     }
