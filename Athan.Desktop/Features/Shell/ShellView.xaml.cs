@@ -18,6 +18,7 @@ public sealed partial class ShellView
     public ShellView(
         ShellViewModel viewModel,
         NavigationService navigationService,
+        NotificationService notificationService,
         SnackbarService snackbarService,
         WelcomeView welcomeView,
         PrayersView prayersView,
@@ -52,9 +53,38 @@ public sealed partial class ShellView
             }
         };
 
+        notificationService.NotificationActivated += () => Dispatcher.Invoke(() => WindowState = WindowState.Normal);
+
         InitializeComponent();
 
         snackbarService.SetSnackbarPresenter(SnackbarPresenter);
+    }
+
+    protected override async void OnPropertyChanged(DependencyPropertyChangedEventArgs eventArgs)
+    {
+        try
+        {
+            base.OnPropertyChanged(eventArgs);
+
+            if (eventArgs.Property != WindowStateProperty)
+            {
+                return;
+            }
+
+            if (WindowState is WindowState.Minimized)
+            {
+                ShowInTaskbar = false;
+                await viewModel.OnMinimizedAsync();
+            }
+            else
+            {
+                ShowInTaskbar = true;
+            }
+        }
+        catch (Exception exception)
+        {
+            Debug.WriteLine(exception);
+        }
     }
 
     protected override async void OnInitialized(EventArgs eventArgs)

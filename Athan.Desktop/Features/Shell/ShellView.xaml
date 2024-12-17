@@ -5,6 +5,7 @@
                  xmlns:local="clr-namespace:Athan.Desktop.Features.Shell"
                  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
                  xmlns:viewExtenders="clr-namespace:Athan.Desktop.ViewExtenders"
+                 xmlns:tray="http://schemas.lepo.co/wpfui/2022/xaml/tray"
 
                  x:Class="Athan.Desktop.Features.Shell.ShellView"
 
@@ -22,6 +23,8 @@
         </Grid.RowDefinitions>
 
         <ui:TitleBar Height="60" ShowMaximize="False" Grid.Row="0" />
+
+        <tray:NotifyIcon FocusOnLeftClick="True" TooltipText="Athan" Grid.Row="0" />
 
         <StackPanel viewExtenders:SpacingSetter.Spacing="15" Orientation="Horizontal"
                     Margin="22.5 20 0 0" VerticalAlignment="Top" Grid.Row="0">

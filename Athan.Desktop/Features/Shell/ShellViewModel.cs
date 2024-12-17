@@ -12,6 +12,7 @@ namespace Athan.Desktop.Features.Shell;
 public sealed partial class ShellViewModel(
     NavigationService navigationService,
     SettingsService settingsService,
+    NotificationService notificationService,
     WelcomeViewModel welcomeViewModel,
     PrayersViewModel prayersViewModel,
     SettingsViewModel settingsViewModel,
@@ -22,7 +23,9 @@ public sealed partial class ShellViewModel(
 
     public async Task InitializeAsync()
     {
-        navigationService.Navigate( await settingsService.LoadAsync() is null
+        await notificationService.InitializeAsync();
+
+        navigationService.Navigate(await settingsService.LoadAsync() is null
             ? Destination.Welcome
             : Destination.Prayers);
 
@@ -46,6 +49,13 @@ public sealed partial class ShellViewModel(
                 navigationService.Navigate(Destination.Offline);
             }
         };
+    }
+
+    public async Task OnMinimizedAsync()
+    {
+        await notificationService.ShowAsync(
+            "Athan is still running",
+            "You can open Athan from the tray icon menu.");
     }
 
     [RelayCommand]
