@@ -9,6 +9,7 @@ public sealed partial class SettingsViewModel(SettingsService settingsService, N
     [RelayCommand]
     private void Clear()
     {
+        // Test.
         settingsService.Delete();
         navigationService.Navigate(Destination.Welcome);
     }
