@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using Athan.Desktop.Features.Offline;
+using Athan.Desktop.Features.Prayers;
 using Athan.Desktop.Features.Settings;
 using Athan.Desktop.Features.Welcome;
 using Wpf.Ui;
@@ -16,6 +17,7 @@ public sealed partial class ShellView
         NavigationService navigationService,
         SnackbarService snackbarService,
         WelcomeView welcomeView,
+        PrayersView prayersView,
         SettingsView settingsView,
         OfflineView offlineView)
     {
@@ -25,6 +27,7 @@ public sealed partial class ShellView
         navigationService.Navigated += destination => Shell.Content = destination switch
         {
             Destination.Welcome => welcomeView,
+            Destination.Prayers => prayersView,
             Destination.Settings => settingsView,
             Destination.Offline => offlineView,
             _ => throw new ArgumentOutOfRangeException()

@@ -20,9 +20,7 @@ public sealed partial class WelcomeViewModel(
             snackbarService.Show(
                 "Failed to retrieve location",
                 result.Errors[0].Message,
-                ControlAppearance.Transparent,
-                new SymbolIcon(SymbolRegular.Warning20),
-                TimeSpan.FromSeconds(5));
+                SymbolRegular.Warning20);
 
             return;
         }
@@ -30,10 +28,8 @@ public sealed partial class WelcomeViewModel(
         snackbarService.Show(
             "Location retrieved",
             $"You are in {result.Value}.",
-            ControlAppearance.Transparent,
-            new SymbolIcon(SymbolRegular.Location20),
-            TimeSpan.FromSeconds(5));
+            SymbolRegular.Location20);
 
-        navigationService.Navigate(Destination.Offline);
+        navigationService.Navigate(Destination.Prayers);
     }
 }

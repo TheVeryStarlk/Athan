@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Net.NetworkInformation;
 using Athan.Desktop.Features.Offline;
+using Athan.Desktop.Features.Prayers;
 using Athan.Desktop.Features.Settings;
 using Athan.Desktop.Features.Welcome;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -11,6 +12,7 @@ namespace Athan.Desktop.Features.Shell;
 public sealed partial class ShellViewModel(
     NavigationService navigationService,
     WelcomeViewModel welcomeViewModel,
+    PrayersViewModel prayersViewModel,
     SettingsViewModel settingsViewModel,
     OfflineViewModel offlineViewModel) : ObservableObject
 {
@@ -24,6 +26,7 @@ public sealed partial class ShellViewModel(
         navigationService.Navigated += destination => Current = destination switch
         {
             Destination.Welcome => welcomeViewModel,
+            Destination.Prayers => prayersViewModel,
             Destination.Settings => settingsViewModel,
             Destination.Offline => offlineViewModel,
             _ => throw new ArgumentOutOfRangeException()
