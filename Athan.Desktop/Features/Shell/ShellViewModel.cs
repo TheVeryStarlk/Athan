@@ -11,6 +11,7 @@ namespace Athan.Desktop.Features.Shell;
 
 public sealed partial class ShellViewModel(
     NavigationService navigationService,
+    SettingsService settingsService,
     WelcomeViewModel welcomeViewModel,
     PrayersViewModel prayersViewModel,
     SettingsViewModel settingsViewModel,
@@ -19,9 +20,11 @@ public sealed partial class ShellViewModel(
     [ObservableProperty]
     public partial INotifyPropertyChanged Current { get; set; } = welcomeViewModel;
 
-    public void Initialize()
+    public async Task InitializeAsync()
     {
-        navigationService.Navigate(Destination.Welcome);
+        navigationService.Navigate( await settingsService.LoadAsync() is null
+            ? Destination.Welcome
+            : Destination.Prayers);
 
         navigationService.Navigated += destination => Current = destination switch
         {

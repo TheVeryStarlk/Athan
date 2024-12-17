@@ -31,6 +31,7 @@ internal static class Bootstrapper
 
         collection.AddSingleton<SettingsView>();
         collection.AddSingleton<SettingsViewModel>();
+        collection.AddSingleton<SettingsService>();
 
         collection.AddSingleton<OfflineView>();
         collection.AddSingleton<OfflineViewModel>();

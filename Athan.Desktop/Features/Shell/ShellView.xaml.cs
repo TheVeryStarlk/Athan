@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
+using System.Windows;
 using Athan.Desktop.Features.Offline;
 using Athan.Desktop.Features.Prayers;
 using Athan.Desktop.Features.Settings;
@@ -24,13 +26,18 @@ public sealed partial class ShellView
         this.viewModel = viewModel;
         DataContext = viewModel;
 
-        navigationService.Navigated += destination => Shell.Content = destination switch
+        navigationService.Navigated += destination =>
         {
-            Destination.Welcome => welcomeView,
-            Destination.Prayers => prayersView,
-            Destination.Settings => settingsView,
-            Destination.Offline => offlineView,
-            _ => throw new ArgumentOutOfRangeException()
+            Shell.Content = destination switch
+            {
+                Destination.Welcome => welcomeView,
+                Destination.Prayers => prayersView,
+                Destination.Settings => settingsView,
+                Destination.Offline => offlineView,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            MainGrid.Visibility = Visibility.Visible;
         };
 
         InitializeComponent();
@@ -38,10 +45,17 @@ public sealed partial class ShellView
         snackbarService.SetSnackbarPresenter(SnackbarPresenter);
     }
 
-    protected override void OnInitialized(EventArgs eventArgs)
+    protected override async void OnInitialized(EventArgs eventArgs)
     {
-        base.OnInitialized(eventArgs);
-        viewModel.Initialize();
+        try
+        {
+            base.OnInitialized(eventArgs);
+            await viewModel.InitializeAsync();
+        }
+        catch (Exception exception)
+        {
+            Debug.WriteLine(exception);
+        }
     }
 
     protected override void OnClosing(CancelEventArgs eventArgs)

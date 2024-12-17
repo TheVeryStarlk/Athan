@@ -30,7 +30,7 @@
             <TextBlock Text="Athan" />
         </StackPanel>
 
-        <Grid Grid.Row="1">
+        <Grid x:Name="MainGrid" Visibility="Collapsed" Grid.Row="1">
             <ui:Card Margin="40 0 40 40" Padding="40">
                 <Grid>
                     <Grid.RowDefinitions>
