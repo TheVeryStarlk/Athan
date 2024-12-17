@@ -4,11 +4,12 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Athan.Desktop.Features.Settings;
 
-public sealed partial class SettingsViewModel(NavigationService navigationService) : ObservableObject
+public sealed partial class SettingsViewModel(SettingsService settingsService, NavigationService navigationService) : ObservableObject
 {
     [RelayCommand]
-    private void Save()
+    private void Clear()
     {
-        navigationService.NavigateBackward();
+        settingsService.Delete();
+        navigationService.Navigate(Destination.Welcome);
     }
 }

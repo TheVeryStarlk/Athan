@@ -29,6 +29,11 @@ public sealed class SettingsService
 
         await File.WriteAllTextAsync(path, JsonSerializer.Serialize(settings));
     }
+
+    public void Delete()
+    {
+        File.Delete(path);
+    }
 }
 
 public sealed class SettingsModel(Location location)

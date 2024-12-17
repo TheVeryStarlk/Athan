@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 using Athan.Desktop.Features.Offline;
 using Athan.Desktop.Features.Prayers;
 using Athan.Desktop.Features.Settings;
@@ -28,7 +29,7 @@ public sealed partial class ShellView
 
         navigationService.Navigated += destination =>
         {
-            Shell.Content = destination switch
+            UserControl view = destination switch
             {
                 Destination.Welcome => welcomeView,
                 Destination.Prayers => prayersView,
@@ -37,7 +38,18 @@ public sealed partial class ShellView
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            MainGrid.Visibility = Visibility.Visible;
+            if (destination is Destination.Settings)
+            {
+                SettingsShell.Content = view;
+                SettingsShell.Visibility = Visibility.Visible;
+                MainGrid.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                Shell.Content = view;
+                SettingsShell.Visibility = Visibility.Collapsed;
+                MainGrid.Visibility = Visibility.Visible;
+            }
         };
 
         InitializeComponent();
