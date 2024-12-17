@@ -30,7 +30,7 @@
                     Margin="20 20 0 0" VerticalAlignment="Top" Grid.Row="0">
 
             <Image Source="../../Athan.ico" VerticalAlignment="Center" Width="20" Height="20" />
-            <TextBlock Text="Athan" />
+            <ui:TextBlock Text="Athan" />
         </StackPanel>
 
         <Grid x:Name="MainGrid" Visibility="Collapsed" Grid.Row="1">

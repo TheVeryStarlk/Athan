@@ -8,7 +8,10 @@
         <ResourceDictionary>
             <Style TargetType="TextBlock">
                 <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="TextWrapping" Value="Wrap" />
             </Style>
+
+            <Style TargetType="ui:TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}" />
 
             <ResourceDictionary.MergedDictionaries>
                 <ui:ThemesDictionary Theme="Dark" />
