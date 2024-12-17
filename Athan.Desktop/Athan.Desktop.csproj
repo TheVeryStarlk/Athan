@@ -20,4 +20,11 @@
 		<PackageReference Include="WPF-UI" Version="3.0.5"/>
 	</ItemGroup>
 
+	<ItemGroup>
+		<None Remove="Athan.ico"/>
+		<Resource Include="Athan.ico">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Resource>
+	</ItemGroup>
+	
 </Project>

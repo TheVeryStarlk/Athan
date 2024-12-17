@@ -6,15 +6,18 @@ namespace Athan.Desktop.Features;
 public sealed class SpacingSetter
 {
     public static readonly DependencyProperty SpacingProperty =
-        DependencyProperty.RegisterAttached("Spacing", typeof(int), typeof(SpacingSetter),
-            new UIPropertyMetadata(0, MarginChanged));
+        DependencyProperty.RegisterAttached(
+            "Spacing",
+            typeof(float),
+            typeof(SpacingSetter),
+            new UIPropertyMetadata(0F, MarginChanged));
 
-    public static int GetSpacing(DependencyObject dependencyObject)
+    public static float GetSpacing(DependencyObject dependencyObject)
     {
-        return (int) dependencyObject.GetValue(SpacingProperty);
+        return (float) dependencyObject.GetValue(SpacingProperty);
     }
 
-    public static void SetSpacing(DependencyObject dependencyObject, int value)
+    public static void SetSpacing(DependencyObject dependencyObject, float value)
     {
         dependencyObject.SetValue(SpacingProperty, value);
     }
@@ -40,7 +43,7 @@ public sealed class SpacingSetter
             ? new Thickness(GetSpacing(panel), 0, 0, 0)
             : new Thickness(0, GetSpacing(panel), 0, 0);
 
-        var first = false;
+        var first = true;
 
         foreach (var child in panel.Children)
         {
