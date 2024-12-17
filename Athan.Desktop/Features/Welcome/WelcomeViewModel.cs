@@ -18,7 +18,7 @@ public sealed partial class WelcomeViewModel(
         if (result.IsFailed)
         {
             snackbarService.Show(
-                "An error has occured",
+                "Failed to retrieve location",
                 result.Errors[0].Message,
                 ControlAppearance.Transparent,
                 new SymbolIcon(SymbolRegular.Warning20),

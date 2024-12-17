@@ -10,5 +10,5 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:SettingsViewModel, IsDesignTimeCreatable=False}">
 
-    <ui:Button Content="Save" Command="{Binding SaveCommand}" />
+    <ui:Button Content="Save" Command="{Binding SaveCommand}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
 </UserControl>
