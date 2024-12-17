@@ -4,14 +4,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Athan.Desktop.Features.Welcome"
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-             xmlns:features="clr-namespace:Athan.Desktop.Features"
+             xmlns:viewExtenders="clr-namespace:Athan.Desktop.ViewExtenders"
 
              x:Class="Athan.Desktop.Features.Welcome.WelcomeView"
 
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:WelcomeViewModel, IsDesignTimeCreatable=False}">
 
-    <StackPanel features:SpacingSetter.Spacing="15">
+    <StackPanel viewExtenders:SpacingSetter.Spacing="15">
         <StackPanel>
             <ui:TextBlock Text="Welcome" FontTypography="Title" />
             <ui:TextBlock Text="Click the button below to retrieve your location." />

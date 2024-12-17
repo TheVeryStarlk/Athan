@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Athan.Desktop.Features;
+namespace Athan.Desktop.ViewExtenders;
 
 public sealed class SpacingSetter
 {

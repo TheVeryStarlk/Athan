@@ -1,7 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Athan.Desktop.Extensions;
+using Athan.Desktop.Features.Shell;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
+using NavigationService = Athan.Desktop.Features.Shell.NavigationService;
 
 namespace Athan.Desktop.Features.Welcome;
 

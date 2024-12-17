@@ -4,7 +4,7 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:local="clr-namespace:Athan.Desktop.Features.Shell"
                  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-                 xmlns:features="clr-namespace:Athan.Desktop.Features"
+                 xmlns:viewExtenders="clr-namespace:Athan.Desktop.ViewExtenders"
 
                  x:Class="Athan.Desktop.Features.Shell.ShellView"
 
@@ -23,7 +23,7 @@
 
         <ui:TitleBar Height="60" ShowMaximize="False" Grid.Row="0" />
 
-        <StackPanel features:SpacingSetter.Spacing="15" Orientation="Horizontal"
+        <StackPanel viewExtenders:SpacingSetter.Spacing="15" Orientation="Horizontal"
                     Margin="22.5 20 0 0" VerticalAlignment="Top" Grid.Row="0">
 
             <Image Source="../../Athan.ico" Width="20" Height="20" />

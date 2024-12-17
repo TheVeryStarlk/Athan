@@ -1,7 +1,7 @@
 ﻿using Wpf.Ui;
 using Wpf.Ui.Controls;
 
-namespace Athan.Desktop.Features;
+namespace Athan.Desktop.Extensions;
 
 internal static class SnackbarServiceExtensions
 {

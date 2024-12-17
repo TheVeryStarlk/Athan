@@ -1,4 +1,4 @@
-﻿namespace Athan.Desktop.Features;
+﻿namespace Athan.Desktop.Features.Shell;
 
 public sealed class NavigationService
 {
