@@ -27,9 +27,9 @@
         <tray:NotifyIcon FocusOnLeftClick="True" TooltipText="Athan" Grid.Row="0" />
 
         <StackPanel viewExtenders:SpacingSetter.Spacing="15" Orientation="Horizontal"
-                    Margin="22.5 20 0 0" VerticalAlignment="Top" Grid.Row="0">
+                    Margin="20 20 0 0" VerticalAlignment="Top" Grid.Row="0">
 
-            <Image Source="../../Athan.ico" Width="20" Height="20" />
+            <Image Source="../../Athan.ico" VerticalAlignment="Center" Width="20" Height="20" />
             <TextBlock Text="Athan" />
         </StackPanel>
 
