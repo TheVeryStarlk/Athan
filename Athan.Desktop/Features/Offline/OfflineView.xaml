@@ -11,8 +11,13 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:OfflineViewModel, IsDesignTimeCreatable=False}">
 
-    <StackPanel>
-        <ui:TextBlock Text="You are offline" FontTypography="Title" />
-        <ui:TextBlock Text="You will be redirected automatically once you reconnect to the internet." />
+    <StackPanel features:SpacingSetter.Spacing="15">
+        <StackPanel>
+            <ui:TextBlock Text="You are offline" FontTypography="Title" />
+            <ui:TextBlock Text="You will be redirected automatically once you reconnect to the internet." />
+        </StackPanel>
+
+        <ui:Button Content="Try again" Command="{Binding TryAgainCommand}"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
     </StackPanel>
 </UserControl>
