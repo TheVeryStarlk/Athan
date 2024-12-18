@@ -13,8 +13,14 @@
 
     <ScrollViewer>
         <StackPanel viewExtenders:SpacingSetter.Spacing="15">
+            <StackPanel.Resources>
+                <Style TargetType="ui:SymbolIcon">
+                    <Setter Property="FontSize" Value="25" />
+                </Style>
+            </StackPanel.Resources>
+
             <ui:Card>
-                <Grid VerticalAlignment="Center">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="15" />
@@ -23,7 +29,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <ui:SymbolIcon Symbol="Alert20" FontSize="25" Grid.Column="0" />
+                    <ui:SymbolIcon Symbol="Alert20" Grid.Column="0" />
 
                     <StackPanel Grid.Column="2">
                         <ui:TextBlock Text="Enable notifications" />
@@ -35,7 +41,7 @@
             </ui:Card>
 
             <ui:Card>
-                <Grid VerticalAlignment="Center">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="15" />
@@ -44,7 +50,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <ui:SymbolIcon Symbol="Delete20" FontSize="25" Margin="0 0 15 0" Grid.Column="0" />
+                    <ui:SymbolIcon Symbol="Delete20" Grid.Column="0" />
 
                     <StackPanel Grid.Column="2">
                         <ui:TextBlock Text="Clear all" />
@@ -56,7 +62,7 @@
             </ui:Card>
 
             <ui:Card>
-                <Grid VerticalAlignment="Center">
+                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="15" />
@@ -65,7 +71,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <ui:SymbolIcon Symbol="Save20" FontSize="25" Margin="0 0 15 0" Grid.Column="0" />
+                    <ui:SymbolIcon Symbol="Save20" Grid.Column="0" />
 
                     <StackPanel Grid.Column="2">
                         <ui:TextBlock Text="Save" />

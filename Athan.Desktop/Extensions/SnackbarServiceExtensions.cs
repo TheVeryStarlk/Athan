@@ -10,7 +10,7 @@ internal static class SnackbarServiceExtensions
         service.Show(
             title,
             description,
-            ControlAppearance.Transparent,
+            ControlAppearance.Secondary,
             new SymbolIcon(symbolRegular),
             TimeSpan.FromSeconds(5));
     }

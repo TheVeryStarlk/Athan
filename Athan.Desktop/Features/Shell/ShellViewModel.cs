@@ -61,6 +61,11 @@ public sealed partial class ShellViewModel(
     [RelayCommand]
     private void NavigateSettings()
     {
+        if (Current is SettingsViewModel)
+        {
+            return;
+        }
+
         navigationService.Navigate(Destination.Settings);
     }
 }
