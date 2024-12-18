@@ -3,6 +3,7 @@ using Athan.Desktop.Features.Settings;
 using Athan.Desktop.Features.Shell;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Serilog;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 using NavigationService = Athan.Desktop.Features.Shell.NavigationService;
@@ -10,6 +11,7 @@ using NavigationService = Athan.Desktop.Features.Shell.NavigationService;
 namespace Athan.Desktop.Features.Welcome;
 
 public sealed partial class WelcomeViewModel(
+    ILogger logger,
     LocationService locationService,
     SnackbarService snackbarService,
     SettingsService settingsService,
@@ -35,8 +37,9 @@ public sealed partial class WelcomeViewModel(
             $"You are in {result.Value}.",
             SymbolRegular.Location20);
 
-        settingsService.Set(nameof(Location), result.Value);
+        logger.Error("Saving and navigating to prayers...");
 
+        settingsService.Set(nameof(Location), result.Value);
         navigationService.Navigate(Destination.Prayers);
     }
 }

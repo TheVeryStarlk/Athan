@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.IO;
+using System.Net.Http;
 using Athan.Desktop.Features.Offline;
 using Athan.Desktop.Features.Prayers;
 using Athan.Desktop.Features.Settings;
@@ -7,6 +8,7 @@ using Athan.Desktop.Features.Welcome;
 using DesktopNotifications;
 using DesktopNotifications.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace Athan.Desktop;
 
@@ -15,6 +17,18 @@ internal static class Bootstrapper
     public static IServiceProvider Create()
     {
         var collection = new ServiceCollection();
+
+        collection.AddSerilog(configuration =>
+        {
+            var path = Path.Join(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "Athan",
+                "log.txt");
+
+            configuration
+                .MinimumLevel.Verbose()
+                .WriteTo.File(path);
+        });
 
         collection.AddSingleton<Wpf.Ui.SnackbarService>();
         collection.AddSingleton<HttpClient>();

@@ -2,6 +2,7 @@
 using Athan.Desktop.Features.Welcome;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Serilog;
 
 namespace Athan.Desktop.Features.Settings;
 
@@ -10,11 +11,13 @@ public sealed partial class SettingsViewModel : ObservableObject
     [ObservableProperty]
     public partial bool EnableNotifications { get; set; }
 
+    private readonly ILogger logger;
     private readonly SettingsService settingsService;
     private readonly NavigationService navigationService;
 
-    public SettingsViewModel(SettingsService settingsService, NavigationService navigationService)
+    public SettingsViewModel(ILogger logger, SettingsService settingsService, NavigationService navigationService)
     {
+        this.logger = logger;
         this.settingsService = settingsService;
         this.navigationService = navigationService;
 
@@ -32,11 +35,15 @@ public sealed partial class SettingsViewModel : ObservableObject
     {
         settingsService.Set<Location>(nameof(Location), null);
         navigationService.Navigate(Destination.Welcome);
+
+        logger.Information("Cleared location");
     }
 
     [RelayCommand]
     private async Task SaveAsync()
     {
+        logger.Information("Saving settings");
+
         settingsService.Set(nameof(EnableNotifications), EnableNotifications);
 
         await settingsService.SaveAsync();
