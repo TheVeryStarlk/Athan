@@ -6,6 +6,9 @@ namespace Athan.Desktop.Features.Settings;
 
 public sealed partial class SettingsViewModel(SettingsService settingsService, NavigationService navigationService) : ObservableObject
 {
+    [ObservableProperty]
+    public partial bool EnableNotifications { get; set; } = true;
+
     [RelayCommand]
     private void Clear()
     {

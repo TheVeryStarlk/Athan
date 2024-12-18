@@ -30,7 +30,7 @@
                         <ui:TextBlock Text="Toggle notifications for prayer times and tray icon." Opacity="0.75" />
                     </StackPanel>
 
-                    <ui:ToggleSwitch OffContent="Off" OnContent="On" Grid.Column="4" />
+                    <ui:ToggleSwitch IsChecked="{Binding EnableNotifications}" OffContent="Off" OnContent="On" Grid.Column="4" />
                 </Grid>
             </ui:Card>
 
