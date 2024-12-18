@@ -4,15 +4,77 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Athan.Desktop.Features.Settings"
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:viewExtenders="clr-namespace:Athan.Desktop.ViewExtenders"
 
              x:Class="Athan.Desktop.Features.Settings.SettingsView"
 
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:SettingsViewModel, IsDesignTimeCreatable=False}">
 
-    <StackPanel>
-        <ui:Card Footer="Clears all stored settings, such as location and theme.">
-            <ui:Button Content="Clear all" Command="{Binding ClearCommand}" />
-        </ui:Card>
-    </StackPanel>
+    <ScrollViewer>
+        <StackPanel viewExtenders:SpacingSetter.Spacing="15">
+            <ui:Card>
+                <Grid VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="15" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="15" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <ui:SymbolIcon Symbol="Alert20" FontSize="25" Grid.Column="0" />
+
+                    <StackPanel Grid.Column="2">
+                        <ui:TextBlock Text="Enable notifications" />
+                        <ui:TextBlock Text="Toggle notifications for prayer times and tray icon." Opacity="0.75" />
+                    </StackPanel>
+
+                    <ui:ToggleSwitch OffContent="Off" OnContent="On" Grid.Column="4" />
+                </Grid>
+            </ui:Card>
+
+            <ui:Card>
+                <Grid VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="15" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="15" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <ui:SymbolIcon Symbol="Delete20" FontSize="25" Margin="0 0 15 0" Grid.Column="0" />
+
+                    <StackPanel Grid.Column="2">
+                        <ui:TextBlock Text="Clear all" />
+                        <ui:TextBlock Text="Clears all stored settings, such as location and theme." Opacity="0.75" />
+                    </StackPanel>
+
+                    <ui:Button Content="Clear" Command="{Binding ClearCommand}" Grid.Column="4" />
+                </Grid>
+            </ui:Card>
+
+            <ui:Card>
+                <Grid VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="15" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="15" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <ui:SymbolIcon Symbol="Save20" FontSize="25" Margin="0 0 15 0" Grid.Column="0" />
+
+                    <StackPanel Grid.Column="2">
+                        <ui:TextBlock Text="Save" />
+                        <ui:TextBlock Text="Saves changes and redirects you back." Opacity="0.75" />
+                    </StackPanel>
+
+                    <ui:Button Content="Save" Command="{Binding SaveCommand}" Grid.Column="4" />
+                </Grid>
+            </ui:Card>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>
