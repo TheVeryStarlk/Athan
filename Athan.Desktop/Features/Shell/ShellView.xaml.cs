@@ -100,9 +100,18 @@ public sealed partial class ShellView
         }
     }
 
-    protected override void OnClosing(CancelEventArgs eventArgs)
+    protected override async void OnClosing(CancelEventArgs eventArgs)
     {
-        base.OnClosing(eventArgs);
-        SystemThemeWatcher.UnWatch(this);
+        try
+        {
+            base.OnClosing(eventArgs);
+            await viewModel.OnClosingAsync();
+
+            SystemThemeWatcher.UnWatch(this);
+        }
+        catch (Exception exception)
+        {
+            Debug.WriteLine(exception);
+        }
     }
 }

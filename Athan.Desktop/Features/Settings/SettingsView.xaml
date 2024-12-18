@@ -13,12 +13,6 @@
 
     <ScrollViewer>
         <StackPanel viewExtenders:SpacingSetter.Spacing="15">
-            <StackPanel.Resources>
-                <Style TargetType="ui:SymbolIcon">
-                    <Setter Property="FontSize" Value="25" />
-                </Style>
-            </StackPanel.Resources>
-
             <ui:Card>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -29,7 +23,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <ui:SymbolIcon Symbol="Alert20" Grid.Column="0" />
+                    <ui:SymbolIcon Symbol="Alert20" FontSize="25" Grid.Column="0" />
 
                     <StackPanel Grid.Column="2">
                         <ui:TextBlock Text="Enable notifications" />
@@ -50,7 +44,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <ui:SymbolIcon Symbol="Delete20" Grid.Column="0" />
+                    <ui:SymbolIcon Symbol="Delete20" FontSize="25" Grid.Column="0" />
 
                     <StackPanel Grid.Column="2">
                         <ui:TextBlock Text="Clear all" />
@@ -71,7 +65,7 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <ui:SymbolIcon Symbol="Save20" Grid.Column="0" />
+                    <ui:SymbolIcon Symbol="Save20" FontSize="25" Grid.Column="0" />
 
                     <StackPanel Grid.Column="2">
                         <ui:TextBlock Text="Save" />

@@ -23,9 +23,12 @@ public sealed partial class ShellViewModel(
 
     public async Task InitializeAsync()
     {
+        await settingsService.InitializeAsync();
         await notificationService.InitializeAsync();
 
-        navigationService.Navigate(await settingsService.LoadAsync() is null
+        var location = settingsService.Get<Location>(nameof(Location));
+
+        navigationService.Navigate(location is null
             ? Destination.Welcome
             : Destination.Prayers);
 
@@ -51,8 +54,18 @@ public sealed partial class ShellViewModel(
         };
     }
 
+    public async Task OnClosingAsync()
+    {
+        await settingsService.SaveAsync();
+    }
+
     public async Task OnMinimizedAsync()
     {
+        if (!settingsService.Get<bool>("EnableNotifications"))
+        {
+            return;
+        }
+
         await notificationService.ShowAsync(
             "Athan is still running",
             "You can open Athan from the tray icon menu.");

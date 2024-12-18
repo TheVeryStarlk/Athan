@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Text.Json;
-using Athan.Desktop.Features.Welcome;
 
 namespace Athan.Desktop.Features.Settings;
 
@@ -8,35 +7,33 @@ public sealed class SettingsService
 {
     private readonly string path = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "athan.json");
 
-    public async Task<SettingsModel?> LoadAsync()
+    private Dictionary<string, string?> settings = [];
+
+    public async Task InitializeAsync()
     {
         try
         {
             var file = await File.ReadAllTextAsync(path);
-            return JsonSerializer.Deserialize<SettingsModel>(file);
+            settings = JsonSerializer.Deserialize<Dictionary<string, string?>>(file)!;
         }
         catch
         {
-            return null;
+            // Nothing.
         }
     }
 
-    public async Task SaveAsync(Location location)
+    public async Task SaveAsync()
     {
-        var settings = await LoadAsync() ?? new SettingsModel(location);
-
-        settings.Location = location;
-
         await File.WriteAllTextAsync(path, JsonSerializer.Serialize(settings));
     }
 
-    public void Delete()
+    public T? Get<T>(string key)
     {
-        File.Delete(path);
+        return settings.TryGetValue(key, out var value) ? JsonSerializer.Deserialize<T>(value!) : default;
     }
-}
 
-public sealed class SettingsModel(Location location)
-{
-    public Location? Location { get; set; } = location;
+    public void Set<T>(string key, T? value)
+    {
+        settings[key] = JsonSerializer.Serialize(value);
+    }
 }

@@ -35,7 +35,7 @@ public sealed partial class WelcomeViewModel(
             $"You are in {result.Value}.",
             SymbolRegular.Location20);
 
-        await settingsService.SaveAsync(result.Value);
+        settingsService.Set(nameof(Location), result.Value);
 
         navigationService.Navigate(Destination.Prayers);
     }
