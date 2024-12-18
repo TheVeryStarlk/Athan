@@ -24,8 +24,7 @@ public sealed class SettingsService(ILogger logger)
         }
         catch (Exception exception)
         {
-            logger.Error("Could not load settings: \"{Message}\"", exception.Message);
-
+            logger.Warning("Could not load settings: \"{Message}\"", exception.Message);
         }
     }
 

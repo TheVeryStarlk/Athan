@@ -6,6 +6,7 @@ using Athan.Desktop.Features.Offline;
 using Athan.Desktop.Features.Prayers;
 using Athan.Desktop.Features.Settings;
 using Athan.Desktop.Features.Welcome;
+using Serilog;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 
@@ -13,9 +14,11 @@ namespace Athan.Desktop.Features.Shell;
 
 public sealed partial class ShellView
 {
+    private readonly ILogger logger;
     private readonly ShellViewModel viewModel;
 
     public ShellView(
+        ILogger logger,
         ShellViewModel viewModel,
         NavigationService navigationService,
         NotificationService notificationService,
@@ -25,6 +28,7 @@ public sealed partial class ShellView
         SettingsView settingsView,
         OfflineView offlineView)
     {
+        this.logger = logger;
         this.viewModel = viewModel;
         DataContext = viewModel;
 
@@ -83,7 +87,7 @@ public sealed partial class ShellView
         }
         catch (Exception exception)
         {
-            Debug.WriteLine(exception);
+            logger.Error("An error has occured in property changed: \"{Message}\"", exception.Message);
         }
     }
 
@@ -96,7 +100,7 @@ public sealed partial class ShellView
         }
         catch (Exception exception)
         {
-            Debug.WriteLine(exception);
+            logger.Error("An error has occured in initialization: \"{Message}\"", exception.Message);
         }
     }
 
@@ -111,7 +115,7 @@ public sealed partial class ShellView
         }
         catch (Exception exception)
         {
-            Debug.WriteLine(exception);
+            logger.Error("An error has occured in closing: \"{Message}\"", exception.Message);
         }
     }
 }

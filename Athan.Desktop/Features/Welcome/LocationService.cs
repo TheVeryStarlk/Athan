@@ -21,7 +21,7 @@ public sealed class LocationService(ILogger logger, HttpClient httpClient)
 
         if (request.IsFailed)
         {
-            logger.Error("Failed to get location");
+            logger.Warning("Failed to get location");
             return Result.Fail(request.Errors);
         }
 
