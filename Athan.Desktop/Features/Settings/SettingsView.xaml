@@ -41,7 +41,7 @@
                         <ColumnDefinition Width="15" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="15" />
-                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="75" />
                     </Grid.ColumnDefinitions>
 
                     <ui:SymbolIcon Symbol="Delete20" FontSize="25" Grid.Column="0" />
@@ -51,7 +51,7 @@
                         <ui:TextBlock Text="Clears all stored settings, such as location and theme." Opacity="0.75" />
                     </StackPanel>
 
-                    <ui:Button Content="Clear" Command="{Binding ClearCommand}" Grid.Column="4" />
+                    <ui:Button Content="Clear" Command="{Binding ClearCommand}" HorizontalAlignment="Stretch" Grid.Column="4" />
                 </Grid>
             </ui:Card>
 
@@ -62,7 +62,28 @@
                         <ColumnDefinition Width="15" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="15" />
+                        <ColumnDefinition Width="75" />
+                    </Grid.ColumnDefinitions>
+
+                    <ui:SymbolIcon Symbol="Folder20" FontSize="25" Grid.Column="0" />
+
+                    <StackPanel Grid.Column="2">
+                        <ui:TextBlock Text="Logs" />
+                        <ui:TextBlock Text="Opens the log folder." Opacity="0.75" />
+                    </StackPanel>
+
+                    <ui:Button Content="Open" Command="{Binding OpenLogsCommand}" HorizontalAlignment="Stretch" Grid.Column="4" />
+                </Grid>
+            </ui:Card>
+
+            <ui:Card>
+                <Grid>
+                    <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="15" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="15" />
+                        <ColumnDefinition Width="75" />
                     </Grid.ColumnDefinitions>
 
                     <ui:SymbolIcon Symbol="Save20" FontSize="25" Grid.Column="0" />
@@ -72,7 +93,7 @@
                         <ui:TextBlock Text="Saves changes and redirects you back." Opacity="0.75" />
                     </StackPanel>
 
-                    <ui:Button Content="Save" Command="{Binding SaveCommand}" Grid.Column="4" />
+                    <ui:Button Content="Save" Command="{Binding SaveCommand}" HorizontalAlignment="Stretch" Grid.Column="4" />
                 </Grid>
             </ui:Card>
         </StackPanel>

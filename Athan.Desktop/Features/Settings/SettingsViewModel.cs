@@ -1,4 +1,6 @@
-﻿using Athan.Desktop.Features.Shell;
+﻿using System.Diagnostics;
+using System.IO;
+using Athan.Desktop.Features.Shell;
 using Athan.Desktop.Features.Welcome;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -37,6 +39,18 @@ public sealed partial class SettingsViewModel : ObservableObject
         navigationService.Navigate(Destination.Welcome);
 
         logger.Information("Cleared location");
+    }
+
+    [RelayCommand]
+    private void OpenLogs()
+    {
+        logger.Information("Opening log file");
+
+        var path = Path.Join(
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+            "Athan");
+
+        Process.Start("explorer.exe", path);
     }
 
     [RelayCommand]
