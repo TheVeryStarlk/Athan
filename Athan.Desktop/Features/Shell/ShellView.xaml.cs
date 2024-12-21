@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using Athan.Desktop.Features.Offline;
@@ -30,6 +29,7 @@ public sealed partial class ShellView
     {
         this.logger = logger;
         this.viewModel = viewModel;
+
         DataContext = viewModel;
 
         navigationService.Navigated += destination =>

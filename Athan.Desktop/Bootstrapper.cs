@@ -50,6 +50,7 @@ internal static class Bootstrapper
 
         collection.AddSingleton<PrayersView>();
         collection.AddSingleton<PrayersViewModel>();
+        collection.AddSingleton<PrayerService>();
 
         collection.AddSingleton<SettingsView>();
         collection.AddSingleton<SettingsViewModel>();

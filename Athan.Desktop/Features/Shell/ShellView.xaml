@@ -12,7 +12,7 @@
                  mc:Ignorable="d"
                  d:DataContext="{d:DesignInstance Type=local:ShellViewModel, IsDesignTimeCreatable=False}"
 
-                 Title="Athan" Width="625" Height="750" MinWidth="425" MinHeight="550"
+                 Title="Athan" Width="625" Height="750" MinWidth="425" MinHeight="700"
                  ExtendsContentIntoTitleBar="True" Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                  WindowBackdropType="Mica" WindowCornerPreference="Round" WindowStartupLocation="CenterScreen">
 
