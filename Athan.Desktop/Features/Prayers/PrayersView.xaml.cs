@@ -24,19 +24,6 @@ public sealed partial class PrayersView : UserControl
         InitializeComponent();
     }
 
-    protected override async void OnInitialized(EventArgs eventArgs)
-    {
-        try
-        {
-            base.OnInitialized(eventArgs);
-            await viewModel.InitializeAsync();
-        }
-        catch (Exception exception)
-        {
-            logger.Error("An error has occured in initialization: {Message}", exception.Message);
-        }
-    }
-
     private void PrayersSelectionChanged(object sender, SelectionChangedEventArgs eventArgs)
     {
         PrayersListView.SelectedItem = viewModel.NextPrayer;

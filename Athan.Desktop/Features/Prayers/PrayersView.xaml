@@ -37,7 +37,7 @@
                             <DataTemplate DataType="{x:Type local:Prayer}">
                                 <Grid Margin="10">
                                     <ui:TextBlock Text="{Binding Name}" HorizontalAlignment="Left" />
-                                    <ui:TextBlock Text="{Binding Time}" Opacity="0.75" HorizontalAlignment="Right" />
+                                    <ui:TextBlock Text="{Binding ReadableTime}" Opacity="0.75" HorizontalAlignment="Right" />
                                 </Grid>
                             </DataTemplate>
                         </ui:ListView.ItemTemplate>

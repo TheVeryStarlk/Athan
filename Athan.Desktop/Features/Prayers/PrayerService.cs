@@ -1,25 +1,49 @@
-﻿namespace Athan.Desktop.Features.Prayers;
+﻿using System.Net.Http;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+using Athan.Desktop.Extensions;
+using FluentResults;
 
-public sealed class PrayerService
+namespace Athan.Desktop.Features.Prayers;
+
+public sealed class PrayerService(HttpClient httpClient)
 {
-    public async Task<Prayer> GetNextPrayerAsync()
+    public async Task<Result<Prayer[]>> GetPrayersAsync(string city, string country)
     {
-        await Task.Delay(1000);
+        var request = await httpClient.TryGetAsync($"http://api.aladhan.com/v1/timingsByCity?city={city}&country={country}");
 
-        return new Prayer("Fajar", "5:00 AM");
-    }
+        if (request.IsFailed)
+        {
+            return Result.Fail(request.Errors);
+        }
 
-    public async Task<Prayer[]> GetPrayersAsync()
-    {
-        await Task.Delay(1000);
+        var json = JsonNode.Parse(await request.Value.Content.ReadAsStringAsync());
+        var timings = json?["data"]?["timings"].Deserialize<Dictionary<string, string>>()!;
 
-        return
-        [
-            new Prayer("Fajar", "5:00 AM"),
-            new Prayer("Duhur", "7:00 PM"),
-            new Prayer("Asr", "10:00 PM"),
-            new Prayer("Maghrib", "6:00 PM"),
-            new Prayer("Isha", "9:00 PM")
-        ];
+        var prayers = new Prayer[5];
+        var index = 0;
+
+        foreach (var timing in timings)
+        {
+            var name = timing.Key switch
+            {
+                "Fajr" or "Dhuhr" or "Asr" or "Maghrib" or "Isha" => timing.Key,
+                _ => null
+            };
+
+            if (name is null)
+            {
+                continue;
+            }
+
+            var time = DateTime.Parse(timing.Value);
+
+            prayers[index++] = new Prayer(
+                name,
+                time.ToShortTimeString(),
+                time);
+        }
+
+        return Result.Ok(prayers);
     }
 }
