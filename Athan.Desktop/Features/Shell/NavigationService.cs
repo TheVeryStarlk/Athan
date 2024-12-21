@@ -15,7 +15,7 @@ public sealed class NavigationService(ILogger logger)
 
         Navigated?.Invoke(destination);
 
-        logger.Debug("Navigated to: \"{Destination}\"", destination);
+        logger.Debug("Navigated to: {Destination}", destination);
     }
 
     public void NavigateBackward()
@@ -23,7 +23,7 @@ public sealed class NavigationService(ILogger logger)
         (stack[0], stack[1]) = (stack[1], stack[0]);
         Navigated?.Invoke(stack[0]);
 
-        logger.Debug("Navigated backward to: \"{Destination}\"", stack[0]);
+        logger.Debug("Navigated backward to: {Destination}", stack[0]);
     }
 }
 

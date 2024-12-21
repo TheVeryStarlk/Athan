@@ -33,7 +33,7 @@ public sealed partial class PrayersView : UserControl
         }
         catch (Exception exception)
         {
-            logger.Error("An error has occured in initialization: \"{Message}\"", exception.Message);
+            logger.Error("An error has occured in initialization: {Message}", exception.Message);
         }
     }
 

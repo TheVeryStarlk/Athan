@@ -87,7 +87,7 @@ public sealed partial class ShellView
         }
         catch (Exception exception)
         {
-            logger.Error("An error has occured in property changed: \"{Message}\"", exception.Message);
+            logger.Error("An error has occured in property changed: {Message}", exception.Message);
         }
     }
 
@@ -100,7 +100,7 @@ public sealed partial class ShellView
         }
         catch (Exception exception)
         {
-            logger.Error("An error has occured in initialization: \"{Message}\"", exception.Message);
+            logger.Error("An error has occured in initialization: {Message}", exception.Message);
         }
     }
 
@@ -115,7 +115,7 @@ public sealed partial class ShellView
         }
         catch (Exception exception)
         {
-            logger.Error("An error has occured in closing: \"{Message}\"", exception.Message);
+            logger.Error("An error has occured in closing: {Message}", exception.Message);
         }
     }
 }

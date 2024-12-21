@@ -24,7 +24,7 @@ public sealed class SettingsService(ILogger logger)
         }
         catch (Exception exception)
         {
-            logger.Warning("Could not load settings: \"{Message}\"", exception.Message);
+            logger.Warning("Could not load settings: {Message}", exception.Message);
         }
     }
 
@@ -36,13 +36,13 @@ public sealed class SettingsService(ILogger logger)
 
     public T? Get<T>(string key)
     {
-        logger.Debug("Getting key: \"{Key}\"", key);
+        logger.Debug("Getting key: {Key}", key);
         return settings.TryGetValue(key, out var value) ? JsonSerializer.Deserialize<T>(value!) : default;
     }
 
     public void Set<T>(string key, T? value)
     {
-        logger.Debug("Setting key: \"{Key}\", with value: \"{Value}\"", key, value);
+        logger.Debug("Setting key: {Key}, with value: {Value}", key, value);
         settings[key] = JsonSerializer.Serialize(value);
     }
 }
