@@ -32,6 +32,23 @@ public sealed partial class WelcomeViewModel(
             return;
         }
 
+        if (!settingsService.Exists("FirstTime"))
+        {
+            var messageBox = new MessageBox
+            {
+                Title = "Start Athan Automatically",
+                Content = "Do you want Athan to start when your computer turns on?",
+                PrimaryButtonText = "Yes",
+                CloseButtonText = "No"
+            };
+
+            if (await messageBox.ShowDialogAsync() is MessageBoxResult.Primary)
+            {
+            }
+
+            settingsService.Set("FirstTime", false);
+        }
+
         snackbarService.Show(
             "Location retrieved",
             $"You are in {result.Value}.",

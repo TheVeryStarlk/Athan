@@ -9,6 +9,8 @@ using DesktopNotifications;
 using DesktopNotifications.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using Wpf.Ui;
+using NavigationService = Athan.Desktop.Features.Shell.NavigationService;
 
 namespace Athan.Desktop;
 
@@ -30,7 +32,7 @@ internal static class Bootstrapper
                 .WriteTo.File(path);
         });
 
-        collection.AddSingleton<Wpf.Ui.SnackbarService>();
+        collection.AddSingleton<SnackbarService>();
         collection.AddSingleton<HttpClient>();
 
         collection.AddTransient<ShellView>();

@@ -40,6 +40,12 @@ public sealed class SettingsService(ILogger logger)
         return settings.TryGetValue(key, out var value) ? JsonSerializer.Deserialize<T>(value!) : default;
     }
 
+    public bool Exists(string key)
+    {
+        logger.Debug("Checking if key exists: {Key}", key);
+        return settings.ContainsKey(key);
+    }
+
     public void Set<T>(string key, T? value)
     {
         logger.Debug("Setting key: {Key}, with value: {Value}", key, value);
