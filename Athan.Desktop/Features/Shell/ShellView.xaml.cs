@@ -5,6 +5,7 @@ using Athan.Desktop.Features.Offline;
 using Athan.Desktop.Features.Prayers;
 using Athan.Desktop.Features.Settings;
 using Athan.Desktop.Features.Welcome;
+using CommunityToolkit.Mvvm.Messaging;
 using Serilog;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
@@ -112,6 +113,7 @@ public sealed partial class ShellView
             await viewModel.OnClosingAsync();
 
             SystemThemeWatcher.UnWatch(this);
+            WeakReferenceMessenger.Default.Send<Closing>();
         }
         catch (Exception exception)
         {

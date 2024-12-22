@@ -6,6 +6,8 @@ using Wpf.Ui;
 using Wpf.Ui.Controls;
 using NavigationService = Athan.Desktop.Features.Shell.NavigationService;
 using Athan.Desktop.Extensions;
+using CommunityToolkit.Mvvm.Messaging;
+using Timer = System.Timers.Timer;
 
 namespace Athan.Desktop.Features.Prayers;
 
@@ -17,19 +19,32 @@ public sealed partial class PrayersViewModel : ObservableObject
     [ObservableProperty]
     public partial Prayer[]? Prayers { get; set; }
 
+    private Timer timer = new()
+    {
+        AutoReset = true,
+        Enabled = true
+    };
+
     private readonly PrayerService prayerService;
     private readonly SettingsService settingsService;
     private readonly SnackbarService snackbarService;
+    private readonly NotificationService notificationService;
 
     public PrayersViewModel(
         NavigationService navigationService,
         PrayerService prayerService,
         SettingsService settingsService,
-        SnackbarService snackbarService)
+        SnackbarService snackbarService,
+        NotificationService notificationService)
     {
         this.prayerService = prayerService;
         this.settingsService = settingsService;
         this.snackbarService = snackbarService;
+        this.notificationService = notificationService;
+
+        WeakReferenceMessenger.Default.Register<PrayersViewModel, Closing>(
+            this,
+            static (self, _) => self.timer.Dispose());
 
         navigationService.Navigated += async destination =>
         {
@@ -56,10 +71,20 @@ public sealed partial class PrayersViewModel : ObservableObject
         }
 
         Prayers = result.Value;
-        NextPrayer = GetClosest(Prayers);
+        NextPrayer = GetNextPrayer(Prayers);
+
+        timer.Interval = (NextPrayer!.Time - DateTime.Now).TotalMilliseconds;
+
+        timer.Elapsed += async (_, _) =>
+        {
+            await notificationService.ShowAsync("Prayer time", $"Now is the prayer time for {NextPrayer.Name}.");
+            NextPrayer = GetNextPrayer(Prayers);
+
+            timer.Interval = (NextPrayer!.Time - DateTime.Now).TotalMilliseconds;
+        };
     }
 
-    private Prayer GetClosest(Prayer[] prayers)
+    private Prayer GetNextPrayer(Prayer[] prayers)
     {
         var now = DateTime.Now;
 
