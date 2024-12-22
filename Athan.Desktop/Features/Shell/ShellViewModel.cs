@@ -30,6 +30,8 @@ public sealed partial class ShellViewModel(
         await settingsService.InitializeAsync();
         await notificationService.InitializeAsync();
 
+        settingsService.Set("EnableNotifications", true);
+
         var location = settingsService.Get<Location>(nameof(Location));
 
         navigationService.Navigate(location is null

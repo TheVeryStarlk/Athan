@@ -25,13 +25,10 @@ public sealed partial class SettingsViewModel : ObservableObject
 
         navigationService.Navigated += destination =>
         {
-            if (destination is not Destination.Settings)
+            if (destination is Destination.Settings)
             {
-                return;
+                EnableNotifications = settingsService.Get<bool>(nameof(EnableNotifications));
             }
-
-            const string name = nameof(EnableNotifications);
-            EnableNotifications = !settingsService.Exists(name) || settingsService.Get<bool>(name);
         };
     }
 
