@@ -73,7 +73,7 @@ public sealed partial class PrayersViewModel : ObservableObject
         Prayers = result.Value;
         NextPrayer = GetNextPrayer(Prayers);
 
-        timer.Interval = (NextPrayer!.Time - DateTime.Now).TotalMilliseconds;
+        timer.Interval = Math.Abs((NextPrayer!.Time - DateTime.Now).TotalMilliseconds);
 
         timer.Elapsed += async (_, _) =>
         {
@@ -83,7 +83,7 @@ public sealed partial class PrayersViewModel : ObservableObject
             }
 
             NextPrayer = GetNextPrayer(Prayers);
-            timer.Interval = (NextPrayer!.Time - DateTime.Now).TotalMilliseconds;
+            timer.Interval = Math.Abs((NextPrayer!.Time - DateTime.Now).TotalMilliseconds);
         };
     }
 
