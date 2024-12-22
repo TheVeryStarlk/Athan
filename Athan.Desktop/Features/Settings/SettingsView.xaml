@@ -41,17 +41,17 @@
                         <ColumnDefinition Width="15" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="15" />
-                        <ColumnDefinition Width="75" />
+                        <ColumnDefinition Width="80" />
                     </Grid.ColumnDefinitions>
 
-                    <ui:SymbolIcon Symbol="Delete20" FontSize="25" Grid.Column="0" />
+                    <ui:SymbolIcon Symbol="Location20" FontSize="25" Grid.Column="0" />
 
                     <StackPanel Grid.Column="2">
-                        <ui:TextBlock Text="Clear all" />
-                        <ui:TextBlock Text="Clears all stored settings, such as location and theme." Opacity="0.75" />
+                        <ui:TextBlock Text="Relocate" />
+                        <ui:TextBlock Text="Relocates your saved location." Opacity="0.75" />
                     </StackPanel>
 
-                    <ui:Button Content="Clear" Command="{Binding ClearCommand}" HorizontalAlignment="Stretch" Grid.Column="4" />
+                    <ui:Button Content="Relocate" Command="{Binding RelocateCommand}" HorizontalAlignment="Stretch" Grid.Column="4" />
                 </Grid>
             </ui:Card>
 
@@ -62,7 +62,7 @@
                         <ColumnDefinition Width="15" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="15" />
-                        <ColumnDefinition Width="75" />
+                        <ColumnDefinition Width="80" />
                     </Grid.ColumnDefinitions>
 
                     <ui:SymbolIcon Symbol="Folder20" FontSize="25" Grid.Column="0" />
@@ -83,7 +83,7 @@
                         <ColumnDefinition Width="15" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="15" />
-                        <ColumnDefinition Width="75" />
+                        <ColumnDefinition Width="80" />
                     </Grid.ColumnDefinitions>
 
                     <ui:SymbolIcon Symbol="Save20" FontSize="25" Grid.Column="0" />

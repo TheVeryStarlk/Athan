@@ -33,12 +33,12 @@ public sealed partial class SettingsViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void Clear()
+    private void Relocate()
     {
         settingsService.Set<Location>(nameof(Location), null);
         navigationService.Navigate(Destination.Welcome);
 
-        logger.Information("Cleared location");
+        logger.Information("Relocating...");
     }
 
     [RelayCommand]
