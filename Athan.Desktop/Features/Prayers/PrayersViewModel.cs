@@ -77,9 +77,12 @@ public sealed partial class PrayersViewModel : ObservableObject
 
         timer.Elapsed += async (_, _) =>
         {
-            await notificationService.ShowAsync("Prayer time", $"Now is the prayer time for {NextPrayer.Name}.");
-            NextPrayer = GetNextPrayer(Prayers);
+            if (settingsService.Get<bool>("EnableNotifications"))
+            {
+                await notificationService.ShowAsync("Prayer time", $"Now is the prayer time for {NextPrayer.Name}.");
+            }
 
+            NextPrayer = GetNextPrayer(Prayers);
             timer.Interval = (NextPrayer!.Time - DateTime.Now).TotalMilliseconds;
         };
     }
