@@ -1,4 +1,5 @@
-﻿using Athan.Desktop.Features.Settings;
+﻿using System.Text;
+using Athan.Desktop.Features.Settings;
 using Athan.Desktop.Features.Shell;
 using Athan.Desktop.Features.Welcome;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -17,9 +18,12 @@ public sealed partial class PrayersViewModel : ObservableObject
     public partial Prayer? NextPrayer { get; set; }
 
     [ObservableProperty]
+    public partial string? When { get; set; }
+
+    [ObservableProperty]
     public partial Prayer[]? Prayers { get; set; }
 
-    private Timer timer = new()
+    private readonly Timer timer = new()
     {
         AutoReset = true,
         Enabled = true
@@ -73,7 +77,23 @@ public sealed partial class PrayersViewModel : ObservableObject
         Prayers = result.Value;
         NextPrayer = GetNextPrayer(Prayers);
 
-        timer.Interval = Math.Abs((NextPrayer!.Time - DateTime.Now).TotalMilliseconds);
+        var difference = NextPrayer!.Time - DateTime.Now;
+
+        timer.Interval = Math.Abs(difference.TotalMilliseconds);
+
+        var builder = new StringBuilder("After ");
+
+        if (difference.TotalHours > 0)
+        {
+            builder.Append($"{(int) difference.TotalHours} hours");
+        }
+
+        if ((int) (difference.TotalMinutes % 60) % 60 > 0)
+        {
+            builder.Append($" and {(int) (difference.TotalMinutes % 60)} minutes");
+        }
+
+        When = builder.ToString();
 
         timer.Elapsed += async (_, _) =>
         {
@@ -87,7 +107,7 @@ public sealed partial class PrayersViewModel : ObservableObject
         };
     }
 
-    private Prayer GetNextPrayer(Prayer[] prayers)
+    private static Prayer GetNextPrayer(Prayer[] prayers)
     {
         var now = DateTime.Now;
 

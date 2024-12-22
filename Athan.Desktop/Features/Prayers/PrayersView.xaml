@@ -21,10 +21,11 @@
                 </Style>
             </StackPanel.Resources>
 
-            <ui:Card Padding="75 25 75 25" HorizontalAlignment="Center">
+            <ui:Card Padding="50 25 50 25" HorizontalAlignment="Center">
                 <StackPanel>
                     <ui:TextBlock Text="Next prayer" Opacity="0.75" />
                     <ui:TextBlock Text="{Binding NextPrayer.Name, FallbackValue=''}" HorizontalAlignment="Center" FontSize="25" />
+                    <ui:TextBlock Text="{Binding When, FallbackValue=''}" Opacity="0.75" />
                 </StackPanel>
             </ui:Card>
 
