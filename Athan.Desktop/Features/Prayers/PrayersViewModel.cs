@@ -64,6 +64,11 @@ public sealed partial class PrayersViewModel : ObservableObject
 
             var now = DateTime.Now;
 
+            if (now > Prayers!.Last().Time)
+            {
+                now = now.Subtract(TimeSpan.FromDays(1));
+            }
+
             var difference = NextPrayer!.Time > now
                 ? NextPrayer!.Time - now
                 : now - NextPrayer!.Time;
