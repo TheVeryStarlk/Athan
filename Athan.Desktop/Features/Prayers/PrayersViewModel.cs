@@ -6,7 +6,6 @@ using Athan.Desktop.Features.Welcome;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
-using NavigationService = Athan.Desktop.Features.Shell.NavigationService;
 using Athan.Desktop.Extensions;
 using CommunityToolkit.Mvvm.Messaging;
 using Timer = System.Timers.Timer;

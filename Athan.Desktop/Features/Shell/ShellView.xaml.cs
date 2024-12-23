@@ -5,7 +5,6 @@ using Athan.Desktop.Features.Offline;
 using Athan.Desktop.Features.Prayers;
 using Athan.Desktop.Features.Settings;
 using Athan.Desktop.Features.Welcome;
-using CommunityToolkit.Mvvm.Messaging;
 using Serilog;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
