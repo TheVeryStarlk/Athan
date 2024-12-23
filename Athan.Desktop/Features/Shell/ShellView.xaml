@@ -42,8 +42,8 @@
         <ContentControl x:Name="SettingsShell" Margin="40 0 40 40" VerticalAlignment="Center"
                         Visibility="Collapsed" Grid.Row="1" />
 
-        <ui:Button HorizontalAlignment="Left" VerticalAlignment="Bottom" Command="{Binding NavigateSettingsCommand}"
-                   ToolTip="Settings" Margin="20" Grid.Row="1">
+        <ui:Button x:Name="SettingsButton" HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                   Command="{Binding NavigateSettingsCommand}" ToolTip="Settings" Margin="20" Grid.Row="1">
 
             <ui:SymbolIcon Symbol="Settings20" />
         </ui:Button>
