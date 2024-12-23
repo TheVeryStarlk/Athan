@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Timers;
 using Athan.Desktop.Features.Settings;
 using Athan.Desktop.Features.Shell;
 using Athan.Desktop.Features.Welcome;
@@ -25,6 +26,7 @@ public sealed partial class PrayersViewModel : ObservableObject
 
     private readonly Timer timer = new()
     {
+        Interval = TimeSpan.FromSeconds(1).TotalMilliseconds,
         AutoReset = true,
         Enabled = true
     };
@@ -35,7 +37,6 @@ public sealed partial class PrayersViewModel : ObservableObject
     private readonly NotificationService notificationService;
 
     public PrayersViewModel(
-        NavigationService navigationService,
         PrayerService prayerService,
         SettingsService settingsService,
         SnackbarService snackbarService,
@@ -50,16 +51,41 @@ public sealed partial class PrayersViewModel : ObservableObject
             this,
             static (self, _) => self.timer.Dispose());
 
-        navigationService.Navigated += async destination =>
-        {
-            if (destination is Destination.Prayers)
-            {
-                await InitializeAsync();
-            }
-        };
+        timer.Elapsed += UpdateAsync;
     }
 
-    private async Task InitializeAsync()
+    private async void UpdateAsync(object? sender, ElapsedEventArgs eventArgs)
+    {
+        try
+        {
+            timer.Interval = TimeSpan.FromMinutes(1).TotalMilliseconds;
+
+            await UpdatePrayersAsync();
+            NextPrayer = GetNextPrayer(Prayers!);
+
+            var now = DateTime.Now;
+
+            var difference = NextPrayer!.Time > now
+                ? NextPrayer!.Time - now
+                : now - NextPrayer!.Time;
+
+            UpdateWhen(difference);
+
+            if (difference.TotalSeconds < 30 && settingsService.Get<bool>("EnableNotifications"))
+            {
+                await notificationService.ShowAsync("Prayer time", $"Now is the prayer time for {NextPrayer.Name}.");
+            }
+        }
+        catch
+        {
+            snackbarService.Show(
+                "Failed to update",
+                "An error has occured while updating the timings",
+                SymbolRegular.Warning20);
+        }
+    }
+
+    private async Task UpdatePrayersAsync()
     {
         var location = settingsService.Get<Location>(nameof(Location))!;
         var result = await prayerService.GetPrayersAsync(location.City, location.Country);
@@ -76,21 +102,19 @@ public sealed partial class PrayersViewModel : ObservableObject
 
         Prayers = result.Value;
         NextPrayer = GetNextPrayer(Prayers);
+    }
 
-        var difference = NextPrayer!.Time - DateTime.Now;
-
-        timer.Interval = Math.Abs(difference.TotalMilliseconds);
-
+    private void UpdateWhen(TimeSpan difference)
+    {
         var builder = new StringBuilder("After ");
-
-        var hours = Math.Abs((int) difference.TotalHours);
+        var hours = (int) difference.TotalHours;
 
         if (hours > 0)
         {
             builder.Append($"{hours} hours");
         }
 
-        var minutes = Math.Abs((int) (difference.TotalMinutes % 60) % 60);
+        var minutes = (int) (difference.TotalMinutes % 60) % 60;
 
         if (minutes > 0)
         {
@@ -98,17 +122,6 @@ public sealed partial class PrayersViewModel : ObservableObject
         }
 
         When = builder.ToString();
-
-        timer.Elapsed += async (_, _) =>
-        {
-            if (settingsService.Get<bool>("EnableNotifications"))
-            {
-                await notificationService.ShowAsync("Prayer time", $"Now is the prayer time for {NextPrayer.Name}.");
-            }
-
-            NextPrayer = GetNextPrayer(Prayers);
-            timer.Interval = Math.Abs((NextPrayer!.Time - DateTime.Now).TotalMilliseconds);
-        };
     }
 
     private static Prayer GetNextPrayer(Prayer[] prayers)

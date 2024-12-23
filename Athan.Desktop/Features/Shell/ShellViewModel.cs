@@ -6,6 +6,7 @@ using Athan.Desktop.Features.Settings;
 using Athan.Desktop.Features.Welcome;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Serilog;
 
 namespace Athan.Desktop.Features.Shell;
@@ -64,6 +65,8 @@ public sealed partial class ShellViewModel(
 
     public async Task OnClosingAsync()
     {
+        WeakReferenceMessenger.Default.Send<Closing>();
+
         logger.Information("Closing shell view-model");
         await settingsService.SaveAsync();
     }

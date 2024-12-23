@@ -107,13 +107,13 @@ public sealed partial class ShellView
 
     protected override async void OnClosing(CancelEventArgs eventArgs)
     {
+
         try
         {
             base.OnClosing(eventArgs);
             await viewModel.OnClosingAsync();
 
             SystemThemeWatcher.UnWatch(this);
-            WeakReferenceMessenger.Default.Send<Closing>();
         }
         catch (Exception exception)
         {
