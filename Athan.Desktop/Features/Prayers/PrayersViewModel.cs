@@ -83,14 +83,18 @@ public sealed partial class PrayersViewModel : ObservableObject
 
         var builder = new StringBuilder("After ");
 
-        if (difference.TotalHours > 0)
+        var hours = Math.Abs((int) difference.TotalHours);
+
+        if (hours > 0)
         {
-            builder.Append($"{(int) difference.TotalHours} hours");
+            builder.Append($"{hours} hours");
         }
 
-        if ((int) (difference.TotalMinutes % 60) % 60 > 0)
+        var minutes = Math.Abs((int) (difference.TotalMinutes % 60) % 60);
+
+        if (minutes > 0)
         {
-            builder.Append($" and {(int) (difference.TotalMinutes % 60)} minutes");
+            builder.Append($" and {minutes} minutes");
         }
 
         When = builder.ToString();
