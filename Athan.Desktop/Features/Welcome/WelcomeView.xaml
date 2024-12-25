@@ -11,12 +11,14 @@
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=local:WelcomeViewModel, IsDesignTimeCreatable=False}">
 
-    <StackPanel viewExtenders:SpacingSetter.Spacing="15">
-        <StackPanel>
-            <ui:TextBlock Text="Welcome" FontTypography="Title" />
-            <ui:TextBlock Text="Click the button below to retrieve your location." />
-        </StackPanel>
+    <ui:Card Padding="40">
+        <StackPanel viewExtenders:SpacingSetter.Spacing="15">
+            <StackPanel>
+                <ui:TextBlock Text="Welcome" FontTypography="Title" />
+                <ui:TextBlock Text="Click the button below to retrieve your location." />
+            </StackPanel>
 
-        <ui:Button Content="Start" Command="{Binding StartCommand}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-    </StackPanel>
+            <ui:Button Content="Start" Command="{Binding StartCommand}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+        </StackPanel>
+    </ui:Card>
 </UserControl>

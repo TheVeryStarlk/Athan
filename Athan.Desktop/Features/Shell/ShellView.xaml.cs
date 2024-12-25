@@ -46,15 +46,17 @@ public sealed partial class ShellView
             if (destination is Destination.Settings)
             {
                 SettingsShell.Content = view;
+
                 SettingsShell.Visibility = Visibility.Visible;
-                MainGrid.Visibility = Visibility.Collapsed;
+                Shell.Visibility = Visibility.Collapsed;
                 SettingsButton.Visibility = Visibility.Hidden;
             }
             else
             {
                 Shell.Content = view;
+
+                Shell.Visibility = Visibility.Visible;
                 SettingsShell.Visibility = Visibility.Collapsed;
-                MainGrid.Visibility = Visibility.Visible;
                 SettingsButton.Visibility = Visibility.Visible;
             }
         };
