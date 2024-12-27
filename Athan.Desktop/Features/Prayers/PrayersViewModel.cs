@@ -8,6 +8,7 @@ using Wpf.Ui;
 using Wpf.Ui.Controls;
 using Athan.Desktop.Extensions;
 using CommunityToolkit.Mvvm.Messaging;
+using NavigationService = Athan.Desktop.Features.Shell.NavigationService;
 using Timer = System.Timers.Timer;
 
 namespace Athan.Desktop.Features.Prayers;
@@ -23,11 +24,12 @@ public sealed partial class PrayersViewModel : ObservableObject
     [ObservableProperty]
     public partial Prayer[]? Prayers { get; set; }
 
+    private bool firstTime = true;
+
     private readonly Timer timer = new()
     {
         Interval = TimeSpan.FromSeconds(1).TotalMilliseconds,
-        AutoReset = true,
-        Enabled = true
+        AutoReset = true
     };
 
     private readonly PrayerService prayerService;
@@ -36,6 +38,7 @@ public sealed partial class PrayersViewModel : ObservableObject
     private readonly NotificationService notificationService;
 
     public PrayersViewModel(
+        NavigationService navigationService,
         PrayerService prayerService,
         SettingsService settingsService,
         SnackbarService snackbarService,
@@ -46,17 +49,29 @@ public sealed partial class PrayersViewModel : ObservableObject
         this.snackbarService = snackbarService;
         this.notificationService = notificationService;
 
+        navigationService.Navigated += destination =>
+        {
+            if (destination is not Destination.Prayers || !firstTime)
+            {
+                return;
+            }
+
+            UpdateAsync();
+            timer.Start();
+        };
+
         WeakReferenceMessenger.Default.Register<PrayersViewModel, Closing>(
             this,
             static (self, _) => self.timer.Dispose());
 
-        timer.Elapsed += UpdateAsync;
+        timer.Elapsed += (_, _) => UpdateAsync();
     }
 
-    private async void UpdateAsync(object? sender, ElapsedEventArgs eventArgs)
+    private async void UpdateAsync()
     {
         try
         {
+            firstTime = false;
             timer.Interval = TimeSpan.FromMinutes(1).TotalMilliseconds;
 
             await UpdatePrayersAsync();

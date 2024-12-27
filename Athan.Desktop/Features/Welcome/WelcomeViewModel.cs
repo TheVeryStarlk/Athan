@@ -66,7 +66,7 @@ public sealed partial class WelcomeViewModel(
         navigationService.Navigate(Destination.Prayers);
     }
 
-    private void AddToStartup()
+    private static void AddToStartup()
     {
         const string name = "Athan.lnk";
 
