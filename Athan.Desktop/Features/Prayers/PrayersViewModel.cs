@@ -137,7 +137,8 @@ public sealed partial class PrayersViewModel : ObservableObject
 
         if (minutes > 0)
         {
-            builder.Append($" and {minutes} minutes");
+            var prefix = hours > 0 ? " and " : " ";
+            builder.Append($"{prefix}{minutes} minutes");
         }
 
         When = builder.ToString();
