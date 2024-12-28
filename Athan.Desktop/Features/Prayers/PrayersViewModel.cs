@@ -88,9 +88,7 @@ public sealed partial class PrayersViewModel : ObservableObject
                 ? NextPrayer!.Time - now
                 : now - NextPrayer!.Time;
 
-            UpdateWhen(difference);
-
-            if (difference.TotalSeconds < 30 && settingsService.Get<bool>("EnableNotifications"))
+            if (UpdateWhen(difference) && settingsService.Get<bool>("EnableNotifications"))
             {
                 await notificationService.ShowAsync("Prayer time", $"Now is the prayer time for {NextPrayer.Name}.");
             }
@@ -123,17 +121,22 @@ public sealed partial class PrayersViewModel : ObservableObject
         NextPrayer = GetNextPrayer(Prayers);
     }
 
-    private void UpdateWhen(TimeSpan difference)
+    private bool UpdateWhen(TimeSpan difference)
     {
         var builder = new StringBuilder("After ");
         var hours = (int) difference.TotalHours;
+        var minutes = (int) (difference.TotalMinutes % 60) % 60;
+
+        if (hours < 1 && minutes < 1)
+        {
+            When = "Now";
+            return true;
+        }
 
         if (hours > 0)
         {
             builder.Append($"{hours} hours");
         }
-
-        var minutes = (int) (difference.TotalMinutes % 60) % 60;
 
         if (minutes > 0)
         {
@@ -142,6 +145,8 @@ public sealed partial class PrayersViewModel : ObservableObject
         }
 
         When = builder.ToString();
+
+        return false;
     }
 
     private static Prayer GetNextPrayer(Prayer[] prayers)
