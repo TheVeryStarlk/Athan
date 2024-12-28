@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using System.Timers;
 using Athan.Desktop.Features.Settings;
 using Athan.Desktop.Features.Shell;
 using Athan.Desktop.Features.Welcome;
