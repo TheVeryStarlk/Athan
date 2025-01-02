@@ -55,26 +55,26 @@
                 </Grid>
             </ui:Card>
 
-            <ui:Card>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="15" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="15" />
-                        <ColumnDefinition Width="80" />
-                    </Grid.ColumnDefinitions>
-
-                    <ui:SymbolIcon Symbol="Folder20" FontSize="25" Grid.Column="0" />
-
-                    <StackPanel Grid.Column="2">
-                        <ui:TextBlock Text="Logs" />
-                        <ui:TextBlock Text="Opens the log folder." Opacity="0.75" />
-                    </StackPanel>
-
-                    <ui:Button Content="Open" Command="{Binding OpenLogsCommand}" HorizontalAlignment="Stretch" Grid.Column="4" />
-                </Grid>
-            </ui:Card>
+            <!-- <ui:Card> -->
+            <!--     <Grid> -->
+            <!--         <Grid.ColumnDefinitions> -->
+            <!--             <ColumnDefinition Width="Auto" /> -->
+            <!--             <ColumnDefinition Width="15" /> -->
+            <!--             <ColumnDefinition Width="*" /> -->
+            <!--             <ColumnDefinition Width="15" /> -->
+            <!--             <ColumnDefinition Width="80" /> -->
+            <!--         </Grid.ColumnDefinitions> -->
+            <!-- -->
+            <!--         <ui:SymbolIcon Symbol="Folder20" FontSize="25" Grid.Column="0" /> -->
+            <!-- -->
+            <!--         <StackPanel Grid.Column="2"> -->
+            <!--             <ui:TextBlock Text="Logs" /> -->
+            <!--             <ui:TextBlock Text="Opens the log folder." Opacity="0.75" /> -->
+            <!--         </StackPanel> -->
+            <!-- -->
+            <!--         <ui:Button Content="Open" Command="{Binding OpenLogsCommand}" HorizontalAlignment="Stretch" Grid.Column="4" /> -->
+            <!--     </Grid> -->
+            <!-- </ui:Card> -->
 
             <ui:Card>
                 <Grid>
