@@ -30,12 +30,14 @@ public sealed class PrayerService(HttpClient httpClient)
 
         foreach (var pair in timings)
         {
-            if (!TimeSpan.TryParse(pair.Value?.ToString(), out var result))
+            if (!DateTime.TryParse(pair.Value?.ToString(), out var result))
             {
                 return Result.Failure<FrozenDictionary<string, TimeSpan>>("Could not parse timings.");
             }
 
-            dictionary[pair.Key] = result;
+            var difference = result - DateTime.Now;
+
+            dictionary[pair.Key] = difference;
         }
 
         return Result.Success(dictionary.ToFrozenDictionary());
