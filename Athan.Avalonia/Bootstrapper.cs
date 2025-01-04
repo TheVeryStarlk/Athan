@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Net.Http;
 using Athan.Avalonia.ViewModels;
 using Athan.Avalonia.Views;
+using Athan.Services;
 using CommunityToolkit.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,6 +20,9 @@ internal static partial class Bootstrapper
     }
 
     [Singleton(typeof(ViewLocator))]
+    [Singleton(typeof(HttpClient))]
+    [Transient(typeof(LocationService))]
+    [Transient(typeof(PrayerService))]
     [Transient(typeof(ShellViewModel))]
     [Transient(typeof(ShellView))]
     [Transient(typeof(PrayerViewModel))]

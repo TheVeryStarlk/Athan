@@ -31,4 +31,8 @@
 
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0"/>
 	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Athan.Services\Athan.Services.csproj"/>
+	</ItemGroup>
 </Project>

@@ -1,6 +1,5 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="using:Athan.Avalonia"
 
              x:Class="Athan.Avalonia.App"
 
@@ -11,6 +10,10 @@
     <!-- </Application.DataTemplates> -->
 
     <Application.Styles>
+        <Style Selector="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
         <FluentTheme />
     </Application.Styles>
 </Application>

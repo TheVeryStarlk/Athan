@@ -5,5 +5,8 @@
              x:Class="Athan.Avalonia.Views.PrayerView"
              x:DataType="vm:PrayerViewModel">
 
-    <TextBlock Text="{CompiledBinding Message}" />
+    <StackPanel>
+        <Button Content="Initialize" Command="{CompiledBinding InitializeCommand}" />
+        <TextBlock Text="{CompiledBinding Result}" />
+    </StackPanel>
 </UserControl>
