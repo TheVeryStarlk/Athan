@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Athan.Avalonia.Views;
 using Avalonia;
@@ -10,6 +11,13 @@ namespace Athan.Avalonia;
 
 internal sealed class App : Application
 {
+    private readonly IServiceProvider services = Bootstrapper.Build();
+
+    public App()
+    {
+        DataTemplates.Add(services.GetRequiredService<ViewLocator>());
+    }
+
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -23,8 +31,6 @@ internal sealed class App : Application
         {
             BindingPlugins.DataValidators.Remove(plugin);
         }
-
-        var services = Bootstrapper.Build();
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {

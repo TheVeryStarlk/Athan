@@ -17,7 +17,10 @@ internal static partial class Bootstrapper
         return services.BuildServiceProvider();
     }
 
+    [Singleton(typeof(ViewLocator))]
     [Transient(typeof(ShellViewModel))]
     [Transient(typeof(ShellView))]
+    [Transient(typeof(PrayerViewModel))]
+    [Transient(typeof(PrayerView))]
     private static partial void ConfigureServices(IServiceCollection services);
 }

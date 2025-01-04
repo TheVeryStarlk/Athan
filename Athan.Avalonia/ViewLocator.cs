@@ -2,10 +2,11 @@ using System;
 using System.ComponentModel;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Athan.Avalonia;
 
-internal sealed class ViewLocator : IDataTemplate
+internal sealed class ViewLocator(IServiceProvider services) : IDataTemplate
 {
     public Control? Build(object? paramater)
     {
@@ -19,7 +20,7 @@ internal sealed class ViewLocator : IDataTemplate
 
         if (type is not null)
         {
-            return (Control) Activator.CreateInstance(type)!;
+            return (Control) ActivatorUtilities.CreateInstance(services, type)!;
         }
 
         return new TextBlock

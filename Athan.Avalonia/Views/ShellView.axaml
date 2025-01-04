@@ -5,7 +5,5 @@
         x:Class="Athan.Avalonia.Views.ShellView"
         x:DataType="vm:ShellViewModel"
 
-        Icon="/Assets/avalonia-logo.ico" Title="Athan.Avalonia">
-
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        Icon="/Assets/avalonia-logo.ico" Title="Athan.Avalonia" Content="{CompiledBinding Current}">
 </Window>

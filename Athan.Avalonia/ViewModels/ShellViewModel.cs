@@ -1,8 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Athan.Avalonia.ViewModels;
 
-internal sealed class ShellViewModel : ObservableObject
+internal sealed partial class ShellViewModel(PrayerViewModel prayerViewModel) : ObservableObject
 {
-    public string Greeting { get; } = "Welcome to Avalonia!";
+    [ObservableProperty]
+    public partial INotifyPropertyChanged Current { get; set; } = prayerViewModel;
 }
