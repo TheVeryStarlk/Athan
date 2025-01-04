@@ -24,7 +24,10 @@
 			<IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
 			<PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
 		</PackageReference>
+		
+		<PackageReference Include="CommunityToolkit.Labs.Extensions.DependencyInjection" Version="0.1.250103-build.1988"/>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
 
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0"/>
 	</ItemGroup>
 </Project>

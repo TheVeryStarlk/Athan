@@ -1,11 +1,10 @@
 using System.Linq;
-using Athan.Avalonia.ViewModels;
 using Athan.Avalonia.Views;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Athan.Avalonia;
 
@@ -25,12 +24,11 @@ internal sealed class App : Application
             BindingPlugins.DataValidators.Remove(plugin);
         }
 
+        var services = Bootstrapper.Build();
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new ShellView
-            {
-                DataContext = new ShellViewModel()
-            };
+            desktop.MainWindow = services.GetRequiredService<ShellView>();
         }
 
         base.OnFrameworkInitializationCompleted();

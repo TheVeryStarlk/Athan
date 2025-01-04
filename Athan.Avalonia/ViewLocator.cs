@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel;
-using Athan.Avalonia.ViewModels;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 
