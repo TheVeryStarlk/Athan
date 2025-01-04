@@ -16,7 +16,7 @@ internal static class HttpClientExtension
         }
         catch (HttpRequestException)
         {
-            return Result.Failure<HttpResponseMessage>("An error has occured while requesting information.");
+            return Result.Failure<HttpResponseMessage>("A request error has occured.");
         }
     }
 }
