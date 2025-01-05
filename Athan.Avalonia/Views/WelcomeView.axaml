@@ -1,0 +1,9 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:Athan.Avalonia.ViewModels"
+
+             x:Class="Athan.Avalonia.Views.WelcomeView"
+             x:DataType="vm:WelcomeViewModel">
+
+    Welcome to Avalonia!
+</UserControl>

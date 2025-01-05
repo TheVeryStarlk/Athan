@@ -7,7 +7,6 @@ using Athan.Avalonia.Models;
 using Athan.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using LightResults;
 
 namespace Athan.Avalonia.ViewModels;
 
