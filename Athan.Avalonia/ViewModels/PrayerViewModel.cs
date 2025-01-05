@@ -2,10 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
+using Athan.Avalonia.Extensions;
 using Athan.Avalonia.Models;
 using Athan.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using LightResults;
 
 namespace Athan.Avalonia.ViewModels;
 
@@ -18,18 +20,24 @@ internal sealed partial class PrayerViewModel : ObservableObject
     public partial Prayer? Next { get; set; }
 
     private readonly PrayerService prayerService;
+    private readonly LocationService locationService;
+
     private readonly Timer timer = new();
 
-    public PrayerViewModel(PrayerService prayerService)
+    public PrayerViewModel(PrayerService prayerService, LocationService locationService)
     {
         this.prayerService = prayerService;
+        this.locationService = locationService;
+
         timer.Elapsed += async (_, _) => await InitializeAsync();
     }
 
     [RelayCommand]
     private async Task InitializeAsync()
     {
-        var result = await prayerService.GetAsync("Saudi Arabia", "Riyadh");
+        var result = await locationService
+            .GetAsync()
+            .ThenAsync(async location => await prayerService.GetAsync(location.Country, location.City));
 
         if (!result.IsSuccess(out var prayers))
         {
