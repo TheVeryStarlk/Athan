@@ -22,6 +22,6 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Button Content="Initialize" Command="{CompiledBinding InitializeCommand}" Grid.Row="1" />
+        <Button Content="{CompiledBinding Next.Name, FallbackValue='Click'}" Command="{CompiledBinding InitializeCommand}" Grid.Row="1" />
     </Grid>
 </UserControl>

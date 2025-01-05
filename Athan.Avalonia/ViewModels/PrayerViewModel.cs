@@ -8,12 +8,22 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace Athan.Avalonia.ViewModels;
 
-internal sealed partial class PrayerViewModel(PrayerService prayerService) : ObservableObject
+internal sealed partial class PrayerViewModel : ObservableObject
 {
     [ObservableProperty]
     public partial Prayer[] Prayers { get; set; } = [];
 
-    private Timer? timer;
+    [ObservableProperty]
+    public partial Prayer? Next { get; set; }
+
+    private readonly PrayerService prayerService;
+    private readonly Timer timer = new();
+
+    public PrayerViewModel(PrayerService prayerService)
+    {
+        this.prayerService = prayerService;
+        timer.Elapsed += async (_, _) => await InitializeAsync();
+    }
 
     [RelayCommand]
     private async Task InitializeAsync()
@@ -32,13 +42,11 @@ internal sealed partial class PrayerViewModel(PrayerService prayerService) : Obs
         var next = prayers
             .Where(prayer => prayer.Value.Ticks > 0)
             .OrderBy(prayer => prayer.Value.Ticks)
-            .ToArray();
+            .First();
 
-        timer = new Timer
-        {
-            AutoReset = true,
-            Enabled = true,
-            Interval = next[0].Value.TotalMicroseconds
-        };
+        Next = new Prayer(next.Key, next.Value);
+
+        timer.Interval = next.Value.TotalMilliseconds;
+        timer.Enabled = true;
     }
 }

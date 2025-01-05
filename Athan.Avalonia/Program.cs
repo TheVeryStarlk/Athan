@@ -1,8 +1,20 @@
-﻿using Athan.Avalonia;
+﻿using System;
+using System.Diagnostics;
+using Athan.Avalonia;
 using Avalonia;
 
-AppBuilder.Configure<App>()
-    .UsePlatformDetect()
-    .WithInterFont()
-    .LogToTrace()
-    .StartWithClassicDesktopLifetime(args);
+try
+{
+    AppBuilder.Configure<App>()
+        .UsePlatformDetect()
+        .WithInterFont()
+        .LogToTrace()
+        .StartWithClassicDesktopLifetime(args);
+}
+catch (Exception exception)
+{
+    if (Debugger.IsAttached)
+    {
+        Debugger.Break();
+    }
+}
