@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Athan.Avalonia.Services;
 using Athan.Avalonia.Views;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -13,13 +14,9 @@ internal sealed class App : Application
 {
     private readonly IServiceProvider services = Bootstrapper.Build();
 
-    public App()
-    {
-        DataTemplates.Add(services.GetRequiredService<ViewLocator>());
-    }
-
     public override void Initialize()
     {
+        DataTemplates.Add(services.GetRequiredService<ViewLocator>());
         AvaloniaXamlLoader.Load(this);
     }
 
@@ -32,8 +29,13 @@ internal sealed class App : Application
             BindingPlugins.DataValidators.Remove(plugin);
         }
 
+        var storage = services.GetRequiredService<StorageService>();
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            desktop.Startup += (_, _) => storage.Initialize();
+            desktop.Exit += (_, _) => storage.Save();
+
             desktop.MainWindow = services.GetRequiredService<ShellView>();
         }
 

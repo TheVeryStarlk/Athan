@@ -22,6 +22,7 @@ internal sealed partial class PrayerViewModel : ObservableObject
     private readonly LocationService locationService;
 
     private readonly Timer timer = new();
+    private readonly string[] main = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
     public PrayerViewModel(PrayerService prayerService, LocationService locationService)
     {
@@ -42,8 +43,6 @@ internal sealed partial class PrayerViewModel : ObservableObject
         {
             return;
         }
-
-        string[] main = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
         var filtered = prayers
             .Where(prayer => main.Contains(prayer.Key))

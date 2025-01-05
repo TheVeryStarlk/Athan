@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using Athan.Avalonia.Services;
 using Athan.Avalonia.ViewModels;
 using Athan.Avalonia.Views;
 using Athan.Services;
@@ -21,6 +22,7 @@ internal static partial class Bootstrapper
 
     [Singleton(typeof(ViewLocator))]
     [Singleton(typeof(HttpClient))]
+    [Singleton(typeof(StorageService))]
     [Transient(typeof(LocationService))]
     [Transient(typeof(PrayerService))]
     [Transient(typeof(ShellViewModel))]
