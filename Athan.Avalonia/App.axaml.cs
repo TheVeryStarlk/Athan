@@ -31,9 +31,10 @@ internal sealed class App : Application
 
         var storage = services.GetRequiredService<StorageService>();
 
+        storage.Initialize();
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.Startup += (_, _) => storage.Initialize();
             desktop.Exit += (_, _) => storage.Save();
 
             desktop.MainWindow = services.GetRequiredService<ShellView>();

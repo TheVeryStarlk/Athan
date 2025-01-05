@@ -2,11 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
+using Athan.Avalonia.Messages;
 using Athan.Avalonia.Models;
 using Athan.Avalonia.Services;
 using Athan.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace Athan.Avalonia.ViewModels;
 
@@ -31,11 +32,14 @@ internal sealed partial class PrayerViewModel : ObservableObject
         this.locationService = locationService;
         this.storageService = storageService;
 
-        timer.Elapsed += async (_, _) => await InitializeAsync();
+        timer.Elapsed += async (_, _) => await RefreshAsync();
+
+        WeakReferenceMessenger.Default.Register<PrayerViewModel, NavigationRequest>(
+            this,
+            async (_, _) => await RefreshAsync());
     }
 
-    [RelayCommand]
-    private async Task InitializeAsync()
+    private async Task RefreshAsync()
     {
         if (!storageService.TryGet("Location", out Location? location))
         {
