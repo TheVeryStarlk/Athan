@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
@@ -39,11 +38,11 @@ internal sealed partial class PrayerViewModel : ObservableObject
 
         string[] main = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
-        var now = DateTime.Now.Subtract(TimeSpan.FromDays(1));
-
         var filtered = prayers
             .Where(prayer => main.Contains(prayer.Key))
             .ToArray();
+
+        var now = DateTime.Now.Subtract(TimeSpan.FromDays(1));
 
         Prayers = filtered
             .Select(prayer => new Prayer(prayer.Key, prayer.Value - now))

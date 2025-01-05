@@ -6,8 +6,10 @@
              x:Class="Athan.Avalonia.Views.PrayerView"
              x:DataType="vm:PrayerViewModel">
 
-    <Grid ShowGridLines="True" RowDefinitions="* Auto">
-        <ListBox ItemsSource="{CompiledBinding Prayers}" Grid.Row="0">
+    <Grid RowDefinitions="Auto * Auto">
+        <TextBlock Text="{CompiledBinding Next.Name, FallbackValue='Click'}" Grid.Row="0" />
+
+        <ListBox ItemsSource="{CompiledBinding Prayers}" Grid.Row="1">
             <ListBox.ItemTemplate>
                 <DataTemplate x:DataType="ms:Prayer">
                     <Grid ColumnDefinitions="* *">
@@ -22,6 +24,6 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <Button Content="{CompiledBinding Next.Name, FallbackValue='Click'}" Command="{CompiledBinding InitializeCommand}" Grid.Row="1" />
+        <Button Content="{CompiledBinding Next.Name, FallbackValue='Click'}" Command="{CompiledBinding InitializeCommand}" Grid.Row="2" />
     </Grid>
 </UserControl>
