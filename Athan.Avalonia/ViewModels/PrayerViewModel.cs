@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using Athan.Avalonia.Models;
@@ -35,18 +37,26 @@ internal sealed partial class PrayerViewModel : ObservableObject
             return;
         }
 
-        Prayers = prayers
-            .Select(prayer => new Prayer(prayer.Key, prayer.Value))
+        string[] main = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
+
+        var now = DateTime.Now.Subtract(TimeSpan.FromDays(1));
+
+        var filtered = prayers
+            .Where(prayer => main.Contains(prayer.Key))
             .ToArray();
 
-        var next = prayers
-            .Where(prayer => prayer.Value.Ticks > 0)
-            .OrderBy(prayer => prayer.Value.Ticks)
+        Prayers = filtered
+            .Select(prayer => new Prayer(prayer.Key, prayer.Value - now))
+            .ToArray();
+
+        var next = Prayers
+            .Where(prayer => prayer.When.Ticks > 0)
+            .OrderBy(prayer => prayer.When.Ticks)
             .First();
 
-        Next = new Prayer(next.Key, next.Value);
+        Next = next;
 
-        timer.Interval = next.Value.TotalMilliseconds;
+        timer.Interval = next.When.TotalMilliseconds;
         timer.Enabled = true;
     }
 }

@@ -6,13 +6,13 @@ namespace Athan.Services;
 
 public sealed class PrayerService(HttpClient httpClient)
 {
-    public async Task<Result<FrozenDictionary<string, TimeSpan>>> GetAsync(string country, string city)
+    public async Task<Result<FrozenDictionary<string, DateTime>>> GetAsync(string country, string city)
     {
         var request = await httpClient.TryGetAsync($"http://api.aladhan.com/v1/timingsByCity?country={country}&city={city}");
 
         if (!request.IsSuccess(out var response))
         {
-            return Result.Failure<FrozenDictionary<string, TimeSpan>>(request.Errors.First().Message);
+            return Result.Failure<FrozenDictionary<string, DateTime>>(request.Errors.First().Message);
         }
 
         await using var stream = await response.Content.ReadAsStreamAsync();
@@ -23,21 +23,19 @@ public sealed class PrayerService(HttpClient httpClient)
 
         if (timings.Count is 0)
         {
-            return Result.Failure<FrozenDictionary<string, TimeSpan>>("Timings not found.");
+            return Result.Failure<FrozenDictionary<string, DateTime>>("Timings not found.");
         }
 
-        var dictionary = new Dictionary<string, TimeSpan>();
+        var dictionary = new Dictionary<string, DateTime>();
 
         foreach (var pair in timings)
         {
             if (!DateTime.TryParse(pair.Value?.ToString(), out var result))
             {
-                return Result.Failure<FrozenDictionary<string, TimeSpan>>("Could not parse timings.");
+                return Result.Failure<FrozenDictionary<string, DateTime>>("Could not parse timings.");
             }
 
-            var difference = result - DateTime.Now;
-
-            dictionary[pair.Key] = difference;
+            dictionary[pair.Key] = result;
         }
 
         return Result.Success(dictionary.ToFrozenDictionary());

@@ -7,31 +7,30 @@ internal sealed class Prayer(string name, TimeSpan when)
 {
     public string Name => name;
 
+    public TimeSpan When => when;
+
     public string Time => DateTime.Now.Add(when).ToString("t");
 
     public string Message
     {
         get
         {
-            var hours = Math.Abs(when.Hours);
-            var minutes = Math.Abs(when.Minutes);
-
-            if (hours is 0 && minutes is 0)
+            if (when.Hours is 0 && when.Minutes is 0)
             {
                 return "Now.";
             }
 
-            var builder = new StringBuilder(when.Hours < 0 ? "Before " : "After ");
+            var builder = new StringBuilder("After ");
 
-            if (hours > 0)
+            if (when.Hours > 0)
             {
-                builder.Append($"{hours} hours");
+                builder.Append($"{when.Hours} hours");
             }
 
-            if (minutes > 0)
+            if (when.Minutes > 0)
             {
-                var prefix = hours > 0 ? " and " : string.Empty;
-                builder.Append($"{prefix}{minutes} minutes");
+                var prefix = when.Hours > 0 ? " and " : string.Empty;
+                builder.Append($"{prefix}{when.Minutes} minutes");
             }
 
             builder.Append('.');
