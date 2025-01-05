@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
-using Athan.Avalonia.Extensions;
 using Athan.Avalonia.Models;
+using Athan.Avalonia.Services;
 using Athan.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -20,14 +20,16 @@ internal sealed partial class PrayerViewModel : ObservableObject
 
     private readonly PrayerService prayerService;
     private readonly LocationService locationService;
+    private readonly StorageService storageService;
 
     private readonly Timer timer = new();
     private readonly string[] main = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
-    public PrayerViewModel(PrayerService prayerService, LocationService locationService)
+    public PrayerViewModel(PrayerService prayerService, LocationService locationService, StorageService storageService)
     {
         this.prayerService = prayerService;
         this.locationService = locationService;
+        this.storageService = storageService;
 
         timer.Elapsed += async (_, _) => await InitializeAsync();
     }
@@ -35,9 +37,19 @@ internal sealed partial class PrayerViewModel : ObservableObject
     [RelayCommand]
     private async Task InitializeAsync()
     {
-        var result = await locationService
-            .GetAsync()
-            .ThenAsync(async location => await prayerService.GetAsync(location.Country, location.City));
+        if (!storageService.TryGet("Location", out Location? location))
+        {
+            var task = await locationService.GetAsync();
+
+            if (!task.IsSuccess(out location))
+            {
+                return;
+            }
+
+            storageService.Set("Location", location);
+        }
+
+        var result = await prayerService.GetAsync(location.Country, location.City);
 
         if (!result.IsSuccess(out var prayers))
         {

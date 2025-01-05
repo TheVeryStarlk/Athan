@@ -10,30 +10,22 @@ internal sealed class StorageService
 {
     private Dictionary<string, string?> settings = [];
 
-    private readonly string folder = Path.Join(
+    private readonly string file = Path.Join(
         Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
         "Athan");
 
     public void Initialize()
     {
-        var file = Path.Join(folder, "Storage");
-
-        if (!File.Exists(folder))
-        {
-            Directory.CreateDirectory(folder);
-            File.WriteAllText(file, string.Empty);
-        }
-
-        var content = File.ReadAllText(file);
-
         Dictionary<string, string?>? result;
 
         try
         {
+            var content = File.ReadAllText(file);
             result = JsonSerializer.Deserialize<Dictionary<string, string?>>(content);
         }
         catch
         {
+            File.WriteAllText(file, string.Empty);
             result = [];
         }
 
@@ -42,7 +34,7 @@ internal sealed class StorageService
 
     public void Save()
     {
-        File.WriteAllText(folder, JsonSerializer.Serialize(settings));
+        File.WriteAllText(file, JsonSerializer.Serialize(settings));
     }
 
     public bool TryGet<T>(string key, [NotNullWhen(true)] out T? value)
