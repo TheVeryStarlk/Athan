@@ -1,12 +1,27 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:Athan.Avalonia.ViewModels"
+             xmlns:ms="clr-namespace:Athan.Avalonia.Models"
 
              x:Class="Athan.Avalonia.Views.PrayerView"
              x:DataType="vm:PrayerViewModel">
 
-    <StackPanel>
-        <Button Content="Initialize" Command="{CompiledBinding InitializeCommand}" />
-        <TextBlock Text="{CompiledBinding Result}" />
-    </StackPanel>
+    <Grid ShowGridLines="True" RowDefinitions="* Auto">
+        <ListBox ItemsSource="{CompiledBinding Prayers}" Grid.Row="0">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="ms:Prayer">
+                    <Grid ColumnDefinitions="* *">
+                        <TextBlock Text="{CompiledBinding Name}" FontWeight="Bold" Grid.Column="0" />
+
+                        <StackPanel Orientation="Horizontal" Spacing="5" HorizontalAlignment="Right" Grid.Column="1">
+                            <TextBlock Text="{CompiledBinding Message}" Opacity="0.75" />
+                            <TextBlock Text="{CompiledBinding Time}" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button Content="Initialize" Command="{CompiledBinding InitializeCommand}" Grid.Row="1" />
+    </Grid>
 </UserControl>

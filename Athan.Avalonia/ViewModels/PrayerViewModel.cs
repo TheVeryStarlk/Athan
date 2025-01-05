@@ -1,6 +1,7 @@
-﻿using System;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
+using Athan.Avalonia.Models;
 using Athan.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -10,32 +11,34 @@ namespace Athan.Avalonia.ViewModels;
 internal sealed partial class PrayerViewModel(PrayerService prayerService) : ObservableObject
 {
     [ObservableProperty]
-    public partial string Result { get; set; } = "Click the button!";
+    public partial Prayer[] Prayers { get; set; } = [];
+
+    private Timer? timer;
 
     [RelayCommand]
-    public async Task InitializeAsync()
+    private async Task InitializeAsync()
     {
-        Result = "Please wait...";
-
         var result = await prayerService.GetAsync("Saudi Arabia", "Riyadh");
 
-        if (!result.IsSuccess(out var timings))
+        if (!result.IsSuccess(out var prayers))
         {
-            Result = "Could not get timings!";
             return;
         }
 
-        var builder = new StringBuilder();
+        Prayers = prayers
+            .Select(prayer => new Prayer(prayer.Key, prayer.Value))
+            .ToArray();
 
-        var now = DateTime.Now;
+        var next = prayers
+            .Where(prayer => prayer.Value.Ticks > 0)
+            .OrderBy(prayer => prayer.Value.Ticks)
+            .ToArray();
 
-        foreach (var pair in timings)
+        timer = new Timer
         {
-            var offset = now.Add(pair.Value);
-
-            builder.AppendLine($"{pair.Key} @ {offset:t}. After {(int) offset.Subtract(now).TotalHours} hours.");
-        }
-
-        Result = builder.ToString();
+            AutoReset = true,
+            Enabled = true,
+            Interval = next[0].Value.TotalMicroseconds
+        };
     }
 }

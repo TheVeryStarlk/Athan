@@ -64,5 +64,5 @@ foreach (var pair in timings)
 {
     var offset = now.Add(pair.Value);
 
-    Console.WriteLine($"{pair.Key} @ {offset:t}. After {(int) offset.Subtract(now).TotalHours} hours.");
+    Console.WriteLine($"{pair.Key} @ {offset:t}. After {offset.Subtract(now).Hours} hours.");
 }
