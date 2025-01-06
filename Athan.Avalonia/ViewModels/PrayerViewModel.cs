@@ -68,13 +68,12 @@ internal sealed partial class PrayerViewModel(
                     .ToArray();
 
                 var next = Prayers
-                    .Where(prayer => prayer.When.Ticks > 0)
-                    .OrderBy(prayer => prayer.When.Ticks)
-                    .First();
+                    .OrderBy(prayer => prayer.When.Hours)
+                    .ToArray();
 
-                Next = next;
+                Next = next.First();
 
-                await Task.Delay(next.When, source.Token);
+                await Task.Delay(next.First().When, source.Token);
             }
         }
         catch (Exception exception)
