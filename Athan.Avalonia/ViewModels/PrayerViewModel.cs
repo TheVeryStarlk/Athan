@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
-using System.Timers;
-using Athan.Avalonia.Messages;
 using Athan.Avalonia.Models;
 using Athan.Avalonia.Services;
 using Athan.Services;
@@ -11,7 +11,10 @@ using CommunityToolkit.Mvvm.Messaging;
 
 namespace Athan.Avalonia.ViewModels;
 
-internal sealed partial class PrayerViewModel : ObservableObject
+internal sealed partial class PrayerViewModel(
+    PrayerService prayerService,
+    LocationService locationService,
+    StorageService storageService) : ObservableRecipient, IRecipient<Closing>
 {
     [ObservableProperty]
     public partial Prayer[] Prayers { get; set; } = [];
@@ -19,65 +22,70 @@ internal sealed partial class PrayerViewModel : ObservableObject
     [ObservableProperty]
     public partial Prayer? Next { get; set; }
 
-    private readonly PrayerService prayerService;
-    private readonly LocationService locationService;
-    private readonly StorageService storageService;
+    private Task? task;
 
-    private readonly Timer timer = new();
     private readonly string[] main = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
+    private readonly CancellationTokenSource source = new();
 
-    public PrayerViewModel(PrayerService prayerService, LocationService locationService, StorageService storageService)
+    public void Initialize()
     {
-        this.prayerService = prayerService;
-        this.locationService = locationService;
-        this.storageService = storageService;
-
-        timer.Elapsed += async (_, _) => await RefreshAsync();
-
-        WeakReferenceMessenger.Default.Register<PrayerViewModel, NavigationRequest>(
-            this,
-            async (_, _) => await RefreshAsync());
+        task = Task.Factory.StartNew(StartAsync, TaskCreationOptions.LongRunning);
     }
 
-    private async Task RefreshAsync()
+    private async Task StartAsync()
     {
-        if (!storageService.TryGet("Location", out Location? location))
+        try
         {
-            var task = await locationService.GetAsync();
-
-            if (!task.IsSuccess(out location))
+            if (!storageService.TryGet("Location", out Location? value))
             {
-                return;
+                var location = await locationService.GetAsync();
+
+                if (!location.IsSuccess(out value))
+                {
+                    return;
+                }
+
+                storageService.Set("Location", value);
             }
 
-            storageService.Set("Location", location);
+            while (!source.IsCancellationRequested)
+            {
+                var result = await prayerService.GetAsync(value.Country, value.City);
+
+                if (!result.IsSuccess(out var prayers))
+                {
+                    break;
+                }
+
+                var filtered = prayers
+                    .Where(prayer => main.Contains(prayer.Key))
+                    .ToArray();
+
+                var now = DateTime.Now.Subtract(TimeSpan.FromDays(1));
+
+                Prayers = filtered
+                    .Select(prayer => new Prayer(prayer.Key, prayer.Value - now))
+                    .ToArray();
+
+                var next = Prayers
+                    .Where(prayer => prayer.When.Ticks > 0)
+                    .OrderBy(prayer => prayer.When.Ticks)
+                    .First();
+
+                Next = next;
+
+                await Task.Delay(next.When, source.Token);
+            }
         }
-
-        var result = await prayerService.GetAsync(location.Country, location.City);
-
-        if (!result.IsSuccess(out var prayers))
+        catch (Exception exception)
         {
-            return;
+            Debug.WriteLine(exception);
         }
+    }
 
-        var filtered = prayers
-            .Where(prayer => main.Contains(prayer.Key))
-            .ToArray();
-
-        var now = DateTime.Now.Subtract(TimeSpan.FromDays(1));
-
-        Prayers = filtered
-            .Select(prayer => new Prayer(prayer.Key, prayer.Value - now))
-            .ToArray();
-
-        var next = Prayers
-            .Where(prayer => prayer.When.Ticks > 0)
-            .OrderBy(prayer => prayer.When.Ticks)
-            .First();
-
-        Next = next;
-
-        timer.Interval = next.When.TotalMilliseconds;
-        timer.Enabled = true;
+    public void Receive(Closing message)
+    {
+        source.Cancel();
+        task?.Dispose();
     }
 }

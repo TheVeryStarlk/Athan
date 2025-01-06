@@ -1,11 +1,13 @@
 using System;
 using System.Linq;
+using Athan.Avalonia.Models;
 using Athan.Avalonia.Services;
 using Athan.Avalonia.Views;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Athan.Avalonia;
@@ -35,7 +37,11 @@ internal sealed class App : Application
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.Exit += (_, _) => storage.Save();
+            desktop.Exit += (_, _) =>
+            {
+                storage.Save();
+                WeakReferenceMessenger.Default.Send<Closing>();
+            };
 
             desktop.MainWindow = services.GetRequiredService<ShellView>();
         }
