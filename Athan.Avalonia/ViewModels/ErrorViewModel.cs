@@ -31,7 +31,7 @@ internal sealed partial class ErrorViewModel : ObservableRecipient, IRecipient<E
 
     public void Receive(Error error)
     {
-        logger.Fatal("An error has occured. {Error}", error);
+        logger.Fatal("An error has occured. {Error}", error.Message);
 
         Message = error.Message;
     }

@@ -23,9 +23,6 @@ internal static partial class Bootstrapper
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 "Athan.log");
 
-            // Remove old logs to only keep the new upcoming ones.
-            File.WriteAllText(path, string.Empty);
-
             configuration
                 .MinimumLevel.Verbose()
                 .WriteTo.File(path);

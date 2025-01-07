@@ -10,13 +10,13 @@ internal static class HttpClientExtension
         {
             var response = await client.GetAsync(link);
 
-            return response.IsSuccessStatusCode
-                ? Result.Success(response)
-                : Result.Failure<HttpResponseMessage>("The request was not successful.");
+            var message = response.EnsureSuccessStatusCode();
+
+            return Result.Success(message);
         }
         catch (HttpRequestException)
         {
-            return Result.Failure<HttpResponseMessage>("A request error has occured.");
+            return Result.Failure<HttpResponseMessage>("The request was not successful.");
         }
     }
 }

@@ -8,7 +8,9 @@ public sealed class PrayerService(HttpClient httpClient)
 {
     public async Task<Result<FrozenDictionary<string, DateTime>>> GetAsync(string country, string city)
     {
-        var request = await httpClient.TryGetAsync($"http://api.aladhan.com/v1/timingsByCity?country={country}&city={city}");
+        country = country.Replace(" ", string.Empty);
+
+        var request = await httpClient.TryGetAsync($"https://api.aladhan.com/v1/timingsByCity?country={country}&city={city}");
 
         if (!request.IsSuccess(out var response))
         {
