@@ -4,6 +4,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Serilog;
 
 namespace Athan.Avalonia.ViewModels;
 
@@ -12,8 +13,12 @@ internal sealed partial class ErrorViewModel : ObservableRecipient, IRecipient<E
     [ObservableProperty]
     public partial string? Message { get; set; }
 
-    public ErrorViewModel()
+    private readonly ILogger logger;
+
+    public ErrorViewModel(ILogger logger)
     {
+        this.logger = logger;
+
         WeakReferenceMessenger.Default.Register(this);
     }
 
@@ -26,6 +31,8 @@ internal sealed partial class ErrorViewModel : ObservableRecipient, IRecipient<E
 
     public void Receive(Error error)
     {
+        logger.Fatal("An error has occured. {Error}", error);
+
         Message = error.Message;
     }
 }

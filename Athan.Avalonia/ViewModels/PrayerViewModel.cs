@@ -7,10 +7,12 @@ using Athan.Avalonia.Services;
 using Athan.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
+using Serilog;
 
 namespace Athan.Avalonia.ViewModels;
 
 internal sealed partial class PrayerViewModel(
+    ILogger logger,
     PrayerService prayerService,
     LocationService locationService,
     StorageService storageService) : ObservableRecipient, IRecipient<Closing>
@@ -38,6 +40,8 @@ internal sealed partial class PrayerViewModel(
         {
             if (!storageService.TryGet("Location", out Location? value))
             {
+                logger.Information("Getting location.");
+
                 var location = await locationService.GetAsync();
 
                 if (!location.IsSuccess(out value))
@@ -50,6 +54,8 @@ internal sealed partial class PrayerViewModel(
 
             while (!source.IsCancellationRequested)
             {
+                logger.Information("Getting prayer timings.");
+
                 var result = await prayerService.GetAsync(value.Country, value.City);
 
                 if (!result.IsSuccess(out var prayers))
@@ -69,14 +75,17 @@ internal sealed partial class PrayerViewModel(
 
                 var next = Prayers
                     .OrderBy(prayer => prayer.When.Hours)
-                    .ToArray();
+                    .ToArray()
+                    .First();
 
-                Next = next.First();
+                Next = next;
 
-                await Task.Delay(next.First().When, source.Token);
+                logger.Information("Update scheduled after {When}.", next.When);
+
+                await Task.Delay(next.When, source.Token);
             }
         }
-        catch (Exception exception)
+        catch (Exception exception) when (exception is not OperationCanceledException)
         {
             WeakReferenceMessenger.Default.Send(new Error(exception.Message));
         }

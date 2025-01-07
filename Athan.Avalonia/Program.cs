@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Windows;
 using Athan.Avalonia;
 using Avalonia;
-
+using Serilog;
 
 try
 {
@@ -15,6 +15,8 @@ try
 }
 catch (Exception exception)
 {
+    Log.Fatal(exception, "A fatal error occured.");
+
     if (Debugger.IsAttached)
     {
         Debugger.Break();
@@ -22,11 +24,15 @@ catch (Exception exception)
     else
     {
         MessageBox.Show(
-            $"A fatal error has occured." +
+            $"A fatal error has occured. Please restart Athan." +
             $"{Environment.NewLine}" +
             $"{exception.Message}",
             "Athan",
             MessageBoxButton.OK,
             MessageBoxImage.Error);
     }
+}
+finally
+{
+    Log.CloseAndFlush();
 }
