@@ -29,5 +29,7 @@ internal static partial class Bootstrapper
     [Transient(typeof(ShellView))]
     [Singleton(typeof(PrayerViewModel))]
     [Singleton(typeof(PrayerView))]
+    [Singleton(typeof(ErrorViewModel))]
+    [Singleton(typeof(ErrorView))]
     private static partial void ConfigureServices(IServiceCollection services);
 }

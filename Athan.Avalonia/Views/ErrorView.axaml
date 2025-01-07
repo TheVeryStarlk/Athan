@@ -1,0 +1,13 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:Athan.Avalonia.ViewModels"
+
+             x:Class="Athan.Avalonia.Views.ErrorView"
+             x:DataType="vm:ErrorViewModel">
+
+    <StackPanel>
+        <TextBlock Text="A fatal error has occured. Please restart Athan." />
+        <TextBlock Text="{CompiledBinding Message}" />
+        <Button Content="Close" Command="{CompiledBinding CloseCommand}" />
+    </StackPanel>
+</UserControl>

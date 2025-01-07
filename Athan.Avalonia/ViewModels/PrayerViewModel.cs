@@ -29,6 +29,7 @@ internal sealed partial class PrayerViewModel(
 
     public void Initialize()
     {
+        WeakReferenceMessenger.Default.Register(this);
         task = Task.Factory.StartNew(StartAsync, TaskCreationOptions.LongRunning);
     }
 
@@ -42,7 +43,7 @@ internal sealed partial class PrayerViewModel(
 
                 if (!location.IsSuccess(out value))
                 {
-                    return;
+                    throw new Exception("Unable to get location.");
                 }
 
                 storageService.Set("Location", value);
@@ -54,7 +55,7 @@ internal sealed partial class PrayerViewModel(
 
                 if (!result.IsSuccess(out var prayers))
                 {
-                    break;
+                    throw new Exception("Unable to get prayer timings.");
                 }
 
                 var filtered = prayers
@@ -78,11 +79,11 @@ internal sealed partial class PrayerViewModel(
         }
         catch (Exception exception)
         {
-            Debug.WriteLine(exception);
+            WeakReferenceMessenger.Default.Send(new Error(exception.Message));
         }
     }
 
-    public void Receive(Closing message)
+    public void Receive(Closing closing)
     {
         source.Cancel();
         task?.Dispose();
