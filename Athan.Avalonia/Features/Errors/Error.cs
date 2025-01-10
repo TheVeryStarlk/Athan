@@ -1,3 +1,3 @@
-﻿namespace Athan.Avalonia.Models;
+﻿namespace Athan.Avalonia.Features.Errors;
 
 internal sealed record Error(string Message);

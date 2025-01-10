@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Net.Http;
-using Athan.Avalonia.Services;
-using Athan.Avalonia.ViewModels;
-using Athan.Avalonia.Views;
+using Athan.Avalonia.Features.Errors;
+using Athan.Avalonia.Features.Prayers;
+using Athan.Avalonia.Features.Shell;
 using Athan.Services;
 using CommunityToolkit.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;

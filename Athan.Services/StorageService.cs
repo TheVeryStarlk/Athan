@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 
-namespace Athan.Avalonia.Services;
+namespace Athan.Services;
 
-internal sealed class StorageService
+public sealed class StorageService
 {
     private Dictionary<string, string?> settings = [];
 

@@ -2,14 +2,14 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Athan.Avalonia.Models;
-using Athan.Avalonia.Services;
+using Athan.Avalonia.Features.Errors;
+using Athan.Avalonia.Features.Shell;
 using Athan.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using Serilog;
 
-namespace Athan.Avalonia.ViewModels;
+namespace Athan.Avalonia.Features.Prayers;
 
 internal sealed partial class PrayerViewModel(
     ILogger logger,

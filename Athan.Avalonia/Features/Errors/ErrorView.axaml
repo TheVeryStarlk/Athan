@@ -1,9 +1,9 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="clr-namespace:Athan.Avalonia.ViewModels"
+             xmlns:errors="clr-namespace:Athan.Avalonia.Features.Errors"
 
-             x:Class="Athan.Avalonia.Views.ErrorView"
-             x:DataType="vm:ErrorViewModel">
+             x:Class="Athan.Avalonia.Features.Errors.ErrorView"
+             x:DataType="errors:ErrorViewModel">
 
     <StackPanel>
         <TextBlock Text="A fatal error has occured. Please restart Athan." />

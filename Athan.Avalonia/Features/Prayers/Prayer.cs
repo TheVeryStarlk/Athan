@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Athan.Avalonia.Models;
+namespace Athan.Avalonia.Features.Prayers;
 
 internal sealed class Prayer(string name, TimeSpan when)
 {

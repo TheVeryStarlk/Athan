@@ -1,7 +1,6 @@
-﻿using Athan.Avalonia.ViewModels;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 
-namespace Athan.Avalonia.Views;
+namespace Athan.Avalonia.Features.Prayers;
 
 internal sealed partial class PrayerView : UserControl
 {

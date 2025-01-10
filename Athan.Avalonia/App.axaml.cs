@@ -1,8 +1,7 @@
 using System;
 using System.Linq;
-using Athan.Avalonia.Models;
-using Athan.Avalonia.Services;
-using Athan.Avalonia.Views;
+using Athan.Avalonia.Features.Shell;
+using Athan.Services;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;

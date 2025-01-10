@@ -1,12 +1,11 @@
-﻿using Athan.Avalonia.Models;
-using Avalonia;
+﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Serilog;
 
-namespace Athan.Avalonia.ViewModels;
+namespace Athan.Avalonia.Features.Errors;
 
 internal sealed partial class ErrorViewModel : ObservableRecipient, IRecipient<Error>
 {

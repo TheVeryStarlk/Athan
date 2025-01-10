@@ -39,4 +39,19 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Athan.Services\Athan.Services.csproj"/>
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Features\Prayer\PrayerView.axaml.cs">
+	    <DependentUpon>PrayerView.axaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="Features\Error\ErrorView.axaml.cs">
+	    <DependentUpon>ErrorView.axaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	  <Compile Update="Features\Shell\ShellView.axaml.cs">
+	    <DependentUpon>ShellView.axaml</DependentUpon>
+	    <SubType>Code</SubType>
+	  </Compile>
+	</ItemGroup>
 </Project>

@@ -1,17 +1,16 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:vm="using:Athan.Avalonia.ViewModels"
-             xmlns:ms="clr-namespace:Athan.Avalonia.Models"
+             xmlns:prayers="clr-namespace:Athan.Avalonia.Features.Prayers"
 
-             x:Class="Athan.Avalonia.Views.PrayerView"
-             x:DataType="vm:PrayerViewModel">
+             x:Class="Athan.Avalonia.Features.Prayers.PrayerView"
+             x:DataType="prayers:PrayerViewModel">
 
     <StackPanel>
         <TextBlock Text="{CompiledBinding Next.Name, FallbackValue='Death'}" />
 
         <ListBox ItemsSource="{CompiledBinding Prayers}">
             <ListBox.ItemTemplate>
-                <DataTemplate x:DataType="ms:Prayer">
+                <DataTemplate x:DataType="prayers:Prayer">
                     <Grid ColumnDefinitions="* *">
                         <TextBlock Text="{CompiledBinding Name}" FontWeight="Bold" Grid.Column="0" />
 
