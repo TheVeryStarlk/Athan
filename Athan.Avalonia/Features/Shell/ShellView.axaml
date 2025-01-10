@@ -5,5 +5,5 @@
         x:Class="Athan.Avalonia.Features.Shell.ShellView"
         x:DataType="shell:ShellViewModel"
 
-        Icon="/Assets/avalonia-logo.ico" Title="Athan.Avalonia" Content="{CompiledBinding Current}">
+        Icon="/Assets/Athan.ico" Title="Athan" Content="{CompiledBinding Current}">
 </Window>
