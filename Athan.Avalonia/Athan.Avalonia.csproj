@@ -5,12 +5,14 @@
 		<LangVersion>preview</LangVersion>
 		<Nullable>enable</Nullable>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<ApplicationIcon>Assets\Athan.ico</ApplicationIcon>
 		<UseWpf>true</UseWpf>
 		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-		<ApplicationIcon>Assets\Athan.ico</ApplicationIcon>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-		<WindowsPackageType>none</WindowsPackageType>
+		<EnableMsixTooling>true</EnableMsixTooling>
+		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+		<SelfContained>true</SelfContained>
 	</PropertyGroup>
 
 	<ItemGroup>
