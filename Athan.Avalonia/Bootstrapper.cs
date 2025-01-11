@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Net.Http;
-using Athan.Avalonia.Features.Errors;
 using Athan.Avalonia.Features.Prayers;
 using Athan.Avalonia.Features.Shell;
 using Athan.Services;
@@ -42,7 +41,5 @@ internal static partial class Bootstrapper
     [Transient(typeof(ShellView))]
     [Singleton(typeof(PrayerViewModel))]
     [Singleton(typeof(PrayerView))]
-    [Singleton(typeof(ErrorViewModel))]
-    [Singleton(typeof(ErrorView))]
     private static partial void ConfigureServices(IServiceCollection services);
 }

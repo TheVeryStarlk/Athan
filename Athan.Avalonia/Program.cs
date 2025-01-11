@@ -15,7 +15,7 @@ try
 }
 catch (Exception exception)
 {
-    Log.Fatal(exception, "A fatal error occured.");
+    Log.Fatal(exception, "A fatal exception occured.");
 
     if (Debugger.IsAttached)
     {
@@ -24,7 +24,7 @@ catch (Exception exception)
     else
     {
         MessageBox.Show(
-            $"A fatal error has occured. Please restart Athan." +
+            $"An error has occured. Please restart Athan." +
             $"{Environment.NewLine}" +
             $"{exception.Message}",
             "Athan",

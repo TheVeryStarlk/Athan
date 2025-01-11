@@ -5,19 +5,42 @@
              x:Class="Athan.Avalonia.Features.Prayers.PrayerView"
              x:DataType="prayers:PrayerViewModel">
 
-    <StackPanel>
-        <TextBlock Text="{CompiledBinding Next.Name, FallbackValue='Death'}" />
+    <StackPanel VerticalAlignment="Center" Margin="50" Spacing="50">
+        <Border CornerRadius="{DynamicResource ControlCornerRadius}" Background="{DynamicResource SystemControlBackgroundBaseLowBrush}"
+                HorizontalAlignment="Center" Padding="25">
 
-        <ListBox ItemsSource="{CompiledBinding Prayers}">
+            <StackPanel Spacing="10">
+                <StackPanel.Styles>
+                    <Style Selector="TextBlock">
+                        <Setter Property="HorizontalAlignment" Value="Center" />
+                    </Style>
+                </StackPanel.Styles>
+
+                <TextBlock Text="Next prayer" Opacity="0.5" />
+                <TextBlock Text="{CompiledBinding Next.Name, FallbackValue='...'}" FontSize="20" FontWeight="Bold" />
+                <TextBlock Text="{CompiledBinding Next.Message, FallbackValue=''}" Opacity="0.5" />
+            </StackPanel>
+
+        </Border>
+
+        <ListBox CornerRadius="{DynamicResource ControlCornerRadius}" x:Name="PrayersList" SelectedItem="{CompiledBinding Next, Mode=OneWay}"
+                 ItemsSource="{CompiledBinding Prayers}" SelectionChanged="SelectingItemsControlOnSelectionChanged" Padding="10">
+
+            <ListBox.Styles>
+                <Style Selector="ListBoxItem">
+                    <Setter Property="Margin" Value="2.5" />
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+                </Style>
+            </ListBox.Styles>
+
             <ListBox.ItemTemplate>
                 <DataTemplate x:DataType="prayers:Prayer">
-                    <Grid ColumnDefinitions="* *">
-                        <TextBlock Text="{CompiledBinding Name}" FontWeight="Bold" Grid.Column="0" />
-
-                        <StackPanel Orientation="Horizontal" Spacing="5" HorizontalAlignment="Right" Grid.Column="1">
-                            <TextBlock Text="{CompiledBinding Message}" Opacity="0.75" />
-                            <TextBlock Text="{CompiledBinding Time}" />
-                        </StackPanel>
+                    <Grid ToolTip.Tip="{CompiledBinding Message}" ToolTip.ShowDelay="75" Background="Transparent">
+                        <Grid Margin="15">
+                            <TextBlock Text="{CompiledBinding Name}" FontWeight="Bold" />
+                            <TextBlock Text="{CompiledBinding Time}" HorizontalAlignment="Right" />
+                        </Grid>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

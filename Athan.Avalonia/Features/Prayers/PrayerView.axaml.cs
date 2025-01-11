@@ -19,4 +19,9 @@ internal sealed partial class PrayerView : UserControl
         viewModel.Initialize();
         base.OnInitialized();
     }
+
+    private void SelectingItemsControlOnSelectionChanged(object? sender, SelectionChangedEventArgs eventArgs)
+    {
+        PrayersList.SelectedItem = viewModel.Next;
+    }
 }

@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Athan.Avalonia.Features.Errors;
 using Athan.Avalonia.Features.Shell;
 using Athan.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -36,23 +35,23 @@ internal sealed partial class PrayerViewModel(
 
     private async Task StartAsync()
     {
-        try
+        if (!storageService.TryGet("Location", out Location? value))
         {
-            if (!storageService.TryGet("Location", out Location? value))
+            logger.Information("Getting location.");
+
+            var location = await locationService.GetAsync();
+
+            if (!location.IsSuccess(out value))
             {
-                logger.Information("Getting location.");
-
-                var location = await locationService.GetAsync();
-
-                if (!location.IsSuccess(out value))
-                {
-                    throw new Exception("Unable to get location.");
-                }
-
-                storageService.Set("Location", value);
+                throw new Exception("Unable to get location.");
             }
 
-            while (!source.IsCancellationRequested)
+            storageService.Set("Location", value);
+        }
+
+        while (!source.IsCancellationRequested)
+        {
+            try
             {
                 logger.Information("Getting prayer timings.");
 
@@ -84,10 +83,11 @@ internal sealed partial class PrayerViewModel(
 
                 await Task.Delay(next.When, source.Token);
             }
-        }
-        catch (Exception exception) when (exception is not OperationCanceledException)
-        {
-            WeakReferenceMessenger.Default.Send(new Error(exception.Message));
+            catch (Exception exception)
+            {
+                Log.Fatal(exception, "A fatal exception occured.");
+                break;
+            }
         }
     }
 
