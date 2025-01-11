@@ -28,7 +28,6 @@
 
             <ListBox.Styles>
                 <Style Selector="ListBoxItem">
-                    <Setter Property="Margin" Value="2.5" />
                     <Setter Property="Padding" Value="0" />
                     <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
                 </Style>
@@ -36,7 +35,7 @@
 
             <ListBox.ItemTemplate>
                 <DataTemplate x:DataType="prayers:Prayer">
-                    <Grid ToolTip.Tip="{CompiledBinding Message}" ToolTip.ShowDelay="75" Background="Transparent">
+                    <Grid ToolTip.Tip="{CompiledBinding Message}" Background="Transparent">
                         <Grid Margin="15">
                             <TextBlock Text="{CompiledBinding Name}" FontWeight="Bold" />
                             <TextBlock Text="{CompiledBinding Time}" HorizontalAlignment="Right" />
