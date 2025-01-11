@@ -7,7 +7,7 @@
 
         Icon="/Assets/Athan.ico" Title="Athan"
         Width="625" Height="750" MinWidth="460" MinHeight="700"
-        WindowStartupLocation="CenterScreen" ShowInTaskbar="False"
+        WindowStartupLocation="CenterScreen"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="OSXThickTitleBar"
         ExtendClientAreaTitleBarHeightHint="50">

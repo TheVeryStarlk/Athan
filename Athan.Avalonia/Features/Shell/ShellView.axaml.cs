@@ -25,6 +25,7 @@ internal sealed partial class ShellView : Window
         }
         else
         {
+            ShowInTaskbar = false;
             WindowState = WindowState.Minimized;
 
             await viewModel.MinimizingCommand.ExecuteAsync(sender);

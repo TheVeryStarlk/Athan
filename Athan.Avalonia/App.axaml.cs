@@ -51,6 +51,9 @@ internal sealed class App : Application
 
     private void TrayIconOnClicked(object? sender, EventArgs eventArgs)
     {
-        ((IClassicDesktopStyleApplicationLifetime) ApplicationLifetime!).MainWindow!.WindowState = WindowState.Normal;
+        var window = ((IClassicDesktopStyleApplicationLifetime) ApplicationLifetime!).MainWindow!;
+
+        window.ShowInTaskbar = true;
+        window.WindowState = WindowState.Normal;
     }
 }
