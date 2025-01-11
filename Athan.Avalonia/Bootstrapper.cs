@@ -5,6 +5,8 @@ using Athan.Avalonia.Features.Prayers;
 using Athan.Avalonia.Features.Shell;
 using Athan.Services;
 using CommunityToolkit.Extensions.DependencyInjection;
+using DesktopNotifications;
+using DesktopNotifications.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
@@ -25,6 +27,12 @@ internal static partial class Bootstrapper
             configuration
                 .MinimumLevel.Verbose()
                 .WriteTo.File(path);
+        });
+
+        services.AddSingleton<INotificationManager, WindowsNotificationManager>(static _ =>
+        {
+            var context = WindowsApplicationContext.FromCurrentProcess(nameof(Athan));
+            return new WindowsNotificationManager(context);
         });
 
         ConfigureServices(services);

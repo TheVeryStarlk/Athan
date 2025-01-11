@@ -2,16 +2,19 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Athan.Avalonia.Extensions;
 using Athan.Avalonia.Features.Shell;
 using Athan.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
+using DesktopNotifications;
 using Serilog;
 
 namespace Athan.Avalonia.Features.Prayers;
 
 internal sealed partial class PrayerViewModel(
     ILogger logger,
+    INotificationManager notificationManager,
     PrayerService prayerService,
     LocationService locationService,
     StorageService storageService) : ObservableRecipient, IRecipient<Closing>
@@ -81,6 +84,10 @@ internal sealed partial class PrayerViewModel(
                 logger.Information("Update scheduled after {When}.", next.When);
 
                 await Task.Delay(next.When, source.Token);
+
+                await notificationManager.ShowAsync(
+                    "Prayer time",
+                    $"Now is the prayer time for {Next.Name}.");
             }
             catch (Exception exception)
             {

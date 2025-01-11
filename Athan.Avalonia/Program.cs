@@ -24,7 +24,7 @@ catch (Exception exception)
     else
     {
         MessageBox.Show(
-            "Oh no! Something went wrong, please restart the application. Check the logs for more details.",
+            "Oh no! Something went wrong, please restart Athan. Check the logs for more details.",
             "Athan",
             MessageBoxButton.OK,
             MessageBoxImage.Error);

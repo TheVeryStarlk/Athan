@@ -9,6 +9,7 @@
 		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
 		<ApplicationIcon>Assets\Athan.ico</ApplicationIcon>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -31,6 +32,8 @@
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
 
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0"/>
+
+		<PackageReference Include="DesktopNotifications.Windows" Version="1.3.1"/>
 
 		<PackageReference Include="Serilog" Version="4.2.0"/>
 		<PackageReference Include="Serilog.Extensions.Hosting" Version="9.0.0"/>

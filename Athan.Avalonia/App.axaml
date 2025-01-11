@@ -19,8 +19,7 @@
 
     <TrayIcon.Icons>
         <TrayIcons>
-            <TrayIcon Icon="/Assets/Athan.ico" ToolTipText="Athan"
-                      Clicked="TrayIconOnClicked"/>
+            <TrayIcon Icon="/Assets/Athan.ico" ToolTipText="Athan" Clicked="TrayIconOnClicked"/>
         </TrayIcons>
     </TrayIcon.Icons>
 </Application>
