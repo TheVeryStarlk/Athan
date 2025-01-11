@@ -30,6 +30,24 @@
                 <Style Selector="ListBoxItem">
                     <Setter Property="Padding" Value="0" />
                     <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+
+                    <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Background" Value="Transparent" />
+                    </Style>
+
+                    <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+                        <Setter Property="Background" Value="Transparent" />
+                    </Style>
+
+                    <Style Selector="^:selected">
+                        <Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                            <Setter Property="Background" Value="{DynamicResource SystemControlHighlightListAccentLowBrush}" />
+                        </Style>
+
+                        <Style Selector="^:pressed /template/ ContentPresenter#PART_ContentPresenter">
+                            <Setter Property="Background" Value="{DynamicResource SystemControlHighlightListAccentLowBrush}" />
+                        </Style>
+                    </Style>
                 </Style>
             </ListBox.Styles>
 
