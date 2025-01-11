@@ -3,6 +3,7 @@ using System.Linq;
 using Athan.Avalonia.Features.Shell;
 using Athan.Services;
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
@@ -46,5 +47,10 @@ internal sealed class App : Application
         }
 
         base.OnFrameworkInitializationCompleted();
+    }
+
+    private void TrayIconOnClicked(object? sender, EventArgs eventArgs)
+    {
+        ((IClassicDesktopStyleApplicationLifetime) ApplicationLifetime!).MainWindow!.WindowState = WindowState.Normal;
     }
 }

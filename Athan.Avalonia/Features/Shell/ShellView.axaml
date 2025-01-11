@@ -7,15 +7,15 @@
 
         Icon="/Assets/Athan.ico" Title="Athan"
         Width="625" Height="750" MinWidth="460" MinHeight="700"
-        WindowStartupLocation="CenterScreen"
-
+        WindowStartupLocation="CenterScreen" ShowInTaskbar="False"
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="OSXThickTitleBar"
         ExtendClientAreaTitleBarHeightHint="50">
 
     <Grid RowDefinitions="Auto *">
         <Grid ColumnDefinitions="Auto *">
-            <Image Source="/Assets/Athan.ico" VerticalAlignment="Center" Width="25" Height="25" Margin="15" Grid.Column="0" />
+            <Image Source="/Assets/Athan.ico" VerticalAlignment="Center" IsHitTestVisible="False"
+                   Width="25" Height="25" Margin="15" Grid.Column="0" />
 
             <StackPanel VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="1">
                 <StackPanel.Styles>
