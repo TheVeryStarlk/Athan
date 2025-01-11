@@ -19,7 +19,13 @@
 
     <TrayIcon.Icons>
         <TrayIcons>
-            <TrayIcon Icon="/Assets/Athan.ico" ToolTipText="Athan" Clicked="TrayIconOnClicked"/>
+            <TrayIcon Icon="/Assets/Athan.ico" ToolTipText="Athan" Clicked="TrayIconOnClicked">
+                <TrayIcon.Menu>
+                    <NativeMenu>
+                        <NativeMenuItem Header="Close" Click="CloseMenuItemOnClick" />
+                    </NativeMenu>
+                </TrayIcon.Menu>
+            </TrayIcon>
         </TrayIcons>
     </TrayIcon.Icons>
 </Application>

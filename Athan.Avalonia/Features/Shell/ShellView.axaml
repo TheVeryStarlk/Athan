@@ -6,7 +6,7 @@
         x:DataType="cb:ShellViewModel"
 
         Icon="/Assets/Athan.ico" Title="Athan"
-        Width="625" Height="750" MinWidth="460" MinHeight="700">
+        Width="575" Height="700" WindowStartupLocation="CenterScreen">
 
     <Grid RowDefinitions="50 *">
         <Grid x:Name="TitleArea" IsHitTestVisible="False" Grid.Row="0">

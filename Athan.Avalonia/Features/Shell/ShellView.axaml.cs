@@ -1,4 +1,3 @@
-using Avalonia;
 using Avalonia.Controls;
 using Microsoft.UI.Windowing;
 using Microsoft.UI;
@@ -17,34 +16,30 @@ internal sealed partial class ShellView : Window
         InitializeComponent();
 
         var handle = GetTopLevel(this)!.TryGetPlatformHandle()!.Handle;
-        var result = AppWindow.GetFromWindowId(Win32Interop.GetWindowIdFromWindow(handle));
+        var window = AppWindow.GetFromWindowId(Win32Interop.GetWindowIdFromWindow(handle));
 
-        if (result.Presenter is OverlappedPresenter presenter)
+        if (window.Presenter is OverlappedPresenter presenter)
         {
-            presenter.IsMinimizable = true;
+            presenter.IsMinimizable = false;
             presenter.IsMaximizable = false;
+            presenter.IsResizable = false;
         }
 
-        result.TitleBar.ExtendsContentIntoTitleBar = true;
-        result.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
+        window.TitleBar.ExtendsContentIntoTitleBar = true;
+        window.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
 
-        TitleArea.Height = result.TitleBar.Height;
+        TitleArea.Height = window.TitleBar.Height;
     }
 
-    protected override async void OnPropertyChanged(AvaloniaPropertyChangedEventArgs eventArgs)
+    protected override async void OnClosing(WindowClosingEventArgs eventArgs)
     {
-        if (eventArgs.Property != WindowStateProperty)
-        {
-            return;
-        }
+        eventArgs.Cancel = true;
 
-        if (WindowState is WindowState.Minimized)
-        {
-            ShowInTaskbar = false;
+        ShowInTaskbar = false;
+        WindowState = WindowState.Minimized;
 
-            await viewModel.MinimizedAsync();
-        }
+        await viewModel.MinimizedAsync();
 
-        base.OnPropertyChanged(eventArgs);
+        base.OnClosing(eventArgs);
     }
 }

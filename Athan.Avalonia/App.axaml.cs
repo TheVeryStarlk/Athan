@@ -16,6 +16,8 @@ internal sealed class App : Application
 {
     private readonly IServiceProvider services = Bootstrapper.Build();
 
+    private IClassicDesktopStyleApplicationLifetime? lifetime;
+
     public override void Initialize()
     {
         DataTemplates.Add(services.GetRequiredService<ViewLocator>());
@@ -37,6 +39,8 @@ internal sealed class App : Application
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            lifetime = desktop;
+
             desktop.Exit += (_, _) =>
             {
                 storage.Save();
@@ -51,9 +55,14 @@ internal sealed class App : Application
 
     private void TrayIconOnClicked(object? sender, EventArgs eventArgs)
     {
-        var window = ((IClassicDesktopStyleApplicationLifetime) ApplicationLifetime!).MainWindow!;
+        var window = lifetime!.MainWindow!;
 
         window.ShowInTaskbar = true;
         window.WindowState = WindowState.Normal;
+    }
+
+    private void CloseMenuItemOnClick(object? sender, EventArgs eventArgs)
+    {
+        lifetime!.Shutdown();
     }
 }
