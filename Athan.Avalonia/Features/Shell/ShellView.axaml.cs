@@ -1,3 +1,4 @@
+using Avalonia;
 using Avalonia.Controls;
 using Microsoft.UI.Windowing;
 using Microsoft.UI;
@@ -28,5 +29,22 @@ internal sealed partial class ShellView : Window
         result.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
 
         TitleArea.Height = result.TitleBar.Height;
+    }
+
+    protected override async void OnPropertyChanged(AvaloniaPropertyChangedEventArgs eventArgs)
+    {
+        if (eventArgs.Property != WindowStateProperty)
+        {
+            return;
+        }
+
+        if (WindowState is WindowState.Minimized)
+        {
+            ShowInTaskbar = false;
+
+            await viewModel.MinimizedAsync();
+        }
+
+        base.OnPropertyChanged(eventArgs);
     }
 }
