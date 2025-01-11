@@ -74,7 +74,6 @@ internal sealed partial class PrayerViewModel(
 
                 var next = Prayers
                     .OrderBy(prayer => prayer.When.Hours)
-                    .ToArray()
                     .First();
 
                 Next = next;
