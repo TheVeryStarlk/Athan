@@ -6,41 +6,11 @@
         x:DataType="cb:ShellViewModel"
 
         Icon="/Assets/Athan.ico" Title="Athan"
-        Width="625" Height="750" MinWidth="460" MinHeight="700"
-        WindowStartupLocation="CenterScreen"
-        ExtendClientAreaToDecorationsHint="True"
-        ExtendClientAreaChromeHints="OSXThickTitleBar"
-        ExtendClientAreaTitleBarHeightHint="50">
+        Width="625" Height="750" MinWidth="460" MinHeight="700">
 
-    <Grid RowDefinitions="Auto *">
-        <Grid ColumnDefinitions="Auto *">
-            <Image Source="/Assets/Athan.ico" VerticalAlignment="Center" IsHitTestVisible="False"
-                   Width="25" Height="25" Margin="15" Grid.Column="0" />
-
-            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="1">
-                <StackPanel.Styles>
-                    <Style Selector="TextBlock">
-                        <Setter Property="FontSize" Value="10" />
-                        <Setter Property="FontFamily" Value="Segoe MDL2 Assets" />
-                        <Setter Property="HorizontalAlignment" Value="Center" />
-                        <Setter Property="VerticalAlignment" Value="Center" />
-                    </Style>
-
-                    <Style Selector="cb|CaptionBorder">
-                        <Setter Property="Width" Value="50" />
-                        <Setter Property="Height" Value="30" />
-                    </Style>
-
-                </StackPanel.Styles>
-
-                <cb:CaptionBorder PointerReleased="CaptionBorderOnPointerReleased" Type="Minimize">
-                    <TextBlock Text="&#xE921;" />
-                </cb:CaptionBorder>
-
-                <cb:CaptionBorder PointerReleased="CaptionBorderOnPointerReleased" Type="Close">
-                    <TextBlock Text="&#xE8BB;" />
-                </cb:CaptionBorder>
-            </StackPanel>
+    <Grid RowDefinitions="50 *">
+        <Grid x:Name="TitleArea" IsHitTestVisible="False" Grid.Row="0">
+            <Image Source="/Assets/Athan.ico" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12.5" Grid.Row="0" />
         </Grid>
 
         <ContentControl Content="{CompiledBinding Current}" Grid.Row="1" />
