@@ -33,13 +33,19 @@ internal sealed partial class ShellView : Window
 
     protected override async void OnClosing(WindowClosingEventArgs eventArgs)
     {
+        base.OnClosing(eventArgs);
+
+        if (eventArgs.IsProgrammatic)
+        {
+            return;
+        }
+
         eventArgs.Cancel = true;
 
         ShowInTaskbar = false;
+        IsVisible = false;
         WindowState = WindowState.Minimized;
 
         await viewModel.MinimizedAsync();
-
-        base.OnClosing(eventArgs);
     }
 }

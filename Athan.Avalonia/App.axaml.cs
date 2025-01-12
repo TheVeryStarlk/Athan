@@ -58,6 +58,7 @@ internal sealed class App : Application
         var window = lifetime!.MainWindow!;
 
         window.ShowInTaskbar = true;
+        window.IsVisible = true;
         window.WindowState = WindowState.Normal;
     }
 

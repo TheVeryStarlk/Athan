@@ -33,8 +33,6 @@ internal sealed class Prayer(string name, TimeSpan when)
                 builder.Append($"{prefix}{when.Minutes} minutes");
             }
 
-            builder.Append('.');
-
             return builder.ToString();
         }
     }
