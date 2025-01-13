@@ -1,4 +1,6 @@
-﻿using Avalonia.Controls;
+﻿using System;
+using Avalonia.Controls;
+using Serilog;
 
 namespace Athan.Avalonia.Features.Prayers;
 
@@ -14,10 +16,17 @@ internal sealed partial class PrayerView : UserControl
         InitializeComponent();
     }
 
-    protected override void OnInitialized()
+    protected override async void OnInitialized()
     {
-        viewModel.Initialize();
-        base.OnInitialized();
+        try
+        {
+            await viewModel.InitializeAsync();
+            base.OnInitialized();
+        }
+        catch (Exception exception)
+        {
+            Log.Fatal(exception, "A fatal exception occured.");
+        }
     }
 
     private void SelectingItemsControlOnSelectionChanged(object? sender, SelectionChangedEventArgs eventArgs)

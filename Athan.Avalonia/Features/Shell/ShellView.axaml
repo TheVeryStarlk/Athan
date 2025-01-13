@@ -1,6 +1,7 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cb="clr-namespace:Athan.Avalonia.Features.Shell"
+        xmlns:dh="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
 
         x:Class="Athan.Avalonia.Features.Shell.ShellView"
         x:DataType="cb:ShellViewModel"
@@ -8,11 +9,13 @@
         Icon="/Assets/Athan.ico" Title="Athan"
         Width="575" Height="700" WindowStartupLocation="CenterScreen">
 
-    <Grid RowDefinitions="50 *">
-        <Grid x:Name="TitleArea" IsHitTestVisible="False" Grid.Row="0">
-            <Image Source="/Assets/Athan.ico" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15" />
-        </Grid>
+    <dh:DialogHost x:Name="DialogHost">
+        <Grid RowDefinitions="50 *">
+            <Grid x:Name="TitleArea" IsHitTestVisible="False" Grid.Row="0">
+                <Image Source="/Assets/Athan.ico" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15" />
+            </Grid>
 
-        <ContentControl Content="{CompiledBinding Current}" Grid.Row="1" />
-    </Grid>
+            <ContentControl Content="{CompiledBinding Parent}" Grid.Row="1" />
+        </Grid>
+    </dh:DialogHost>
 </Window>

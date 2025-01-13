@@ -10,7 +10,7 @@ namespace Athan.Avalonia.Features.Shell;
 internal sealed partial class ShellViewModel(INotificationManager notificationManager, PrayerViewModel prayerViewModel) : ObservableRecipient
 {
     [ObservableProperty]
-    public partial INotifyPropertyChanged Current { get; set; } = prayerViewModel;
+    public partial INotifyPropertyChanged Parent { get; set; } = prayerViewModel;
 
     public Task MinimizedAsync()
     {

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net.Http;
 using Athan.Avalonia.Features.Prayers;
+using Athan.Avalonia.Features.Prayers.Retry;
 using Athan.Avalonia.Features.Shell;
 using Athan.Services;
 using CommunityToolkit.Extensions.DependencyInjection;
@@ -43,11 +44,14 @@ internal static partial class Bootstrapper
     [Singleton(typeof(ViewLocator))]
     [Singleton(typeof(HttpClient))]
     [Singleton(typeof(StorageService))]
+    [Singleton(typeof(DialogService))]
     [Transient(typeof(LocationService))]
     [Transient(typeof(PrayerService))]
     [Transient(typeof(ShellViewModel))]
     [Transient(typeof(ShellView))]
     [Singleton(typeof(PrayerViewModel))]
     [Singleton(typeof(PrayerView))]
+    [Singleton(typeof(RetryViewModel))]
+    [Singleton(typeof(RetryView))]
     private static partial void ConfigureServices(IServiceCollection services);
 }

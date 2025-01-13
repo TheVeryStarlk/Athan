@@ -20,7 +20,7 @@ internal sealed class ViewLocator(IServiceProvider services) : IDataTemplate
 
         if (type is not null)
         {
-            return (Control) ActivatorUtilities.CreateInstance(services, type)!;
+            return (Control) ActivatorUtilities.CreateInstance(services, type);
         }
 
         return new TextBlock

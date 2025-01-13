@@ -3,10 +3,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Athan.Avalonia.Extensions;
-using Athan.Avalonia.Features.Shell;
+using Athan.Avalonia.Features.Prayers.Retry;
 using Athan.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Messaging;
 using DesktopNotifications;
 using Serilog;
 
@@ -17,7 +16,8 @@ internal sealed partial class PrayerViewModel(
     INotificationManager notificationManager,
     PrayerService prayerService,
     LocationService locationService,
-    StorageService storageService) : ObservableRecipient, IRecipient<Closing>
+    StorageService storageService,
+    RetryViewModel retryViewModel) : ObservableObject
 {
     [ObservableProperty]
     public partial Prayer[] Prayers { get; set; } = [];
@@ -25,81 +25,81 @@ internal sealed partial class PrayerViewModel(
     [ObservableProperty]
     public partial Prayer? Next { get; set; }
 
-    private Task? task;
-
     private readonly string[] main = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
-    private readonly CancellationTokenSource source = new();
 
-    public void Initialize()
+    public async Task InitializeAsync()
     {
-        WeakReferenceMessenger.Default.Register(this);
-        task = Task.Factory.StartNew(StartAsync, TaskCreationOptions.LongRunning);
-    }
+        using var source = new CancellationTokenSource();
 
-    private async Task StartAsync()
-    {
-        if (!storageService.TryGet("Location", out Location? value))
+        while (true)
         {
-            logger.Information("Getting location.");
+            var message = "";
 
-            var location = await locationService.GetAsync();
-
-            if (!location.IsSuccess(out value))
+            if (!storageService.TryGet("Location", out Location? location))
             {
-                throw new Exception("Unable to get location.");
-            }
+                logger.Information("Getting location.");
 
-            storageService.Set("Location", value);
-        }
+                var result = await locationService.GetAsync();
 
-        while (!source.IsCancellationRequested)
-        {
-            try
-            {
-                logger.Information("Getting prayer timings.");
-
-                var result = await prayerService.GetAsync(value.Country, value.City);
-
-                if (!result.IsSuccess(out var prayers))
+                if (!result.IsSuccess(out location))
                 {
-                    throw new Exception("Unable to get prayer timings.");
+                    message = result.Errors.First().Message;
+
+                    await source.CancelAsync();
                 }
 
-                var filtered = prayers
-                    .Where(prayer => main.Contains(prayer.Key))
-                    .ToArray();
-
-                var now = DateTime.Now.Subtract(TimeSpan.FromDays(1));
-
-                Prayers = filtered
-                    .Select(prayer => new Prayer(prayer.Key, prayer.Value - now))
-                    .ToArray();
-
-                var next = Prayers
-                    .OrderBy(prayer => prayer.When.Hours)
-                    .First();
-
-                Next = next;
-
-                logger.Information("Update scheduled after {When}.", next.When);
-
-                await Task.Delay(next.When, source.Token);
-
-                await notificationManager.ShowAsync(
-                    "Prayer time",
-                    $"Now is the prayer time for {Next.Name}.");
+                storageService.Set("Location", location);
             }
-            catch (Exception exception)
+
+            while (!source.IsCancellationRequested)
             {
-                Log.Fatal(exception, "A fatal exception occured.");
-                break;
-            }
-        }
-    }
+                try
+                {
+                    logger.Information("Getting prayer timings.");
 
-    public void Receive(Closing closing)
-    {
-        source.Cancel();
-        task?.Dispose();
+                    var result = await prayerService.GetAsync(location!.Country, location.City);
+
+                    if (!result.IsSuccess(out var prayers))
+                    {
+                        message = result.Errors.First().Message;
+                        break;
+                    }
+
+                    var filtered = prayers.Where(prayer => main.Contains(prayer.Key))
+                        .ToArray();
+
+                    var now = DateTime.Now.Subtract(TimeSpan.FromDays(1));
+
+                    Prayers = filtered.Select(prayer => new Prayer(prayer.Key, prayer.Value - now))
+                        .ToArray();
+
+                    var next = Prayers.OrderBy(prayer => prayer.When.Hours)
+                        .First();
+
+                    Next = next;
+
+                    logger.Information("Update scheduled after {When}.", next.When);
+
+                    await Task.Delay(next.When, source.Token);
+
+                    await notificationManager.ShowAsync("Prayer time",
+                        $"Now is the prayer time for {Next.Name}.");
+                }
+                catch (Exception exception)
+                {
+                    logger.Fatal(exception, "A fatal exception occured.");
+                    message = "Something went wrong...";
+
+                    break;
+                }
+            }
+
+            if (string.IsNullOrWhiteSpace(message))
+            {
+                return;
+            }
+
+            await retryViewModel.ShowAsync(message);
+        }
     }
 }
