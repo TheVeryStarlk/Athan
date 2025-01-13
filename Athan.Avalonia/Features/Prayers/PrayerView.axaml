@@ -23,7 +23,7 @@
 
         </Border>
 
-        <ListBox CornerRadius="{DynamicResource ControlCornerRadius}" x:Name="PrayersList" SelectedItem="{CompiledBinding Next, Mode=OneWay}"
+        <ListBox x:Name="PrayerList" CornerRadius="{DynamicResource ControlCornerRadius}" SelectedItem="{CompiledBinding Next, Mode=OneWay}"
                  ItemsSource="{CompiledBinding Prayers}" SelectionChanged="SelectingItemsControlOnSelectionChanged" Padding="10">
 
             <ListBox.Styles>

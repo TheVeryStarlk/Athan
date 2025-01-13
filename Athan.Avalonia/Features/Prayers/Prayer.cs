@@ -3,34 +3,34 @@ using System.Text;
 
 namespace Athan.Avalonia.Features.Prayers;
 
-internal sealed class Prayer(string name, TimeSpan when)
+internal sealed class Prayer(string name, TimeSpan after)
 {
     public string Name => name;
 
-    public TimeSpan When => when;
+    public TimeSpan After => after;
 
-    public string Time => DateTime.Now.Add(when).ToString("t");
+    public string Time => DateTime.Now.Add(after).ToString("t");
 
     public string Message
     {
         get
         {
-            if (when.Hours is 0 && when.Minutes is 0)
+            if (after.Hours is 0 && after.Minutes is 0)
             {
                 return "Now.";
             }
 
             var builder = new StringBuilder("After ");
 
-            if (when.Hours > 0)
+            if (after.Hours > 0)
             {
-                builder.Append($"{when.Hours} hours");
+                builder.Append($"{after.Hours} hours");
             }
 
-            if (when.Minutes > 0)
+            if (after.Minutes > 0)
             {
-                var prefix = when.Hours > 0 ? " and " : string.Empty;
-                builder.Append($"{prefix}{when.Minutes} minutes");
+                var prefix = after.Hours > 0 ? " and " : string.Empty;
+                builder.Append($"{prefix}{after.Minutes} minutes");
             }
 
             return builder.ToString();

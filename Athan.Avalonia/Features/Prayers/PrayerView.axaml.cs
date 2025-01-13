@@ -20,7 +20,7 @@ internal sealed partial class PrayerView : UserControl
     {
         try
         {
-            await viewModel.InitializeAsync();
+            await viewModel.StartAsync();
             base.OnInitialized();
         }
         catch (Exception exception)
@@ -31,6 +31,6 @@ internal sealed partial class PrayerView : UserControl
 
     private void SelectingItemsControlOnSelectionChanged(object? sender, SelectionChangedEventArgs eventArgs)
     {
-        PrayersList.SelectedItem = viewModel.Next;
+        PrayerList.SelectedItem = viewModel.Next;
     }
 }

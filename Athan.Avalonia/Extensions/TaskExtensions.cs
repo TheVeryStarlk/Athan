@@ -6,7 +6,7 @@ namespace Athan.Avalonia.Extensions;
 
 internal static class TaskExtensions
 {
-    public static async Task<Result> ThenAsync<T>(this Task<Result<T>> task, Action<T> next)
+    public static async Task<Result> ThenAsync<T>(this Task<Result<T>> task, Func<T, Task<Result>> next)
     {
         var result = await task;
 
@@ -15,7 +15,6 @@ internal static class TaskExtensions
             return result.AsFailure();
         }
 
-        next(value);
-        return Result.Success();
+        return await next(value);
     }
 }
