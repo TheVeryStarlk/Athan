@@ -47,8 +47,8 @@ internal sealed partial class PrayerViewModel(
 
             while (string.IsNullOrWhiteSpace(message))
             {
-                RefreshStatus();
-                await Task.Delay(TimeSpan.FromSeconds(1));
+                await RefreshStatusAsync();
+                await Task.Delay(TimeSpan.FromMinutes(1));
             }
 
             await retryViewModel.ShowAsync(message);
@@ -95,7 +95,7 @@ internal sealed partial class PrayerViewModel(
         return Result.Success();
     }
 
-    private void RefreshStatus()
+    private async Task RefreshStatusAsync()
     {
         var now = DateTime.Now;
 
@@ -108,6 +108,18 @@ internal sealed partial class PrayerViewModel(
             .First();
 
         Next = next;
+
+        var late = now.Add(next.After);
+        var difference = late - now;
+
+        if (difference.TotalSeconds < 15)
+        {
+            await notificationManager.ShowAsync(
+                "Prayer time",
+                $"Now is the prayer time for {Next.Name}.");
+        }
+
+        logger.Debug("Updated status.");
     }
 
     public void Receive(Closing message)
