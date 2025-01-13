@@ -114,6 +114,8 @@ internal sealed partial class PrayerViewModel(
 
         if (difference.TotalSeconds < 15)
         {
+            logger.Information("Sent prayer notification.");
+
             await notificationManager.ShowAsync(
                 "Prayer time",
                 $"Now is the prayer time for {Next.Name}.");
