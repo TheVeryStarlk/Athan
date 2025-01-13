@@ -6,7 +6,7 @@
              x:DataType="prayers:PrayerViewModel">
 
     <StackPanel VerticalAlignment="Center" Margin="50" Spacing="50">
-        <Border CornerRadius="{DynamicResource ControlCornerRadius}" Background="{DynamicResource SystemControlBackgroundBaseLowBrush}"
+        <Border CornerRadius="{DynamicResource ControlCornerRadius}" Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"
                 HorizontalAlignment="Center" Padding="25">
 
             <StackPanel Spacing="10">
@@ -56,7 +56,7 @@
                     <Grid ToolTip.Tip="{CompiledBinding Message}" Background="Transparent">
                         <Grid Margin="15">
                             <TextBlock Text="{CompiledBinding Name}" FontWeight="Bold" />
-                            <TextBlock Text="{CompiledBinding Time}" HorizontalAlignment="Right" />
+                            <TextBlock Text="{CompiledBinding Time}" HorizontalAlignment="Right" Opacity="0.5" />
                         </Grid>
                     </Grid>
                 </DataTemplate>
