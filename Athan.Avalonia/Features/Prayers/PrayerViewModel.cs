@@ -111,7 +111,17 @@ internal sealed partial class PrayerViewModel(
                 difference = pair.Value - reference.Subtract(TimeSpan.FromDays(1));
             }
 
-            Prayers[index] = new Prayer(pair.Key, difference);
+            var emoji = pair.Key switch
+            {
+                "Fajr" => "🌅",
+                "Dhuhr" => "🌄",
+                "Asr" => "🌇",
+                "Maghrib" => "🌆",
+                "Isha" => "🌌",
+                _ => throw new ArgumentOutOfRangeException(nameof(pair.Key), "Unknown name.")
+            };
+
+            Prayers[index] = new Prayer(emoji, pair.Key, difference);
         }
 
         var next = Prayers

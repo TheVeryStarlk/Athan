@@ -29,6 +29,8 @@ internal sealed partial class ShellView : Window
 
         window.TitleBar.ExtendsContentIntoTitleBar = true;
         window.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
+        window.TitleBar.ButtonBackgroundColor = Colors.Transparent;
+        window.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
         TitleArea.Height = window.TitleBar.Height;
     }
