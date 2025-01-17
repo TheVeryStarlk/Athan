@@ -118,7 +118,7 @@ internal sealed partial class PrayerViewModel(
                 "Asr" => "🌇",
                 "Maghrib" => "🌆",
                 "Isha" => "🌌",
-                _ => throw new ArgumentOutOfRangeException(nameof(pair.Key), "Unknown name.")
+                _ => throw new ArgumentOutOfRangeException(nameof(pairs), "Unknown name.")
             };
 
             Prayers[index] = new Prayer(emoji, pair.Key, difference);
