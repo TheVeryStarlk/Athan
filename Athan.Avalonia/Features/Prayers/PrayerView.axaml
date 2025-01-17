@@ -6,8 +6,24 @@
              x:DataType="prayers:PrayerViewModel">
 
     <StackPanel VerticalAlignment="Center" Margin="50" Spacing="50">
-        <Border Background="{DynamicResource SystemControlBackgroundChromeBlackLowBrush}"
-                CornerRadius="{DynamicResource ControlCornerRadius}" HorizontalAlignment="Center" Padding="30">
+        <Border x:Name="NextBorder" Background="{DynamicResource SystemControlBackgroundChromeBlackLowBrush}"
+                CornerRadius="{DynamicResource ControlCornerRadius}" HorizontalAlignment="Center"
+                Padding="30" Opacity="0">
+
+            <Border.Styles>
+                <Style Selector="Border">
+                    <Setter Property="Transitions">
+                        <Transitions>
+                            <DoubleTransition Property="Opacity" Duration="0:0:0.5" />
+                            <TransformOperationsTransition Property="RenderTransform" Easing="CubicEaseInOut" Duration="0:0:0.25" />
+                        </Transitions>
+                    </Setter>
+
+                    <Style Selector="^:pointerover">
+                        <Setter Property="RenderTransform" Value="scale(1.05)" />
+                    </Style>
+                </Style>
+            </Border.Styles>
 
             <StackPanel Spacing="10">
                 <StackPanel.Styles>
@@ -24,12 +40,36 @@
         </Border>
 
         <ListBox x:Name="PrayerList" CornerRadius="{DynamicResource ControlCornerRadius}" SelectedItem="{CompiledBinding Next, Mode=OneWay}"
-                 ItemsSource="{CompiledBinding Prayers}" Background="Transparent" SelectionChanged="SelectingItemsControlOnSelectionChanged">
+                 ItemsSource="{CompiledBinding Prayers}" Background="Transparent" SelectionChanged="SelectingItemsControlOnSelectionChanged"
+                 Opacity="0">
 
             <ListBox.Styles>
+                <Style Selector="ListBox">
+                    <Setter Property="Transitions">
+                        <Transitions>
+                            <DoubleTransition Property="Opacity" Duration="0:0:0.5" />
+                        </Transitions>
+                    </Setter>
+                </Style>
+
                 <Style Selector="ListBoxItem">
                     <Setter Property="Padding" Value="0" />
+                    <Setter Property="Opacity" Value="0.5" />
                     <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+
+                    <Setter Property="Transitions">
+                        <Transitions>
+                            <DoubleTransition Property="Opacity" Duration="0:0:0.5" />
+                        </Transitions>
+                    </Setter>
+
+                    <Style Selector="^:selected">
+                        <Setter Property="Opacity" Value="1" />
+                    </Style>
+
+                    <Style Selector="^:pointerover">
+                        <Setter Property="Opacity" Value="1" />
+                    </Style>
 
                     <Style Selector="^:selected /template/ ContentPresenter#PART_ContentPresenter">
                         <Setter Property="Background" Value="{DynamicResource SystemControlBackgroundChromeBlackLowBrush}" />
