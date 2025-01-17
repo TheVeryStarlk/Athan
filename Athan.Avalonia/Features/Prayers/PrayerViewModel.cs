@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.Frozen;
 using System.Linq;
 using System.Threading.Tasks;
 using Athan.Avalonia.Extensions;
@@ -30,24 +30,23 @@ internal sealed partial class PrayerViewModel(
 
     private readonly string[] main = ["Fajr", "Dhuhr", "Asr", "Maghrib", "Isha"];
 
-    private KeyValuePair<string, DateTime>[] filtered = [];
     private bool running = true;
 
     public async Task StartAsync()
     {
         while (running)
         {
-            var result = await RetrieveLocationAsync().ThenAsync(UpdatePrayerAsync);
-            var message = "";
+            var result = await GetLocationAsync().ThenAsync(GetTimingsAsync);
+            var message = string.Empty;
 
-            if (!result.IsSuccess())
+            if (!result.IsSuccess(out var pairs))
             {
                 message = result.Errors.First().Message;
             }
 
             while (string.IsNullOrWhiteSpace(message))
             {
-                await RefreshStatusAsync();
+                await RefreshStatusAsync(pairs!);
                 await Task.Delay(TimeSpan.FromMinutes(1));
             }
 
@@ -55,7 +54,7 @@ internal sealed partial class PrayerViewModel(
         }
     }
 
-    private async Task<Result<Location>> RetrieveLocationAsync()
+    private async Task<Result<Location>> GetLocationAsync()
     {
         if (storageService.TryGet("Location", out Location? location))
         {
@@ -77,7 +76,7 @@ internal sealed partial class PrayerViewModel(
         return location;
     }
 
-    private async Task<Result> UpdatePrayerAsync(Location location)
+    private async Task<Result<FrozenDictionary<string, DateTime>>> GetTimingsAsync(Location location)
     {
         logger.Information("Getting prayer timings.");
 
@@ -85,23 +84,35 @@ internal sealed partial class PrayerViewModel(
 
         if (!result.IsSuccess(out var prayers))
         {
-            return result.AsFailure();
+            return result.AsFailure<FrozenDictionary<string, DateTime>>();
         }
 
-        filtered = prayers
+        var filtered = prayers
             .Where(prayer => main.Contains(prayer.Key))
-            .ToArray();
+            .ToFrozenDictionary();
 
-        return Result.Success();
+        return Result.Success(filtered);
     }
 
-    private async Task RefreshStatusAsync()
+    private async Task RefreshStatusAsync(FrozenDictionary<string, DateTime> pairs)
     {
-        var now = DateTime.Now;
+        var reference = DateTime.Now;
 
-        Prayers = filtered
-            .Select(prayer => new Prayer(prayer.Key, prayer.Value - now))
-            .ToArray();
+        Prayers = new Prayer[5];
+
+        for (var index = 0; index < pairs.Count; index++)
+        {
+            var pair = pairs.ElementAt(index);
+
+            var difference = pair.Value - reference;
+
+            if (difference.Ticks < 0)
+            {
+                difference = pair.Value - reference.Subtract(TimeSpan.FromDays(1));
+            }
+
+            Prayers[index] = new Prayer(pair.Key, difference);
+        }
 
         var next = Prayers
             .OrderBy(prayer => prayer.After.Hours)
@@ -109,10 +120,10 @@ internal sealed partial class PrayerViewModel(
 
         Next = next;
 
-        var late = now.Add(next.After);
-        var difference = late - now;
+        var late = reference.Add(next.After);
+        var coming = late - reference;
 
-        if (difference.TotalSeconds < 15)
+        if (coming.TotalSeconds < 15)
         {
             logger.Information("Sent prayer notification.");
 
