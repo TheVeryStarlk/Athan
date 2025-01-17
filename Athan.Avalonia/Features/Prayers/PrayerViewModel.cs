@@ -133,7 +133,7 @@ internal sealed partial class PrayerViewModel(
         var late = reference.Add(next.After);
         var coming = late - reference;
 
-        if (coming.TotalSeconds < 15)
+        if (coming.TotalSeconds < 60)
         {
             logger.Information("Sent prayer notification.");
 
