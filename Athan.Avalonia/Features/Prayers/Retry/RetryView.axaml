@@ -7,7 +7,7 @@
 
     <StackPanel Margin="10" Spacing="10" Width="250">
         <StackPanel Spacing="5">
-            <TextBlock Text="Opsie!" FontWeight="Bold" />
+            <TextBlock Text="Oh no!" FontWeight="Bold" />
             <TextBlock Text="{CompiledBinding Message}" />
         </StackPanel>
 

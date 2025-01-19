@@ -1,8 +1,7 @@
-using System;
+using Athan.Avalonia.Extensions;
 using Avalonia.Controls;
 using Microsoft.UI.Windowing;
 using Microsoft.UI;
-using Serilog;
 
 namespace Athan.Avalonia.Features.Shell;
 
@@ -35,28 +34,26 @@ internal sealed partial class ShellView : Window
         TitleArea.Height = window.TitleBar.Height;
     }
 
-    protected override async void OnClosing(WindowClosingEventArgs eventArgs)
+    public void UpdateState(bool show)
     {
-        try
+        WindowState = show ? WindowState.Normal : WindowState.Minimized;
+        ShowInTaskbar = show;
+        IsVisible = show;
+    }
+
+    protected override void OnClosing(WindowClosingEventArgs eventArgs)
+    {
+        base.OnClosing(eventArgs);
+
+        if (eventArgs.IsProgrammatic)
         {
-            base.OnClosing(eventArgs);
-
-            if (eventArgs.IsProgrammatic)
-            {
-                return;
-            }
-
-            eventArgs.Cancel = true;
-
-            ShowInTaskbar = false;
-            IsVisible = false;
-            WindowState = WindowState.Minimized;
-
-            await viewModel.MinimizedAsync();
+            return;
         }
-        catch (Exception exception)
-        {
-            Log.Fatal(exception, "A fatal exception occured.");
-        }
+
+        eventArgs.Cancel = true;
+
+        UpdateState(false);
+
+        viewModel.MinimizedAsync().Await();
     }
 }

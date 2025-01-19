@@ -47,7 +47,6 @@ internal sealed partial class PrayerViewModel(
             while (string.IsNullOrWhiteSpace(message))
             {
                 await RefreshStatusAsync(pairs!);
-                await Task.Delay(TimeSpan.FromMinutes(1));
             }
 
             await retryViewModel.ShowAsync(message);
@@ -118,7 +117,7 @@ internal sealed partial class PrayerViewModel(
                 "Asr" => "🌇",
                 "Maghrib" => "🌆",
                 "Isha" => "🌌",
-                _ => throw new ArgumentOutOfRangeException(nameof(pairs), "Unknown name.")
+                _ => throw new ArgumentOutOfRangeException(nameof(pairs), "Unknown prayer name.")
             };
 
             Prayers[index] = new Prayer(emoji, pair.Key, difference);
@@ -133,6 +132,8 @@ internal sealed partial class PrayerViewModel(
         var late = reference.Add(next.After);
         var coming = late - reference;
 
+        var wait = TimeSpan.FromMinutes(1);
+
         if (coming.TotalSeconds < 60)
         {
             logger.Information("Sent prayer notification.");
@@ -140,9 +141,13 @@ internal sealed partial class PrayerViewModel(
             await notificationManager.ShowAsync(
                 "Prayer time",
                 $"Now is the prayer time for {Next.Name}.");
+
+            wait = wait.Add(TimeSpan.FromSeconds(coming.TotalSeconds));
         }
 
         logger.Debug("Updated status.");
+
+        await Task.Delay(wait);
     }
 
     public void Receive(Closing message)

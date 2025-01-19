@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Athan.Avalonia.Extensions;
 using Avalonia.Controls;
-using Serilog;
 
 namespace Athan.Avalonia.Features.Prayers;
 
@@ -24,20 +23,13 @@ internal sealed partial class PrayerView : UserControl
         };
     }
 
-    protected override async void OnInitialized()
+    protected override void OnInitialized()
     {
-        try
-        {
-            await viewModel.StartAsync();
-            base.OnInitialized();
-        }
-        catch (Exception exception)
-        {
-            Log.Fatal(exception, "A fatal exception occured.");
-        }
+        base.OnInitialized();
+        viewModel.StartAsync().Await();
     }
 
-    private void SelectingItemsControlOnSelectionChanged(object? sender, SelectionChangedEventArgs eventArgs)
+    private void PrayerSelectionChanged(object? sender, SelectionChangedEventArgs eventArgs)
     {
         PrayerList.SelectedItem = viewModel.Next;
     }

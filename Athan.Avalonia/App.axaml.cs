@@ -3,7 +3,6 @@ using System.Linq;
 using Athan.Avalonia.Features.Shell;
 using Athan.Services;
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
@@ -55,11 +54,8 @@ internal sealed class App : Application
 
     private void TrayIconOnClicked(object? sender, EventArgs eventArgs)
     {
-        var window = lifetime!.MainWindow!;
-
-        window.ShowInTaskbar = true;
-        window.IsVisible = true;
-        window.WindowState = WindowState.Normal;
+        var window = (ShellView) lifetime!.MainWindow!;
+        window.UpdateState(true);
     }
 
     private void CloseMenuItemOnClick(object? sender, EventArgs eventArgs)

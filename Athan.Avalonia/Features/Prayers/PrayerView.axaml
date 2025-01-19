@@ -40,7 +40,7 @@
         </Border>
 
         <ListBox x:Name="PrayerList" CornerRadius="{DynamicResource ControlCornerRadius}" SelectedItem="{CompiledBinding Next, Mode=OneWay}"
-                 ItemsSource="{CompiledBinding Prayers}" Background="Transparent" SelectionChanged="SelectingItemsControlOnSelectionChanged"
+                 ItemsSource="{CompiledBinding Prayers}" Background="Transparent" SelectionChanged="PrayerSelectionChanged"
                  Opacity="0">
 
             <ListBox.Styles>
