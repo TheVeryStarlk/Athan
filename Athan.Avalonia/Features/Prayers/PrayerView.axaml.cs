@@ -14,13 +14,7 @@ internal sealed partial class PrayerView : UserControl
         DataContext = viewModel;
         InitializeComponent();
 
-        viewModel.PropertyChanged += (_, _) =>
-        {
-            var opacity = viewModel.Next is null ? 0 : 1;
-
-            NextBorder.Opacity = opacity;
-            PrayerList.Opacity = opacity;
-        };
+        viewModel.PropertyChanged += (_, _) => ContainerStackPanel.Opacity = viewModel.Next is null ? 0 : 1;
     }
 
     protected override void OnInitialized()

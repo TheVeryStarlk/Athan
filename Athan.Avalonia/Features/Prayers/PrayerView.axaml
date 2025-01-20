@@ -5,25 +5,19 @@
              x:Class="Athan.Avalonia.Features.Prayers.PrayerView"
              x:DataType="prayers:PrayerViewModel">
 
-    <StackPanel VerticalAlignment="Center" Margin="50" Spacing="50">
-        <Border x:Name="NextBorder" Background="{DynamicResource SystemControlBackgroundChromeBlackLowBrush}"
-                CornerRadius="{DynamicResource ControlCornerRadius}" HorizontalAlignment="Center"
-                Padding="30" Opacity="0">
+    <StackPanel x:Name="ContainerStackPanel" VerticalAlignment="Center" Opacity="0" Margin="50" Spacing="50">
+        <StackPanel.Styles>
+            <Style Selector="StackPanel">
+                <Setter Property="Transitions">
+                    <Transitions>
+                        <DoubleTransition Property="Opacity" Duration="0:0:0.5" />
+                    </Transitions>
+                </Setter>
+            </Style>
+        </StackPanel.Styles>
 
-            <Border.Styles>
-                <Style Selector="Border">
-                    <Setter Property="Transitions">
-                        <Transitions>
-                            <DoubleTransition Property="Opacity" Duration="0:0:0.5" />
-                            <TransformOperationsTransition Property="RenderTransform" Easing="CubicEaseInOut" Duration="0:0:0.25" />
-                        </Transitions>
-                    </Setter>
-
-                    <Style Selector="^:pointerover">
-                        <Setter Property="RenderTransform" Value="scale(1.05)" />
-                    </Style>
-                </Style>
-            </Border.Styles>
+        <Border CornerRadius="{DynamicResource ControlCornerRadius}" HorizontalAlignment="Center"
+                Background="{DynamicResource SystemControlBackgroundChromeBlackLowBrush}" Padding="30">
 
             <StackPanel Spacing="10">
                 <StackPanel.Styles>
@@ -36,38 +30,18 @@
                 <TextBlock Text="{CompiledBinding Next.Name, FallbackValue='...'}" FontSize="20" FontWeight="Bold" />
                 <TextBlock Text="{CompiledBinding Next.Message, FallbackValue=''}" Opacity="0.5" />
             </StackPanel>
-
         </Border>
 
         <ListBox x:Name="PrayerList" CornerRadius="{DynamicResource ControlCornerRadius}" SelectedItem="{CompiledBinding Next, Mode=OneWay}"
-                 ItemsSource="{CompiledBinding Prayers}" Background="Transparent" SelectionChanged="PrayerSelectionChanged"
-                 Opacity="0">
+                 ItemsSource="{CompiledBinding Prayers}" Background="Transparent" SelectionChanged="PrayerSelectionChanged">
 
             <ListBox.Styles>
-                <Style Selector="ListBox">
-                    <Setter Property="Transitions">
-                        <Transitions>
-                            <DoubleTransition Property="Opacity" Duration="0:0:0.5" />
-                        </Transitions>
-                    </Setter>
-                </Style>
-
                 <Style Selector="ListBoxItem">
                     <Setter Property="Padding" Value="0" />
                     <Setter Property="Opacity" Value="0.5" />
                     <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
 
-                    <Setter Property="Transitions">
-                        <Transitions>
-                            <DoubleTransition Property="Opacity" Duration="0:0:0.5" />
-                        </Transitions>
-                    </Setter>
-
                     <Style Selector="^:selected">
-                        <Setter Property="Opacity" Value="1" />
-                    </Style>
-
-                    <Style Selector="^:pointerover">
                         <Setter Property="Opacity" Value="1" />
                     </Style>
 
@@ -104,7 +78,7 @@
                                 <TextBlock Text="{CompiledBinding Name}" FontWeight="Bold" />
                             </StackPanel>
 
-                            <TextBlock Text="{CompiledBinding Time}" HorizontalAlignment="Right" Opacity="0.5" />
+                            <TextBlock Text="{CompiledBinding Time}" HorizontalAlignment="Right" />
                         </Grid>
                     </Grid>
                 </DataTemplate>
