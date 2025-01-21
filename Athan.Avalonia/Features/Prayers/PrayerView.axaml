@@ -71,16 +71,7 @@
 
             <ListBox.ItemTemplate>
                 <DataTemplate x:DataType="prayers:Prayer">
-                    <Grid ToolTip.Tip="{CompiledBinding Message}" Background="Transparent">
-                        <Grid Margin="15">
-                            <StackPanel Orientation="Horizontal" Spacing="15">
-                                <TextBlock Text="{CompiledBinding Emoji}" />
-                                <TextBlock Text="{CompiledBinding Name}" FontWeight="Bold" />
-                            </StackPanel>
-
-                            <TextBlock Text="{CompiledBinding Time}" HorizontalAlignment="Right" />
-                        </Grid>
-                    </Grid>
+                    <prayers:ItemView DataContext="{CompiledBinding}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
