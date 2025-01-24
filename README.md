@@ -1,5 +1,5 @@
 ﻿<p align="center">
-  <img width="175" height="175" align="center" src="Athan.png">
+  <img width="125" height="125" align="center" src="Athan.png">
 </p>
 
 # Athan
