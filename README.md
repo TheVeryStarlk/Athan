@@ -3,9 +3,8 @@
 </p>
 
 # Athan
-An Islamic application that provides notifications for prayer times.
+A Windows-only application that shows prayer timings. 
+Athan is designed to run in background (consumes almost 0% CPU usage and around 30 MBs of RAM) and provides notifications when a prayer time is entered.
 
-### Introduction
-
-Athan provides useful tools in a simple and easy to use UI.  
-Just run the application and with the click of a button you're ready to go.
+## Download
+Head to the latest [release](https://github.com/TheVeryStarlk/Athan/releases).
