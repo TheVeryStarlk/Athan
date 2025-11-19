@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using Athan.Avalonia.Features.Shell;
 using Athan.Services;
 using Avalonia;
@@ -8,6 +6,9 @@ using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Windows.AppNotifications;
+using System;
+using System.Linq;
 
 namespace Athan.Avalonia;
 
@@ -25,6 +26,8 @@ internal sealed class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        AppNotificationManager.Default.Register();
+
         var plugins = BindingPlugins.DataValidators.OfType<DataAnnotationsValidationPlugin>().ToArray();
 
         foreach (var plugin in plugins)

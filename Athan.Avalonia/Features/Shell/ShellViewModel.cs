@@ -1,21 +1,23 @@
-﻿using System.ComponentModel;
-using System.Threading.Tasks;
-using Athan.Avalonia.Extensions;
-using Athan.Avalonia.Features.Prayers;
+﻿using Athan.Avalonia.Features.Prayers;
 using CommunityToolkit.Mvvm.ComponentModel;
-using DesktopNotifications;
+using Microsoft.Windows.AppNotifications;
+using Microsoft.Windows.AppNotifications.Builder;
+using System.ComponentModel;
 
 namespace Athan.Avalonia.Features.Shell;
 
-internal sealed partial class ShellViewModel(INotificationManager notificationManager, PrayerViewModel prayerViewModel) : ObservableRecipient
+internal sealed partial class ShellViewModel(PrayerViewModel prayerViewModel) : ObservableRecipient
 {
     [ObservableProperty]
     public partial INotifyPropertyChanged Parent { get; set; } = prayerViewModel;
 
-    public Task MinimizedAsync()
+    public void Minimized()
     {
-        return notificationManager.ShowAsync(
-            "Running in background",
-            "You can open Athan from the tray icon menu.");
+        var notification = new AppNotificationBuilder()
+            .AddText("Running in background")
+            .AddText("You can open Athan from the tray icon menu")
+            .BuildNotification();
+
+        AppNotificationManager.Default.Show(notification);
     }
 }

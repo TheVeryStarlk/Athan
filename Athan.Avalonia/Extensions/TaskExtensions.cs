@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using LightResults;
-using Serilog;
 
 namespace Athan.Avalonia.Extensions;
 
@@ -17,17 +16,5 @@ internal static class TaskExtensions
         }
 
         return await next(value);
-    }
-
-    public static async void Await(this Task task)
-    {
-        try
-        {
-            await task;
-        }
-        catch (Exception exception)
-        {
-            Log.Error(exception, "An exception has occured.");
-        }
     }
 }

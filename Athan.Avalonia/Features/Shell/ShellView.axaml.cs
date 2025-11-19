@@ -1,4 +1,3 @@
-using Athan.Avalonia.Extensions;
 using Avalonia.Controls;
 using Microsoft.UI.Windowing;
 using Microsoft.UI;
@@ -54,6 +53,6 @@ internal sealed partial class ShellView : Window
 
         UpdateState(false);
 
-        viewModel.MinimizedAsync().Await();
+        viewModel.Minimized();
     }
 }

@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Frozen;
-using System.Linq;
-using System.Threading.Tasks;
-using Athan.Avalonia.Extensions;
+﻿using Athan.Avalonia.Extensions;
 using Athan.Avalonia.Features.Prayers.Retry;
 using Athan.Avalonia.Features.Shell;
 using Athan.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
-using DesktopNotifications;
 using LightResults;
+using Microsoft.Windows.AppNotifications;
+using Microsoft.Windows.AppNotifications.Builder;
 using Serilog;
+using System;
+using System.Collections.Frozen;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Athan.Avalonia.Features.Prayers;
 
 internal sealed partial class PrayerViewModel(
     ILogger logger,
-    INotificationManager notificationManager,
     PrayerService prayerService,
     LocationService locationService,
     StorageService storageService,
@@ -138,9 +138,11 @@ internal sealed partial class PrayerViewModel(
         {
             logger.Information("Sent prayer notification.");
 
-            await notificationManager.ShowAsync(
-                "Prayer time",
-                $"Now is the prayer time for {Next.Name}.");
+            var notification = new AppNotificationBuilder()
+                .AddText($"Now is the prayer time for {Next.Name}")
+                .BuildNotification();
+
+            AppNotificationManager.Default.Show(notification);
 
             wait = wait.Add(TimeSpan.FromSeconds(coming.TotalSeconds));
         }

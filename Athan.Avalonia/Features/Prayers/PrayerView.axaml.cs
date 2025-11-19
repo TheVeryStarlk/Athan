@@ -1,5 +1,4 @@
-﻿using Athan.Avalonia.Extensions;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 
 namespace Athan.Avalonia.Features.Prayers;
 
@@ -20,7 +19,8 @@ internal sealed partial class PrayerView : UserControl
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        viewModel.StartAsync().Await();
+
+        _ = viewModel.StartAsync();
     }
 
     private void PrayerSelectionChanged(object? sender, SelectionChangedEventArgs eventArgs)
