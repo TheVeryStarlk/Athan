@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Athan.UI (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Athan.UI (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
