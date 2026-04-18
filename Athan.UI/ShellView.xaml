@@ -83,6 +83,9 @@
                         AlwaysShowHeader="True"
                         IsPaneToggleButtonVisible="False"
                         IsTitleBarAutoPaddingEnabled="False"
-                        IsBackButtonVisible="Collapsed" />
+                        IsBackButtonVisible="Collapsed">
+
+            <Button Content="Hello, world" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </NavigationView>
     </Grid>
 </ex:WindowEx>

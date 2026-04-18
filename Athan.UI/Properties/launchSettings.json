@@ -1,7 +1,8 @@
 {
   "profiles": {
     "Athan.UI (Package)": {
-      "commandName": "MsixPackage"
+      "commandName": "MsixPackage",
+      "nativeDebugging": true
     },
     "Athan.UI (Unpackaged)": {
       "commandName": "Project"
