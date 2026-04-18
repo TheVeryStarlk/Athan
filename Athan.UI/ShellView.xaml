@@ -1,16 +1,88 @@
-<winUiEx:WindowEx xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                  xmlns:winUiEx="using:WinUIEx"
+<ex:WindowEx xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ex="using:WinUIEx"
 
-                  x:Class="Athan.UI.ShellView"
-                  mc:Ignorable="d"
-                  Title="Athan">
+             x:Class="Athan.UI.ShellView"
+             mc:Ignorable="d"
+             Title="Athan">
 
     <Window.SystemBackdrop>
         <MicaBackdrop />
     </Window.SystemBackdrop>
 
-    <Button Content="{x:Bind viewModel.Message}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-</winUiEx:WindowEx>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="TitleBar"
+              Grid.Row="0"
+              SizeChanged="TitleBarSizeChanged">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.75*" />
+                <ColumnDefinition Width="0.75*" />
+                <ColumnDefinition Width="0.75*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0"
+                        Spacing="16"
+                        Margin="4 0 0 0"
+                        Orientation="Horizontal">
+
+                <StackPanel.ChildrenTransitions>
+                    <TransitionCollection>
+                        <RepositionThemeTransition />
+                    </TransitionCollection>
+                </StackPanel.ChildrenTransitions>
+
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="BackButton"
+                            ToolTipService.ToolTip="Back"
+                            Width="36"
+                            Height="36"
+                            Style="{ThemeResource TitleBarBackButtonStyle}" />
+
+                    <Button x:Name="ToggleButton"
+                            ToolTipService.ToolTip="Navigation"
+                            Click="ToggleButtonClick"
+                            Width="36"
+                            Height="36"
+                            Style="{ThemeResource TitleBarPaneToggleButtonStyle}" />
+                </StackPanel>
+
+                <Image Source="/Assets/StoreLogo.png"
+                       Width="16"
+                       Height="16" />
+
+                <TextBlock Text="Athan"
+                           Margin="8 0 0 0"
+                           VerticalAlignment="Center"
+                           Style="{StaticResource CaptionTextBlockStyle}" />
+            </StackPanel>
+
+            <AutoSuggestBox x:Name="SearchBox"
+                            Grid.Column="1"
+                            PlaceholderText="Search for a city, region, or country"
+                            QueryIcon="Find"
+                            VerticalAlignment="Center">
+
+                <AutoSuggestBox.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="F"
+                                         Invoked="SearchInvoked"
+                                         Modifiers="Control" />
+                </AutoSuggestBox.KeyboardAccelerators>
+            </AutoSuggestBox>
+        </Grid>
+
+        <NavigationView x:Name="NavigationView"
+                        Grid.Row="1"
+                        AlwaysShowHeader="True"
+                        IsPaneToggleButtonVisible="False"
+                        IsTitleBarAutoPaddingEnabled="False"
+                        IsBackButtonVisible="Collapsed" />
+    </Grid>
+</ex:WindowEx>
