@@ -19,8 +19,6 @@ internal sealed partial class ShellView : WindowEx
         this.viewModel = viewModel;
 
         InitializeComponent();
-        UpdateNavigationViewMargin();
-
         SetTitleBar(TitleBar);
 
         this.CenterOnScreen();
@@ -28,6 +26,11 @@ internal sealed partial class ShellView : WindowEx
         ExtendsContentIntoTitleBar = true;
 
         AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
+    }
+
+    protected override void OnStateChanged(WindowState state)
+    {
+        NavigationView.Margin = WindowState is WindowState.Maximized ? new Thickness(0, -1, 0, 0) : new Thickness(0, -2, 0, 0);
     }
 
     // https://discord.com/channels/372137812037730304/671870147354427422/1492298194749620236
@@ -62,23 +65,13 @@ internal sealed partial class ShellView : WindowEx
             .SetRegionRects(NonClientRegionKind.Passthrough, rects);
     }
 
-    protected override void OnStateChanged(WindowState state)
-    {
-        UpdateNavigationViewMargin();
-    }
-
-    private void ToggleButtonClick(object sender, RoutedEventArgs eventArgs)
-    {
-        NavigationView.IsPaneOpen = !NavigationView.IsPaneOpen;
-    }
-
     private void SearchInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs eventArgs)
     {
         SearchBox.Focus(FocusState.Programmatic);
     }
 
-    private void UpdateNavigationViewMargin()
+    private void ToggleButtonClick(object sender, RoutedEventArgs eventArgs)
     {
-        NavigationView.Margin = WindowState is WindowState.Maximized ? new Thickness(0, -1, 0, 0) : new Thickness(0, -2, 0, 0);
+        NavigationView.IsPaneOpen = !NavigationView.IsPaneOpen;
     }
 }

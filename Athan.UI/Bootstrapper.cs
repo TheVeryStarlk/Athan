@@ -16,8 +16,14 @@ internal static partial class Bootstrapper
     }
 
     [Transient(typeof(ShellView))]
+    [Transient(typeof(PrayersView))]
+    [Transient(typeof(TasbihCountingView))]
+    [Transient(typeof(SettingsView))]
     private static partial void ConfigureViews(IServiceCollection services);
 
     [Transient(typeof(ShellViewModel))]
+    [Transient(typeof(PrayersViewModel))]
+    [Transient(typeof(TasbihCountingViewModel))]
+    [Transient(typeof(SettingsViewModel))]
     private static partial void ConfigureViewModels(IServiceCollection services);
 }

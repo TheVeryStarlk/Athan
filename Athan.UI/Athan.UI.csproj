@@ -1,46 +1,47 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <OutputType>WinExe</OutputType>
-        <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
-        <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
-        <RootNamespace>Athan.UI</RootNamespace>
-        <ApplicationManifest>app.manifest</ApplicationManifest>
-        <Platforms>x86;x64;ARM64</Platforms>
-        <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
-        <PublishProfile>win-$(Platform).pubxml</PublishProfile>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+		<TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+		<RootNamespace>Athan.UI</RootNamespace>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<Platforms>x86;x64;ARM64</Platforms>
+		<RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+		<PublishProfile>win-$(Platform).pubxml</PublishProfile>
 		<PublishAot>true</PublishAot>
 		<UseWinUI>true</UseWinUI>
-        <EnableMsixTooling>true</EnableMsixTooling>
-        <WinUISDKReferences>false</WinUISDKReferences>
-        <Nullable>enable</Nullable>
+		<EnableMsixTooling>true</EnableMsixTooling>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<WinUISDKReferences>false</WinUISDKReferences>
+		<Nullable>enable</Nullable>
 		<OptimizationPreference>speed</OptimizationPreference>
 	</PropertyGroup>
 
-    <ItemGroup>
-        <Manifest Include="$(ApplicationManifest)" />
-    </ItemGroup>
+	<ItemGroup>
+		<Manifest Include="$(ApplicationManifest)" />
+	</ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="CommunityToolkit.Labs.Extensions.DependencyInjection" Version="0.0.1" />
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.6" />
-        <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.1721" />
-        <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260317003" />
-        <PackageReference Include="WinUIEx" Version="2.9.0" />
-    </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Labs.Extensions.DependencyInjection" Version="0.0.1" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.6" />
+		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.1721" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260317003" />
+		<PackageReference Include="WinUIEx" Version="2.9.0" />
+	</ItemGroup>
 
-    <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
-        <ProjectCapability Include="Msix" />
-    </ItemGroup>
+	<ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+		<ProjectCapability Include="Msix" />
+	</ItemGroup>
 
-    <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
-        <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
-    </PropertyGroup>
+	<PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+		<HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
+	</PropertyGroup>
 
-    <PropertyGroup>
-        <PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">false</PublishReadyToRun>
-        <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">true</PublishReadyToRun>
-        <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">false</PublishTrimmed>
-        <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">true</PublishTrimmed>
-    </PropertyGroup>
+	<PropertyGroup>
+		<PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">false</PublishReadyToRun>
+		<PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">true</PublishReadyToRun>
+		<PublishTrimmed Condition="'$(Configuration)' == 'Debug'">false</PublishTrimmed>
+		<PublishTrimmed Condition="'$(Configuration)' != 'Debug'">true</PublishTrimmed>
+	</PropertyGroup>
 </Project>

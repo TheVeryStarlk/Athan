@@ -6,7 +6,11 @@
 
              x:Class="Athan.UI.ShellView"
              mc:Ignorable="d"
-             Title="Athan">
+             Title="Athan"
+             Width="900"
+             Height="600"
+             MinWidth="700"
+             MinHeight="500">
 
     <Window.SystemBackdrop>
         <MicaBackdrop />
@@ -83,7 +87,10 @@
                         AlwaysShowHeader="True"
                         IsPaneToggleButtonVisible="False"
                         IsTitleBarAutoPaddingEnabled="False"
-                        IsBackButtonVisible="Collapsed">
+                        IsBackButtonVisible="Collapsed"
+                        OpenPaneLength="225"
+                        ExpandedModeThresholdWidth="700"
+                        Margin="0 -2 0 0">
 
             <Button Content="Hello, world" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </NavigationView>
