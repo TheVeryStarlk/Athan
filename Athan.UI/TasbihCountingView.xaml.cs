@@ -1,14 +1,21 @@
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
 
 namespace Athan.UI;
 
 internal sealed partial class TasbihCountingView : Page
 {
-    private readonly TasbihCountingViewModel viewModel = App.Services.GetRequiredService<TasbihCountingViewModel>();
+    private TasbihCountingViewModel? viewModel;
 
     public TasbihCountingView()
     {
         InitializeComponent();
+    }
+
+    protected override void OnNavigatedTo(NavigationEventArgs eventArgs)
+    {
+        viewModel = (TasbihCountingViewModel) eventArgs.Parameter;
+
+        base.OnNavigatedTo(eventArgs);
     }
 }

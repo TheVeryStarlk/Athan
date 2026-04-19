@@ -86,14 +86,22 @@ internal sealed partial class ShellView : WindowEx
 
     private void NavigationViewSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs eventArgs)
     {
+        Type type;
+
         if (eventArgs.IsSettingsSelected)
         {
-            Frame.Navigate(typeof(SettingsView), eventArgs.RecommendedNavigationTransitionInfo);
+            type = typeof(SettingsView);
+        }
+        else if (NavigationView.SelectedItem is PrayersViewModel)
+        {
+            type = typeof(PrayersView);
         }
         else
         {
-            Frame.Navigate(typeof(PrayersView), NavigationView.SelectedItem, eventArgs.RecommendedNavigationTransitionInfo);
+            type = typeof(TasbihCountingView);
         }
+
+        Frame.Navigate(type, NavigationView.SelectedItem, eventArgs.RecommendedNavigationTransitionInfo);
     }
 
     private void FrameLoaded(object sender, RoutedEventArgs eventArgs)
@@ -118,6 +126,39 @@ internal sealed partial class ShellView : WindowEx
         else
         {
             NavigationView.SelectedItem = viewModel.Items.First(item => item == eventArgs.Parameter);
+        }
+    }
+}
+
+internal interface IItem;
+
+internal sealed class Separator : IItem;
+
+internal sealed partial class NavigationViewItemTemplateSelector : DataTemplateSelector
+{
+    public DataTemplate? PrayersTemplate { get; set; }
+
+    public DataTemplate? TasbihCountingTemplate { get; set; }
+
+    public DataTemplate? SeparatorTemplate { get; set; }
+
+    protected override DataTemplate SelectTemplateCore(object item)
+    {
+        ArgumentNullException.ThrowIfNull(PrayersTemplate);
+        ArgumentNullException.ThrowIfNull(SeparatorTemplate);
+        ArgumentNullException.ThrowIfNull(TasbihCountingTemplate);
+
+        if (item is PrayersViewModel)
+        {
+            return PrayersTemplate;
+        }
+        else if (item is TasbihCountingViewModel)
+        {
+            return TasbihCountingTemplate;
+        }
+        else
+        {
+            return SeparatorTemplate;
         }
     }
 }

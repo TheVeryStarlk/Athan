@@ -97,18 +97,34 @@
                         ExpandedModeThresholdWidth="700"
                         Margin="0 -2 0 0">
 
-            <NavigationView.MenuItemTemplate>
-                <DataTemplate x:DataType="local:PrayersViewModel">
-                    <NavigationViewItem DataContext="{x:Bind}"
-                                        Content="{x:Bind Title}">
+            <NavigationView.MenuItemTemplateSelector>
+                <local:NavigationViewItemTemplateSelector>
+                    <local:NavigationViewItemTemplateSelector.PrayersTemplate>
+                        <DataTemplate x:DataType="local:PrayersViewModel">
+                            <NavigationViewItem DataContext="{x:Bind}"
+                                                Content="{x:Bind Title}">
 
-                        <NavigationViewItem.Icon>
-                            <FontIcon Glyph="{x:Bind Emoji}"
-                                      FontFamily="Segoe UI Emoji" />
-                        </NavigationViewItem.Icon>
-                    </NavigationViewItem>
-                </DataTemplate>
-            </NavigationView.MenuItemTemplate>
+                                <NavigationViewItem.Icon>
+                                    <FontIcon Glyph="{x:Bind Emoji}"
+                                              FontFamily="{x:Bind Family}" />
+                                </NavigationViewItem.Icon>
+                            </NavigationViewItem>
+                        </DataTemplate>
+                    </local:NavigationViewItemTemplateSelector.PrayersTemplate>
+
+                    <local:NavigationViewItemTemplateSelector.TasbihCountingTemplate>
+                        <DataTemplate x:DataType="local:TasbihCountingViewModel">
+                            <NavigationViewItem DataContext="{x:Bind}" Icon="Add" Content="Tasbih counting" />
+                        </DataTemplate>
+                    </local:NavigationViewItemTemplateSelector.TasbihCountingTemplate>
+
+                    <local:NavigationViewItemTemplateSelector.SeparatorTemplate>
+                        <DataTemplate>
+                            <NavigationViewItemSeparator />
+                        </DataTemplate>
+                    </local:NavigationViewItemTemplateSelector.SeparatorTemplate>
+                </local:NavigationViewItemTemplateSelector>
+            </NavigationView.MenuItemTemplateSelector>
 
             <ScrollViewer>
                 <Frame x:Name="Frame"
