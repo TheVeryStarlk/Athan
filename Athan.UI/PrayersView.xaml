@@ -8,7 +8,7 @@
       d:DataContext="{d:DesignInstance Type=local:PrayersViewModel}"
       mc:Ignorable="d">
 
-    <TextBlock Text="Prayers" 
+    <TextBlock Text="{x:Bind viewModel.Title}" 
                HorizontalAlignment="Center"  
                VerticalAlignment="Center" />
 </Page>

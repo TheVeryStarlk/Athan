@@ -2,14 +2,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:ex="using:WinUIEx"
+             xmlns:ex="using:WinUIEx" 
+             xmlns:local="using:Athan.UI"
 
              x:Class="Athan.UI.ShellView"
              mc:Ignorable="d"
              Title="Athan"
              Width="900"
              Height="600"
-             MinWidth="700"
+             MinWidth="640"
              MinHeight="500">
 
     <Window.SystemBackdrop>
@@ -46,6 +47,8 @@
                 <StackPanel Orientation="Horizontal">
                     <Button x:Name="BackButton"
                             ToolTipService.ToolTip="Back"
+                            Click="BackButtonClick"
+                            Visibility="Collapsed"
                             Width="36"
                             Height="36"
                             Style="{ThemeResource TitleBarBackButtonStyle}" />
@@ -84,6 +87,8 @@
 
         <NavigationView x:Name="NavigationView"
                         Grid.Row="1"
+                        SelectionChanged="NavigationViewSelectionChanged"
+                        MenuItemsSource="{x:Bind viewModel.Items}"
                         AlwaysShowHeader="True"
                         IsPaneToggleButtonVisible="False"
                         IsTitleBarAutoPaddingEnabled="False"
@@ -92,7 +97,24 @@
                         ExpandedModeThresholdWidth="700"
                         Margin="0 -2 0 0">
 
-            <Button Content="Hello, world" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <NavigationView.MenuItemTemplate>
+                <DataTemplate x:DataType="local:PrayersViewModel">
+                    <NavigationViewItem DataContext="{x:Bind}"
+                                        Content="{x:Bind Title}">
+
+                        <NavigationViewItem.Icon>
+                            <FontIcon Glyph="{x:Bind Emoji}"
+                                      FontFamily="Segoe UI Emoji" />
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                </DataTemplate>
+            </NavigationView.MenuItemTemplate>
+
+            <ScrollViewer>
+                <Frame x:Name="Frame"
+                       Loaded="FrameLoaded"
+                       Navigated="FrameNavigated" />
+            </ScrollViewer>
         </NavigationView>
     </Grid>
 </ex:WindowEx>

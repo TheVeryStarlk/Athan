@@ -9,11 +9,15 @@ internal static partial class Bootstrapper
     {
         var services = new ServiceCollection();
 
+        Configure(services);
         ConfigureViews(services);
         ConfigureViewModels(services);
 
         return services.BuildServiceProvider();
     }
+
+    [Singleton(typeof(NavigationService), [typeof(INavigationService)])]
+    private static partial void Configure(IServiceCollection services);
 
     [Transient(typeof(ShellView))]
     [Transient(typeof(PrayersView))]

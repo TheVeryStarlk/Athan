@@ -1,7 +1,11 @@
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Input;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media.Animation;
+using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Linq;
 using Windows.Foundation;
@@ -70,8 +74,50 @@ internal sealed partial class ShellView : WindowEx
         SearchBox.Focus(FocusState.Programmatic);
     }
 
+    private void BackButtonClick(object sender, RoutedEventArgs eventArgs)
+    {
+        Frame.GoBack();
+    }
+
     private void ToggleButtonClick(object sender, RoutedEventArgs eventArgs)
     {
         NavigationView.IsPaneOpen = !NavigationView.IsPaneOpen;
+    }
+
+    private void NavigationViewSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs eventArgs)
+    {
+        if (eventArgs.IsSettingsSelected)
+        {
+            Frame.Navigate(typeof(SettingsView), eventArgs.RecommendedNavigationTransitionInfo);
+        }
+        else
+        {
+            Frame.Navigate(typeof(PrayersView), NavigationView.SelectedItem, eventArgs.RecommendedNavigationTransitionInfo);
+        }
+    }
+
+    private void FrameLoaded(object sender, RoutedEventArgs eventArgs)
+    {
+        if (App.Services.GetRequiredService<INavigationService>() is NavigationService service)
+        {
+            service.Frame = Frame;
+        }
+
+        NavigationView.SelectedItem = viewModel.Items[0];
+        Frame.Navigate(typeof(PrayersView), NavigationView.SelectedItem, new EntranceNavigationTransitionInfo());
+    }
+
+    private void FrameNavigated(object sender, NavigationEventArgs eventArgs)
+    {
+        BackButton.Visibility = Frame.BackStackDepth > 1 ? Visibility.Visible : Visibility.Collapsed;
+
+        if (Frame.SourcePageType == typeof(SettingsView))
+        {
+            NavigationView.SelectedItem = NavigationView.SettingsItem;
+        }
+        else
+        {
+            NavigationView.SelectedItem = viewModel.Items.First(item => item == eventArgs.Parameter);
+        }
     }
 }
