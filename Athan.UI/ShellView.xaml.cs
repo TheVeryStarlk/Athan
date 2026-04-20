@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using Windows.Foundation;
 using Windows.Graphics;
@@ -98,7 +99,7 @@ internal sealed partial class ShellView : WindowEx
         }
         else
         {
-            type = typeof(TasbihCountingView);
+            type = typeof(TasbihView);
         }
 
         Frame.Navigate(type, NavigationView.SelectedItem, eventArgs.RecommendedNavigationTransitionInfo);
@@ -130,35 +131,40 @@ internal sealed partial class ShellView : WindowEx
     }
 }
 
-internal interface IItem;
-
-internal sealed class Separator : IItem;
-
 internal sealed partial class NavigationViewItemTemplateSelector : DataTemplateSelector
 {
     public DataTemplate? PrayersTemplate { get; set; }
 
-    public DataTemplate? TasbihCountingTemplate { get; set; }
+    public DataTemplate? TasbihTemplate { get; set; }
 
     public DataTemplate? SeparatorTemplate { get; set; }
 
+    // Show the separator only after the last pinned item which is the Tasbih view in this case.
+    // This is rather a dirty way of doing it, but it works. I did not like having an "item separator" interface.
+    private bool separate;
+    
     protected override DataTemplate SelectTemplateCore(object item)
     {
         ArgumentNullException.ThrowIfNull(PrayersTemplate);
         ArgumentNullException.ThrowIfNull(SeparatorTemplate);
-        ArgumentNullException.ThrowIfNull(TasbihCountingTemplate);
+        ArgumentNullException.ThrowIfNull(TasbihTemplate);
 
+        if (separate)
+        {
+            separate = false;
+
+            return SeparatorTemplate;
+        }
+        
+        separate = item is TasbihViewModel;
+        
         if (item is PrayersViewModel)
         {
             return PrayersTemplate;
         }
-        else if (item is TasbihCountingViewModel)
-        {
-            return TasbihCountingTemplate;
-        }
-        else
-        {
-            return SeparatorTemplate;
-        }
+
+        separate = true;
+
+        return TasbihTemplate;
     }
 }

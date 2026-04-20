@@ -4,8 +4,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       
-      x:Class="Athan.UI.TasbihCountingView"
-      d:DataContext="{d:DesignInstance Type=local:TasbihCountingViewModel}"
+      x:Class="Athan.UI.TasbihView"
+      d:DataContext="{d:DesignInstance Type=local:TasbihViewModel}"
       mc:Ignorable="d">
 
     <TextBlock Text="Tasbih counting" 

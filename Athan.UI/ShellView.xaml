@@ -112,11 +112,11 @@
                         </DataTemplate>
                     </local:NavigationViewItemTemplateSelector.PrayersTemplate>
 
-                    <local:NavigationViewItemTemplateSelector.TasbihCountingTemplate>
-                        <DataTemplate x:DataType="local:TasbihCountingViewModel">
+                    <local:NavigationViewItemTemplateSelector.TasbihTemplate>
+                        <DataTemplate x:DataType="local:TasbihViewModel">
                             <NavigationViewItem DataContext="{x:Bind}" Icon="Add" Content="Tasbih counting" />
                         </DataTemplate>
-                    </local:NavigationViewItemTemplateSelector.TasbihCountingTemplate>
+                    </local:NavigationViewItemTemplateSelector.TasbihTemplate>
 
                     <local:NavigationViewItemTemplateSelector.SeparatorTemplate>
                         <DataTemplate>

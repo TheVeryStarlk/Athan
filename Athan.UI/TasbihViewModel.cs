@@ -2,6 +2,6 @@
 
 namespace Athan.UI;
 
-internal sealed class TasbihCountingViewModel : ObservableObject, IItem
+internal sealed class TasbihViewModel : ObservableObject
 {
 }

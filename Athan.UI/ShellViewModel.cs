@@ -1,11 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Athan.UI;
 
 internal sealed partial class ShellViewModel : ObservableObject
 {
-    public ObservableCollection<IItem> Items { get; } =
+    public ObservableCollection<INotifyPropertyChanged> Items { get; } =
     [
         new PrayersViewModel
         {
@@ -13,8 +14,7 @@ internal sealed partial class ShellViewModel : ObservableObject
             Title = "My location",
             Family = "Segoe Fluent Icons",
         },
-        new TasbihCountingViewModel(),
-        new Separator(),
+        new TasbihViewModel(),
         new PrayersViewModel
         {
             Emoji = "🌃",
