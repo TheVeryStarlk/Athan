@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:ex="using:WinUIEx" 
+             xmlns:ex="using:WinUIEx"
              xmlns:local="using:Athan.UI"
 
              x:Class="Athan.UI.ShellView"
@@ -99,22 +99,23 @@
 
             <NavigationView.MenuItemTemplateSelector>
                 <local:NavigationViewItemTemplateSelector>
-                    <local:NavigationViewItemTemplateSelector.PrayersTemplate>
-                        <DataTemplate x:DataType="local:PrayersViewModel">
+                    <local:NavigationViewItemTemplateSelector.LocationTemplate>
+                        <DataTemplate x:DataType="local:LocationViewModel">
                             <NavigationViewItem DataContext="{x:Bind}"
                                                 Content="{x:Bind Title}">
 
                                 <NavigationViewItem.Icon>
-                                    <FontIcon Glyph="{x:Bind Emoji}"
-                                              FontFamily="{x:Bind Family}" />
+                                    <SymbolIcon Symbol="{x:Bind Icon}" />
                                 </NavigationViewItem.Icon>
                             </NavigationViewItem>
                         </DataTemplate>
-                    </local:NavigationViewItemTemplateSelector.PrayersTemplate>
+                    </local:NavigationViewItemTemplateSelector.LocationTemplate>
 
                     <local:NavigationViewItemTemplateSelector.TasbihTemplate>
                         <DataTemplate x:DataType="local:TasbihViewModel">
-                            <NavigationViewItem DataContext="{x:Bind}" Icon="Add" Content="Tasbih counting" />
+                            <NavigationViewItem DataContext="{x:Bind}" 
+                                                Icon="Add" 
+                                                Content="Tasbih counting" />
                         </DataTemplate>
                     </local:NavigationViewItemTemplateSelector.TasbihTemplate>
 
@@ -123,6 +124,19 @@
                             <NavigationViewItemSeparator />
                         </DataTemplate>
                     </local:NavigationViewItemTemplateSelector.SeparatorTemplate>
+
+                    <local:NavigationViewItemTemplateSelector.PrayersTemplate>
+                        <DataTemplate x:DataType="local:PrayersViewModel">
+                            <NavigationViewItem DataContext="{x:Bind}"
+                                                Content="{x:Bind Title}">
+
+                                <NavigationViewItem.Icon>
+                                    <FontIcon Glyph="{x:Bind Icon}"
+                                              FontFamily="Segoe MDL2 Emoji" />
+                                </NavigationViewItem.Icon>
+                            </NavigationViewItem>
+                        </DataTemplate>
+                    </local:NavigationViewItemTemplateSelector.PrayersTemplate>
                 </local:NavigationViewItemTemplateSelector>
             </NavigationView.MenuItemTemplateSelector>
 

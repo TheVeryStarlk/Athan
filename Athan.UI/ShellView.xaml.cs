@@ -7,7 +7,6 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using System;
-using System.Diagnostics;
 using System.Linq;
 using Windows.Foundation;
 using Windows.Graphics;
@@ -133,21 +132,36 @@ internal sealed partial class ShellView : WindowEx
 
 internal sealed partial class NavigationViewItemTemplateSelector : DataTemplateSelector
 {
-    public DataTemplate? PrayersTemplate { get; set; }
+    public DataTemplate? LocationTemplate { get; set; }
 
     public DataTemplate? TasbihTemplate { get; set; }
 
     public DataTemplate? SeparatorTemplate { get; set; }
 
-    // Show the separator only after the last pinned item which is the Tasbih view in this case.
-    // This is rather a dirty way of doing it, but it works. I did not like having an "item separator" interface.
+    public DataTemplate? PrayersTemplate { get; set; }
+
+    // I did not like having an "item" interface for the separator.
+    // This is rather a dirty way of doing it, but it works.
     private bool separate;
-    
+
     protected override DataTemplate SelectTemplateCore(object item)
     {
-        ArgumentNullException.ThrowIfNull(PrayersTemplate);
-        ArgumentNullException.ThrowIfNull(SeparatorTemplate);
+        ArgumentNullException.ThrowIfNull(LocationTemplate);
         ArgumentNullException.ThrowIfNull(TasbihTemplate);
+        ArgumentNullException.ThrowIfNull(SeparatorTemplate);
+        ArgumentNullException.ThrowIfNull(PrayersTemplate);
+
+        if (item is LocationViewModel)
+        {
+            return LocationTemplate;
+        }
+
+        if (item is TasbihViewModel)
+        {
+            separate = true;
+
+            return TasbihTemplate;
+        }
 
         if (separate)
         {
@@ -155,16 +169,7 @@ internal sealed partial class NavigationViewItemTemplateSelector : DataTemplateS
 
             return SeparatorTemplate;
         }
-        
-        separate = item is TasbihViewModel;
-        
-        if (item is PrayersViewModel)
-        {
-            return PrayersTemplate;
-        }
 
-        separate = true;
-
-        return TasbihTemplate;
+        return PrayersTemplate;
     }
 }

@@ -2,14 +2,11 @@
 
 namespace Athan.UI;
 
-internal sealed partial class PrayersViewModel : ObservableObject
+internal partial class PrayersViewModel : ObservableObject
 {
     [ObservableProperty]
-    public partial string? Emoji { get; set; }
+    public partial string? Icon { get; set; }
 
     [ObservableProperty]
     public partial string? Title { get; set; }
-
-    [ObservableProperty]
-    public partial string? Family { get; set; }
 }

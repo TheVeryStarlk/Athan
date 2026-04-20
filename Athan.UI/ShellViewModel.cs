@@ -8,30 +8,22 @@ internal sealed partial class ShellViewModel : ObservableObject
 {
     public ObservableCollection<INotifyPropertyChanged> Items { get; } =
     [
-        new PrayersViewModel
-        {
-            Emoji = "\uECAF",
-            Title = "My location",
-            Family = "Segoe Fluent Icons",
-        },
+        new LocationViewModel(),
         new TasbihViewModel(),
         new PrayersViewModel
         {
-            Emoji = "🌃",
-            Title = "Kuwait, Kuwait",
-            Family = "Segoe MDL2 Emoji"
+            Icon = "🌃",
+            Title = "Kuwait, Kuwait"
         },
         new PrayersViewModel
         {
-            Emoji = "🌄",
-            Title = "Amman, Jordan",
-            Family = "Segoe MDL2 Emoji"
+            Icon = "🌄",
+            Title = "Amman, Jordan"
         },
         new PrayersViewModel
         {
-            Emoji = "🌇",
-            Title = "Paris, France",
-            Family = "Segoe MDL2 Emoji"
+            Icon = "🌇",
+            Title = "Paris, France"
         }
     ];
 }
