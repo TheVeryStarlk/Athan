@@ -1,3 +1,11 @@
+using System;
+using System.ComponentModel;
+using System.Linq;
+using Windows.Foundation;
+using Windows.Graphics;
+using Athan.UI.Features.Prayers;
+using Athan.UI.Features.Settings;
+using Athan.UI.Features.Tasbih;
 using Microsoft.UI.Input;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
@@ -5,14 +13,9 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
-using System;
-using System.ComponentModel;
-using System.Linq;
-using Windows.Foundation;
-using Windows.Graphics;
 using WinUIEx;
 
-namespace Athan.UI;
+namespace Athan.UI.Features.Shell;
 
 internal sealed partial class ShellView : WindowEx
 {
@@ -117,22 +120,5 @@ internal sealed partial class ShellView : WindowEx
         };
 
         Frame.Navigate(type, dataContext, navigationTransitionInfo);
-    }
-}
-
-internal sealed partial class ItemTemplateSelector : DataTemplateSelector
-{
-    public DataTemplate? HeaderTemplate { get; set; }
-
-    public DataTemplate? FooterTemplate { get; set; }
-
-    protected override DataTemplate? SelectTemplateCore(object item)
-    {
-        return item switch
-        {
-            HeaderViewModel => HeaderTemplate,
-            FooterViewModel => FooterTemplate,
-            _ => throw new ArgumentOutOfRangeException()
-        };
     }
 }

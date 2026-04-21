@@ -1,4 +1,8 @@
-﻿using CommunityToolkit.Extensions.DependencyInjection;
+﻿using Athan.UI.Features.Prayers;
+using Athan.UI.Features.Settings;
+using Athan.UI.Features.Shell;
+using Athan.UI.Features.Tasbih;
+using CommunityToolkit.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Athan.UI;

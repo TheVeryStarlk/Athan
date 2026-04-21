@@ -1,7 +1,7 @@
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
-namespace Athan.UI;
+namespace Athan.UI.Features.Prayers;
 
 internal sealed partial class PrayersView : Page
 {

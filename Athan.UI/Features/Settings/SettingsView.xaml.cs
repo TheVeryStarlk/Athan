@@ -1,20 +1,20 @@
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
-namespace Athan.UI;
+namespace Athan.UI.Features.Settings;
 
-internal sealed partial class TasbihView : Page
+internal sealed partial class SettingsView : Page
 {
-    private TasbihViewModel? viewModel;
+    private SettingsViewModel? viewModel;
 
-    public TasbihView()
+    public SettingsView()
     {
         InitializeComponent();
     }
-
+    
     protected override void OnNavigatedTo(NavigationEventArgs eventArgs)
     {
-        viewModel = (TasbihViewModel) eventArgs.Parameter;
+        viewModel = (SettingsViewModel) eventArgs.Parameter;
         base.OnNavigatedTo(eventArgs);
     }
 }

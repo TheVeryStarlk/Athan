@@ -1,9 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Athan.UI.Features.Prayers;
+using Athan.UI.Features.Settings;
+using Athan.UI.Features.Tasbih;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
-namespace Athan.UI;
+namespace Athan.UI.Features.Shell;
 
 internal sealed partial class ShellViewModel(TasbihViewModel tasbihViewModel, SettingsViewModel settingsViewModel) : ObservableObject
 {
@@ -91,16 +94,3 @@ internal sealed partial class ShellViewModel(TasbihViewModel tasbihViewModel, Se
         Current = Header[0];
     }
 }
-
-internal abstract partial class ItemViewModel : ObservableObject
-{
-    [ObservableProperty]
-    public partial string? Title { get; set; }
-    
-    [ObservableProperty]
-    public partial string? Glyph { get; set; }
-}
-
-internal abstract class HeaderViewModel : ItemViewModel;
-
-internal abstract class FooterViewModel : ItemViewModel;
