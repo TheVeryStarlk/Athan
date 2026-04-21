@@ -6,9 +6,13 @@ namespace Athan.UI;
 
 internal sealed partial class ShellViewModel : ObservableObject
 {
-    public ObservableCollection<INotifyPropertyChanged> Items { get; } =
+    public ObservableCollection<TasbihViewModel> Footer { get; } = 
+        [
+        new TasbihViewModel()
+        ];
+
+    public ObservableCollection<PrayersViewModel> Header { get; } =
     [
-        new TasbihViewModel(),
         new PrayersViewModel
         {
             Emoji = "🌃",

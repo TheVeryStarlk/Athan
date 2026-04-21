@@ -88,7 +88,8 @@
         <NavigationView x:Name="NavigationView"
                         Grid.Row="1"
                         SelectionChanged="NavigationViewSelectionChanged"
-                        MenuItemsSource="{x:Bind viewModel.Items}"
+                        MenuItemsSource="{x:Bind viewModel.Header}"
+                        FooterMenuItemsSource="{x:Bind viewModel.Footer}"
                         AlwaysShowHeader="True"
                         IsPaneToggleButtonVisible="False"
                         IsTitleBarAutoPaddingEnabled="False"
@@ -99,20 +100,6 @@
 
             <NavigationView.MenuItemTemplateSelector>
                 <local:NavigationViewItemTemplateSelector>
-                    <local:NavigationViewItemTemplateSelector.TasbihTemplate>
-                        <DataTemplate x:DataType="local:TasbihViewModel">
-                            <NavigationViewItem DataContext="{x:Bind}"
-                                                Icon="Calculator"
-                                                Content="Tasbih" />
-                        </DataTemplate>
-                    </local:NavigationViewItemTemplateSelector.TasbihTemplate>
-
-                    <local:NavigationViewItemTemplateSelector.SeparatorTemplate>
-                        <DataTemplate>
-                            <NavigationViewItemSeparator />
-                        </DataTemplate>
-                    </local:NavigationViewItemTemplateSelector.SeparatorTemplate>
-
                     <local:NavigationViewItemTemplateSelector.PrayersTemplate>
                         <DataTemplate x:DataType="local:PrayersViewModel">
                             <NavigationViewItem DataContext="{x:Bind}"
@@ -125,6 +112,14 @@
                             </NavigationViewItem>
                         </DataTemplate>
                     </local:NavigationViewItemTemplateSelector.PrayersTemplate>
+
+                    <local:NavigationViewItemTemplateSelector.TasbihTemplate>
+                        <DataTemplate x:DataType="local:TasbihViewModel">
+                            <NavigationViewItem DataContext="{x:Bind}"
+                                                Icon="Calculator"
+                                                Content="Tasbih" />
+                        </DataTemplate>
+                    </local:NavigationViewItemTemplateSelector.TasbihTemplate>
                 </local:NavigationViewItemTemplateSelector>
             </NavigationView.MenuItemTemplateSelector>
 

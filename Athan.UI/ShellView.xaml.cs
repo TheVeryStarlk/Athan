@@ -105,8 +105,8 @@ internal sealed partial class ShellView : WindowEx
 
     private void FrameLoaded(object sender, RoutedEventArgs eventArgs)
     {
-        NavigationView.SelectedItem = viewModel.Items[0];
-        Frame.Navigate(typeof(TasbihView), NavigationView.SelectedItem, new EntranceNavigationTransitionInfo());
+        NavigationView.SelectedItem = viewModel.Header[0];
+        Frame.Navigate(typeof(PrayersView), NavigationView.SelectedItem, new EntranceNavigationTransitionInfo());
     }
 
     private void FrameNavigated(object sender, NavigationEventArgs eventArgs)
@@ -119,43 +119,23 @@ internal sealed partial class ShellView : WindowEx
         }
         else
         {
-            NavigationView.SelectedItem = viewModel.Items.First(item => item == eventArgs.Parameter);
+            var header = viewModel.Header.FirstOrDefault(item => item == eventArgs.Parameter);
+            NavigationView.SelectedItem = header is not null ? header : viewModel.Footer.FirstOrDefault(item => item == eventArgs.Parameter);
         }
     }
 }
 
 internal sealed partial class NavigationViewItemTemplateSelector : DataTemplateSelector
 {
-    public DataTemplate? TasbihTemplate { get; set; }
-
-    public DataTemplate? SeparatorTemplate { get; set; }
-
     public DataTemplate? PrayersTemplate { get; set; }
-
-    // I did not like having an "item" interface for the separator.
-    // This is rather a dirty way of doing it, but it works.
-    private bool separate;
+    
+    public DataTemplate? TasbihTemplate { get; set; }
 
     protected override DataTemplate SelectTemplateCore(object item)
     {
         ArgumentNullException.ThrowIfNull(TasbihTemplate);
-        ArgumentNullException.ThrowIfNull(SeparatorTemplate);
         ArgumentNullException.ThrowIfNull(PrayersTemplate);
 
-        if (item is TasbihViewModel)
-        {
-            separate = true;
-
-            return TasbihTemplate;
-        }
-
-        if (separate)
-        {
-            separate = false;
-
-            return SeparatorTemplate;
-        }
-
-        return PrayersTemplate;
+        return item is PrayersViewModel ? PrayersTemplate : TasbihTemplate;
     }
 }
