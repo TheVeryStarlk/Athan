@@ -3,7 +3,10 @@ using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media.Animation;
+using Microsoft.UI.Xaml.Navigation;
 using System;
+using System.ComponentModel;
 using System.Linq;
 using Windows.Foundation;
 using Windows.Graphics;
@@ -80,9 +83,31 @@ internal sealed partial class ShellView : WindowEx
         NavigationView.IsPaneOpen = !NavigationView.IsPaneOpen;
     }
 
-    private void NavigationViewSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs eventArgs)
+    private void NavigationViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs eventArgs)
     {
-        var type = eventArgs.SelectedItem switch
+        if (eventArgs.InvokedItemContainer.DataContext == viewModel.Current)
+        {
+            return;
+        }
+
+        Navigate(eventArgs.InvokedItemContainer.DataContext, eventArgs.RecommendedNavigationTransitionInfo);
+    }
+
+    private void FrameLoaded(object sender, RoutedEventArgs eventArgs)
+    {
+        viewModel.InitializeCommand.Execute(null);
+        Navigate(viewModel.Current, new EntranceNavigationTransitionInfo());
+    }
+
+    private void FrameNavigated(object sender, NavigationEventArgs eventArgs)
+    {
+        BackButton.Visibility = Frame.CanGoBack ? Visibility.Visible : Visibility.Collapsed;
+        viewModel.Current = (INotifyPropertyChanged) eventArgs.Parameter;
+    }
+
+    private void Navigate(object? dataContext, NavigationTransitionInfo navigationTransitionInfo)
+    {
+        var type = dataContext switch
         {
             PrayersViewModel => typeof(PrayersView),
             TasbihViewModel => typeof(TasbihView),
@@ -90,13 +115,7 @@ internal sealed partial class ShellView : WindowEx
             _ => throw new ArgumentOutOfRangeException()
         };
 
-        Frame.Navigate(type, eventArgs.SelectedItemContainer.DataContext, eventArgs.RecommendedNavigationTransitionInfo);
-        BackButton.Visibility = Frame.BackStackDepth > 1 ? Visibility.Visible : Visibility.Collapsed;
-    }
-
-    private void FrameLoaded(object sender, RoutedEventArgs eventArgs)
-    {
-        viewModel.InitializeCommand.Execute(null);
+        Frame.Navigate(type, dataContext, navigationTransitionInfo);
     }
 }
 

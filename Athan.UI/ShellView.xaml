@@ -87,7 +87,7 @@
 
         <NavigationView x:Name="NavigationView"
                         Grid.Row="1"
-                        SelectionChanged="NavigationViewSelectionChanged"
+                        ItemInvoked="NavigationViewItemInvoked"
                         MenuItemsSource="{x:Bind viewModel.Header}"
                         FooterMenuItemsSource="{x:Bind viewModel.Footer}"
                         SelectedItem="{x:Bind viewModel.Current, Mode=TwoWay}"
@@ -131,7 +131,8 @@
 
             <ScrollViewer>
                 <Frame x:Name="Frame"
-                       Loaded="FrameLoaded" />
+                       Loaded="FrameLoaded"
+                       Navigated="FrameNavigated" />
             </ScrollViewer>
         </NavigationView>
     </Grid>
