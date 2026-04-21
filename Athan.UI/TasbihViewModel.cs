@@ -2,6 +2,11 @@
 
 namespace Athan.UI;
 
-internal sealed class TasbihViewModel : ObservableObject
+internal sealed class TasbihViewModel : ItemViewModel
 {
+    public TasbihViewModel()
+    {
+        Icon = "\uE8EF";
+        Title = "Tasbih";
+    }
 }

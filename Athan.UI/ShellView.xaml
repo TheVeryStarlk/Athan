@@ -13,11 +13,15 @@
              MinWidth="640"
              MinHeight="500">
 
-    <Window.SystemBackdrop>
+    <ex:WindowEx.SystemBackdrop>
         <MicaBackdrop />
-    </Window.SystemBackdrop>
+    </ex:WindowEx.SystemBackdrop>
 
     <Grid>
+        <Grid.Resources>
+            <local:FontFamilyConverter x:Key="FontFamilyConverter" />
+        </Grid.Resources>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
             <RowDefinition Height="*" />
@@ -98,30 +102,18 @@
                         ExpandedModeThresholdWidth="700"
                         Margin="0 -2 0 0">
 
-            <NavigationView.MenuItemTemplateSelector>
-                <local:NavigationViewItemTemplateSelector>
-                    <local:NavigationViewItemTemplateSelector.PrayersTemplate>
-                        <DataTemplate x:DataType="local:PrayersViewModel">
-                            <NavigationViewItem DataContext="{x:Bind}"
-                                                Content="{x:Bind Title}">
+            <NavigationView.MenuItemTemplate>
+                <DataTemplate x:DataType="local:ItemViewModel">
+                    <NavigationViewItem DataContext="{x:Bind}"
+                                        Content="{x:Bind Title}">
 
-                                <NavigationViewItem.Icon>
-                                    <FontIcon Glyph="{x:Bind Emoji}"
-                                              FontFamily="Segoe MDL2 Emoji" />
-                                </NavigationViewItem.Icon>
-                            </NavigationViewItem>
-                        </DataTemplate>
-                    </local:NavigationViewItemTemplateSelector.PrayersTemplate>
-
-                    <local:NavigationViewItemTemplateSelector.TasbihTemplate>
-                        <DataTemplate x:DataType="local:TasbihViewModel">
-                            <NavigationViewItem DataContext="{x:Bind}"
-                                                Icon="Calculator"
-                                                Content="Tasbih" />
-                        </DataTemplate>
-                    </local:NavigationViewItemTemplateSelector.TasbihTemplate>
-                </local:NavigationViewItemTemplateSelector>
-            </NavigationView.MenuItemTemplateSelector>
+                        <NavigationViewItem.Icon>
+                            <FontIcon Glyph="{x:Bind Icon}"
+                                      FontFamily="{Binding Converter={StaticResource FontFamilyConverter}}" />
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                </DataTemplate>
+            </NavigationView.MenuItemTemplate>
 
             <ScrollViewer>
                 <Frame x:Name="Frame"

@@ -2,6 +2,7 @@ using Microsoft.UI.Input;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
@@ -120,22 +121,26 @@ internal sealed partial class ShellView : WindowEx
         else
         {
             var header = viewModel.Header.FirstOrDefault(item => item == eventArgs.Parameter);
-            NavigationView.SelectedItem = header is not null ? header : viewModel.Footer.FirstOrDefault(item => item == eventArgs.Parameter);
+            var footer = viewModel.Footer.FirstOrDefault(item => item == eventArgs.Parameter);
+
+            NavigationView.SelectedItem = header is null ? footer : header;
         }
     }
 }
 
-internal sealed partial class NavigationViewItemTemplateSelector : DataTemplateSelector
+internal sealed partial class FontFamilyConverter : IValueConverter
 {
-    public DataTemplate? PrayersTemplate { get; set; }
-    
-    public DataTemplate? TasbihTemplate { get; set; }
-
-    protected override DataTemplate SelectTemplateCore(object item)
+    public object Convert(object value, Type targetType, object parameter, string language)
     {
-        ArgumentNullException.ThrowIfNull(TasbihTemplate);
-        ArgumentNullException.ThrowIfNull(PrayersTemplate);
+        return value switch
+        {
+            PrayersViewModel => "Segoe UI Emoji",
+            _ => "Segoe Fluent Icons"
+        };
+    }
 
-        return item is PrayersViewModel ? PrayersTemplate : TasbihTemplate;
+    public object ConvertBack(object value, Type targetType, object parameter, string language)
+    {
+        throw new InvalidOperationException();
     }
 }
