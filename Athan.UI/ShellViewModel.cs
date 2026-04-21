@@ -5,81 +5,81 @@ using System.ComponentModel;
 
 namespace Athan.UI;
 
-internal sealed partial class ShellViewModel : ObservableObject
+internal sealed partial class ShellViewModel(TasbihViewModel tasbihViewModel, SettingsViewModel settingsViewModel) : ObservableObject
 {
     public ObservableCollection<HeaderViewModel> Header { get; } =
     [
         new PrayersViewModel
         {
-            Emoji = "🌃",
+            Glyph = "🌃",
             Title = "Kuwait, Kuwait"
         },
         new PrayersViewModel
         {
-            Emoji = "🌄",
+            Glyph = "🌄",
             Title = "Amman, Jordan"
         },
         new PrayersViewModel
         {
-            Emoji = "🌇",
+            Glyph = "🌇",
             Title = "Paris, France"
         },
         new PrayersViewModel
         {
-            Emoji = "🌆",
+            Glyph = "🌆",
             Title = "Cairo, Egypt"
         },
         new PrayersViewModel
         {
-            Emoji = "🌅",
+            Glyph = "🌅",
             Title = "Istanbul, Turkey"
         },
         new PrayersViewModel
         {
-            Emoji = "🌉",
+            Glyph = "🌉",
             Title = "Dubai, UAE"
         },
         new PrayersViewModel
         {
-            Emoji = "🏙️",
+            Glyph = "🏙️",
             Title = "New York, USA"
         },
         new PrayersViewModel
         {
-            Emoji = "🌇",
+            Glyph = "🌇",
             Title = "London, UK"
         },
         new PrayersViewModel
         {
-            Emoji = "🌄",
+            Glyph = "🌄",
             Title = "Jakarta, Indonesia"
         },
         new PrayersViewModel
         {
-            Emoji = "🌃",
+            Glyph = "🌃",
             Title = "Karachi, Pakistan"
         },
         new PrayersViewModel
         {
-            Emoji = "🏙️",
+            Glyph = "🏙️",
             Title = "Musqat, Oman"
         },
         new PrayersViewModel
         {
-            Emoji = "🌄",
+            Glyph = "🌄",
             Title = "Moscow, Russia"
         },
         new PrayersViewModel
         {
-            Emoji = "🌅",
+            Glyph = "🌅",
             Title = "Tehran, Iran"
         }
     ];
 
     public ObservableCollection<FooterViewModel> Footer { get; } =
     [
-        new TasbihViewModel(),
-        new SettingsViewModel()
+        tasbihViewModel,
+        settingsViewModel
     ];
 
     [ObservableProperty]
@@ -96,16 +96,11 @@ internal abstract partial class ItemViewModel : ObservableObject
 {
     [ObservableProperty]
     public partial string? Title { get; set; }
+    
+    [ObservableProperty]
+    public partial string? Glyph { get; set; }
 }
 
-internal abstract partial class HeaderViewModel : ItemViewModel
-{
-    [ObservableProperty]
-    public partial string? Emoji { get; set; }
-}
+internal abstract class HeaderViewModel : ItemViewModel;
 
-internal abstract partial class FooterViewModel : ItemViewModel
-{
-    [ObservableProperty]
-    public partial string? Icon { get; set; }
-}
+internal abstract class FooterViewModel : ItemViewModel;

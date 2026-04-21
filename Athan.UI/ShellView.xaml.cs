@@ -69,23 +69,24 @@ internal sealed partial class ShellView : WindowEx
             .SetRegionRects(NonClientRegionKind.Passthrough, rects);
     }
 
-    private void SearchInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs eventArgs)
-    {
-        SearchBox.Focus(FocusState.Programmatic);
-    }
-
     private void BackButtonClick(object sender, RoutedEventArgs eventArgs)
     {
         Frame.GoBack();
     }
+
     private void ToggleButtonClick(object sender, RoutedEventArgs eventArgs)
     {
         NavigationView.IsPaneOpen = !NavigationView.IsPaneOpen;
     }
 
+    private void SearchInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs eventArgs)
+    {
+        SearchBox.Focus(FocusState.Programmatic);
+    }
+
     private void NavigationViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs eventArgs)
     {
-        if (eventArgs.InvokedItemContainer.DataContext == viewModel.Current)
+        if (Equals(eventArgs.InvokedItemContainer.DataContext, viewModel.Current))
         {
             return;
         }
@@ -101,8 +102,8 @@ internal sealed partial class ShellView : WindowEx
 
     private void FrameNavigated(object sender, NavigationEventArgs eventArgs)
     {
-        BackButton.Visibility = Frame.CanGoBack ? Visibility.Visible : Visibility.Collapsed;
         viewModel.Current = (INotifyPropertyChanged) eventArgs.Parameter;
+        BackButton.Visibility = Frame.CanGoBack ? Visibility.Visible : Visibility.Collapsed;
     }
 
     private void Navigate(object? dataContext, NavigationTransitionInfo navigationTransitionInfo)

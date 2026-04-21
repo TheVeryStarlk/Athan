@@ -1,14 +1,20 @@
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
 
 namespace Athan.UI;
 
 internal sealed partial class SettingsView : Page
 {
-    private readonly SettingsViewModel viewModel = App.Services.GetRequiredService<SettingsViewModel>();
+    private SettingsViewModel? viewModel;
 
     public SettingsView()
     {
         InitializeComponent();
+    }
+    
+    protected override void OnNavigatedTo(NavigationEventArgs eventArgs)
+    {
+        viewModel = (SettingsViewModel) eventArgs.Parameter;
+        base.OnNavigatedTo(eventArgs);
     }
 }

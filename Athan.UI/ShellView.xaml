@@ -108,7 +108,7 @@
                                                 Content="{x:Bind Title}">
 
                                 <NavigationViewItem.Icon>
-                                    <FontIcon Glyph="{x:Bind Emoji}"
+                                    <FontIcon Glyph="{x:Bind Glyph}"
                                               FontFamily="Segoe UI Emoji" />
                                 </NavigationViewItem.Icon>
                             </NavigationViewItem>
@@ -121,7 +121,7 @@
                                                 Content="{x:Bind Title}">
 
                                 <NavigationViewItem.Icon>
-                                    <FontIcon Glyph="{x:Bind Icon}" />
+                                    <FontIcon Glyph="{x:Bind Glyph}" />
                                 </NavigationViewItem.Icon>
                             </NavigationViewItem>
                         </DataTemplate>
