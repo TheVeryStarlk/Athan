@@ -90,7 +90,9 @@
                         SelectionChanged="NavigationViewSelectionChanged"
                         MenuItemsSource="{x:Bind viewModel.Header}"
                         FooterMenuItemsSource="{x:Bind viewModel.Footer}"
+                        SelectedItem="{x:Bind viewModel.Current, Mode=TwoWay}"
                         AlwaysShowHeader="True"
+                        IsSettingsVisible="False"
                         IsPaneToggleButtonVisible="False"
                         IsTitleBarAutoPaddingEnabled="False"
                         IsBackButtonVisible="Collapsed"
@@ -119,7 +121,7 @@
                                                 Content="{x:Bind Title}">
 
                                 <NavigationViewItem.Icon>
-                                    <SymbolIcon Symbol="{x:Bind Icon}" />
+                                    <FontIcon Glyph="{x:Bind Icon}" />
                                 </NavigationViewItem.Icon>
                             </NavigationViewItem>
                         </DataTemplate>
@@ -129,8 +131,7 @@
 
             <ScrollViewer>
                 <Frame x:Name="Frame"
-                       Loaded="FrameLoaded"
-                       Navigated="FrameNavigated" />
+                       Loaded="FrameLoaded" />
             </ScrollViewer>
         </NavigationView>
     </Grid>

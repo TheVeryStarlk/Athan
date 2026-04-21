@@ -4,7 +4,7 @@ internal sealed partial class TasbihViewModel : FooterViewModel
 {
     public TasbihViewModel()
     {
-        Icon = "Calculator";
+        Icon = "\uE8EF";
         Title = "Tasbih";
     }
 }

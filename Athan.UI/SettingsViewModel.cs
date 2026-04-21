@@ -1,5 +1,10 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿namespace Athan.UI;
 
-namespace Athan.UI;
-
-internal sealed partial class SettingsViewModel : ObservableObject;
+internal sealed partial class SettingsViewModel : FooterViewModel
+{
+    public SettingsViewModel()
+    {
+        Icon = "\uE713";
+        Title = "Settings";
+    }
+}

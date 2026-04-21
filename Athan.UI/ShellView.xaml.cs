@@ -3,8 +3,6 @@ using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media.Animation;
-using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Linq;
 using Windows.Foundation;
@@ -77,7 +75,6 @@ internal sealed partial class ShellView : WindowEx
     {
         Frame.GoBack();
     }
-
     private void ToggleButtonClick(object sender, RoutedEventArgs eventArgs)
     {
         NavigationView.IsPaneOpen = !NavigationView.IsPaneOpen;
@@ -85,48 +82,21 @@ internal sealed partial class ShellView : WindowEx
 
     private void NavigationViewSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs eventArgs)
     {
-        Type type;
-
-        if (eventArgs.IsSettingsSelected)
+        var type = eventArgs.SelectedItem switch
         {
-            type = typeof(SettingsView);
-        }
-        else
-        {
-            type = NavigationView.SelectedItem switch
-            {
-                PrayersViewModel => typeof(PrayersView),
-                TasbihViewModel => typeof(TasbihView),
-                _ => throw new ArgumentOutOfRangeException()
-            };
-        }
+            PrayersViewModel => typeof(PrayersView),
+            TasbihViewModel => typeof(TasbihView),
+            SettingsViewModel => typeof(SettingsView),
+            _ => throw new ArgumentOutOfRangeException()
+        };
 
-        Frame.Navigate(type, NavigationView.SelectedItem, eventArgs.RecommendedNavigationTransitionInfo);
+        Frame.Navigate(type, eventArgs.SelectedItemContainer.DataContext, eventArgs.RecommendedNavigationTransitionInfo);
+        BackButton.Visibility = Frame.BackStackDepth > 1 ? Visibility.Visible : Visibility.Collapsed;
     }
 
     private void FrameLoaded(object sender, RoutedEventArgs eventArgs)
     {
-        NavigationView.SelectedItem = viewModel.Header[0];
-        Frame.Navigate(typeof(PrayersView), NavigationView.SelectedItem, new EntranceNavigationTransitionInfo());
-    }
-
-    private void FrameNavigated(object sender, NavigationEventArgs eventArgs)
-    {
-        BackButton.Visibility = Frame.BackStackDepth > 1 ? Visibility.Visible : Visibility.Collapsed;
-
-        if (Frame.SourcePageType == typeof(SettingsView))
-        {
-            NavigationView.SelectedItem = NavigationView.SettingsItem;
-        }
-        else
-        {
-            NavigationView.SelectedItem = eventArgs.Parameter switch
-            {
-                HeaderViewModel => viewModel.Header.First(item => item == eventArgs.Parameter),
-                FooterViewModel => viewModel.Footer.First(item => item == eventArgs.Parameter),
-                _ => throw new ArgumentOutOfRangeException()
-            };
-        }
+        viewModel.InitializeCommand.Execute(null);
     }
 }
 

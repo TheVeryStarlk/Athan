@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Athan.UI;
 
@@ -76,8 +78,18 @@ internal sealed partial class ShellViewModel : ObservableObject
 
     public ObservableCollection<FooterViewModel> Footer { get; } =
     [
-        new TasbihViewModel()
+        new TasbihViewModel(),
+        new SettingsViewModel()
     ];
+
+    [ObservableProperty]
+    public partial INotifyPropertyChanged? Current { get; set; }
+
+    [RelayCommand]
+    private void Initialize()
+    {
+        Current = Header[0];
+    }
 }
 
 internal abstract partial class ItemViewModel : ObservableObject
