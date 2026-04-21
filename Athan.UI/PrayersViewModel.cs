@@ -1,5 +1,3 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-
-namespace Athan.UI;
+﻿namespace Athan.UI;
 
 internal sealed partial class PrayersViewModel : HeaderViewModel;

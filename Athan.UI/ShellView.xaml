@@ -34,9 +34,9 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0"
+                        Orientation="Horizontal"
                         Spacing="16"
-                        Margin="4 0 0 0"
-                        Orientation="Horizontal">
+                        Margin="4 0 0 0">
 
                 <StackPanel.ChildrenTransitions>
                     <TransitionCollection>
@@ -48,17 +48,17 @@
                     <Button x:Name="BackButton"
                             ToolTipService.ToolTip="Back"
                             Click="BackButtonClick"
+                            Style="{ThemeResource TitleBarBackButtonStyle}"
                             Visibility="Collapsed"
                             Width="36"
-                            Height="36"
-                            Style="{ThemeResource TitleBarBackButtonStyle}" />
+                            Height="36" />
 
                     <Button x:Name="ToggleButton"
                             ToolTipService.ToolTip="Navigation"
                             Click="ToggleButtonClick"
+                            Style="{ThemeResource TitleBarPaneToggleButtonStyle}"
                             Width="36"
-                            Height="36"
-                            Style="{ThemeResource TitleBarPaneToggleButtonStyle}" />
+                            Height="36" />
                 </StackPanel>
 
                 <Image Source="/Assets/StoreLogo.png"
@@ -66,9 +66,9 @@
                        Height="16" />
 
                 <TextBlock Text="Athan"
-                           Margin="8 0 0 0"
                            VerticalAlignment="Center"
-                           Style="{StaticResource CaptionTextBlockStyle}" />
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Margin="8 0 0 0" />
             </StackPanel>
 
             <AutoSuggestBox x:Name="SearchBox"
@@ -103,11 +103,11 @@
                     <local:ItemTemplateSelector.HeaderTemplate>
                         <DataTemplate x:DataType="local:HeaderViewModel">
                             <NavigationViewItem DataContext="{x:Bind}"
-                                        Content="{x:Bind Title}">
+                                                Content="{x:Bind Title}">
 
                                 <NavigationViewItem.Icon>
                                     <FontIcon Glyph="{x:Bind Emoji}"
-                                          FontFamily="Segoe UI Emoji" />
+                                              FontFamily="Segoe UI Emoji" />
                                 </NavigationViewItem.Icon>
                             </NavigationViewItem>
                         </DataTemplate>
@@ -116,7 +116,7 @@
                     <local:ItemTemplateSelector.FooterTemplate>
                         <DataTemplate x:DataType="local:FooterViewModel">
                             <NavigationViewItem DataContext="{x:Bind}"
-                                        Content="{x:Bind Title}">
+                                                Content="{x:Bind Title}">
 
                                 <NavigationViewItem.Icon>
                                     <SymbolIcon Symbol="{x:Bind Icon}" />

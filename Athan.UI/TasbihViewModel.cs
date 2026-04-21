@@ -1,8 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿namespace Athan.UI;
 
-namespace Athan.UI;
-
-internal sealed class TasbihViewModel : FooterViewModel
+internal sealed partial class TasbihViewModel : FooterViewModel
 {
     public TasbihViewModel()
     {

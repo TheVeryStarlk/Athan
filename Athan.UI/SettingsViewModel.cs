@@ -2,6 +2,4 @@
 
 namespace Athan.UI;
 
-internal sealed class SettingsViewModel : ObservableObject
-{
-}
+internal sealed partial class SettingsViewModel : ObservableObject;

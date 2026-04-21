@@ -2,7 +2,6 @@ using Microsoft.UI.Input;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
@@ -92,13 +91,14 @@ internal sealed partial class ShellView : WindowEx
         {
             type = typeof(SettingsView);
         }
-        else if (NavigationView.SelectedItem is PrayersViewModel)
-        {
-            type = typeof(PrayersView);
-        }
         else
         {
-            type = typeof(TasbihView);
+            type = NavigationView.SelectedItem switch
+            {
+                PrayersViewModel => typeof(PrayersView),
+                TasbihViewModel => typeof(TasbihView),
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
 
         Frame.Navigate(type, NavigationView.SelectedItem, eventArgs.RecommendedNavigationTransitionInfo);
@@ -120,10 +120,12 @@ internal sealed partial class ShellView : WindowEx
         }
         else
         {
-            var header = viewModel.Header.FirstOrDefault(item => item == eventArgs.Parameter);
-            var footer = viewModel.Footer.FirstOrDefault(item => item == eventArgs.Parameter);
-
-            NavigationView.SelectedItem = header is null ? footer : header;
+            NavigationView.SelectedItem = eventArgs.Parameter switch
+            {
+                HeaderViewModel => viewModel.Header.First(item => item == eventArgs.Parameter),
+                FooterViewModel => viewModel.Footer.First(item => item == eventArgs.Parameter),
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
     }
 }
