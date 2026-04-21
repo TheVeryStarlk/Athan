@@ -8,22 +8,56 @@ internal sealed partial class ShellViewModel : ObservableObject
 {
     public ObservableCollection<INotifyPropertyChanged> Items { get; } =
     [
-        new LocationViewModel(),
         new TasbihViewModel(),
         new PrayersViewModel
         {
-            Icon = "🌃",
+            Emoji = "🌃",
             Title = "Kuwait, Kuwait"
         },
         new PrayersViewModel
         {
-            Icon = "🌄",
+            Emoji = "🌄",
             Title = "Amman, Jordan"
         },
         new PrayersViewModel
         {
-            Icon = "🌇",
+            Emoji = "🌇",
             Title = "Paris, France"
+        },
+        new PrayersViewModel
+        {
+            Emoji = "🌆",
+            Title = "Cairo, Egypt"
+        },
+        new PrayersViewModel
+        {
+            Emoji = "🌅",
+            Title = "Istanbul, Turkey"
+        },
+        new PrayersViewModel
+        {
+            Emoji = "🌉",
+            Title = "Dubai, UAE"
+        },
+        new PrayersViewModel
+        {
+            Emoji = "🏙️",
+            Title = "New York, USA"
+        },
+        new PrayersViewModel
+        {
+            Emoji = "🌇",
+            Title = "London, UK"
+        },
+        new PrayersViewModel
+        {
+            Emoji = "🌄",
+            Title = "Jakarta, Indonesia"
+        },
+        new PrayersViewModel
+        {
+            Emoji = "🌃",
+            Title = "Karachi, Pakistan"
         }
     ];
 }

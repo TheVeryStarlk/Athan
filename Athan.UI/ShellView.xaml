@@ -99,23 +99,11 @@
 
             <NavigationView.MenuItemTemplateSelector>
                 <local:NavigationViewItemTemplateSelector>
-                    <local:NavigationViewItemTemplateSelector.LocationTemplate>
-                        <DataTemplate x:DataType="local:LocationViewModel">
-                            <NavigationViewItem DataContext="{x:Bind}"
-                                                Content="{x:Bind Title}">
-
-                                <NavigationViewItem.Icon>
-                                    <SymbolIcon Symbol="{x:Bind Icon}" />
-                                </NavigationViewItem.Icon>
-                            </NavigationViewItem>
-                        </DataTemplate>
-                    </local:NavigationViewItemTemplateSelector.LocationTemplate>
-
                     <local:NavigationViewItemTemplateSelector.TasbihTemplate>
                         <DataTemplate x:DataType="local:TasbihViewModel">
-                            <NavigationViewItem DataContext="{x:Bind}" 
-                                                Icon="Add" 
-                                                Content="Tasbih counting" />
+                            <NavigationViewItem DataContext="{x:Bind}"
+                                                Icon="Calculator"
+                                                Content="Tasbih" />
                         </DataTemplate>
                     </local:NavigationViewItemTemplateSelector.TasbihTemplate>
 
@@ -131,7 +119,7 @@
                                                 Content="{x:Bind Title}">
 
                                 <NavigationViewItem.Icon>
-                                    <FontIcon Glyph="{x:Bind Icon}"
+                                    <FontIcon Glyph="{x:Bind Emoji}"
                                               FontFamily="Segoe MDL2 Emoji" />
                                 </NavigationViewItem.Icon>
                             </NavigationViewItem>

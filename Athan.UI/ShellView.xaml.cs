@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Input;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
@@ -106,13 +105,8 @@ internal sealed partial class ShellView : WindowEx
 
     private void FrameLoaded(object sender, RoutedEventArgs eventArgs)
     {
-        if (App.Services.GetRequiredService<INavigationService>() is NavigationService service)
-        {
-            service.Frame = Frame;
-        }
-
         NavigationView.SelectedItem = viewModel.Items[0];
-        Frame.Navigate(typeof(PrayersView), NavigationView.SelectedItem, new EntranceNavigationTransitionInfo());
+        Frame.Navigate(typeof(TasbihView), NavigationView.SelectedItem, new EntranceNavigationTransitionInfo());
     }
 
     private void FrameNavigated(object sender, NavigationEventArgs eventArgs)
@@ -132,8 +126,6 @@ internal sealed partial class ShellView : WindowEx
 
 internal sealed partial class NavigationViewItemTemplateSelector : DataTemplateSelector
 {
-    public DataTemplate? LocationTemplate { get; set; }
-
     public DataTemplate? TasbihTemplate { get; set; }
 
     public DataTemplate? SeparatorTemplate { get; set; }
@@ -146,15 +138,9 @@ internal sealed partial class NavigationViewItemTemplateSelector : DataTemplateS
 
     protected override DataTemplate SelectTemplateCore(object item)
     {
-        ArgumentNullException.ThrowIfNull(LocationTemplate);
         ArgumentNullException.ThrowIfNull(TasbihTemplate);
         ArgumentNullException.ThrowIfNull(SeparatorTemplate);
         ArgumentNullException.ThrowIfNull(PrayersTemplate);
-
-        if (item is LocationViewModel)
-        {
-            return LocationTemplate;
-        }
 
         if (item is TasbihViewModel)
         {
