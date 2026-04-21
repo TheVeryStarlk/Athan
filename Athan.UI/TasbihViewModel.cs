@@ -2,11 +2,11 @@
 
 namespace Athan.UI;
 
-internal sealed class TasbihViewModel : ItemViewModel
+internal sealed class TasbihViewModel : FooterViewModel
 {
     public TasbihViewModel()
     {
-        Icon = "\uE8EF";
+        Icon = "Calculator";
         Title = "Tasbih";
     }
 }

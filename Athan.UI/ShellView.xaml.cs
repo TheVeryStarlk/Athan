@@ -128,19 +128,19 @@ internal sealed partial class ShellView : WindowEx
     }
 }
 
-internal sealed partial class FontFamilyConverter : IValueConverter
+internal sealed partial class ItemTemplateSelector : DataTemplateSelector
 {
-    public object Convert(object value, Type targetType, object parameter, string language)
-    {
-        return value switch
-        {
-            PrayersViewModel => "Segoe UI Emoji",
-            _ => "Segoe Fluent Icons"
-        };
-    }
+    public DataTemplate? HeaderTemplate { get; set; }
 
-    public object ConvertBack(object value, Type targetType, object parameter, string language)
+    public DataTemplate? FooterTemplate { get; set; }
+
+    protected override DataTemplate? SelectTemplateCore(object item)
     {
-        throw new InvalidOperationException();
+        return item switch
+        {
+            HeaderViewModel => HeaderTemplate,
+            FooterViewModel => FooterTemplate,
+            _ => throw new ArgumentOutOfRangeException()
+        };
     }
 }

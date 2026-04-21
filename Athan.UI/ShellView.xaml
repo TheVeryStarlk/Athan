@@ -18,10 +18,6 @@
     </ex:WindowEx.SystemBackdrop>
 
     <Grid>
-        <Grid.Resources>
-            <local:FontFamilyConverter x:Key="FontFamilyConverter" />
-        </Grid.Resources>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
             <RowDefinition Height="*" />
@@ -102,18 +98,34 @@
                         ExpandedModeThresholdWidth="700"
                         Margin="0 -2 0 0">
 
-            <NavigationView.MenuItemTemplate>
-                <DataTemplate x:DataType="local:ItemViewModel">
-                    <NavigationViewItem DataContext="{x:Bind}"
+            <NavigationView.MenuItemTemplateSelector>
+                <local:ItemTemplateSelector>
+                    <local:ItemTemplateSelector.HeaderTemplate>
+                        <DataTemplate x:DataType="local:HeaderViewModel">
+                            <NavigationViewItem DataContext="{x:Bind}"
                                         Content="{x:Bind Title}">
 
-                        <NavigationViewItem.Icon>
-                            <FontIcon Glyph="{x:Bind Icon}"
-                                      FontFamily="{Binding Converter={StaticResource FontFamilyConverter}}" />
-                        </NavigationViewItem.Icon>
-                    </NavigationViewItem>
-                </DataTemplate>
-            </NavigationView.MenuItemTemplate>
+                                <NavigationViewItem.Icon>
+                                    <FontIcon Glyph="{x:Bind Emoji}"
+                                          FontFamily="Segoe UI Emoji" />
+                                </NavigationViewItem.Icon>
+                            </NavigationViewItem>
+                        </DataTemplate>
+                    </local:ItemTemplateSelector.HeaderTemplate>
+
+                    <local:ItemTemplateSelector.FooterTemplate>
+                        <DataTemplate x:DataType="local:FooterViewModel">
+                            <NavigationViewItem DataContext="{x:Bind}"
+                                        Content="{x:Bind Title}">
+
+                                <NavigationViewItem.Icon>
+                                    <SymbolIcon Symbol="{x:Bind Icon}" />
+                                </NavigationViewItem.Icon>
+                            </NavigationViewItem>
+                        </DataTemplate>
+                    </local:ItemTemplateSelector.FooterTemplate>
+                </local:ItemTemplateSelector>
+            </NavigationView.MenuItemTemplateSelector>
 
             <ScrollViewer>
                 <Frame x:Name="Frame"
