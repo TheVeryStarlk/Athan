@@ -87,7 +87,7 @@
 
         <NavigationView x:Name="NavigationView"
                         Grid.Row="1"
-                        ItemInvoked="NavigationViewItemInvoked"
+                        SelectionChanged="NavigationViewSelectionChanged"
                         MenuItemsSource="{x:Bind viewModel.Header}"
                         FooterMenuItemsSource="{x:Bind viewModel.Footer}"
                         SelectedItem="{x:Bind viewModel.Current, Mode=TwoWay}"

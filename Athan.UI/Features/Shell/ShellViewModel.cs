@@ -103,9 +103,16 @@ internal sealed partial class ShellViewModel : ObservableObject
 
         recipient.Header.Remove(message.Instance);
 
-        recipient.Current = recipient.Header.Count > 0
-            ? recipient.Header[Math.Min(index, recipient.Header.Count - 1)]
-            : null;
+        if (recipient.Header.Count is 0 && recipient.Current is HeaderViewModel)
+        {
+            recipient.Current = null;
+            return;
+        }
+
+        if (recipient.Current?.Equals(message.Instance) ?? true)
+        {
+            recipient.Current = recipient.Header[Math.Min(index, recipient.Header.Count - 1)];
+        }
     }
 
     [RelayCommand]

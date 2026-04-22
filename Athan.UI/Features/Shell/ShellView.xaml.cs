@@ -3,9 +3,6 @@ using System.ComponentModel;
 using System.Linq;
 using Windows.Foundation;
 using Windows.Graphics;
-using Athan.UI.Features.Prayers;
-using Athan.UI.Features.Settings;
-using Athan.UI.Features.Tasbih;
 using Microsoft.UI.Input;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
@@ -20,10 +17,12 @@ namespace Athan.UI.Features.Shell;
 internal sealed partial class ShellView : WindowEx
 {
     private readonly ShellViewModel viewModel;
+    private readonly ViewService viewService;
 
-    public ShellView(ShellViewModel viewModel)
+    public ShellView(ShellViewModel viewModel, ViewService viewService)
     {
         this.viewModel = viewModel;
+        this.viewService = viewService;
 
         InitializeComponent();
         SetTitleBar(TitleBar);
@@ -87,38 +86,28 @@ internal sealed partial class ShellView : WindowEx
         SearchBox.Focus(FocusState.Programmatic);
     }
 
-    private void NavigationViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs eventArgs)
+    private void NavigationViewSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs eventArgs)
     {
-        if (Equals(eventArgs.InvokedItemContainer.DataContext, viewModel.Current))
+        if (eventArgs.SelectedItemContainer is null)
         {
             return;
         }
 
-        Navigate(eventArgs.InvokedItemContainer.DataContext, eventArgs.RecommendedNavigationTransitionInfo);
+        Frame.Navigate(
+            viewService.For((INotifyPropertyChanged?) eventArgs.SelectedItemContainer.DataContext),
+            eventArgs.SelectedItemContainer.DataContext,
+            eventArgs.RecommendedNavigationTransitionInfo);
     }
 
     private void FrameLoaded(object sender, RoutedEventArgs eventArgs)
     {
         viewModel.InitializeCommand.Execute(null);
-        Navigate(viewModel.Current, new EntranceNavigationTransitionInfo());
+        Frame.Navigate(viewService.For(viewModel.Current), viewModel.Current, new EntranceNavigationTransitionInfo());
     }
 
     private void FrameNavigated(object sender, NavigationEventArgs eventArgs)
     {
         viewModel.Current = (INotifyPropertyChanged) eventArgs.Parameter;
         BackButton.Visibility = Frame.CanGoBack ? Visibility.Visible : Visibility.Collapsed;
-    }
-
-    private void Navigate(object? dataContext, NavigationTransitionInfo navigationTransitionInfo)
-    {
-        var type = dataContext switch
-        {
-            PrayersViewModel => typeof(PrayersView),
-            TasbihViewModel => typeof(TasbihView),
-            SettingsViewModel => typeof(SettingsView),
-            _ => throw new ArgumentOutOfRangeException()
-        };
-
-        Frame.Navigate(type, dataContext, navigationTransitionInfo);
     }
 }
