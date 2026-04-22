@@ -91,6 +91,7 @@
                         MenuItemsSource="{x:Bind viewModel.Header}"
                         FooterMenuItemsSource="{x:Bind viewModel.Footer}"
                         SelectedItem="{x:Bind viewModel.Current, Mode=TwoWay}"
+                        DataContext="{x:Bind viewModel}"
                         AlwaysShowHeader="True"
                         IsSettingsVisible="False"
                         IsPaneToggleButtonVisible="False"
@@ -111,6 +112,13 @@
                                     <FontIcon Glyph="{x:Bind Glyph}"
                                               FontFamily="Segoe UI Emoji" />
                                 </NavigationViewItem.Icon>
+
+                                <NavigationViewItem.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Text="Delete"
+                                                        Command="{Binding ElementName=NavigationView, Path=DataContext.DeleteCurrentItemCommand}" />
+                                    </MenuFlyout>
+                                </NavigationViewItem.ContextFlyout>
                             </NavigationViewItem>
                         </DataTemplate>
                     </shell:ItemTemplateSelector.HeaderTemplate>
