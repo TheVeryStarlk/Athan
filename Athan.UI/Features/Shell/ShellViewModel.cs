@@ -46,11 +46,10 @@ internal sealed partial class ShellViewModel : ObservableObject
         {
             Glyph = glyph,
             Title = title,
-            DeleteCommand = DeleteItemCommand
+            OnDelete = DeleteItem
         };
     }
 
-    [RelayCommand]
     private void DeleteItem(HeaderViewModel item)
     {
         var index = Header.IndexOf(item);
