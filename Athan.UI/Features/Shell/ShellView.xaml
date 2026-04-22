@@ -111,6 +111,14 @@
                                     <FontIcon Glyph="{x:Bind Glyph}"
                                               FontFamily="Segoe UI Emoji" />
                                 </NavigationViewItem.Icon>
+
+                                <NavigationViewItem.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Text="Delete"
+                                                        Command="{x:Bind DeleteCommand}"
+                                                        CommandParameter="{x:Bind}" />
+                                    </MenuFlyout>
+                                </NavigationViewItem.ContextFlyout>
                             </NavigationViewItem>
                         </DataTemplate>
                     </shell:ItemTemplateSelector.HeaderTemplate>

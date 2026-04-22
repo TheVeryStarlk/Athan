@@ -11,6 +11,9 @@ internal abstract partial class ItemViewModel : ObservableObject
     public partial string? Glyph { get; set; }
 }
 
-internal abstract class HeaderViewModel : ItemViewModel;
+internal abstract partial class HeaderViewModel : ItemViewModel
+{
+    public System.Windows.Input.ICommand? DeleteCommand { get; set; }
+}
 
 internal abstract class FooterViewModel : ItemViewModel;
