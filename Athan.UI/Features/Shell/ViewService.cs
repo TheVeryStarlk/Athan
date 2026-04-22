@@ -1,4 +1,5 @@
-﻿using Athan.UI.Features.Prayers;
+﻿using Athan.UI.Features.Empty;
+using Athan.UI.Features.Prayers;
 using Athan.UI.Features.Settings;
 using Athan.UI.Features.Tasbih;
 using System;
@@ -15,7 +16,7 @@ internal sealed class ViewService
             PrayersViewModel => typeof(PrayersView),
             TasbihViewModel => typeof(TasbihView),
             SettingsViewModel => typeof(SettingsView),
-            _ => throw new ArgumentOutOfRangeException()
+            _ => typeof(EmptyView)
         };
     }
 }

@@ -19,66 +19,66 @@ internal sealed partial class ShellViewModel : ObservableObject
             Glyph = "🌃",
             Title = "Kuwait, Kuwait"
         },
-        new PrayersViewModel
-        {
-            Glyph = "🌄",
-            Title = "Amman, Jordan"
-        },
-        new PrayersViewModel
-        {
-            Glyph = "🌇",
-            Title = "Paris, France"
-        },
-        new PrayersViewModel
-        {
-            Glyph = "🌆",
-            Title = "Cairo, Egypt"
-        },
-        new PrayersViewModel
-        {
-            Glyph = "🌅",
-            Title = "Istanbul, Turkey"
-        },
-        new PrayersViewModel
-        {
-            Glyph = "🌉",
-            Title = "Dubai, UAE"
-        },
-        new PrayersViewModel
-        {
-            Glyph = "🏙️",
-            Title = "New York, USA"
-        },
-        new PrayersViewModel
-        {
-            Glyph = "🌇",
-            Title = "London, UK"
-        },
-        new PrayersViewModel
-        {
-            Glyph = "🌄",
-            Title = "Jakarta, Indonesia"
-        },
-        new PrayersViewModel
-        {
-            Glyph = "🌃",
-            Title = "Karachi, Pakistan"
-        },
-        new PrayersViewModel
-        {
-            Glyph = "🏙️",
-            Title = "Musqat, Oman"
-        },
-        new PrayersViewModel
-        {
-            Glyph = "🌄",
-            Title = "Moscow, Russia"
-        },
-        new PrayersViewModel
-        {
-            Glyph = "🌅",
-            Title = "Tehran, Iran"
-        }
+        //new PrayersViewModel
+        //{
+        //    Glyph = "🌄",
+        //    Title = "Amman, Jordan"
+        //},
+        //new PrayersViewModel
+        //{
+        //    Glyph = "🌇",
+        //    Title = "Paris, France"
+        //},
+        //new PrayersViewModel
+        //{
+        //    Glyph = "🌆",
+        //    Title = "Cairo, Egypt"
+        //},
+        //new PrayersViewModel
+        //{
+        //    Glyph = "🌅",
+        //    Title = "Istanbul, Turkey"
+        //},
+        //new PrayersViewModel
+        //{
+        //    Glyph = "🌉",
+        //    Title = "Dubai, UAE"
+        //},
+        //new PrayersViewModel
+        //{
+        //    Glyph = "🏙️",
+        //    Title = "New York, USA"
+        //},
+        //new PrayersViewModel
+        //{
+        //    Glyph = "🌇",
+        //    Title = "London, UK"
+        //},
+        //new PrayersViewModel
+        //{
+        //    Glyph = "🌄",
+        //    Title = "Jakarta, Indonesia"
+        //},
+        //new PrayersViewModel
+        //{
+        //    Glyph = "🌃",
+        //    Title = "Karachi, Pakistan"
+        //},
+        //new PrayersViewModel
+        //{
+        //    Glyph = "🏙️",
+        //    Title = "Musqat, Oman"
+        //},
+        //new PrayersViewModel
+        //{
+        //    Glyph = "🌄",
+        //    Title = "Moscow, Russia"
+        //},
+        //new PrayersViewModel
+        //{
+        //    Glyph = "🌅",
+        //    Title = "Tehran, Iran"
+        //}
     ];
 
     public ObservableCollection<FooterViewModel> Footer { get; }
@@ -99,26 +99,14 @@ internal sealed partial class ShellViewModel : ObservableObject
 
     private static void Delete(ShellViewModel recipient, DeleteMessage message)
     {
-        var index = recipient.Header.IndexOf(message.Instance);
-
         recipient.Header.Remove(message.Instance);
-
-        if (recipient.Header.Count is 0 && recipient.Current is HeaderViewModel)
-        {
-            recipient.Current = null;
-            return;
-        }
-
-        if (recipient.Current?.Equals(message.Instance) ?? true)
-        {
-            recipient.Current = recipient.Header[Math.Min(index, recipient.Header.Count - 1)];
-        }
+        recipient.Current = null;
     }
 
     [RelayCommand]
     private void Initialize()
     {
-        Current = Header[0];
+        // Current = Header[0];
     }
 }
 

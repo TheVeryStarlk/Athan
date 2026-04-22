@@ -88,15 +88,8 @@ internal sealed partial class ShellView : WindowEx
 
     private void NavigationViewSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs eventArgs)
     {
-        if (eventArgs.SelectedItemContainer is null)
-        {
-            return;
-        }
-
-        Frame.Navigate(
-            viewService.For((INotifyPropertyChanged?) eventArgs.SelectedItemContainer.DataContext),
-            eventArgs.SelectedItemContainer.DataContext,
-            eventArgs.RecommendedNavigationTransitionInfo);
+        var dataContext = eventArgs.SelectedItemContainer?.DataContext ?? null;
+        Frame.Navigate(viewService.For((INotifyPropertyChanged?) dataContext), dataContext, eventArgs.RecommendedNavigationTransitionInfo);
     }
 
     private void FrameLoaded(object sender, RoutedEventArgs eventArgs)
@@ -108,6 +101,12 @@ internal sealed partial class ShellView : WindowEx
     private void FrameNavigated(object sender, NavigationEventArgs eventArgs)
     {
         viewModel.Current = (INotifyPropertyChanged) eventArgs.Parameter;
+
+        if (viewModel.Current is null)
+        {
+            Frame.BackStack.Clear();
+        }
+
         BackButton.Visibility = Frame.CanGoBack ? Visibility.Visible : Visibility.Collapsed;
     }
 }
