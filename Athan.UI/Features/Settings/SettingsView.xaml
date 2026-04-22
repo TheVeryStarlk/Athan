@@ -21,7 +21,8 @@
                                    IsExpanded="True">
 
             <controls:SettingsExpander.HeaderIcon>
-                <BitmapIcon ShowAsMonochrome="False" UriSource="/Assets/StoreLogo.png" />
+                <BitmapIcon ShowAsMonochrome="False" 
+                            UriSource="/Assets/StoreLogo.png" />
             </controls:SettingsExpander.HeaderIcon>
 
             <controls:SettingsExpander.Items>

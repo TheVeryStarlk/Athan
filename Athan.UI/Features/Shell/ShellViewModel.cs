@@ -1,17 +1,85 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using Athan.UI.Features.Prayers;
+﻿using Athan.UI.Features.Prayers;
 using Athan.UI.Features.Settings;
 using Athan.UI.Features.Tasbih;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 
 namespace Athan.UI.Features.Shell;
 
 internal sealed partial class ShellViewModel : ObservableObject
 {
-    public ObservableCollection<HeaderViewModel> Header { get; }
+    public ObservableCollection<HeaderViewModel> Header { get; } =
+    [
+        new PrayersViewModel
+        {
+            Glyph = "🌃",
+            Title = "Kuwait, Kuwait"
+        },
+        new PrayersViewModel
+        {
+            Glyph = "🌄",
+            Title = "Amman, Jordan"
+        },
+        new PrayersViewModel
+        {
+            Glyph = "🌇",
+            Title = "Paris, France"
+        },
+        new PrayersViewModel
+        {
+            Glyph = "🌆",
+            Title = "Cairo, Egypt"
+        },
+        new PrayersViewModel
+        {
+            Glyph = "🌅",
+            Title = "Istanbul, Turkey"
+        },
+        new PrayersViewModel
+        {
+            Glyph = "🌉",
+            Title = "Dubai, UAE"
+        },
+        new PrayersViewModel
+        {
+            Glyph = "🏙️",
+            Title = "New York, USA"
+        },
+        new PrayersViewModel
+        {
+            Glyph = "🌇",
+            Title = "London, UK"
+        },
+        new PrayersViewModel
+        {
+            Glyph = "🌄",
+            Title = "Jakarta, Indonesia"
+        },
+        new PrayersViewModel
+        {
+            Glyph = "🌃",
+            Title = "Karachi, Pakistan"
+        },
+        new PrayersViewModel
+        {
+            Glyph = "🏙️",
+            Title = "Musqat, Oman"
+        },
+        new PrayersViewModel
+        {
+            Glyph = "🌄",
+            Title = "Moscow, Russia"
+        },
+        new PrayersViewModel
+        {
+            Glyph = "🌅",
+            Title = "Tehran, Iran"
+        }
+    ];
 
     public ObservableCollection<FooterViewModel> Footer { get; }
 
@@ -20,48 +88,24 @@ internal sealed partial class ShellViewModel : ObservableObject
 
     public ShellViewModel(TasbihViewModel tasbihViewModel, SettingsViewModel settingsViewModel)
     {
-        Footer = [tasbihViewModel, settingsViewModel];
-
-        Header =
+        Footer =
         [
-            CreateItem("🌃", "Kuwait, Kuwait"),
-            CreateItem("🌄", "Amman, Jordan"),
-            CreateItem("🌇", "Paris, France"),
-            CreateItem("🌆", "Cairo, Egypt"),
-            CreateItem("🌅", "Istanbul, Turkey"),
-            CreateItem("🌉", "Dubai, UAE"),
-            CreateItem("🏙️", "New York, USA"),
-            CreateItem("🌇", "London, UK"),
-            CreateItem("🌄", "Jakarta, Indonesia"),
-            CreateItem("🌃", "Karachi, Pakistan"),
-            CreateItem("🏙️", "Muscat, Oman"),
-            CreateItem("🌄", "Moscow, Russia"),
-            CreateItem("🌅", "Tehran, Iran")
+            tasbihViewModel,
+            settingsViewModel
         ];
+
+        WeakReferenceMessenger.Default.Register<ShellViewModel, DeleteMessage>(this, Delete);
     }
 
-    private PrayersViewModel CreateItem(string glyph, string title)
+    private static void Delete(ShellViewModel recipient, DeleteMessage message)
     {
-        return new PrayersViewModel
-        {
-            Glyph = glyph,
-            Title = title
-        };
-    }
+        var index = recipient.Header.IndexOf(message.Instance);
 
-    [RelayCommand]
-    private void DeleteCurrentItem()
-    {
-        if (Current is not HeaderViewModel item)
-        {
-            return;
-        }
+        recipient.Header.Remove(message.Instance);
 
-        var index = Header.IndexOf(item);
-
-        Header.Remove(item);
-
-        Current = Header.Count > 0 ? Header[Math.Min(index, Header.Count - 1)] : null;
+        recipient.Current = recipient.Header.Count > 0
+            ? recipient.Header[Math.Min(index, recipient.Header.Count - 1)]
+            : null;
     }
 
     [RelayCommand]
@@ -69,4 +113,9 @@ internal sealed partial class ShellViewModel : ObservableObject
     {
         Current = Header[0];
     }
+}
+
+internal sealed class DeleteMessage(HeaderViewModel instance)
+{
+    public HeaderViewModel Instance => instance;
 }
