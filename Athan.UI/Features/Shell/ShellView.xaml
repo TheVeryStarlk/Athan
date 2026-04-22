@@ -91,6 +91,7 @@
                         MenuItemsSource="{x:Bind viewModel.Header}"
                         FooterMenuItemsSource="{x:Bind viewModel.Footer}"
                         SelectedItem="{x:Bind viewModel.Current, Mode=TwoWay}"
+                        DataContext="{x:Bind viewModel}"
                         AlwaysShowHeader="True"
                         IsSettingsVisible="False"
                         IsPaneToggleButtonVisible="False"
@@ -115,8 +116,7 @@
                                 <NavigationViewItem.ContextFlyout>
                                     <MenuFlyout>
                                         <MenuFlyoutItem Text="Delete"
-                                                        Command="{x:Bind DeleteCommand}"
-                                                        CommandParameter="{x:Bind}" />
+                                                        Command="{Binding ElementName=NavigationView, Path=DataContext.DeleteCurrentItemCommand}" />
                                     </MenuFlyout>
                                 </NavigationViewItem.ContextFlyout>
                             </NavigationViewItem>

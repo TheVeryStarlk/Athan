@@ -45,21 +45,23 @@ internal sealed partial class ShellViewModel : ObservableObject
         return new PrayersViewModel
         {
             Glyph = glyph,
-            Title = title,
-            OnDelete = DeleteItem
+            Title = title
         };
     }
 
-    private void DeleteItem(HeaderViewModel item)
+    [RelayCommand]
+    private void DeleteCurrentItem()
     {
+        if (Current is not HeaderViewModel item)
+        {
+            return;
+        }
+
         var index = Header.IndexOf(item);
 
         Header.Remove(item);
 
-        if (Equals(Current, item))
-        {
-            Current = Header.Count > 0 ? Header[Math.Min(index, Header.Count - 1)] : null;
-        }
+        Current = Header.Count > 0 ? Header[Math.Min(index, Header.Count - 1)] : null;
     }
 
     [RelayCommand]
