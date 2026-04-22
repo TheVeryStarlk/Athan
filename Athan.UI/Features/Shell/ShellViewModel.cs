@@ -34,7 +34,7 @@ internal sealed partial class ShellViewModel : ObservableObject
             CreateItem("🌇", "London, UK"),
             CreateItem("🌄", "Jakarta, Indonesia"),
             CreateItem("🌃", "Karachi, Pakistan"),
-            CreateItem("🏙️", "Musqat, Oman"),
+            CreateItem("🏙️", "Muscat, Oman"),
             CreateItem("🌄", "Moscow, Russia"),
             CreateItem("🌅", "Tehran, Iran")
         ];

@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Windows.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Athan.UI.Features.Shell;
 
@@ -13,7 +14,7 @@ internal abstract partial class ItemViewModel : ObservableObject
 
 internal abstract partial class HeaderViewModel : ItemViewModel
 {
-    public System.Windows.Input.ICommand? DeleteCommand { get; set; }
+    public ICommand? DeleteCommand { get; set; }
 }
 
 internal abstract class FooterViewModel : ItemViewModel;
