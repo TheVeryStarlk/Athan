@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel;
 using System.Linq;
 using Windows.Foundation;
 using Windows.Graphics;
@@ -8,21 +7,18 @@ using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media.Animation;
-using Microsoft.UI.Xaml.Navigation;
 using WinUIEx;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Athan.UI.Features.Shell;
 
 internal sealed partial class ShellView : WindowEx
 {
     private readonly ShellViewModel viewModel;
-    private readonly ViewService viewService;
 
-    public ShellView(ShellViewModel viewModel, ViewService viewService)
+    public ShellView(ShellViewModel viewModel)
     {
         this.viewModel = viewModel;
-        this.viewService = viewService;
 
         InitializeComponent();
         SetTitleBar(TitleBar);
@@ -82,18 +78,16 @@ internal sealed partial class ShellView : WindowEx
 
     private void NavigationViewSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs eventArgs)
     {
-        viewModel.Current = (INotifyPropertyChanged?) eventArgs.SelectedItemContainer?.DataContext ?? viewModel.Current ?? null;
-        Frame.Navigate(viewService.For(viewModel.Current), viewModel.Current, eventArgs.RecommendedNavigationTransitionInfo);
+        viewModel.NavigateCommand.Execute((ItemViewModel?) eventArgs.SelectedItemContainer?.DataContext);
     }
 
     private void FrameLoaded(object sender, RoutedEventArgs eventArgs)
     {
-        viewModel.InitializeCommand.Execute(null);
-        Frame.Navigate(viewService.For(viewModel.Current), viewModel.Current, new EntranceNavigationTransitionInfo());
-    }
+        if (Bootstrapper.Services.GetRequiredService<INavigationService>() is NavigationService navigationService)
+        {
+            navigationService.Frame = Frame;
+        }
 
-    private void FrameNavigated(object sender, NavigationEventArgs eventArgs)
-    {
-        viewModel.Current = (INotifyPropertyChanged) eventArgs.Parameter;
+        viewModel.InitializeCommand.Execute(null);
     }
 }

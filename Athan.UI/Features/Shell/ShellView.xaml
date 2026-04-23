@@ -80,7 +80,7 @@
                         SelectionChanged="NavigationViewSelectionChanged"
                         MenuItemsSource="{x:Bind viewModel.Header}"
                         FooterMenuItemsSource="{x:Bind viewModel.Footer}"
-                        SelectedItem="{x:Bind viewModel.Current, Mode=TwoWay}"
+                        SelectedItem="{x:Bind viewModel.Current, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         AlwaysShowHeader="True"
                         IsSettingsVisible="False"
                         IsPaneToggleButtonVisible="False"
@@ -130,7 +130,6 @@
             <ScrollViewer>
                 <Frame x:Name="Frame"
                        Loaded="FrameLoaded"
-                       Navigated="FrameNavigated"
                        Padding="36" />
             </ScrollViewer>
         </NavigationView>

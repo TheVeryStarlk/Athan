@@ -1,4 +1,5 @@
-﻿using Athan.UI.Features.Prayers;
+﻿using Athan.UI.Features.Empty;
+using Athan.UI.Features.Prayers;
 using Athan.UI.Features.Settings;
 using Athan.UI.Features.Tasbih;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -6,8 +7,6 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using Athan.UI.Features.Empty;
 
 namespace Athan.UI.Features.Shell;
 
@@ -25,10 +24,14 @@ internal sealed partial class ShellViewModel : ObservableObject
     public ObservableCollection<FooterViewModel> Footer { get; }
 
     [ObservableProperty]
-    public partial INotifyPropertyChanged? Current { get; set; }
+    public partial ItemViewModel? Current { get; set; }
 
-    public ShellViewModel(TasbihViewModel tasbihViewModel, SettingsViewModel settingsViewModel)
+    private readonly INavigationService navigationService;
+
+    public ShellViewModel(INavigationService navigationService, TasbihViewModel tasbihViewModel, SettingsViewModel settingsViewModel)
     {
+        this.navigationService = navigationService;
+
         Footer =
         [
             tasbihViewModel,
@@ -60,7 +63,14 @@ internal sealed partial class ShellViewModel : ObservableObject
     [RelayCommand]
     private void Initialize()
     {
-        // Current = Header[0];
+        Navigate(null);
+    }
+
+    [RelayCommand]
+    private void Navigate(ItemViewModel? selection)
+    {
+        Current = selection;
+        navigationService.Navigate(Current);
     }
 }
 

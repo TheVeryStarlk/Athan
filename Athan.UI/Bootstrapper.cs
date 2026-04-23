@@ -11,7 +11,7 @@ namespace Athan.UI;
 internal static partial class Bootstrapper
 {
     public static ServiceProvider Services { get; } = Build();
-    
+
     private static ServiceProvider Build()
     {
         var services = new ServiceCollection();
@@ -23,7 +23,7 @@ internal static partial class Bootstrapper
         return services.BuildServiceProvider();
     }
 
-    [Transient(typeof(ViewService))]
+    [Singleton(typeof(NavigationService), typeof(INavigationService))]
     [Transient(typeof(DialogService))]
     private static partial void Configure(IServiceCollection services);
 
