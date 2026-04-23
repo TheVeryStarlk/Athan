@@ -46,7 +46,6 @@ internal sealed partial class ShellView : WindowEx
 
         var elements = new FrameworkElement[]
         {
-            BackButton,
             ToggleButton,
             SearchBox
         };
@@ -71,11 +70,6 @@ internal sealed partial class ShellView : WindowEx
             .SetRegionRects(NonClientRegionKind.Passthrough, rects);
     }
 
-    private void BackButtonClick(object sender, RoutedEventArgs eventArgs)
-    {
-        Frame.GoBack();
-    }
-
     private void ToggleButtonClick(object sender, RoutedEventArgs eventArgs)
     {
         NavigationView.IsPaneOpen = !NavigationView.IsPaneOpen;
@@ -88,8 +82,8 @@ internal sealed partial class ShellView : WindowEx
 
     private void NavigationViewSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs eventArgs)
     {
-        var dataContext = eventArgs.SelectedItemContainer?.DataContext ?? null;
-        Frame.Navigate(viewService.For((INotifyPropertyChanged?) dataContext), dataContext, eventArgs.RecommendedNavigationTransitionInfo);
+        viewModel.Current = (INotifyPropertyChanged?) eventArgs.SelectedItemContainer?.DataContext ?? viewModel.Current ?? null;
+        Frame.Navigate(viewService.For(viewModel.Current), viewModel.Current, eventArgs.RecommendedNavigationTransitionInfo);
     }
 
     private void FrameLoaded(object sender, RoutedEventArgs eventArgs)
@@ -101,12 +95,5 @@ internal sealed partial class ShellView : WindowEx
     private void FrameNavigated(object sender, NavigationEventArgs eventArgs)
     {
         viewModel.Current = (INotifyPropertyChanged) eventArgs.Parameter;
-
-        if (viewModel.Current is null)
-        {
-            Frame.BackStack.Clear();
-        }
-
-        BackButton.Visibility = Frame.CanGoBack ? Visibility.Visible : Visibility.Collapsed;
     }
 }

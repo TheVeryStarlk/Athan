@@ -1,4 +1,5 @@
-﻿using Athan.UI.Features.Prayers;
+﻿using Athan.UI.Features.Empty;
+using Athan.UI.Features.Prayers;
 using Athan.UI.Features.Settings;
 using Athan.UI.Features.Shell;
 using Athan.UI.Features.Tasbih;
@@ -9,7 +10,9 @@ namespace Athan.UI;
 
 internal static partial class Bootstrapper
 {
-    public static ServiceProvider Build()
+    public static ServiceProvider Services { get; } = Build();
+    
+    private static ServiceProvider Build()
     {
         var services = new ServiceCollection();
 
@@ -21,6 +24,7 @@ internal static partial class Bootstrapper
     }
 
     [Transient(typeof(ViewService))]
+    [Transient(typeof(DialogService))]
     private static partial void Configure(IServiceCollection services);
 
     [Singleton(typeof(ShellView))]
@@ -30,5 +34,6 @@ internal static partial class Bootstrapper
     [Transient(typeof(PrayersViewModel))]
     [Transient(typeof(TasbihViewModel))]
     [Transient(typeof(SettingsViewModel))]
+    [Transient(typeof(EmptyViewModel))]
     private static partial void ConfigureViewModels(IServiceCollection services);
 }

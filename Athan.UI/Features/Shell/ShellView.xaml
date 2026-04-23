@@ -44,22 +44,12 @@
                     </TransitionCollection>
                 </StackPanel.ChildrenTransitions>
 
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="BackButton"
-                            ToolTipService.ToolTip="Back"
-                            Click="BackButtonClick"
-                            Style="{ThemeResource TitleBarBackButtonStyle}"
-                            Visibility="Collapsed"
-                            Width="36"
-                            Height="36" />
-
-                    <Button x:Name="ToggleButton"
-                            ToolTipService.ToolTip="Navigation"
-                            Click="ToggleButtonClick"
-                            Style="{ThemeResource TitleBarPaneToggleButtonStyle}"
-                            Width="36"
-                            Height="36" />
-                </StackPanel>
+                <Button x:Name="ToggleButton"
+                        ToolTipService.ToolTip="Navigation"
+                        Click="ToggleButtonClick"
+                        Style="{ThemeResource TitleBarPaneToggleButtonStyle}"
+                        Width="36"
+                        Height="36" />
 
                 <Image Source="/Assets/StoreLogo.png"
                        Width="16"

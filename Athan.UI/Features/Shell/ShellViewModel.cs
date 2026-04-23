@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Athan.UI.Features.Empty;
 
 namespace Athan.UI.Features.Shell;
 
@@ -14,71 +15,11 @@ internal sealed partial class ShellViewModel : ObservableObject
 {
     public ObservableCollection<HeaderViewModel> Header { get; } =
     [
-        new PrayersViewModel
-        {
-            Glyph = "🌃",
-            Title = "Kuwait, Kuwait"
-        },
-        //new PrayersViewModel
-        //{
-        //    Glyph = "🌄",
-        //    Title = "Amman, Jordan"
-        //},
-        //new PrayersViewModel
-        //{
-        //    Glyph = "🌇",
-        //    Title = "Paris, France"
-        //},
-        //new PrayersViewModel
-        //{
-        //    Glyph = "🌆",
-        //    Title = "Cairo, Egypt"
-        //},
-        //new PrayersViewModel
-        //{
-        //    Glyph = "🌅",
-        //    Title = "Istanbul, Turkey"
-        //},
-        //new PrayersViewModel
-        //{
-        //    Glyph = "🌉",
-        //    Title = "Dubai, UAE"
-        //},
-        //new PrayersViewModel
-        //{
-        //    Glyph = "🏙️",
-        //    Title = "New York, USA"
-        //},
-        //new PrayersViewModel
-        //{
-        //    Glyph = "🌇",
-        //    Title = "London, UK"
-        //},
-        //new PrayersViewModel
-        //{
-        //    Glyph = "🌄",
-        //    Title = "Jakarta, Indonesia"
-        //},
-        //new PrayersViewModel
-        //{
-        //    Glyph = "🌃",
-        //    Title = "Karachi, Pakistan"
-        //},
-        //new PrayersViewModel
-        //{
-        //    Glyph = "🏙️",
-        //    Title = "Musqat, Oman"
-        //},
-        //new PrayersViewModel
-        //{
-        //    Glyph = "🌄",
-        //    Title = "Moscow, Russia"
-        //},
-        //new PrayersViewModel
-        //{
-        //    Glyph = "🌅",
-        //    Title = "Tehran, Iran"
-        //}
+        // new PrayersViewModel
+        // {
+        //     Glyph = "🌃",
+        //     Title = "Kuwait, Kuwait"
+        // }
     ];
 
     public ObservableCollection<FooterViewModel> Footer { get; }
@@ -94,13 +35,26 @@ internal sealed partial class ShellViewModel : ObservableObject
             settingsViewModel
         ];
 
+        WeakReferenceMessenger.Default.Register<ShellViewModel, AddMessage>(this, Add);
         WeakReferenceMessenger.Default.Register<ShellViewModel, DeleteMessage>(this, Delete);
+    }
+
+    private static void Add(ShellViewModel recipient, AddMessage message)
+    {
+        var instance = new PrayersViewModel
+        {
+            Title = Random.Shared.Next().ToString(),
+            Glyph = "🌄"
+        };
+
+        recipient.Header.Add(instance);
+        recipient.Current = instance;
     }
 
     private static void Delete(ShellViewModel recipient, DeleteMessage message)
     {
         recipient.Header.Remove(message.Instance);
-        recipient.Current = null;
+        recipient.Current = recipient.Header.Count > 0 ? recipient.Header[0] : null;
     }
 
     [RelayCommand]

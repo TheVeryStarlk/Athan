@@ -13,6 +13,6 @@ public sealed partial class App : Application
 
     protected override void OnLaunched(LaunchActivatedEventArgs args)
     {
-        Bootstrapper.Build().GetRequiredService<ShellView>().Activate();
+        Bootstrapper.Services.GetRequiredService<ShellView>().Activate();
     }
 }
