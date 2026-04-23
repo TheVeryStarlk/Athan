@@ -1,6 +1,6 @@
-﻿using Athan.UI.Features.Empty;
-using Athan.UI.Features.Prayers;
+﻿using Athan.UI.Features.Prayers;
 using Athan.UI.Features.Settings;
+using Athan.UI.Features.Shell.Messages;
 using Athan.UI.Features.Tasbih;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -72,9 +72,4 @@ internal sealed partial class ShellViewModel : ObservableObject
         Current = selection;
         navigationService.Navigate(Current);
     }
-}
-
-internal sealed class DeleteMessage(HeaderViewModel instance)
-{
-    public HeaderViewModel Instance => instance;
 }

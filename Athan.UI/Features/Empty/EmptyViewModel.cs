@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Athan.UI.Features.Shell.Messages;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -23,5 +24,3 @@ internal sealed partial class EmptyViewModel(DialogService dialogService) : Obse
             + "Or search manually for a location.");
     }
 }
-
-internal sealed class AddMessage;
