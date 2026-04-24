@@ -38,7 +38,6 @@ internal static partial class Bootstrapper
 
     [Transient(typeof(EmptyViewModel))]
     [Transient(typeof(PrayersViewModel))]
-    [Transient(typeof(SearchViewModel))]
     [Transient(typeof(SettingsViewModel))]
     [Transient(typeof(ShellViewModel))]
     [Transient(typeof(TasbihViewModel))]
