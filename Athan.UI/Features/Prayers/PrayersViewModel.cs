@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Athan.UI.Features.Shell;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -13,6 +14,6 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     [RelayCommand]
     private void Initialize()
     {
-        Hijri = DateTimeOffset.Now.ToString("d").Replace("بعد الهجرة", string.Empty);
+        Hijri = DateTimeOffset.Now.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern, new CultureInfo("ar-SA"));
     }
 }
