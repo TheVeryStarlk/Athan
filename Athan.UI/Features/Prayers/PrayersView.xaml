@@ -8,7 +8,21 @@
       d:DataContext="{d:DesignInstance Type=prayers:PrayersViewModel}"
       mc:Ignorable="d">
 
-    <TextBlock Text="{x:Bind viewModel.Title}" 
-               HorizontalAlignment="Center"  
-               VerticalAlignment="Center" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.25*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    Spacing="8"
+                    VerticalAlignment="Top">
+
+            <TextBlock Text="{x:Bind ViewModel.Title}"
+                       Style="{StaticResource TitleTextBlockStyle}" />
+
+            <TextBlock Text="{x:Bind ViewModel.Hijri}"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+        </StackPanel>
+    </Grid>
 </Page>

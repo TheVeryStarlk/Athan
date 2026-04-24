@@ -8,8 +8,8 @@
       d:DataContext="{d:DesignInstance Type=empty:EmptyViewModel}"
       mc:Ignorable="d">
 
-    <Button Command="{x:Bind viewModel.FooCommand}"
-            Content="Feels quite empty here..."
+    <Button Content="Feels quite empty here..."
+            Command="{x:Bind viewModel.FooCommand}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center" />
 </Page>

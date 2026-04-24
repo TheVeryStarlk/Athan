@@ -1,3 +1,4 @@
+using System;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
@@ -5,7 +6,15 @@ namespace Athan.UI.Features.Prayers;
 
 internal sealed partial class PrayersView : Page
 {
-    private PrayersViewModel? viewModel;
+    public PrayersViewModel ViewModel
+    {
+        get
+        {
+            ArgumentNullException.ThrowIfNull(field);
+            return field;
+        }
+        set;
+    }
 
     public PrayersView()
     {
@@ -14,7 +23,9 @@ internal sealed partial class PrayersView : Page
 
     protected override void OnNavigatedTo(NavigationEventArgs eventArgs)
     {
-        viewModel = (PrayersViewModel) eventArgs.Parameter;
+        ViewModel = (PrayersViewModel) eventArgs.Parameter;
+        ViewModel.InitializeCommand.Execute(null);
+
         base.OnNavigatedTo(eventArgs);
     }
 }

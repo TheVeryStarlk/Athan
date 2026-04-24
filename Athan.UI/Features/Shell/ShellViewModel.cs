@@ -14,11 +14,11 @@ internal sealed partial class ShellViewModel : ObservableObject
 {
     public ObservableCollection<HeaderViewModel> Header { get; } =
     [
-        // new PrayersViewModel
-        // {
-        //     Glyph = "🌃",
-        //     Title = "Kuwait, Kuwait"
-        // }
+        new PrayersViewModel
+        {
+            Glyph = "🌃",
+            Title = "Riyadh, Saudi Arabia"
+        }
     ];
 
     public ObservableCollection<FooterViewModel> Footer { get; }
@@ -63,7 +63,7 @@ internal sealed partial class ShellViewModel : ObservableObject
     [RelayCommand]
     private void Initialize()
     {
-        Navigate(null);
+        Navigate(Header[0]);
     }
 
     [RelayCommand]
