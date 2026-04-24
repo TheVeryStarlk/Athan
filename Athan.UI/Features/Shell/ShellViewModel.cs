@@ -1,6 +1,5 @@
 ﻿using Athan.UI.Features.Prayers;
 using Athan.UI.Features.Settings;
-using Athan.UI.Features.Shell.Messages;
 using Athan.UI.Features.Tasbih;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;

@@ -1,4 +1,5 @@
-﻿using Athan.UI.Features.Empty;
+﻿using Athan.UI.Features;
+using Athan.UI.Features.Empty;
 using Athan.UI.Features.Prayers;
 using Athan.UI.Features.Settings;
 using Athan.UI.Features.Shell;
