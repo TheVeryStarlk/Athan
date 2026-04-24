@@ -4,21 +4,13 @@ using Athan.UI.Features.Tasbih;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using System;
 using System.Collections.ObjectModel;
 
 namespace Athan.UI.Features.Shell;
 
 internal sealed partial class ShellViewModel : ObservableObject
 {
-    public ObservableCollection<HeaderViewModel> Header { get; } =
-    [
-        new PrayersViewModel
-        {
-            Glyph = "🌃",
-            Title = "Riyadh, Saudi Arabia"
-        }
-    ];
+    public ObservableCollection<HeaderViewModel> Header { get; } = [];
 
     public ObservableCollection<FooterViewModel> Footer { get; }
 
@@ -45,7 +37,7 @@ internal sealed partial class ShellViewModel : ObservableObject
     {
         var instance = new PrayersViewModel
         {
-            Title = Random.Shared.Next().ToString(),
+            Title = message.Location.Name,
             Glyph = "🌄"
         };
 
@@ -62,7 +54,7 @@ internal sealed partial class ShellViewModel : ObservableObject
     [RelayCommand]
     private void Initialize()
     {
-        Navigate(Header[0]);
+        Navigate(null);
     }
 
     [RelayCommand]

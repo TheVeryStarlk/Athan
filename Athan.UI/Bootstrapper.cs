@@ -1,6 +1,7 @@
 ﻿using Athan.UI.Features;
 using Athan.UI.Features.Empty;
 using Athan.UI.Features.Prayers;
+using Athan.UI.Features.Search;
 using Athan.UI.Features.Settings;
 using Athan.UI.Features.Shell;
 using Athan.UI.Features.Tasbih;
@@ -17,6 +18,8 @@ internal static partial class Bootstrapper
     {
         var services = new ServiceCollection();
 
+        services.AddHttpClient();
+
         Configure(services);
         ConfigureViews(services);
         ConfigureViewModels(services);
@@ -26,15 +29,18 @@ internal static partial class Bootstrapper
 
     [Singleton(typeof(NavigationService), typeof(INavigationService))]
     [Transient(typeof(DialogService))]
+    [Transient(typeof(GeopositionService))]
+    [Transient(typeof(LocationService))]
     private static partial void Configure(IServiceCollection services);
 
     [Singleton(typeof(ShellView))]
     private static partial void ConfigureViews(IServiceCollection services);
 
-    [Transient(typeof(ShellViewModel))]
-    [Transient(typeof(PrayersViewModel))]
-    [Transient(typeof(TasbihViewModel))]
-    [Transient(typeof(SettingsViewModel))]
     [Transient(typeof(EmptyViewModel))]
+    [Transient(typeof(PrayersViewModel))]
+    [Transient(typeof(SearchViewModel))]
+    [Transient(typeof(SettingsViewModel))]
+    [Transient(typeof(ShellViewModel))]
+    [Transient(typeof(TasbihViewModel))]
     private static partial void ConfigureViewModels(IServiceCollection services);
 }
