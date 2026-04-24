@@ -130,7 +130,7 @@
             <ScrollViewer>
                 <Frame x:Name="Frame"
                        Loaded="FrameLoaded"
-                       Padding="36" />
+                       Padding="36 24 36 24" />
             </ScrollViewer>
         </NavigationView>
     </Grid>

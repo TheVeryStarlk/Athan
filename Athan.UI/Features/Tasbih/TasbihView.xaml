@@ -8,7 +8,15 @@
       d:DataContext="{d:DesignInstance Type=tasbih:TasbihViewModel}"
       mc:Ignorable="d">
 
-    <TextBlock Text="Tasbih"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Text="Tasbih"
+                   Style="{StaticResource TitleTextBlockStyle}"
+                   Margin="0 0 0 24" />
+    </Grid>
 </Page>
