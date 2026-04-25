@@ -1,9 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using Athan.UI.Features.Search;
+﻿using Athan.UI.Features.Search;
 using Athan.UI.Features.Shell;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using System;
+using System.Threading.Tasks;
 
 namespace Athan.UI.Features.Empty;
 
@@ -28,10 +28,7 @@ internal sealed partial class EmptyViewModel : HeaderViewModel
     {
         if (!await geopositionService.IsAllowedAsync())
         {
-            await dialogService.ShowMessageAsync(
-                "Where are you?",
-                $"Please enable location access for Athan{Environment.NewLine}"
-                + "You can also search manually for a location");
+            await dialogService.ShowMessageAsync("Where are you?", "Make sure location access is enabled in your system");
         }
         else
         {

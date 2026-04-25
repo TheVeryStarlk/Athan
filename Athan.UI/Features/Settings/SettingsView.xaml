@@ -17,10 +17,11 @@
 
         <TextBlock Grid.Row="0"
                    Text="Settings"
-                   Style="{StaticResource TitleTextBlockStyle}" />
+                   Style="{StaticResource TitleTextBlockStyle}"
+                   Margin="0 0 0 24" />
 
         <StackPanel Grid.Row="1"
-                    VerticalAlignment="Center" 
+                    VerticalAlignment="Top" 
                     Spacing="8">
 
             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" 
