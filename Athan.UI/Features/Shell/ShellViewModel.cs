@@ -1,4 +1,5 @@
-﻿using Athan.UI.Features.Prayers;
+﻿using Athan.UI.Features.Empty;
+using Athan.UI.Features.Prayers;
 using Athan.UI.Features.Settings;
 using Athan.UI.Features.Tasbih;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -18,10 +19,16 @@ internal sealed partial class ShellViewModel : ObservableObject
     public partial ItemViewModel? Current { get; set; }
 
     private readonly INavigationService navigationService;
+    private readonly EmptyViewModel emptyViewModel;
 
-    public ShellViewModel(INavigationService navigationService, TasbihViewModel tasbihViewModel, SettingsViewModel settingsViewModel)
+    public ShellViewModel(
+        INavigationService navigationService, 
+        EmptyViewModel emptyViewModel, 
+        TasbihViewModel tasbihViewModel, 
+        SettingsViewModel settingsViewModel)
     {
         this.navigationService = navigationService;
+        this.emptyViewModel = emptyViewModel;
 
         Footer =
         [
@@ -43,18 +50,32 @@ internal sealed partial class ShellViewModel : ObservableObject
 
         recipient.Header.Add(instance);
         recipient.Current = instance;
+
+        if (recipient.Header.Count > 1)
+        {
+            recipient.Header.Remove(recipient.emptyViewModel);
+        }
     }
 
     private static void Delete(ShellViewModel recipient, DeleteMessage message)
     {
         recipient.Header.Remove(message.Instance);
         recipient.Current = recipient.Header.Count > 0 ? recipient.Header[0] : null;
+
+        if (recipient.Header.Count is 0)
+        {
+            recipient.Header.Add(recipient.emptyViewModel);
+            recipient.Current = recipient.Header[0];
+        }
     }
 
     [RelayCommand]
     private void Initialize()
     {
-        Navigate(null);
+        Header.Add(emptyViewModel);
+        Current = Header[0];
+
+        Navigate(Current);
     }
 
     [RelayCommand]

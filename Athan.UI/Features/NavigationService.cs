@@ -5,6 +5,7 @@ using Athan.UI.Features.Shell;
 using Athan.UI.Features.Tasbih;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
+using System;
 
 namespace Athan.UI.Features;
 
@@ -16,10 +17,11 @@ internal sealed class NavigationService : INavigationService
     {
         var type = viewModel switch
         {
+            EmptyViewModel => typeof(EmptyView),
             PrayersViewModel => typeof(PrayersView),
             TasbihViewModel => typeof(TasbihView),
             SettingsViewModel => typeof(SettingsView),
-            _ => typeof(EmptyView)
+            _ => throw new ArgumentOutOfRangeException()
         };
 
         Frame?.Navigate(type, viewModel, new EntranceNavigationTransitionInfo());

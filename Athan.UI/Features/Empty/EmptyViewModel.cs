@@ -1,14 +1,28 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Athan.UI.Features.Search;
-using CommunityToolkit.Mvvm.ComponentModel;
+using Athan.UI.Features.Shell;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 
 namespace Athan.UI.Features.Empty;
 
-internal sealed partial class EmptyViewModel(DialogService dialogService, GeopositionService geopositionService, LocationService locationService) : ObservableObject
+internal sealed partial class EmptyViewModel : HeaderViewModel
 {
+    private readonly DialogService dialogService;
+    private readonly GeopositionService geopositionService;
+    private readonly LocationService locationService;
+
+    public EmptyViewModel(DialogService dialogService, GeopositionService geopositionService, LocationService locationService)
+    {
+        this.dialogService = dialogService;
+        this.geopositionService = geopositionService;
+        this.locationService = locationService;
+
+        Title = "Get started";
+        Glyph = "🚀";
+    }
+
     [RelayCommand]
     private async Task Foo()
     {
