@@ -24,7 +24,7 @@ internal sealed partial class EmptyViewModel : HeaderViewModel
     }
 
     [RelayCommand]
-    private async Task Foo()
+    private async Task LocateAsync()
     {
         if (!await geopositionService.IsAllowedAsync())
         {

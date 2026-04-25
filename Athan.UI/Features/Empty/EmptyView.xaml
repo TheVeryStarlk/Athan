@@ -8,8 +8,27 @@
       d:DataContext="{d:DesignInstance Type=empty:EmptyViewModel}"
       mc:Ignorable="d">
 
-    <Button Content="Feels quite empty here..."
-            Command="{x:Bind viewModel.FooCommand}"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+
+            <TextBlock Text="Get started"
+                   Style="{StaticResource TitleTextBlockStyle}" />
+
+            <TextBlock Text="You have no saved locations, use your current location or search manually for a location" />
+        </StackPanel>
+
+        <Grid Grid.Row="1"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center">
+            
+            <Button Content="Use my location"
+                    Command="{x:Bind ViewModel.LocateCommand}"
+                    Style="{StaticResource AccentButtonStyle}"/>
+        </Grid>
+    </Grid>
 </Page>

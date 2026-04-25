@@ -16,7 +16,6 @@
 
         <TextBlock Grid.Row="0"
                    Text="Tasbih"
-                   Style="{StaticResource TitleTextBlockStyle}"
-                   Margin="0 0 0 24" />
+                   Style="{StaticResource TitleTextBlockStyle}" />
     </Grid>
 </Page>
