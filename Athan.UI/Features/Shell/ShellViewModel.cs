@@ -53,7 +53,7 @@ internal sealed partial class ShellViewModel : ObservableObject
 
         if (recipient.Header.Count > 1)
         {
-            recipient.Header.Remove(recipient.emptyViewModel);
+            recipient.Header.RemoveAt(0);
         }
     }
 

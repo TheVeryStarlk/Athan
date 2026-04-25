@@ -17,9 +17,10 @@
         <StackPanel Grid.Row="0">
 
             <TextBlock Text="Get started"
-                   Style="{StaticResource TitleTextBlockStyle}" />
+                       Style="{StaticResource TitleTextBlockStyle}" />
 
-            <TextBlock Text="You have no saved locations, use your current location or search manually for a location" />
+            <TextBlock Text="You have no saved locations, use your current location or search manually for a location"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
         </StackPanel>
 
         <Grid Grid.Row="1"
