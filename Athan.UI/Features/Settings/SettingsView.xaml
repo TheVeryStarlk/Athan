@@ -22,36 +22,84 @@
 
         <StackPanel Grid.Row="1"
                     VerticalAlignment="Top" 
-                    Spacing="8">
+                    Spacing="36">
 
-            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" 
-                   Text="About" />
+            <StackPanel Spacing="8">
+                <TextBlock Text="Apperance and behavior"
+                           Style="{StaticResource BodyStrongTextBlockStyle}" />
 
-            <controls:SettingsExpander Header="Athan"
-                                   Description="An Islamic prayer time reminder"
-                                   IsExpanded="True">
+                <StackPanel Spacing="4">
+                    <controls:SettingsCard Header="Application theme"
+                                           Description="Change the look and feel of Athan">
 
-                <controls:SettingsExpander.HeaderIcon>
-                    <BitmapIcon ShowAsMonochrome="False" 
-                            UriSource="/Assets/StoreLogo.png" />
-                </controls:SettingsExpander.HeaderIcon>
+                        <controls:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE790;" />
+                        </controls:SettingsCard.HeaderIcon>
 
-                <controls:SettingsExpander.Items>
-                    <controls:SettingsCard HorizontalContentAlignment="Left"
-                                       ContentAlignment="Left">
-
-                        <StackPanel Spacing="4"
-                                Margin="0 0 0 8">
-
-                            <HyperlinkButton Content="GitHub repository"
-                                         NavigateUri="https://GitHub.com/TheVeryStarlk/Athan"
-                                         Margin="-12 0 0 0" />
-
-                            <TextBlock Text="Made in Riyadh with ❤️" />
-                        </StackPanel>
+                        <ComboBox SelectedIndex="0">
+                            <ComboBoxItem Content="System" />
+                            <ComboBoxItem Content="Dark" />
+                            <ComboBoxItem Content="Light" />
+                        </ComboBox>
                     </controls:SettingsCard>
-                </controls:SettingsExpander.Items>
-            </controls:SettingsExpander>
+
+                    <controls:SettingsCard Header="Reciter"
+                                           Description="Choose your preferred voice">
+
+                        <controls:SettingsCard.HeaderIcon>
+                            <SymbolIcon Symbol="Volume" />
+                        </controls:SettingsCard.HeaderIcon>
+                        
+                        <ComboBox SelectedIndex="0">
+                            <ComboBoxItem Content="Mishary Al-Afasy" />
+                            <ComboBoxItem Content="Madinah" />
+                            <ComboBoxItem Content="Makkah" />
+                        </ComboBox>
+                    </controls:SettingsCard>
+
+                    <controls:SettingsCard Header="Launch at startup"
+                                           Description="Automatically launch Athan when your system starts">
+
+                        <controls:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xEC4A;" />
+                        </controls:SettingsCard.HeaderIcon>
+
+                        <ToggleSwitch />
+                    </controls:SettingsCard>
+                </StackPanel>
+            </StackPanel>
+            
+            <StackPanel Spacing="8">
+                <TextBlock Text="About"
+                           Style="{StaticResource BodyStrongTextBlockStyle}" />
+
+                <controls:SettingsExpander Header="Athan"
+                                           Description="An Islamic prayer time reminder"
+                                           IsExpanded="True">
+
+                    <controls:SettingsExpander.HeaderIcon>
+                        <BitmapIcon ShowAsMonochrome="False" 
+                                    UriSource="/Assets/StoreLogo.png" />
+                    </controls:SettingsExpander.HeaderIcon>
+
+                    <controls:SettingsExpander.Items>
+                        <controls:SettingsCard HorizontalContentAlignment="Left"
+                                               ContentAlignment="Left">
+
+                            <StackPanel Spacing="4"
+                                        Margin="0 0 0 8">
+
+                                <HyperlinkButton Content="GitHub repository"
+                                                 NavigateUri="https://GitHub.com/TheVeryStarlk/Athan"
+                                                 Margin="-12 0 0 0" />
+
+                                <TextBlock Text="Made in Riyadh with ❤️" />
+                            </StackPanel>
+                        </controls:SettingsCard>
+                    </controls:SettingsExpander.Items>
+                </controls:SettingsExpander>
+            </StackPanel>
+
         </StackPanel>
     </Grid>
 </Page>
