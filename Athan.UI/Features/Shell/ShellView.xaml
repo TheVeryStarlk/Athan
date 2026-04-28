@@ -106,7 +106,8 @@
                                     <MenuFlyout>
                                         <MenuFlyoutItem Text="Delete"
                                                         Icon="Delete"
-                                                        Command="{x:Bind DeleteCommand}" />
+                                                        Command="{x:Bind DeleteCommand}"
+                                                        IsEnabled="{x:Bind Deletable}" />
                                     </MenuFlyout>
                                 </NavigationViewItem.ContextFlyout>
                             </NavigationViewItem>
@@ -130,7 +131,7 @@
             <ScrollViewer>
                 <Frame x:Name="Frame"
                        Loaded="FrameLoaded"
-                       Padding="36 24 36 24" />
+                       Padding="36 24 36 36" />
             </ScrollViewer>
         </NavigationView>
     </Grid>

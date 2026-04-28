@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0"
-                    Spacing="8">
+                    Margin="0 0 0 24">
 
             <TextBlock Text="{x:Bind ViewModel.Title}"
                        Style="{StaticResource TitleTextBlockStyle}" />
@@ -23,5 +23,114 @@
             <TextBlock Text="{x:Bind ViewModel.Hijri}"
                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
         </StackPanel>
+
+        <Grid ColumnSpacing="12"
+              RowSpacing="12"
+              Grid.Row="1">
+
+            <Grid.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="Padding" Value="20 16 20 16" />
+                    <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
+                    <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                </Style>
+            </Grid.Resources>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Border Grid.Column="0">
+                <Grid>
+                    <TextBlock Text="Upcoming"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               VerticalAlignment="Top" />
+
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Spacing="8">
+
+                        <TextBlock Text="Fajr" 
+                                   Style="{StaticResource TitleLargeTextBlockStyle}"
+                                   Foreground="{StaticResource SystemFillColorAttentionBrush}"
+                                   HorizontalAlignment="Center"/>
+
+                        <TextBlock Text="1 hour and 10 minutes"
+                                   Style="{StaticResource BodyStrongTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1">
+                <Grid RowSpacing="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Grid.Row="0"
+                               Text="Schedule"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+
+                    <ItemsControl Grid.Row="1"
+                                  ItemsSource="{x:Bind ViewModel.Prayers}"
+                                  VerticalAlignment="Center">
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="prayers:Prayer">
+                                <Grid Margin="0 0 0 2">
+                                    
+                                    <TextBlock Text="{x:Bind Name}" 
+                                               Style="{StaticResource BodyStrongTextBlockStyle}"
+                                               HorizontalAlignment="Left"/>
+
+                                    <TextBlock Text="{x:Bind Time}"
+                                               Style="{StaticResource CaptionTextBlockStyle}"
+                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                               HorizontalAlignment="Right" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Grid.Row="1">
+
+                <Grid>
+                    <TextBlock Text="Ayah"
+                               Style="{StaticResource CaptionTextBlockStyle}"
+                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                               VerticalAlignment="Top" />
+
+                    <StackPanel HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Spacing="12">
+
+                        <TextBlock Text="إِنَّ مَعَ الْعُسْرِ يُسْرًا"
+                                   Style="{StaticResource TitleLargeTextBlockStyle}"
+                                   Foreground="{StaticResource SystemFillColorSuccessBrush}"
+                                   HorizontalAlignment="Center" />
+
+                        <TextBlock Text="Indeed, with hardship [will be] ease."
+                                   Style="{StaticResource BodyStrongTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                   HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Page>

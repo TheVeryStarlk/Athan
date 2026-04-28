@@ -21,11 +21,22 @@ internal sealed partial class EmptyViewModel : HeaderViewModel
 
         Title = "Get started";
         Glyph = "🚀";
+        Deletable = false;
     }
 
     [RelayCommand]
     private async Task LocateAsync()
     {
+        // Use proper mocks for debug.
+        WeakReferenceMessenger.Default.Send(new AddMessage(new Location
+        {
+            Name = "Foo",
+            Latitude = 0,
+            Longitude = 0
+        }));
+
+        return;
+
         if (!await geopositionService.IsAllowedAsync())
         {
             await dialogService.ShowMessageAsync("Where are you?", "Make sure location access is enabled in your system");
