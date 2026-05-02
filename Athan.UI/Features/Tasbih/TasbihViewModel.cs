@@ -1,6 +1,4 @@
-﻿using Athan.UI.Features.Shell;
-
-namespace Athan.UI.Features.Tasbih;
+﻿namespace Athan.UI.Features.Tasbih;
 
 internal sealed partial class TasbihViewModel : FooterViewModel
 {

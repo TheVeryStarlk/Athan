@@ -1,9 +1,7 @@
-﻿using Athan.UI.Features.Search;
-using Athan.UI.Features.Shell;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using System;
 using System.Threading.Tasks;
+using Athan.UI.Features.Locations;
 
 namespace Athan.UI.Features.Empty;
 

@@ -1,7 +1,7 @@
-﻿using Athan.UI.Features.Search;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
+using Athan.UI.Features.Locations;
 
-namespace Athan.UI.Features;
+namespace Athan.UI;
 
 [JsonSourceGenerationOptions(NumberHandling = JsonNumberHandling.AllowReadingFromString)]
 [JsonSerializable(typeof(Location[]))]

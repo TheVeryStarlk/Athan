@@ -1,7 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Athan.UI.Features.Search;
-
+namespace Athan.UI.Features.Locations;
 
 internal sealed class Location
 {

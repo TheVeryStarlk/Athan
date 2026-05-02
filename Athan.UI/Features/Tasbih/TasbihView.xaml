@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
-                   Text="Tasbih"
+                   Text="{x:Bind ViewModel.Title}"
                    Style="{StaticResource TitleTextBlockStyle}" />
     </Grid>
 </Page>

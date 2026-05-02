@@ -1,3 +1,4 @@
+using System;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
@@ -5,7 +6,15 @@ namespace Athan.UI.Features.Tasbih;
 
 internal sealed partial class TasbihView : Page
 {
-    private TasbihViewModel? viewModel;
+    public TasbihViewModel ViewModel
+    {
+        get
+        {
+            ArgumentNullException.ThrowIfNull(field);
+            return field;
+        }
+        set;
+    }
 
     public TasbihView()
     {
@@ -14,7 +23,7 @@ internal sealed partial class TasbihView : Page
 
     protected override void OnNavigatedTo(NavigationEventArgs eventArgs)
     {
-        viewModel = (TasbihViewModel) eventArgs.Parameter;
+        ViewModel = (TasbihViewModel) eventArgs.Parameter;
         base.OnNavigatedTo(eventArgs);
     }
 }

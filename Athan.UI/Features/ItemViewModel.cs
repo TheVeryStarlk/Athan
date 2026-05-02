@@ -2,7 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 
-namespace Athan.UI.Features.Shell;
+namespace Athan.UI.Features;
 
 internal abstract partial class ItemViewModel : ObservableObject
 {

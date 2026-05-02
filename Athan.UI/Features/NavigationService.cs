@@ -1,7 +1,6 @@
 ﻿using Athan.UI.Features.Empty;
 using Athan.UI.Features.Prayers;
 using Athan.UI.Features.Settings;
-using Athan.UI.Features.Shell;
 using Athan.UI.Features.Tasbih;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;

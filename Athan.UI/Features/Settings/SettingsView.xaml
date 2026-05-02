@@ -3,8 +3,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:settings="using:Athan.UI.Features.Settings"
-      xmlns:controls="using:CommunityToolkit.WinUI.Controls" 
-      
+      xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+
       x:Class="Athan.UI.Features.Settings.SettingsView"
       d:DataContext="{d:DesignInstance Type=settings:SettingsViewModel}"
       mc:Ignorable="d">
@@ -21,11 +21,11 @@
                    Margin="0 0 0 24" />
 
         <StackPanel Grid.Row="1"
-                    VerticalAlignment="Top" 
+                    VerticalAlignment="Top"
                     Spacing="36">
 
             <StackPanel Spacing="8">
-                <TextBlock Text="Apperance and behavior"
+                <TextBlock Text="Appearance and behavior"
                            Style="{StaticResource BodyStrongTextBlockStyle}" />
 
                 <StackPanel Spacing="4">
@@ -49,7 +49,7 @@
                         <controls:SettingsCard.HeaderIcon>
                             <SymbolIcon Symbol="Volume" />
                         </controls:SettingsCard.HeaderIcon>
-                        
+
                         <ComboBox SelectedIndex="0">
                             <ComboBoxItem Content="Mishary Al-Afasy" />
                             <ComboBoxItem Content="Madinah" />
@@ -68,7 +68,7 @@
                     </controls:SettingsCard>
                 </StackPanel>
             </StackPanel>
-            
+
             <StackPanel Spacing="8">
                 <TextBlock Text="About"
                            Style="{StaticResource BodyStrongTextBlockStyle}" />
@@ -78,7 +78,7 @@
                                            IsExpanded="True">
 
                     <controls:SettingsExpander.HeaderIcon>
-                        <BitmapIcon ShowAsMonochrome="False" 
+                        <BitmapIcon ShowAsMonochrome="False"
                                     UriSource="/Assets/StoreLogo.png" />
                     </controls:SettingsExpander.HeaderIcon>
 
@@ -99,7 +99,6 @@
                     </controls:SettingsExpander.Items>
                 </controls:SettingsExpander>
             </StackPanel>
-
         </StackPanel>
     </Grid>
 </Page>

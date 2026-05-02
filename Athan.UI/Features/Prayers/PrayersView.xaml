@@ -21,7 +21,7 @@
                        Style="{StaticResource TitleTextBlockStyle}" />
 
             <TextBlock Text="{x:Bind ViewModel.Hijri}"
-                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
         </StackPanel>
 
         <Grid ColumnSpacing="12"
@@ -35,7 +35,7 @@
                     <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
                 </Style>
             </Grid.Resources>
-            
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
@@ -46,7 +46,9 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Border Grid.Column="0">
+            <Border Grid.Column="0"
+                    Grid.Row="0">
+
                 <Grid>
                     <TextBlock Text="Upcoming"
                                Style="{StaticResource CaptionTextBlockStyle}"
@@ -57,10 +59,10 @@
                                 VerticalAlignment="Center"
                                 Spacing="8">
 
-                        <TextBlock Text="Fajr" 
+                        <TextBlock Text="Fajr"
                                    Style="{StaticResource TitleLargeTextBlockStyle}"
                                    Foreground="{StaticResource SystemFillColorAttentionBrush}"
-                                   HorizontalAlignment="Center"/>
+                                   HorizontalAlignment="Center" />
 
                         <TextBlock Text="1 hour and 10 minutes"
                                    Style="{StaticResource BodyStrongTextBlockStyle}"
@@ -70,13 +72,15 @@
                 </Grid>
             </Border>
 
-            <Border Grid.Column="1">
+            <Border Grid.Column="1" 
+                    Grid.Row="0">
+
                 <Grid RowSpacing="12">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    
+
                     <TextBlock Grid.Row="0"
                                Text="Schedule"
                                Style="{StaticResource CaptionTextBlockStyle}"
@@ -89,10 +93,10 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate x:DataType="prayers:Prayer">
                                 <Grid Margin="0 0 0 2">
-                                    
-                                    <TextBlock Text="{x:Bind Name}" 
+
+                                    <TextBlock Text="{x:Bind Name}"
                                                Style="{StaticResource BodyStrongTextBlockStyle}"
-                                               HorizontalAlignment="Left"/>
+                                               HorizontalAlignment="Left" />
 
                                     <TextBlock Text="{x:Bind Time}"
                                                Style="{StaticResource CaptionTextBlockStyle}"

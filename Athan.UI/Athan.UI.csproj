@@ -45,5 +45,5 @@
         <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">true</PublishReadyToRun>
         <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">false</PublishTrimmed>
         <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">true</PublishTrimmed>
-</PropertyGroup>
+    </PropertyGroup>
 </Project>

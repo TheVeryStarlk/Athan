@@ -1,7 +1,7 @@
 ﻿using Athan.UI.Features;
 using Athan.UI.Features.Empty;
+using Athan.UI.Features.Locations;
 using Athan.UI.Features.Prayers;
-using Athan.UI.Features.Search;
 using Athan.UI.Features.Settings;
 using Athan.UI.Features.Shell;
 using Athan.UI.Features.Tasbih;

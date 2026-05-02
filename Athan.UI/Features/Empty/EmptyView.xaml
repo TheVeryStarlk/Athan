@@ -25,8 +25,7 @@
                        HorizontalAlignment="Center" />
         </StackPanel>
 
-        <Button Grid.Row="1"
-                Content="Use my location"
+        <Button Content="Use my location"
                 Style="{StaticResource AccentButtonStyle}"
                 Command="{x:Bind ViewModel.LocateCommand}"
                 HorizontalAlignment="Center"

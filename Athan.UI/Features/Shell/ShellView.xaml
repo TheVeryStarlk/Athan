@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ex="using:WinUIEx"
-             xmlns:shell="using:Athan.UI.Features.Shell"
+             xmlns:features="using:Athan.UI.Features"
 
              x:Class="Athan.UI.Features.Shell.ShellView"
              mc:Ignorable="d"
@@ -91,9 +91,9 @@
                         Margin="0 -2 0 0">
 
             <NavigationView.MenuItemTemplateSelector>
-                <shell:ItemTemplateSelector>
-                    <shell:ItemTemplateSelector.HeaderTemplate>
-                        <DataTemplate x:DataType="shell:HeaderViewModel">
+                <features:ItemTemplateSelector>
+                    <features:ItemTemplateSelector.HeaderTemplate>
+                        <DataTemplate x:DataType="features:HeaderViewModel">
                             <NavigationViewItem DataContext="{x:Bind}"
                                                 Content="{x:Bind Title}">
 
@@ -112,10 +112,10 @@
                                 </NavigationViewItem.ContextFlyout>
                             </NavigationViewItem>
                         </DataTemplate>
-                    </shell:ItemTemplateSelector.HeaderTemplate>
+                    </features:ItemTemplateSelector.HeaderTemplate>
 
-                    <shell:ItemTemplateSelector.FooterTemplate>
-                        <DataTemplate x:DataType="shell:FooterViewModel">
+                    <features:ItemTemplateSelector.FooterTemplate>
+                        <DataTemplate x:DataType="features:FooterViewModel">
                             <NavigationViewItem DataContext="{x:Bind}"
                                                 Content="{x:Bind Title}">
 
@@ -124,8 +124,8 @@
                                 </NavigationViewItem.Icon>
                             </NavigationViewItem>
                         </DataTemplate>
-                    </shell:ItemTemplateSelector.FooterTemplate>
-                </shell:ItemTemplateSelector>
+                    </features:ItemTemplateSelector.FooterTemplate>
+                </features:ItemTemplateSelector>
             </NavigationView.MenuItemTemplateSelector>
 
             <ScrollViewer>

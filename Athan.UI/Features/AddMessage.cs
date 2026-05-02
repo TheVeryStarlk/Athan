@@ -1,4 +1,4 @@
-﻿using Athan.UI.Features.Search;
+﻿using Athan.UI.Features.Locations;
 
 namespace Athan.UI.Features;
 

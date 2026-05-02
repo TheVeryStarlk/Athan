@@ -2,7 +2,7 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
-namespace Athan.UI.Features.Shell;
+namespace Athan.UI.Features;
 
 internal sealed partial class ItemTemplateSelector : DataTemplateSelector
 {

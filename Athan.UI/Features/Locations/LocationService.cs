@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-namespace Athan.UI.Features.Search;
+namespace Athan.UI.Features.Locations;
 
 internal sealed class LocationService(IHttpClientFactory clientFactory)
 {

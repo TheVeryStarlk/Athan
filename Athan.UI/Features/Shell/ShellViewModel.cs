@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 
 namespace Athan.UI.Features.Shell;
 
+// Rework on get started item handling.
 internal sealed partial class ShellViewModel : ObservableObject
 {
     public ObservableCollection<HeaderViewModel> Header { get; } = [];
@@ -22,9 +23,9 @@ internal sealed partial class ShellViewModel : ObservableObject
     private readonly EmptyViewModel emptyViewModel;
 
     public ShellViewModel(
-        INavigationService navigationService, 
-        EmptyViewModel emptyViewModel, 
-        TasbihViewModel tasbihViewModel, 
+        INavigationService navigationService,
+        EmptyViewModel emptyViewModel,
+        TasbihViewModel tasbihViewModel,
         SettingsViewModel settingsViewModel)
     {
         this.navigationService = navigationService;
