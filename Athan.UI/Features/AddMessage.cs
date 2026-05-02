@@ -1,6 +1,4 @@
-﻿using Athan.UI.Features.Locations;
-
-namespace Athan.UI.Features;
+﻿namespace Athan.UI.Features;
 
 internal sealed class AddMessage(Location location)
 {

@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using Athan.UI.Features.Locations;
+using Athan.UI.Features;
 
 namespace Athan.UI;
 

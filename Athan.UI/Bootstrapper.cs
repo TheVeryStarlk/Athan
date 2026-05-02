@@ -1,5 +1,4 @@
 ﻿using Athan.UI.Features;
-using Athan.UI.Features.Locations;
 using Athan.UI.Features.Prayers;
 using Athan.UI.Features.Settings;
 using Athan.UI.Features.Shell;

@@ -95,10 +95,10 @@
                     <features:ItemTemplateSelector.HeaderTemplate>
                         <DataTemplate x:DataType="features:HeaderViewModel">
                             <NavigationViewItem DataContext="{x:Bind}"
-                                                Content="{x:Bind Title}">
+                                                Content="{x:Bind Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
 
                                 <NavigationViewItem.Icon>
-                                    <FontIcon Glyph="{x:Bind Glyph}"
+                                    <FontIcon Glyph="{x:Bind Glyph, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                               FontFamily="Segoe UI Emoji" />
                                 </NavigationViewItem.Icon>
 

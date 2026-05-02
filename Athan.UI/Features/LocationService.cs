@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-namespace Athan.UI.Features.Locations;
+namespace Athan.UI.Features;
 
 internal sealed class LocationService(IHttpClientFactory clientFactory)
 {
@@ -16,8 +16,6 @@ internal sealed class LocationService(IHttpClientFactory clientFactory)
 
         client.DefaultRequestHeaders.Add("User-Agent", "Athan");
         client.DefaultRequestHeaders.Add("Accept-Language", CultureInfo.CurrentUICulture.Name);
-
-        // https://nominatim.openstreetmap.org/search?q=Riyadh&format=jsonv2
 
         var result = await client.GetFromJsonAsync(
             $"{url}search?q={Uri.EscapeDataString(query)}&format=jsonv2",

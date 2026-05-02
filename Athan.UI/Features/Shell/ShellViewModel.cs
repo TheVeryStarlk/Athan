@@ -43,11 +43,7 @@ internal sealed partial class ShellViewModel : ObservableObject
 
     private static void Add(ShellViewModel recipient, AddMessage message)
     {
-        var instance = new PrayersViewModel
-        {
-            Title = message.Location.Name,
-            Glyph = "🌄"
-        };
+        var instance = new PrayersViewModel(message.Location);
 
         recipient.Header.Add(instance);
         recipient.Current = instance;

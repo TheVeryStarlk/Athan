@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Athan.UI.Features.Locations;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 
@@ -28,9 +27,9 @@ internal sealed partial class WelcomeViewModel : HeaderViewModel
         // Use proper mocks for debug.
         WeakReferenceMessenger.Default.Send(new AddMessage(new Location
         {
-            Name = "Foo",
-            Latitude = 0,
-            Longitude = 0
+            Name = "Riyadh Region, Saudi Arabia",
+            Latitude = 24.7136,
+            Longitude = 46.6753
         }));
 
         return;
