@@ -1,10 +1,10 @@
 ﻿using Athan.UI.Features;
-using Athan.UI.Features.Empty;
 using Athan.UI.Features.Locations;
 using Athan.UI.Features.Prayers;
 using Athan.UI.Features.Settings;
 using Athan.UI.Features.Shell;
 using Athan.UI.Features.Tasbih;
+using Athan.UI.Features.Welcome;
 using CommunityToolkit.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -36,7 +36,7 @@ internal static partial class Bootstrapper
     [Singleton(typeof(ShellView))]
     private static partial void ConfigureViews(IServiceCollection services);
 
-    [Transient(typeof(EmptyViewModel))]
+    [Transient(typeof(WelcomeViewModel))]
     [Transient(typeof(PrayersViewModel))]
     [Transient(typeof(SettingsViewModel))]
     [Transient(typeof(ShellViewModel))]

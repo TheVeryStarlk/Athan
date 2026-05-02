@@ -1,11 +1,11 @@
-﻿using Athan.UI.Features.Empty;
-using Athan.UI.Features.Prayers;
+﻿using Athan.UI.Features.Prayers;
 using Athan.UI.Features.Settings;
 using Athan.UI.Features.Tasbih;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
+using Athan.UI.Features.Welcome;
 
 namespace Athan.UI.Features.Shell;
 
@@ -20,16 +20,16 @@ internal sealed partial class ShellViewModel : ObservableObject
     public partial ItemViewModel? Current { get; set; }
 
     private readonly INavigationService navigationService;
-    private readonly EmptyViewModel emptyViewModel;
+    private readonly WelcomeViewModel welcomeViewModel;
 
     public ShellViewModel(
         INavigationService navigationService,
-        EmptyViewModel emptyViewModel,
+        WelcomeViewModel welcomeViewModel,
         TasbihViewModel tasbihViewModel,
         SettingsViewModel settingsViewModel)
     {
         this.navigationService = navigationService;
-        this.emptyViewModel = emptyViewModel;
+        this.welcomeViewModel = welcomeViewModel;
 
         Footer =
         [
@@ -65,7 +65,7 @@ internal sealed partial class ShellViewModel : ObservableObject
 
         if (recipient.Header.Count is 0)
         {
-            recipient.Header.Add(recipient.emptyViewModel);
+            recipient.Header.Add(recipient.welcomeViewModel);
             recipient.Current = recipient.Header[0];
         }
     }
@@ -73,7 +73,7 @@ internal sealed partial class ShellViewModel : ObservableObject
     [RelayCommand]
     private void Initialize()
     {
-        Header.Add(emptyViewModel);
+        Header.Add(welcomeViewModel);
         Current = Header[0];
 
         Navigate(Current);

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 
-namespace Athan.UI.Features.Empty;
+namespace Athan.UI.Features.Welcome;
 
 internal sealed class GeopositionService
 {

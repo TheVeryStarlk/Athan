@@ -1,12 +1,12 @@
+using System;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using System;
 
-namespace Athan.UI.Features.Empty;
+namespace Athan.UI.Features.Welcome;
 
-internal sealed partial class EmptyView : Page
+internal sealed partial class WelcomeView : Page
 {
-    public EmptyViewModel ViewModel
+    public WelcomeViewModel ViewModel
     {
         get
         {
@@ -16,15 +16,14 @@ internal sealed partial class EmptyView : Page
         set;
     }
 
-    public EmptyView()
+    public WelcomeView()
     {
         InitializeComponent();
     }
 
     protected override void OnNavigatedTo(NavigationEventArgs eventArgs)
     {
-        ViewModel = (EmptyViewModel) eventArgs.Parameter;
-
+        ViewModel = (WelcomeViewModel) eventArgs.Parameter;
         base.OnNavigatedTo(eventArgs);
     }
 }

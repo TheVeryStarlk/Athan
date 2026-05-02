@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
-namespace Athan.UI.Features.Empty;
+namespace Athan.UI.Features.Welcome;
 
 internal sealed class DialogService
 {

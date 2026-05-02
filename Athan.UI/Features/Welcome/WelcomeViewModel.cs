@@ -1,23 +1,23 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Athan.UI.Features.Locations;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 
-namespace Athan.UI.Features.Empty;
+namespace Athan.UI.Features.Welcome;
 
-internal sealed partial class EmptyViewModel : HeaderViewModel
+internal sealed partial class WelcomeViewModel : HeaderViewModel
 {
     private readonly DialogService dialogService;
     private readonly GeopositionService geopositionService;
     private readonly LocationService locationService;
 
-    public EmptyViewModel(DialogService dialogService, GeopositionService geopositionService, LocationService locationService)
+    public WelcomeViewModel(DialogService dialogService, GeopositionService geopositionService, LocationService locationService)
     {
         this.dialogService = dialogService;
         this.geopositionService = geopositionService;
         this.locationService = locationService;
 
-        Title = "Get started";
+        Title = "Welcome";
         Glyph = "🚀";
         Deletable = false;
     }
