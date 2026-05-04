@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Linq;
 using Athan.UI.Features.Locations;
 using Athan.UI.Features.Prayers.Calculation;
 using Athan.UI.Features.Shell.Items;
@@ -15,6 +16,12 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
 
     [ObservableProperty]
     public partial string? Hijri { get; set; }
+
+    [ObservableProperty]
+    public partial string? Upcoming { get; set; }
+
+    [ObservableProperty]
+    public partial string? Message { get; set; }
 
     private readonly Location location;
 
@@ -31,15 +38,37 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     private void Initialize()
     {
         Prayers.Clear();
-        Hijri = DateTimeOffset.Now.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern, new CultureInfo("ar-SA"));
+
+        var now = DateTimeOffset.Now;
+
+        Hijri = now.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern, new CultureInfo("ar-SA"));
 
         var calculator = new PrayerTimesCalculator(MakkahPrayerTimesCalculatorOptions.Instance);
-        var times = calculator.Calculate(DateTimeOffset.Now, location.Latitude, location.Longitude);
+        var times = calculator.Calculate(now, location.Latitude, location.Longitude);
 
         foreach (var pair in times)
         {
             Prayers.Add(new Prayer(pair.Key.ToString(), pair.Value.ToLocalTime().ToString("h:mm tt")));
         }
+
+        var upcoming = times.First(time => time.Value > now);
+
+        Upcoming = upcoming.Key.ToString();
+
+        var left = upcoming.Value - now;
+        var hours = (int) left.TotalHours;
+        var minutes = left.Minutes;
+
+        var result = (hours, minutes) switch
+        {
+            (> 0, > 0) => $"{hours} hours and {minutes} minutes left",
+            (> 0, 0) => $"{hours} hours left",
+            (0, > 0) => $"{minutes} minutes left",
+            (0, 0) => "Less than a minute left",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+
+        Message = result;
     }
 }
 

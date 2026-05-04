@@ -59,12 +59,12 @@
                                 VerticalAlignment="Center"
                                 Spacing="8">
 
-                        <TextBlock Text="Fajr"
+                        <TextBlock Text="{x:Bind ViewModel.Upcoming}"
                                    Style="{StaticResource TitleLargeTextBlockStyle}"
                                    Foreground="{StaticResource SystemFillColorAttentionBrush}"
                                    HorizontalAlignment="Center" />
 
-                        <TextBlock Text="1 hour and 10 minutes"
+                        <TextBlock Text="{x:Bind ViewModel.Message}"
                                    Style="{StaticResource BodyStrongTextBlockStyle}"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                    HorizontalAlignment="Center" />
