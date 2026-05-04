@@ -1,4 +1,5 @@
-﻿using Athan.UI.Features.Locations;
+﻿using System;
+using Athan.UI.Features.Locations;
 using Athan.UI.Features.Prayers;
 using Athan.UI.Features.Settings;
 using Athan.UI.Features.Shell;
@@ -19,8 +20,13 @@ internal static partial class Bootstrapper
 
         services.AddHttpClient();
 
+#if DEBUG
+        services.AddSingleton<TimeProvider, DebugTimeProvider>();
+#else
+        services.AddSingleton(TimeProvider.System);
+#endif
+        
         Configure(services);
-        ConfigureTimeProvider(services);
         ConfigureViews(services);
         ConfigureViewModels(services);
 
@@ -33,11 +39,6 @@ internal static partial class Bootstrapper
     [Transient(typeof(DialogService))]
     private static partial void Configure(IServiceCollection services);
 
-    private static void ConfigureTimeProvider(IServiceCollection services)
-    {
-        services.AddSingleton(TimeProvider.System);
-    }
-
     [Singleton(typeof(ShellView))]
     private static partial void ConfigureViews(IServiceCollection services);
 
@@ -47,4 +48,12 @@ internal static partial class Bootstrapper
     [Transient(typeof(TasbihViewModel))]
     [Transient(typeof(SettingsViewModel))]
     private static partial void ConfigureViewModels(IServiceCollection services);
+}
+
+internal sealed class DebugTimeProvider : TimeProvider
+{
+    public override DateTimeOffset GetUtcNow()
+    {
+        return DateTimeOffset.UtcNow.Subtract(TimeSpan.FromHours(10));
+    }
 }
