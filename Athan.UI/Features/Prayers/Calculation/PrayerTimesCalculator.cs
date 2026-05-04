@@ -8,7 +8,15 @@ internal sealed class PrayerTimesCalculator(PrayerTimesCalculatorOptions calcula
 {
     public FrozenDictionary<Prayer, DateTimeOffset> Calculate(DateTimeOffset dateTimeOffset, double latitude, double longitude)
     {
-        var context = new CalculationContext(dateTimeOffset, latitude, longitude, calculatorOptions.FajrAngle, calculatorOptions.IshaAngle, calculatorOptions.IshaOffset, calculatorOptions.MaghribOffset);
+        var context = new CalculationContext(
+            dateTimeOffset, 
+            latitude, 
+            longitude,
+            calculatorOptions.FajrAngle, 
+            calculatorOptions.IshaAngle, 
+            calculatorOptions.IshaOffset, 
+            calculatorOptions.MaghribOffset);
+
         return context.CalculateTimes();
     }
 }
@@ -57,7 +65,7 @@ file sealed class CalculationContext(
         return result.ToFrozenDictionary();
     }
 
-    private (double Declination, double EquationOfTime) SunPosition(double time)
+    private (double Declination, double Equation) SunPosition(double time)
     {
         var epoch = (_universal - new DateTimeOffset(2000, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalDays - 1 + time / 24D - longitude / 360D;
 
@@ -78,10 +86,9 @@ file sealed class CalculationContext(
             )) / 15D, 24);
 
         var declination = Math.RadianToDegrees(Math.Asin(Math.Sin(Math.DegreesToRadian(obliquity)) * Math.Sin(Math.DegreesToRadian(eclipticLongitude))));
+        var equation = meanLongitude / 15D - rightAscension;
 
-        var equationOfTime = meanLongitude / 15D - rightAscension;
-
-        return (declination, equationOfTime);
+        return (declination, equation);
     }
 
     private double MidDay(double time)

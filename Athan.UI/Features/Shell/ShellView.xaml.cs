@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Windows.Foundation;
 using Windows.Graphics;
+using Athan.UI.Features.Shell.Items;
 using Microsoft.UI.Input;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;

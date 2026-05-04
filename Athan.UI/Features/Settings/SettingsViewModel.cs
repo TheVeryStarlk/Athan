@@ -1,4 +1,6 @@
-﻿namespace Athan.UI.Features.Settings;
+﻿using Athan.UI.Features.Shell.Items;
+
+namespace Athan.UI.Features.Settings;
 
 internal sealed partial class SettingsViewModel : FooterViewModel
 {

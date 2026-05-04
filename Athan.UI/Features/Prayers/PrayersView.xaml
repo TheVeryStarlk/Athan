@@ -91,7 +91,7 @@
                                   VerticalAlignment="Center">
 
                         <ItemsControl.ItemTemplate>
-                            <DataTemplate x:DataType="prayers:PrayerItem">
+                            <DataTemplate x:DataType="prayers:Prayer">
                                 <Grid Margin="0 0 0 2">
                                     <TextBlock Text="{x:Bind Name}"
                                                Style="{StaticResource BodyStrongTextBlockStyle}"

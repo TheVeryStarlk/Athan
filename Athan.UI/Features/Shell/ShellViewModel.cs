@@ -5,11 +5,12 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
+using System.Linq;
+using Athan.UI.Features.Shell.Items;
 using Athan.UI.Features.Welcome;
 
 namespace Athan.UI.Features.Shell;
 
-// Rework on get started item handling.
 internal sealed partial class ShellViewModel : ObservableObject
 {
     public ObservableCollection<HeaderViewModel> Header { get; } = [];
@@ -43,42 +44,40 @@ internal sealed partial class ShellViewModel : ObservableObject
 
     private static void Add(ShellViewModel recipient, AddMessage message)
     {
-        var instance = new PrayersViewModel(message.Location);
-
-        recipient.Header.Add(instance);
-        recipient.Current = instance;
-
-        if (recipient.Header.Count > 1)
+        if (recipient.Header[0] is WelcomeViewModel)
         {
             recipient.Header.RemoveAt(0);
         }
+
+        var instance = new PrayersViewModel(message.Location);
+
+        recipient.Header.Add(instance);
+        recipient.Navigate(recipient.Header.Last());
     }
 
     private static void Delete(ShellViewModel recipient, DeleteMessage message)
     {
         recipient.Header.Remove(message.Instance);
-        recipient.Current = recipient.Header.Count > 0 ? recipient.Header[0] : null;
-
+        
         if (recipient.Header.Count is 0)
         {
             recipient.Header.Add(recipient.welcomeViewModel);
-            recipient.Current = recipient.Header[0];
         }
+
+        recipient.Navigate(recipient.Header[0]);
     }
 
     [RelayCommand]
     private void Initialize()
     {
         Header.Add(welcomeViewModel);
-        Current = Header[0];
-
-        Navigate(Current);
+        Navigate(welcomeViewModel);
     }
 
     [RelayCommand]
     private void Navigate(ItemViewModel? selection)
     {
-        Current = selection;
+        Current = selection ?? Current;
         navigationService.Navigate(Current);
     }
 }

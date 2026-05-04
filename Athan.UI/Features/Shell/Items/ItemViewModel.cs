@@ -2,7 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 
-namespace Athan.UI.Features;
+namespace Athan.UI.Features.Shell.Items;
 
 internal abstract partial class ItemViewModel : ObservableObject
 {
@@ -12,8 +12,7 @@ internal abstract partial class ItemViewModel : ObservableObject
     [ObservableProperty]
     public partial string? Glyph { get; set; }
 
-    [ObservableProperty]
-    public partial bool Deletable { get; set; } = true;
+    public bool Deletable { get; init; }
 }
 
 internal abstract partial class HeaderViewModel : ItemViewModel

@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using Athan.UI.Features.Locations;
+using Athan.UI.Features.Shell.Items;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 
@@ -18,7 +21,6 @@ internal sealed partial class WelcomeViewModel : HeaderViewModel
 
         Title = "Welcome";
         Glyph = "🚀";
-        Deletable = false;
     }
 
     [RelayCommand]
@@ -27,7 +29,28 @@ internal sealed partial class WelcomeViewModel : HeaderViewModel
         // Use proper mocks for debug.
         WeakReferenceMessenger.Default.Send(new AddMessage(new Location
         {
-            Name = "Riyadh Region, Saudi Arabia",
+            Name = Random.Shared.Next().ToString(),
+            Latitude = 24.7136,
+            Longitude = 46.6753
+        }));
+        
+        WeakReferenceMessenger.Default.Send(new AddMessage(new Location
+        {
+            Name = Random.Shared.Next().ToString(),
+            Latitude = 24.7136,
+            Longitude = 46.6753
+        }));
+        
+        WeakReferenceMessenger.Default.Send(new AddMessage(new Location
+        {
+            Name = Random.Shared.Next().ToString(),
+            Latitude = 24.7136,
+            Longitude = 46.6753
+        }));
+        
+        WeakReferenceMessenger.Default.Send(new AddMessage(new Location
+        {
+            Name = Random.Shared.Next().ToString(),
             Latitude = 24.7136,
             Longitude = 46.6753
         }));

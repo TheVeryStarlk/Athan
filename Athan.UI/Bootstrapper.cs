@@ -1,4 +1,4 @@
-﻿using Athan.UI.Features;
+﻿using Athan.UI.Features.Locations;
 using Athan.UI.Features.Prayers;
 using Athan.UI.Features.Settings;
 using Athan.UI.Features.Shell;
@@ -27,18 +27,18 @@ internal static partial class Bootstrapper
     }
 
     [Singleton(typeof(NavigationService), typeof(INavigationService))]
-    [Transient(typeof(DialogService))]
     [Transient(typeof(GeopositionService))]
     [Transient(typeof(LocationService))]
+    [Transient(typeof(DialogService))]
     private static partial void Configure(IServiceCollection services);
 
     [Singleton(typeof(ShellView))]
     private static partial void ConfigureViews(IServiceCollection services);
 
+    [Transient(typeof(ShellViewModel))]
     [Transient(typeof(WelcomeViewModel))]
     [Transient(typeof(PrayersViewModel))]
-    [Transient(typeof(SettingsViewModel))]
-    [Transient(typeof(ShellViewModel))]
     [Transient(typeof(TasbihViewModel))]
+    [Transient(typeof(SettingsViewModel))]
     private static partial void ConfigureViewModels(IServiceCollection services);
 }

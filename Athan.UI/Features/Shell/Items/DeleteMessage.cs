@@ -1,4 +1,4 @@
-﻿namespace Athan.UI.Features;
+﻿namespace Athan.UI.Features.Shell.Items;
 
 internal sealed class DeleteMessage(HeaderViewModel instance)
 {

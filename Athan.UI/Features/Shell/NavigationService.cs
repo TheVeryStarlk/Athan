@@ -1,12 +1,13 @@
-﻿using Athan.UI.Features.Prayers;
+﻿using System;
+using Athan.UI.Features.Prayers;
 using Athan.UI.Features.Settings;
+using Athan.UI.Features.Shell.Items;
 using Athan.UI.Features.Tasbih;
+using Athan.UI.Features.Welcome;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
-using System;
-using Athan.UI.Features.Welcome;
 
-namespace Athan.UI.Features;
+namespace Athan.UI.Features.Shell;
 
 internal sealed class NavigationService : INavigationService
 {
