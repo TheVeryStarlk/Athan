@@ -25,7 +25,7 @@ internal static partial class Bootstrapper
 #else
         services.AddSingleton(TimeProvider.System);
 #endif
-        
+
         Configure(services);
         ConfigureViews(services);
         ConfigureViewModels(services);
@@ -44,7 +44,7 @@ internal static partial class Bootstrapper
 
     [Transient(typeof(ShellViewModel))]
     [Transient(typeof(WelcomeViewModel))]
-    [Transient(typeof(PrayersViewModel))]
+    [Singleton(typeof(PrayersViewModelFactory))]
     [Transient(typeof(TasbihViewModel))]
     [Transient(typeof(SettingsViewModel))]
     private static partial void ConfigureViewModels(IServiceCollection services);
