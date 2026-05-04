@@ -20,6 +20,7 @@ internal static partial class Bootstrapper
         services.AddHttpClient();
 
         Configure(services);
+        ConfigureTimeProvider(services);
         ConfigureViews(services);
         ConfigureViewModels(services);
 
@@ -31,6 +32,11 @@ internal static partial class Bootstrapper
     [Transient(typeof(LocationService))]
     [Transient(typeof(DialogService))]
     private static partial void Configure(IServiceCollection services);
+
+    private static void ConfigureTimeProvider(IServiceCollection services)
+    {
+        services.AddSingleton(TimeProvider.System);
+    }
 
     [Singleton(typeof(ShellView))]
     private static partial void ConfigureViews(IServiceCollection services);
