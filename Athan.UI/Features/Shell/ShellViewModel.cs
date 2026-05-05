@@ -1,4 +1,4 @@
-﻿using Athan.UI.Features.Prayers;
+using Athan.UI.Features.Prayers;
 using Athan.UI.Features.Settings;
 using Athan.UI.Features.Tasbih;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -21,15 +21,18 @@ internal sealed partial class ShellViewModel : ObservableObject
     public partial ItemViewModel? Current { get; set; }
 
     private readonly INavigationService navigationService;
+    private readonly PrayersViewModelFactory prayersViewModelFactory;
     private readonly WelcomeViewModel welcomeViewModel;
 
     public ShellViewModel(
         INavigationService navigationService,
+        PrayersViewModelFactory prayersViewModelFactory,
         WelcomeViewModel welcomeViewModel,
         TasbihViewModel tasbihViewModel,
         SettingsViewModel settingsViewModel)
     {
         this.navigationService = navigationService;
+        this.prayersViewModelFactory = prayersViewModelFactory;
         this.welcomeViewModel = welcomeViewModel;
 
         Footer =
@@ -49,7 +52,7 @@ internal sealed partial class ShellViewModel : ObservableObject
             recipient.Header.RemoveAt(0);
         }
 
-        var instance = new PrayersViewModel(message.Location);
+        var instance = recipient.prayersViewModelFactory.Create(message.Location);
 
         recipient.Header.Add(instance);
         recipient.Navigate(recipient.Header.Last());

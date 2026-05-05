@@ -24,10 +24,12 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     public partial string? Message { get; set; }
 
     private readonly Location location;
+    private readonly TimeProvider timeProvider;
 
-    public PrayersViewModel(Location location)
+    public PrayersViewModel(Location location, TimeProvider timeProvider)
     {
         this.location = location;
+        this.timeProvider = timeProvider;
 
         Title = location.Name;
         Glyph = "🌄";
@@ -39,7 +41,7 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     {
         Prayers.Clear();
 
-        var now = DateTimeOffset.Now;
+        var now = timeProvider.GetLocalNow();
 
         Hijri = now.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern, new CultureInfo("ar-SA"));
 
