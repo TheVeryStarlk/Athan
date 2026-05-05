@@ -1,10 +1,1 @@
-﻿<p align="center">
-  <img width="125" height="125" align="center" src="Athan.png">
-</p>
-
-# Athan
-A Windows-only application that shows prayer timings. 
-Athan is designed to run in background (consumes almost 0% CPU usage and around 30 MBs of RAM) also provides notifications when a prayer time is entered.
-
-## Download
-Head to the latest [release](https://github.com/TheVeryStarlk/Athan/releases).
+﻿A work in progres...

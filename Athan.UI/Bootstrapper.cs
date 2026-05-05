@@ -42,9 +42,9 @@ internal static partial class Bootstrapper
     [Singleton(typeof(ShellView))]
     private static partial void ConfigureViews(IServiceCollection services);
 
+    [Singleton(typeof(PrayersViewModelFactory))]
     [Transient(typeof(ShellViewModel))]
     [Transient(typeof(WelcomeViewModel))]
-    [Singleton(typeof(PrayersViewModelFactory))]
     [Transient(typeof(TasbihViewModel))]
     [Transient(typeof(SettingsViewModel))]
     private static partial void ConfigureViewModels(IServiceCollection services);
