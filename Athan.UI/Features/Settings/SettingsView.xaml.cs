@@ -24,6 +24,8 @@ internal sealed partial class SettingsView : Page
     protected override void OnNavigatedTo(NavigationEventArgs eventArgs)
     {
         ViewModel = (SettingsViewModel) eventArgs.Parameter;
+        ViewModel.InitializeCommand.Execute(null);
+
         base.OnNavigatedTo(eventArgs);
     }
 }

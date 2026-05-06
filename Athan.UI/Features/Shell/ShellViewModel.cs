@@ -76,7 +76,9 @@ internal sealed partial class ShellViewModel : ObservableObject
     [RelayCommand]
     private void Initialize()
     {
-        if (!settingsService.TryGet(AthanSerializerContext.Default.LocationArray, out var locations) || locations.Length is 0)
+        var locations = settingsService.Get([], AthanSerializerContext.Default.LocationArray);
+
+        if (locations.Length is 0)
         {
             Header.Add(welcomeViewModel);
         }
@@ -87,7 +89,7 @@ internal sealed partial class ShellViewModel : ObservableObject
                 Header.Add(prayersViewModelFactory.Create(location));
             }
         }
-        
+
         Navigate(Header[^1]);
     }
 

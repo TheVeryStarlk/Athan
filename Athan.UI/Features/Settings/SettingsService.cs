@@ -11,20 +11,18 @@ internal sealed class SettingsService
 {
     private readonly IPropertySet storage = ApplicationData.Current.LocalSettings.Values;
 
-    public bool TryGet<T>(JsonTypeInfo<T> typeInfo, [NotNullWhen(true)] out T? result)
+    public T Get<T>(T fallback, JsonTypeInfo<T> typeInfo)
     {
-        result = default;
-        
         if (!storage.TryGetValue(typeInfo.Type.Name, out var value))
         {
-            return false;
+            return fallback;
         }
 
-        result = JsonSerializer.Deserialize((string) value, typeInfo);
+        var result = JsonSerializer.Deserialize((string) value, typeInfo);
 
         ArgumentNullException.ThrowIfNull(result);
 
-        return true;
+        return result;
     }
     
     public void Set<T>(T value, JsonTypeInfo<T> typeInfo)

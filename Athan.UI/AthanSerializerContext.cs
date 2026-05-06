@@ -5,4 +5,5 @@ namespace Athan.UI;
 
 [JsonSourceGenerationOptions(NumberHandling = JsonNumberHandling.AllowReadingFromString)]
 [JsonSerializable(typeof(Location[]))]
+[JsonSerializable(typeof(bool))]
 internal sealed partial class AthanSerializerContext : JsonSerializerContext;
