@@ -36,19 +36,13 @@
                 </Style>
             </Grid.Resources>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
+                <RowDefinition Height="0.5*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Border Grid.Column="0"
-                    Grid.Row="0">
 
+            <Border Grid.Row="0">
                 <Grid>
                     <TextBlock Text="Upcoming"
                                Style="{StaticResource CaptionTextBlockStyle}"
@@ -60,21 +54,20 @@
                                 Spacing="8">
 
                         <TextBlock Text="{x:Bind ViewModel.Upcoming}"
-                                   Style="{StaticResource TitleLargeTextBlockStyle}"
+                                   Style="{StaticResource TitleTextBlockStyle}"
                                    Foreground="{StaticResource SystemFillColorAttentionBrush}"
                                    HorizontalAlignment="Center" />
 
                         <TextBlock Text="{x:Bind ViewModel.Message}"
-                                   Style="{StaticResource BodyStrongTextBlockStyle}"
+                                   TextAlignment="Center"
+                                   Style="{StaticResource BodyTextBlockStyle}"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                    HorizontalAlignment="Center" />
                     </StackPanel>
                 </Grid>
             </Border>
 
-            <Border Grid.Column="1" 
-                    Grid.Row="0">
-
+            <Border Grid.Row="1">
                 <Grid RowSpacing="12">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -105,33 +98,6 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                </Grid>
-            </Border>
-
-            <Border Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Grid.Row="1">
-
-                <Grid>
-                    <TextBlock Text="Ayah"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               VerticalAlignment="Top" />
-
-                    <StackPanel HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Spacing="12">
-
-                        <TextBlock Text="إِنَّ مَعَ الْعُسْرِ يُسْرًا"
-                                   Style="{StaticResource TitleLargeTextBlockStyle}"
-                                   Foreground="{StaticResource SystemFillColorSuccessBrush}"
-                                   HorizontalAlignment="Center" />
-
-                        <TextBlock Text="Indeed, with hardship [will be] ease."
-                                   Style="{StaticResource BodyStrongTextBlockStyle}"
-                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                   HorizontalAlignment="Center" />
-                    </StackPanel>
                 </Grid>
             </Border>
         </Grid>

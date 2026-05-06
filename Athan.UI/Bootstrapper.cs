@@ -34,6 +34,7 @@ internal static partial class Bootstrapper
     }
 
     [Singleton(typeof(NavigationService), typeof(INavigationService))]
+    [Singleton(typeof(SettingsService))]
     [Transient(typeof(GeopositionService))]
     [Transient(typeof(LocationService))]
     [Transient(typeof(DialogService))]
@@ -54,6 +55,6 @@ internal sealed class DebugTimeProvider : TimeProvider
 {
     public override DateTimeOffset GetUtcNow()
     {
-        return DateTimeOffset.UtcNow.Subtract(TimeSpan.FromHours(10));
+        return DateTimeOffset.UtcNow;
     }
 }

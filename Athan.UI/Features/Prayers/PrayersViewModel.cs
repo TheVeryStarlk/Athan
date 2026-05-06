@@ -12,6 +12,8 @@ namespace Athan.UI.Features.Prayers;
 
 internal sealed partial class PrayersViewModel : HeaderViewModel
 {
+    public Location Location { get; }
+
     public ObservableCollection<Prayer> Prayers { get; } = [];
 
     [ObservableProperty]
@@ -23,12 +25,12 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     [ObservableProperty]
     public partial string? Message { get; set; }
 
-    private readonly Location location;
     private readonly TimeProvider timeProvider;
 
     public PrayersViewModel(Location location, TimeProvider timeProvider)
     {
-        this.location = location;
+        Location = location;
+
         this.timeProvider = timeProvider;
 
         Title = location.Name;
@@ -46,7 +48,7 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
         Hijri = now.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern, new CultureInfo("ar-SA"));
 
         var calculator = new PrayerTimesCalculator(MakkahPrayerTimesCalculatorOptions.Instance);
-        var times = calculator.Calculate(now, location.Latitude, location.Longitude);
+        var times = calculator.Calculate(now, Location.Latitude, Location.Longitude);
 
         foreach (var pair in times)
         {

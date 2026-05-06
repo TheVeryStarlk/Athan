@@ -11,7 +11,7 @@ public sealed partial class App : Application
         InitializeComponent();
     }
 
-    protected override void OnLaunched(LaunchActivatedEventArgs args)
+    protected override void OnLaunched(LaunchActivatedEventArgs eventArgs)
     {
         Bootstrapper.Services.GetRequiredService<ShellView>().Activate();
     }

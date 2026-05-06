@@ -21,17 +21,20 @@ internal sealed partial class ShellViewModel : ObservableObject
     public partial ItemViewModel? Current { get; set; }
 
     private readonly INavigationService navigationService;
+    private readonly SettingsService settingsService;
     private readonly PrayersViewModelFactory prayersViewModelFactory;
     private readonly WelcomeViewModel welcomeViewModel;
 
     public ShellViewModel(
         INavigationService navigationService,
+        SettingsService settingsService,
         PrayersViewModelFactory prayersViewModelFactory,
         WelcomeViewModel welcomeViewModel,
         TasbihViewModel tasbihViewModel,
         SettingsViewModel settingsViewModel)
     {
         this.navigationService = navigationService;
+        this.settingsService = settingsService;
         this.prayersViewModelFactory = prayersViewModelFactory;
         this.welcomeViewModel = welcomeViewModel;
 
@@ -73,14 +76,38 @@ internal sealed partial class ShellViewModel : ObservableObject
     [RelayCommand]
     private void Initialize()
     {
-        Header.Add(welcomeViewModel);
-        Navigate(welcomeViewModel);
+        if (!settingsService.TryGet(AthanSerializerContext.Default.LocationArray, out var locations) || locations.Length is 0)
+        {
+            Header.Add(welcomeViewModel);
+        }
+        else
+        {
+            foreach (var location in locations)
+            {
+                Header.Add(prayersViewModelFactory.Create(location));
+            }
+        }
+        
+        Navigate(Header[^1]);
     }
 
     [RelayCommand]
     private void Navigate(ItemViewModel? selection)
     {
-        Current = selection ?? Current;
+        if (Current == selection || selection is null)
+        {
+            return;
+        }
+
+        Current = selection;
         navigationService.Navigate(Current);
+    }
+
+    [RelayCommand]
+    private void Save()
+    {
+        settingsService.Set(
+            Header.OfType<PrayersViewModel>().Select(header => header.Location).ToArray(), 
+            AthanSerializerContext.Default.LocationArray);
     }
 }

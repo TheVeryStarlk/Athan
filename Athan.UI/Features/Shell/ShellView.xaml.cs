@@ -26,6 +26,8 @@ internal sealed partial class ShellView : WindowEx
 
         this.CenterOnScreen();
 
+        Closed += OnClosed;
+
         ExtendsContentIntoTitleBar = true;
 
         AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
@@ -36,6 +38,11 @@ internal sealed partial class ShellView : WindowEx
         NavigationView.Margin = WindowState is WindowState.Maximized ? new Thickness(0, -1, 0, 0) : new Thickness(0, -2, 0, 0);
     }
 
+    private void OnClosed(object sender, WindowEventArgs eventArgs)
+    {
+        viewModel.SaveCommand.Execute(null);
+    }
+    
     // https://discord.com/channels/372137812037730304/671870147354427422/1492298194749620236
     private void TitleBarSizeChanged(object sender, SizeChangedEventArgs eventArgs)
     {

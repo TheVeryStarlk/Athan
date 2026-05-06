@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Athan.UI.Features.Locations;
+using Athan.UI.Features.Settings;
 using Athan.UI.Features.Shell.Items;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -9,12 +10,18 @@ namespace Athan.UI.Features.Welcome;
 
 internal sealed partial class WelcomeViewModel : HeaderViewModel
 {
+    private readonly SettingsService settingsService;
     private readonly DialogService dialogService;
     private readonly GeopositionService geopositionService;
     private readonly LocationService locationService;
 
-    public WelcomeViewModel(DialogService dialogService, GeopositionService geopositionService, LocationService locationService)
+    public WelcomeViewModel(
+        SettingsService settingsService,
+        DialogService dialogService,
+        GeopositionService geopositionService,
+        LocationService locationService)
     {
+        this.settingsService = settingsService;
         this.dialogService = dialogService;
         this.geopositionService = geopositionService;
         this.locationService = locationService;
@@ -26,47 +33,29 @@ internal sealed partial class WelcomeViewModel : HeaderViewModel
     [RelayCommand]
     private async Task LocateAsync()
     {
-        // Use proper mocks for debug.
-        WeakReferenceMessenger.Default.Send(new AddMessage(new Location
+        var location = new Location
         {
             Name = Random.Shared.Next().ToString(),
             Latitude = 24.7136,
             Longitude = 46.6753
-        }));
-        
-        WeakReferenceMessenger.Default.Send(new AddMessage(new Location
-        {
-            Name = Random.Shared.Next().ToString(),
-            Latitude = 24.7136,
-            Longitude = 46.6753
-        }));
-        
-        WeakReferenceMessenger.Default.Send(new AddMessage(new Location
-        {
-            Name = Random.Shared.Next().ToString(),
-            Latitude = 24.7136,
-            Longitude = 46.6753
-        }));
-        
-        WeakReferenceMessenger.Default.Send(new AddMessage(new Location
-        {
-            Name = Random.Shared.Next().ToString(),
-            Latitude = 24.7136,
-            Longitude = 46.6753
-        }));
+        };
+
+        WeakReferenceMessenger.Default.Send(new AddMessage(location));
+
+        settingsService.Set([location], AthanSerializerContext.Default.LocationArray);
 
         return;
 
-        if (!await geopositionService.IsAllowedAsync())
-        {
-            await dialogService.ShowMessageAsync("Where are you?", "Make sure location access is enabled in your system");
-        }
-        else
-        {
-            var geoposition = await geopositionService.GetAsync();
-            var location = await locationService.ReverseAsync(geoposition.Latitude, geoposition.Longitude);
-
-            WeakReferenceMessenger.Default.Send(new AddMessage(location));
-        }
+        // if (!await geopositionService.IsAllowedAsync())
+        // {
+        //     await dialogService.ShowMessageAsync("Where are you?", "Make sure location access is enabled in your system");
+        // }
+        // else
+        // {
+        //     var geoposition = await geopositionService.GetAsync();
+        //     var location = await locationService.ReverseAsync(geoposition.Latitude, geoposition.Longitude);
+        //
+        //     WeakReferenceMessenger.Default.Send(new AddMessage(location));
+        // }
     }
 }
