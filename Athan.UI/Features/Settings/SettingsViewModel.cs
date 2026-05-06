@@ -7,7 +7,13 @@ namespace Athan.UI.Features.Settings;
 internal sealed partial class SettingsViewModel : FooterViewModel
 {
     [ObservableProperty]
-    public partial bool Startup { get; set; }
+    public partial int ThemeIndex { get; set; }
+
+    [ObservableProperty]
+    public partial int ReciterIndex { get; set; }
+
+    [ObservableProperty]
+    public partial bool LaunchStartup { get; set; }
 
     private readonly SettingsService _settingsService;
     
@@ -22,11 +28,37 @@ internal sealed partial class SettingsViewModel : FooterViewModel
     [RelayCommand]
     private void Initialize()
     {
-        Startup = _settingsService.Get(Startup, AthanSerializerContext.Default.Boolean);
+        ThemeIndex = (int) _settingsService.Get(Theme.System, AthanSerializerContext.Default.Theme);
+        ReciterIndex = (int) _settingsService.Get(Reciter.MisharyAlAfasy, AthanSerializerContext.Default.Reciter);
+        LaunchStartup = _settingsService.Get(LaunchStartup, AthanSerializerContext.Default.Boolean, nameof(LaunchStartup));
     }
 
-    partial void OnStartupChanged(bool value)
+    partial void OnThemeIndexChanged(int value)
     {
-        _settingsService.Set(value, AthanSerializerContext.Default.Boolean);
+        _settingsService.Set((Theme) value, AthanSerializerContext.Default.Theme);
     }
+
+    partial void OnReciterIndexChanged(int value)
+    {
+        _settingsService.Set((Reciter) value, AthanSerializerContext.Default.Reciter);
+    }
+    
+    partial void OnLaunchStartupChanged(bool value)
+    {
+        _settingsService.Set(value, AthanSerializerContext.Default.Boolean, nameof(LaunchStartup));
+    }
+}
+
+internal enum Theme
+{
+    System,
+    Dark,
+    Light
+}
+
+internal enum Reciter
+{
+    MisharyAlAfasy,
+    Madinah,
+    Makkah
 }

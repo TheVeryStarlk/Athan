@@ -36,7 +36,7 @@
                             <FontIcon Glyph="&#xE790;" />
                         </controls:SettingsCard.HeaderIcon>
 
-                        <ComboBox SelectedIndex="0">
+                        <ComboBox SelectedIndex="{x:Bind ViewModel.ThemeIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <ComboBoxItem Content="System" />
                             <ComboBoxItem Content="Dark" />
                             <ComboBoxItem Content="Light" />
@@ -50,7 +50,7 @@
                             <SymbolIcon Symbol="Volume" />
                         </controls:SettingsCard.HeaderIcon>
 
-                        <ComboBox SelectedIndex="0">
+                        <ComboBox SelectedIndex="{x:Bind ViewModel.ReciterIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                             <ComboBoxItem Content="Mishary Al-Afasy" />
                             <ComboBoxItem Content="Madinah" />
                             <ComboBoxItem Content="Makkah" />
@@ -64,7 +64,7 @@
                             <FontIcon Glyph="&#xEC4A;" />
                         </controls:SettingsCard.HeaderIcon>
 
-                        <ToggleSwitch IsOn="{x:Bind ViewModel.Startup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.LaunchStartup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </controls:SettingsCard>
                 </StackPanel>
             </StackPanel>
