@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -18,16 +16,11 @@ internal sealed class SettingsService
             return fallback;
         }
 
-        var result = JsonSerializer.Deserialize((string) value, typeInfo);
-
-        ArgumentNullException.ThrowIfNull(result);
-
-        return result;
+        return JsonSerializer.Deserialize((string) value, typeInfo) ?? fallback;
     }
     
     public void Set<T>(T value, JsonTypeInfo<T> typeInfo, string? name = null)
     {
-        var serialized = JsonSerializer.Serialize(value, typeInfo);
-        storage[name ?? typeInfo.Type.Name] = serialized;
+        storage[name ?? typeInfo.Type.Name] = JsonSerializer.Serialize(value, typeInfo);
     }
 }

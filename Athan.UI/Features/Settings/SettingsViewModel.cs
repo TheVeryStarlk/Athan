@@ -15,11 +15,13 @@ internal sealed partial class SettingsViewModel : FooterViewModel
     [ObservableProperty]
     public partial bool LaunchStartup { get; set; }
 
-    private readonly SettingsService _settingsService;
-    
-    public SettingsViewModel(SettingsService settingsService)
+    private readonly SettingsService settingsService;
+    private readonly ThemeService themeService;
+
+    public SettingsViewModel(SettingsService settingsService, ThemeService themeService)
     {
-        _settingsService = settingsService;
+        this.settingsService = settingsService;
+        this.themeService = themeService;
 
         Glyph = "\uE713";
         Title = "Settings";
@@ -28,32 +30,28 @@ internal sealed partial class SettingsViewModel : FooterViewModel
     [RelayCommand]
     private void Initialize()
     {
-        ThemeIndex = (int) _settingsService.Get(Theme.System, AthanSerializerContext.Default.Theme);
-        ReciterIndex = (int) _settingsService.Get(Reciter.MisharyAlAfasy, AthanSerializerContext.Default.Reciter);
-        LaunchStartup = _settingsService.Get(LaunchStartup, AthanSerializerContext.Default.Boolean, nameof(LaunchStartup));
+        ThemeIndex = (int) settingsService.Get(Theme.System, AthanSerializerContext.Default.Theme);
+        ReciterIndex = (int) settingsService.Get(Reciter.MisharyAlAfasy, AthanSerializerContext.Default.Reciter);
+        LaunchStartup = settingsService.Get(LaunchStartup, AthanSerializerContext.Default.Boolean, nameof(LaunchStartup));
     }
 
     partial void OnThemeIndexChanged(int value)
     {
-        _settingsService.Set((Theme) value, AthanSerializerContext.Default.Theme);
+        var theme = (Theme) value;
+
+        settingsService.Set(theme, AthanSerializerContext.Default.Theme);
+        themeService.Set(theme);
     }
 
     partial void OnReciterIndexChanged(int value)
     {
-        _settingsService.Set((Reciter) value, AthanSerializerContext.Default.Reciter);
+        settingsService.Set((Reciter) value, AthanSerializerContext.Default.Reciter);
     }
     
     partial void OnLaunchStartupChanged(bool value)
     {
-        _settingsService.Set(value, AthanSerializerContext.Default.Boolean, nameof(LaunchStartup));
+        settingsService.Set(value, AthanSerializerContext.Default.Boolean, nameof(LaunchStartup));
     }
-}
-
-internal enum Theme
-{
-    System,
-    Dark,
-    Light
 }
 
 internal enum Reciter

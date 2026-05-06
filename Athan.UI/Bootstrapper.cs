@@ -35,6 +35,7 @@ internal static partial class Bootstrapper
 
     [Singleton(typeof(NavigationService), typeof(INavigationService))]
     [Singleton(typeof(SettingsService))]
+    [Singleton(typeof(ThemeService))]
     [Transient(typeof(GeopositionService))]
     [Transient(typeof(LocationService))]
     [Transient(typeof(DialogService))]
