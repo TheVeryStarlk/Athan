@@ -10,7 +10,7 @@ using WinRT;
 
 namespace Athan.UI;
 
-internal static class Program
+internal static partial class Program
 {
     [STAThread]
     public static int Main(string[] args)
@@ -62,15 +62,17 @@ internal static class Program
         SetForegroundWindow(Process.GetProcessById((int) instance.ProcessId).MainWindowHandle);
     }
     
-    [DllImport("kernel32.dll", CharSet = CharSet.Unicode)]
-    private static extern nint CreateEvent(nint lpEventAttributes, bool bManualReset, bool bInitialState, string? lpName);
+    [LibraryImport("kernel32.dll", StringMarshalling = StringMarshalling.Utf16)]
+    private static partial nint CreateEvent(nint lpEventAttributes, [MarshalAs(UnmanagedType.Bool)] bool bManualReset, [MarshalAs(UnmanagedType.Bool)] bool bInitialState, string? lpName);
 
-    [DllImport("kernel32.dll")]
-    private static extern bool SetEvent(nint hEvent);
+    [LibraryImport("kernel32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial bool SetEvent(nint hEvent);
 
-    [DllImport("ole32.dll")]
-    private static extern uint CoWaitForMultipleObjects(uint dwFlags, uint dwMilliseconds, ulong nHandles, nint[] pHandles, out uint dwIndex);
+    [LibraryImport("ole32.dll")]
+    private static partial uint CoWaitForMultipleObjects(uint dwFlags, uint dwMilliseconds, ulong nHandles, nint[] pHandles, out uint dwIndex);
 
-    [DllImport("user32.dll")]
-    private static extern bool SetForegroundWindow(nint hWnd);
+    [LibraryImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial bool SetForegroundWindow(nint hWnd);
 }
