@@ -39,6 +39,7 @@ internal static partial class Bootstrapper
     [Transient(typeof(GeopositionService))]
     [Transient(typeof(LocationService))]
     [Transient(typeof(DialogService))]
+    [Transient(typeof(StartupService))]
     private static partial void Configure(IServiceCollection services);
 
     [Singleton(typeof(ShellView))]

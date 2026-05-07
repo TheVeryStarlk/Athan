@@ -28,4 +28,10 @@ internal sealed partial class SettingsView : Page
 
         base.OnNavigatedTo(eventArgs);
     }
+
+    protected override void OnNavigatedFrom(NavigationEventArgs eventArgs)
+    {
+        ViewModel.SaveCommand.Execute(null);
+        base.OnNavigatedFrom(eventArgs);
+    }
 }
