@@ -14,8 +14,8 @@ public sealed partial class App : Application
 
     protected override void OnLaunched(LaunchActivatedEventArgs eventArgs)
     {
-        var theme = Bootstrapper.Services.GetRequiredService<SettingsService>() .Get(Theme.System, AthanSerializerContext.Default.Theme);
-        
+        var theme = Bootstrapper.Services.GetRequiredService<SettingsService>().Get(Theme.System, AthanSerializerContext.Default.Theme);
+
         Bootstrapper.Services.GetRequiredService<ThemeService>().Set(theme);
 
         Bootstrapper.Services.GetRequiredService<ShellView>().Activate();
