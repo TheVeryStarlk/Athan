@@ -30,7 +30,11 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     private readonly TimerService timerService;
     private readonly TimeProvider timeProvider;
 
-    public PrayersViewModel(Location location, SettingsService settingsService, TimerService timerService, TimeProvider timeProvider)
+    public PrayersViewModel(
+        Location location,
+        SettingsService settingsService,
+        TimerService timerService,
+        TimeProvider timeProvider)
     {
         Location = location;
 
@@ -45,29 +49,6 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
 
     [RelayCommand]
     private void Initialize()
-    {
-        Refresh();
-
-        var now = timeProvider.GetLocalNow();
-        var elapsed = TimeSpan.FromTicks(now.TimeOfDay.Ticks % TimeSpan.FromMinutes(1).Ticks);
-        var interval = elapsed == TimeSpan.Zero ? TimeSpan.FromMinutes(1) : TimeSpan.FromMinutes(1) - elapsed;
-
-        timerService.Start(interval, Update);
-    }
-
-    [RelayCommand]
-    private void Close()
-    {
-        timerService.Stop();
-    }
-
-    private void Update()
-    {
-        Refresh();
-        timerService.Start(TimeSpan.FromMinutes(1), Update);
-    }
-
-    private void Refresh()
     {
         Prayers.Clear();
 
@@ -89,35 +70,61 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
         };
 
         var calculator = new PrayerTimesCalculator(options);
-
         var times = calculator.Calculate(now, Location.Latitude, Location.Longitude);
 
         foreach (var pair in times)
         {
-            Prayers.Add(new Prayer(pair.Key.ToString(), pair.Value.ToLocalTime().ToString("h:mm tt")));
+            var local = pair.Value.ToLocalTime();
+            Prayers.Add(new Prayer(pair.Key.ToString(), local.ToString("h:mm tt"), local));
         }
 
-        var upcoming = times.First(time => time.Value > now);
-        Upcoming = upcoming.Key.ToString();
+        Refresh();
 
-        var left = upcoming.Value - now;
+        var elapsed = TimeSpan.FromTicks(now.TimeOfDay.Ticks % TimeSpan.FromMinutes(1).Ticks);
+        var interval = elapsed == TimeSpan.Zero ? TimeSpan.FromMinutes(1) : TimeSpan.FromMinutes(1) - elapsed;
+
+        timerService.Start(interval, Update);
+    }
+
+    [RelayCommand]
+    private void Close()
+    {
+        timerService.Stop();
+    }
+
+    private void Update()
+    {
+        Refresh();
+        timerService.Start(TimeSpan.FromMinutes(1), Update);
+    }
+
+    private void Refresh()
+    {
+        var now = timeProvider.GetLocalNow();
+        var upcoming = Prayers.First(prayer => prayer.Time > now);
+
+        Upcoming = upcoming.Name;
+
+        var left = upcoming.Time - now;
         var hours = (int) left.TotalHours;
         var minutes = left.Minutes;
 
         Message = (hours, minutes) switch
         {
-            (> 0, > 0) => $"{hours} hours and {minutes} minutes left",
-            (> 0, 0) => $"{hours} hours left",
-            (0, > 0) => $"{minutes} minutes left",
+            (> 0, > 0) => $"{hours} hour(s) and {minutes} minute(s) left",
+            (> 0, 0) => $"{hours} hour(s) left",
+            (0, > 0) => $"{minutes} minute(s) left",
             (0, 0) => "Less than a minute left",
             _ => throw new ArgumentOutOfRangeException()
         };
     }
 }
 
-internal sealed class Prayer(string name, string time)
+internal sealed class Prayer(string name, string message, DateTimeOffset time)
 {
     public string Name => name;
 
-    public string Time => time;
+    public string Message => message;
+
+    public DateTimeOffset Time => time;
 }

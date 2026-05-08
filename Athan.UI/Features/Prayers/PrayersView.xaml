@@ -90,7 +90,7 @@
                                                Style="{StaticResource BodyStrongTextBlockStyle}"
                                                HorizontalAlignment="Left" />
 
-                                    <TextBlock Text="{x:Bind Time}"
+                                    <TextBlock Text="{x:Bind Message}"
                                                Style="{StaticResource CaptionTextBlockStyle}"
                                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                                HorizontalAlignment="Right" />

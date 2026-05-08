@@ -44,7 +44,7 @@
                     </controls:SettingsCard>
 
                     <controls:SettingsCard Header="Reciter"
-                                           Description="Change your preferred Athan voice">
+                                           Description="Change the preferred Athan voice">
 
                         <controls:SettingsCard.HeaderIcon>
                             <SymbolIcon Symbol="Volume" />
