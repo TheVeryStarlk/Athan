@@ -40,6 +40,7 @@ internal static partial class Bootstrapper
     [Transient(typeof(LocationService))]
     [Transient(typeof(DialogService))]
     [Transient(typeof(StartupService))]
+    [Transient(typeof(TimerService))]
     private static partial void Configure(IServiceCollection services);
 
     [Singleton(typeof(ShellView))]

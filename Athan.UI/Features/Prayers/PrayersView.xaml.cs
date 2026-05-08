@@ -28,4 +28,10 @@ internal sealed partial class PrayersView : Page
 
         base.OnNavigatedTo(eventArgs);
     }
+
+    protected override void OnNavigatedFrom(NavigationEventArgs eventArgs)
+    {
+        ViewModel.CloseCommand.Execute(null);
+        base.OnNavigatedFrom(eventArgs);
+    }
 }
