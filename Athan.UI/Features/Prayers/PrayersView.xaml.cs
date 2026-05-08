@@ -31,7 +31,7 @@ internal sealed partial class PrayersView : Page
 
     protected override void OnNavigatedFrom(NavigationEventArgs eventArgs)
     {
-        ViewModel.DeactivateCommand.Execute(null);
+        ViewModel.CloseCommand.Execute(null);
         base.OnNavigatedFrom(eventArgs);
     }
 }

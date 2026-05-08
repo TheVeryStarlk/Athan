@@ -49,7 +49,7 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     }
 
     [RelayCommand]
-    private void Deactivate()
+    private void Close()
     {
         timerService.Stop();
     }
