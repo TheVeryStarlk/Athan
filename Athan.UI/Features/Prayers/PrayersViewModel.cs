@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using Athan.UI.Features.Locations;
 using Athan.UI.Features.Prayers.Calculation;
+using Athan.UI.Features.Settings;
 using Athan.UI.Features.Shell.Items;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -25,15 +26,17 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     [ObservableProperty]
     public partial string? Message { get; set; }
 
-    private readonly TimeProvider timeProvider;
+    private readonly SettingsService settingsService;
     private readonly TimerService timerService;
+    private readonly TimeProvider timeProvider;
 
-    public PrayersViewModel(Location location, TimeProvider timeProvider, TimerService timerService)
+    public PrayersViewModel(Location location, SettingsService settingsService, TimerService timerService, TimeProvider timeProvider)
     {
         Location = location;
 
-        this.timeProvider = timeProvider;
+        this.settingsService = settingsService;
         this.timerService = timerService;
+        this.timeProvider = timeProvider;
 
         Title = location.Name;
         Glyph = "🌄";
@@ -72,7 +75,21 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
 
         Hijri = now.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern, new CultureInfo("ar-SA"));
 
-        var calculator = new PrayerTimesCalculator(MakkahPrayerTimesCalculatorOptions.Instance);
+        var options = settingsService.Get(PrayerCalculation.Makkah, AthanSerializerContext.Default.PrayerCalculation) switch
+        {
+            PrayerCalculation.Makkah => MakkahPrayerTimesCalculatorOptions.Instance,
+            PrayerCalculation.Egypt => EgyptPrayerTimesCalculatorOptions.Instance,
+            PrayerCalculation.Karachi => KarachiPrayerTimesCalculatorOptions.Instance,
+            PrayerCalculation.France => FrancePrayerTimesCalculatorOptions.Instance,
+            PrayerCalculation.Russia => RussiaPrayerTimesCalculatorOptions.Instance,
+            PrayerCalculation.Singapore => SingaporePrayerTimesCalculatorOptions.Instance,
+            PrayerCalculation.MuslimWorldLeague => MuslimWorldLeaguePrayerTimesCalculatorOptions.Instance,
+            PrayerCalculation.IslamicSocietyOfNorthAmerica => IslamicSocietyOfNorthAmericaPrayerTimesCalculatorOptions.Instance,
+            _ => throw new ArgumentOutOfRangeException()
+        };
+
+        var calculator = new PrayerTimesCalculator(options);
+
         var times = calculator.Calculate(now, Location.Latitude, Location.Longitude);
 
         foreach (var pair in times)

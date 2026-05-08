@@ -44,7 +44,7 @@
                     </controls:SettingsCard>
 
                     <controls:SettingsCard Header="Reciter"
-                                           Description="Choose your preferred voice">
+                                           Description="Change your preferred Athan voice">
 
                         <controls:SettingsCard.HeaderIcon>
                             <SymbolIcon Symbol="Volume" />
@@ -54,6 +54,25 @@
                             <ComboBoxItem Content="Mishary Al-Afasy" />
                             <ComboBoxItem Content="Madinah" />
                             <ComboBoxItem Content="Makkah" />
+                        </ComboBox>
+                    </controls:SettingsCard>
+
+                    <controls:SettingsCard Header="Calculation"
+                                           Description="Change the prayer calculation method">
+
+                        <controls:SettingsCard.HeaderIcon>
+                            <FontIcon Glyph="&#xE823;" />
+                        </controls:SettingsCard.HeaderIcon>
+
+                        <ComboBox SelectedIndex="{x:Bind ViewModel.CalculationIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ComboBoxItem Content="Makkah" />
+                            <ComboBoxItem Content="Egypt" />
+                            <ComboBoxItem Content="Karachi" />
+                            <ComboBoxItem Content="France" />
+                            <ComboBoxItem Content="Russia" />
+                            <ComboBoxItem Content="Singapore" />
+                            <ComboBoxItem Content="Muslim world league" />
+                            <ComboBoxItem Content="Islamic society of north America" />
                         </ComboBox>
                     </controls:SettingsCard>
 

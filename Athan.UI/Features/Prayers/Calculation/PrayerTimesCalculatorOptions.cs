@@ -13,21 +13,12 @@ internal sealed class PrayerTimesCalculatorOptions
     public TimeSpan? MaghribOffset { get; init; }
 }
 
-internal static class MuslimWorldLeaguePrayerTimesCalculatorOptions
+internal static class MakkahPrayerTimesCalculatorOptions
 {
     public static PrayerTimesCalculatorOptions Instance { get; } = new()
     {
-        FajrAngle = 18,
-        IshaAngle = 17
-    };
-}
-
-internal static class IslamicSocietyOfNorthAmericaPrayerTimesCalculatorOptions
-{
-    public static PrayerTimesCalculatorOptions Instance { get; } = new()
-    {
-        FajrAngle = 15,
-        IshaAngle = 15
+        FajrAngle = 18.5,
+        IshaOffset = TimeSpan.FromMinutes(90)
     };
 }
 
@@ -37,15 +28,6 @@ internal static class EgyptPrayerTimesCalculatorOptions
     {
         FajrAngle = 19.5,
         IshaAngle = 17.5
-    };
-}
-
-internal static class MakkahPrayerTimesCalculatorOptions
-{
-    public static PrayerTimesCalculatorOptions Instance { get; } = new()
-    {
-        FajrAngle = 18.5,
-        IshaOffset = TimeSpan.FromMinutes(90)
     };
 }
 
@@ -82,5 +64,23 @@ internal static class SingaporePrayerTimesCalculatorOptions
     {
         FajrAngle = 20,
         IshaAngle = 18
+    };
+}
+
+internal static class MuslimWorldLeaguePrayerTimesCalculatorOptions
+{
+    public static PrayerTimesCalculatorOptions Instance { get; } = new()
+    {
+        FajrAngle = 18,
+        IshaAngle = 17
+    };
+}
+
+internal static class IslamicSocietyOfNorthAmericaPrayerTimesCalculatorOptions
+{
+    public static PrayerTimesCalculatorOptions Instance { get; } = new()
+    {
+        FajrAngle = 15,
+        IshaAngle = 15
     };
 }
