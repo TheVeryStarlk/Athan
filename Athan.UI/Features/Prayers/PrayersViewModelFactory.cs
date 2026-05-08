@@ -1,3 +1,4 @@
+using System;
 using Athan.UI.Features.Locations;
 
 namespace Athan.UI.Features.Prayers;

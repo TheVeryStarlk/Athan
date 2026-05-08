@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
@@ -45,7 +44,12 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     private void Initialize()
     {
         Refresh();
-        timerService.Start(GetIntervalUntilNextMinute(), RefreshAndReschedule);
+
+        var now = timeProvider.GetLocalNow();
+        var elapsed = TimeSpan.FromTicks(now.TimeOfDay.Ticks % TimeSpan.FromMinutes(1).Ticks);
+        var interval = elapsed == TimeSpan.Zero ? TimeSpan.FromMinutes(1) : TimeSpan.FromMinutes(1) - elapsed;
+
+        timerService.Start(interval, Update);
     }
 
     [RelayCommand]
@@ -54,10 +58,10 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
         timerService.Stop();
     }
 
-    private void RefreshAndReschedule()
+    private void Update()
     {
         Refresh();
-        timerService.Start(TimeSpan.FromMinutes(1), RefreshAndReschedule);
+        timerService.Start(TimeSpan.FromMinutes(1), Update);
     }
 
     private void Refresh()
@@ -76,13 +80,7 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
             Prayers.Add(new Prayer(pair.Key.ToString(), pair.Value.ToLocalTime().ToString("h:mm tt")));
         }
 
-        var upcoming = times.FirstOrDefault(time => time.Value > now);
-
-        if (upcoming.Equals(default))
-        {
-            upcoming = calculator.Calculate(now.AddDays(1), Location.Latitude, Location.Longitude).First();
-        }
-
+        var upcoming = times.First(time => time.Value > now);
         Upcoming = upcoming.Key.ToString();
 
         var left = upcoming.Value - now;
@@ -97,16 +95,6 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
             (0, 0) => "Less than a minute left",
             _ => throw new ArgumentOutOfRangeException()
         };
-    }
-
-    private TimeSpan GetIntervalUntilNextMinute()
-    {
-        var now = timeProvider.GetLocalNow();
-        var elapsed = TimeSpan.FromTicks(now.TimeOfDay.Ticks % TimeSpan.FromMinutes(1).Ticks);
-
-        return elapsed == TimeSpan.Zero
-            ? TimeSpan.FromMinutes(1)
-            : TimeSpan.FromMinutes(1) - elapsed;
     }
 }
 
