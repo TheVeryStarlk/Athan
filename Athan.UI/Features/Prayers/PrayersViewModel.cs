@@ -27,9 +27,9 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     public partial string? Message { get; set; }
 
     private readonly TimeProvider timeProvider;
-    private readonly ITimerService timerService;
+    private readonly TimerService timerService;
 
-    public PrayersViewModel(Location location, TimeProvider timeProvider, ITimerService timerService)
+    public PrayersViewModel(Location location, TimeProvider timeProvider, TimerService timerService)
     {
         Location = location;
 
@@ -42,7 +42,7 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     }
 
     [RelayCommand]
-    private void Activate()
+    private void Initialize()
     {
         Refresh();
         timerService.Start(GetIntervalUntilNextMinute(), RefreshAndReschedule);

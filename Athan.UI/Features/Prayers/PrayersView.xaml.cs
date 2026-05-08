@@ -24,7 +24,7 @@ internal sealed partial class PrayersView : Page
     protected override void OnNavigatedTo(NavigationEventArgs eventArgs)
     {
         ViewModel = (PrayersViewModel) eventArgs.Parameter;
-        ViewModel.ActivateCommand.Execute(null);
+        ViewModel.InitializeCommand.Execute(null);
 
         base.OnNavigatedTo(eventArgs);
     }

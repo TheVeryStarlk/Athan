@@ -3,7 +3,7 @@ using Microsoft.UI.Dispatching;
 
 namespace Athan.UI.Features.Prayers;
 
-internal sealed class DispatcherQueueTimerService : ITimerService
+internal sealed class TimerService
 {
     private DispatcherQueueTimer? timer;
     private Action? callback;
