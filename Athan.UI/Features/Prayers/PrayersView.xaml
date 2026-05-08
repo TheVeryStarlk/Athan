@@ -62,7 +62,7 @@
                                    TextAlignment="Center"
                                    Style="{StaticResource BodyTextBlockStyle}"
                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                    HorizontalAlignment="Center" />
+                                   HorizontalAlignment="Center" />
                     </StackPanel>
                 </Grid>
             </Border>
