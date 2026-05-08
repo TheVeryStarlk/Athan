@@ -41,8 +41,10 @@ internal sealed partial class SettingsViewModel : FooterViewModel
     [RelayCommand]
     private async Task SaveAsync()
     {
-        var result = await startupService.TryToggle(LaunchStartup);
-        settingsService.Set(result, AthanSerializerContext.Default.Boolean, nameof(LaunchStartup));
+        if (await startupService.TryToggle(LaunchStartup))
+        {
+            settingsService.Set(LaunchStartup, AthanSerializerContext.Default.Boolean, nameof(LaunchStartup));
+        }
     }
 
     partial void OnThemeIndexChanged(int value)
