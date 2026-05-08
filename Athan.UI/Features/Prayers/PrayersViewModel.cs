@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
@@ -55,7 +56,12 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
             Prayers.Add(new Prayer(pair.Key.ToString(), pair.Value.ToLocalTime().ToString("h:mm tt")));
         }
 
-        var upcoming = times.First(time => time.Value > now);
+        var upcoming = times.FirstOrDefault(time => time.Value > now);
+
+        if (upcoming.Equals(default(KeyValuePair<Calculation.Prayer, DateTimeOffset>)))
+        {
+            upcoming = calculator.Calculate(now.AddDays(1), Location.Latitude, Location.Longitude).First();
+        }
 
         Upcoming = upcoming.Key.ToString();
 

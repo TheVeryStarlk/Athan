@@ -59,10 +59,10 @@
                                    HorizontalAlignment="Center" />
 
                         <TextBlock Text="{x:Bind ViewModel.Message, Mode=OneWay}"
-                                    TextAlignment="Center"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                   HorizontalAlignment="Center" />
+                                   TextAlignment="Center"
+                                   Style="{StaticResource BodyTextBlockStyle}"
+                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    HorizontalAlignment="Center" />
                     </StackPanel>
                 </Grid>
             </Border>
