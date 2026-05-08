@@ -78,7 +78,7 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
 
         var upcoming = times.FirstOrDefault(time => time.Value > now);
 
-        if (upcoming.Equals(default(KeyValuePair<Calculation.Prayer, DateTimeOffset>)))
+        if (upcoming.Equals(default))
         {
             upcoming = calculator.Calculate(now.AddDays(1), Location.Latitude, Location.Longitude).First();
         }
