@@ -7,6 +7,6 @@ internal sealed class PrayersViewModelFactory(TimeProvider timeProvider)
 {
     public PrayersViewModel Create(Location location)
     {
-        return new PrayersViewModel(location, timeProvider);
+        return new PrayersViewModel(location, timeProvider, new DispatcherQueueTimerService());
     }
 }

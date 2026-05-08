@@ -27,12 +27,14 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     public partial string? Message { get; set; }
 
     private readonly TimeProvider timeProvider;
+    private readonly ITimerService timerService;
 
-    public PrayersViewModel(Location location, TimeProvider timeProvider)
+    public PrayersViewModel(Location location, TimeProvider timeProvider, ITimerService timerService)
     {
         Location = location;
 
         this.timeProvider = timeProvider;
+        this.timerService = timerService;
 
         Title = location.Name;
         Glyph = "🌄";
@@ -40,7 +42,25 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     }
 
     [RelayCommand]
-    private void Initialize()
+    private void Activate()
+    {
+        Refresh();
+        timerService.Start(GetIntervalUntilNextMinute(), RefreshAndReschedule);
+    }
+
+    [RelayCommand]
+    private void Deactivate()
+    {
+        timerService.Stop();
+    }
+
+    private void RefreshAndReschedule()
+    {
+        Refresh();
+        timerService.Start(TimeSpan.FromMinutes(1), RefreshAndReschedule);
+    }
+
+    private void Refresh()
     {
         Prayers.Clear();
 
@@ -69,7 +89,7 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
         var hours = (int) left.TotalHours;
         var minutes = left.Minutes;
 
-        var result = (hours, minutes) switch
+        Message = (hours, minutes) switch
         {
             (> 0, > 0) => $"{hours} hours and {minutes} minutes left",
             (> 0, 0) => $"{hours} hours left",
@@ -77,8 +97,16 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
             (0, 0) => "Less than a minute left",
             _ => throw new ArgumentOutOfRangeException()
         };
+    }
 
-        Message = result;
+    private TimeSpan GetIntervalUntilNextMinute()
+    {
+        var now = timeProvider.GetLocalNow();
+        var elapsed = TimeSpan.FromTicks(now.TimeOfDay.Ticks % TimeSpan.FromMinutes(1).Ticks);
+
+        return elapsed == TimeSpan.Zero
+            ? TimeSpan.FromMinutes(1)
+            : TimeSpan.FromMinutes(1) - elapsed;
     }
 }
 
