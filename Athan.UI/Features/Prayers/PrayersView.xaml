@@ -20,7 +20,7 @@
             <TextBlock Text="{x:Bind ViewModel.Title}"
                        Style="{StaticResource TitleTextBlockStyle}" />
 
-            <TextBlock Text="{x:Bind ViewModel.Hijri}"
+            <TextBlock Text="{x:Bind ViewModel.Hijri, Mode=OneWay}"
                        Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
         </StackPanel>
 
@@ -53,15 +53,15 @@
                                 VerticalAlignment="Center"
                                 Spacing="8">
 
-                        <TextBlock Text="{x:Bind ViewModel.Upcoming}"
+                        <TextBlock Text="{x:Bind ViewModel.Upcoming, Mode=OneWay}"
                                    Style="{StaticResource TitleTextBlockStyle}"
                                    Foreground="{StaticResource SystemFillColorAttentionBrush}"
                                    HorizontalAlignment="Center" />
 
-                        <TextBlock Text="{x:Bind ViewModel.Message}"
-                                   TextAlignment="Center"
-                                   Style="{StaticResource BodyTextBlockStyle}"
-                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                        <TextBlock Text="{x:Bind ViewModel.Message, Mode=OneWay}"
+                                    TextAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                    HorizontalAlignment="Center" />
                     </StackPanel>
                 </Grid>
