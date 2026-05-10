@@ -101,8 +101,15 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     private void Refresh()
     {
         var now = timeProvider.GetLocalNow();
-        var upcoming = Prayers.First(prayer => prayer.Time > now);
+        var upcoming = Prayers.FirstOrDefault(prayer => prayer.Time > now);
 
+        // Show how much is left for Fajr in the next day.
+        if (upcoming is null)
+        {
+            var prayer = Prayers[0];
+            upcoming = new Prayer(prayer.Name, prayer.Message, prayer.Time.AddDays(1));
+        }
+ 
         Upcoming = upcoming.Name;
 
         var left = upcoming.Time - now;
