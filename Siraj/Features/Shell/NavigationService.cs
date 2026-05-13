@@ -17,10 +17,10 @@ internal sealed class NavigationService : INavigationService
     {
         var type = viewModel switch
         {
-            WelcomeViewModel => typeof(WelcomeView),
             PrayersViewModel => typeof(PrayersView),
-            TasbihViewModel => typeof(TasbihView),
             SettingsViewModel => typeof(SettingsView),
+            TasbihViewModel => typeof(TasbihView),
+            WelcomeViewModel => typeof(WelcomeView),
             _ => throw new ArgumentOutOfRangeException()
         };
 

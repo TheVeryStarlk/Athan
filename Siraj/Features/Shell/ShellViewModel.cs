@@ -29,8 +29,8 @@ internal sealed partial class ShellViewModel : ObservableObject
         INavigationService navigationService,
         SettingsService settingsService,
         PrayersViewModelFactory prayersViewModelFactory,
-        WelcomeViewModel welcomeViewModel,
         TasbihViewModel tasbihViewModel,
+        WelcomeViewModel welcomeViewModel,
         SettingsViewModel settingsViewModel)
     {
         this.navigationService = navigationService;
@@ -64,7 +64,7 @@ internal sealed partial class ShellViewModel : ObservableObject
     private static void Delete(ShellViewModel recipient, DeleteMessage message)
     {
         recipient.Header.Remove(message.Instance);
-        
+
         if (recipient.Header.Count is 0)
         {
             recipient.Header.Add(recipient.welcomeViewModel);
@@ -109,7 +109,7 @@ internal sealed partial class ShellViewModel : ObservableObject
     private void Save()
     {
         settingsService.Set(
-            Header.OfType<PrayersViewModel>().Select(header => header.Location).ToArray(), 
+            Header.OfType<PrayersViewModel>().Select(header => header.Location).ToArray(),
             SirajSerializerContext.Default.LocationArray);
     }
 }

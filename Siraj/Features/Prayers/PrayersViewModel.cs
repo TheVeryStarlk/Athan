@@ -13,6 +13,8 @@ namespace Siraj.Features.Prayers;
 
 internal sealed partial class PrayersViewModel : HeaderViewModel
 {
+    public override bool Deletable => true;
+
     public Location Location { get; }
 
     public ObservableCollection<Prayer> Prayers { get; } = [];
@@ -36,15 +38,14 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
         TimerService timerService,
         TimeProvider timeProvider)
     {
-        Location = location;
-
         this.settingsService = settingsService;
         this.timerService = timerService;
         this.timeProvider = timeProvider;
 
+        Location = location;
+
         Title = location.Name;
         Glyph = "🌄";
-        Deletable = true;
     }
 
     [RelayCommand]

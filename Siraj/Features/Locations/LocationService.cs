@@ -8,7 +8,7 @@ namespace Siraj.Features.Locations;
 
 internal sealed class LocationService(IHttpClientFactory clientFactory)
 {
-    private const string url = "https://nominatim.openstreetmap.org/";
+    private const string Url = "https://nominatim.openstreetmap.org/";
 
     public async Task<Location[]> SearchAsync(string query)
     {
@@ -18,7 +18,7 @@ internal sealed class LocationService(IHttpClientFactory clientFactory)
         client.DefaultRequestHeaders.Add("Accept-Language", CultureInfo.CurrentUICulture.Name);
 
         var result = await client.GetFromJsonAsync(
-            $"{url}search?q={Uri.EscapeDataString(query)}&format=jsonv2",
+            $"{Url}search?q={Uri.EscapeDataString(query)}&format=jsonv2",
             SirajSerializerContext.Default.LocationArray);
 
         ArgumentNullException.ThrowIfNull(result);
@@ -34,7 +34,7 @@ internal sealed class LocationService(IHttpClientFactory clientFactory)
         client.DefaultRequestHeaders.Add("Accept-Language", CultureInfo.CurrentUICulture.Name);
 
         var result = await client.GetFromJsonAsync(
-            $"{url}reverse?lat={latitude}&lon={longitude}&zoom=5&format=jsonv2",
+            $"{Url}reverse?lat={latitude}&lon={longitude}&zoom=5&format=jsonv2",
             SirajSerializerContext.Default.Location);
 
         ArgumentNullException.ThrowIfNull(result);

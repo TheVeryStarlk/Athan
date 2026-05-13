@@ -34,5 +34,8 @@ internal sealed class TimerService
         callback = null;
     }
 
-    private void OnTick(DispatcherQueueTimer sender, object args) => callback?.Invoke();
+    private void OnTick(DispatcherQueueTimer sender, object args)
+    {
+        callback?.Invoke();
+    }
 }

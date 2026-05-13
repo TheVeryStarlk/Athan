@@ -33,14 +33,23 @@ internal static partial class Bootstrapper
         return services.BuildServiceProvider();
     }
 
-    [Singleton(typeof(NavigationService), typeof(INavigationService))]
-    [Singleton(typeof(SettingsService))]
-    [Singleton(typeof(ThemeService))]
-    [Transient(typeof(GeopositionService))]
+    // Locations.
     [Transient(typeof(LocationService))]
-    [Transient(typeof(DialogService))]
-    [Transient(typeof(StartupService))]
+
+    // Prayers.
     [Transient(typeof(TimerService))]
+
+    // Settings.
+    [Singleton(typeof(SettingsService))]
+    [Transient(typeof(StartupService))]
+    [Transient(typeof(ThemeService))]
+
+    // Shell.
+    [Singleton(typeof(NavigationService), typeof(INavigationService))]
+
+    // Welcome.
+    [Transient(typeof(DialogService))]
+    [Transient(typeof(GeopositionService))]
     private static partial void Configure(IServiceCollection services);
 
     [Singleton(typeof(ShellView))]
@@ -49,8 +58,8 @@ internal static partial class Bootstrapper
     [Singleton(typeof(PrayersViewModelFactory))]
     [Singleton(typeof(SettingsViewModel))]
     [Transient(typeof(ShellViewModel))]
-    [Transient(typeof(WelcomeViewModel))]
     [Transient(typeof(TasbihViewModel))]
+    [Transient(typeof(WelcomeViewModel))]
     private static partial void ConfigureViewModels(IServiceCollection services);
 }
 

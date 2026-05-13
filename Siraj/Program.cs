@@ -13,7 +13,7 @@ namespace Siraj;
 internal static partial class Program
 {
     [STAThread]
-    public static int Main(string[] args)
+    public static int Main()
     {
         ComWrappersSupport.InitializeComWrappers();
 
@@ -22,13 +22,13 @@ internal static partial class Program
             return 0;
         }
 
-        Application.Start(_ =>
+        Application.Start(callback =>
         {
             var context = new DispatcherQueueSynchronizationContext(DispatcherQueue.GetForCurrentThread());
 
             SynchronizationContext.SetSynchronizationContext(context);
 
-            new App();
+            _ = new App();
         });
 
         return 0;
@@ -57,8 +57,7 @@ internal static partial class Program
             SetEvent(handle);
         });
 
-        _ = CoWaitForMultipleObjects(0, 0xFFFFFFFF, 1, [handle], out _);
-
+        CoWaitForMultipleObjects(0, 0xFFFFFFFF, 1, [handle], out _);
         SetForegroundWindow(Process.GetProcessById((int) instance.ProcessId).MainWindowHandle);
     }
     

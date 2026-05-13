@@ -43,62 +43,21 @@
 
 
             <Border Grid.Row="0">
-                <Grid>
-                    <TextBlock Text="Upcoming"
-                               Style="{StaticResource CaptionTextBlockStyle}"
+                <StackPanel HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Spacing="8">
+
+                    <TextBlock Text="{x:Bind ViewModel.Upcoming, Mode=OneWay}"
+                               Style="{StaticResource TitleTextBlockStyle}"
+                               Foreground="{StaticResource SystemFillColorAttentionBrush}"
+                               HorizontalAlignment="Center" />
+
+                    <TextBlock Text="{x:Bind ViewModel.Message, Mode=OneWay}"
+                               TextAlignment="Center"
+                               Style="{StaticResource BodyTextBlockStyle}"
                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               VerticalAlignment="Top" />
-
-                    <StackPanel HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Spacing="8">
-
-                        <TextBlock Text="{x:Bind ViewModel.Upcoming, Mode=OneWay}"
-                                   Style="{StaticResource TitleTextBlockStyle}"
-                                   Foreground="{StaticResource SystemFillColorAttentionBrush}"
-                                   HorizontalAlignment="Center" />
-
-                        <TextBlock Text="{x:Bind ViewModel.Message, Mode=OneWay}"
-                                   TextAlignment="Center"
-                                   Style="{StaticResource BodyTextBlockStyle}"
-                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                   HorizontalAlignment="Center" />
-                    </StackPanel>
-                </Grid>
-            </Border>
-
-            <Border Grid.Row="1">
-                <Grid RowSpacing="12">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Row="0"
-                               Text="Schedule"
-                               Style="{StaticResource CaptionTextBlockStyle}"
-                               Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
-
-                    <ItemsControl Grid.Row="1"
-                                  ItemsSource="{x:Bind ViewModel.Prayers}"
-                                  VerticalAlignment="Center">
-
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate x:DataType="prayers:Prayer">
-                                <Grid Margin="0 0 0 2">
-                                    <TextBlock Text="{x:Bind Name}"
-                                               Style="{StaticResource BodyStrongTextBlockStyle}"
-                                               HorizontalAlignment="Left" />
-
-                                    <TextBlock Text="{x:Bind Message}"
-                                               Style="{StaticResource CaptionTextBlockStyle}"
-                                               Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                               HorizontalAlignment="Right" />
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Grid>
+                               HorizontalAlignment="Center" />
+                </StackPanel>
             </Border>
         </Grid>
     </Grid>
