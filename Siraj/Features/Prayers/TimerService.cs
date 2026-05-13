@@ -3,39 +3,33 @@ using Microsoft.UI.Dispatching;
 
 namespace Siraj.Features.Prayers;
 
-internal sealed class TimerService
+internal sealed class TimerService(TimeProvider timeProvider)
 {
+    public event Action? Tick;
+
     private DispatcherQueueTimer? timer;
-    private Action? callback;
 
-    public void Start(TimeSpan interval, Action tick)
+    public void Start()
     {
-        Stop();
-
-        callback = tick;
-
-        timer = DispatcherQueue.GetForCurrentThread().CreateTimer();
-        timer.IsRepeating = false;
-        timer.Interval = interval;
-        timer.Tick += OnTick;
-        timer.Start();
-    }
-
-    public void Stop()
-    {
-        if (timer is null)
+        if (timer is not null)
         {
             return;
         }
 
-        timer.Stop();
-        timer.Tick -= OnTick;
-        timer = null;
-        callback = null;
+        timer = DispatcherQueue.GetForCurrentThread().CreateTimer();
+
+        timer.Tick += OnTick;
+        timer.Start();
+
+        var elapsed = TimeSpan.FromTicks(timeProvider.GetLocalNow().TimeOfDay.Ticks % TimeSpan.FromMinutes(1).Ticks);
+        var interval = elapsed == TimeSpan.Zero ? TimeSpan.FromMinutes(1) : TimeSpan.FromMinutes(1) - elapsed;
+        
+        timer.Interval = interval;
     }
 
-    private void OnTick(DispatcherQueueTimer sender, object args)
+    private void OnTick(DispatcherQueueTimer sender, object eventArgs)
     {
-        callback?.Invoke();
+        Tick?.Invoke();
+        timer?.Interval = TimeSpan.FromMinutes(1);
     }
 }

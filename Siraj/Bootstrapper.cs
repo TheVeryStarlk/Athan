@@ -37,7 +37,7 @@ internal static partial class Bootstrapper
     [Transient(typeof(LocationService))]
 
     // Prayers.
-    [Transient(typeof(TimerService))]
+    [Singleton(typeof(TimerService))]
 
     // Settings.
     [Singleton(typeof(SettingsService))]

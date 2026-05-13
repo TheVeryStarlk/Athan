@@ -50,6 +50,9 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     [RelayCommand]
     private void Initialize()
     {
+        timerService.Start();
+        timerService.Tick += Refresh;
+
         Prayers.Clear();
 
         var now = timeProvider.GetLocalNow();
@@ -65,12 +68,8 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
             Prayers.Add(new Prayer(pair.Key, local.ToString("h:mm tt"), local));
         }
 
-        var elapsed = TimeSpan.FromTicks(now.TimeOfDay.Ticks % TimeSpan.FromMinutes(1).Ticks);
-        var interval = elapsed == TimeSpan.Zero ? TimeSpan.FromMinutes(1) : TimeSpan.FromMinutes(1) - elapsed;
-
-        timerService.Start(TimeSpan.Zero, Update);
+        Refresh();
     }
-
 
     private void Refresh()
     {
@@ -88,12 +87,6 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
 
         Upcoming = upcoming.Kind.ToString();
         Remaining = (upcoming.Time - now).ToReadable();
-    }
-    
-    private void Update()
-    {
-        Refresh();
-        timerService.Start(TimeSpan.FromMinutes(1), Update);
     }
 }
 
