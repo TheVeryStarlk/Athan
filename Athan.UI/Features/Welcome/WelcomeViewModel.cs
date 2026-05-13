@@ -35,7 +35,7 @@ internal sealed partial class WelcomeViewModel : HeaderViewModel
     {
         var location = new Location
         {
-            Name = Random.Shared.Next().ToString(),
+            Name = "Riyadh Region, Saudi Arabia",
             Latitude = 24.7136,
             Longitude = 46.6753
         };

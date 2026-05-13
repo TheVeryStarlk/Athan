@@ -54,7 +54,7 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
 
         var now = timeProvider.GetLocalNow();
 
-        Hijri = now.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern, new CultureInfo("ar-SA"));
+        Hijri = now.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern);
 
         var options = settingsService.Get(PrayerCalculation.Makkah, AthanSerializerContext.Default.PrayerCalculation) switch
         {
@@ -86,12 +86,6 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
         timerService.Start(interval, Update);
     }
 
-    [RelayCommand]
-    private void Close()
-    {
-        timerService.Stop();
-    }
-
     private void Update()
     {
         Refresh();
@@ -109,7 +103,17 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
             var prayer = Prayers[0];
             upcoming = new Prayer(prayer.Name, prayer.Message, prayer.Time.AddDays(1));
         }
- 
+
+        Glyph = upcoming.Name switch
+        {
+            "Fajr" => "🌅",
+            "Dhuhr" => "🌄",
+            "Asr" => "🌇",
+            "Maghrib" => "🌆",
+            "Isha" => "🌌",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+
         Upcoming = upcoming.Name;
 
         var left = upcoming.Time - now;
