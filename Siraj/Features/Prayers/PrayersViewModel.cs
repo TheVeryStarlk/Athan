@@ -57,20 +57,7 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
 
         Hijri = now.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern);
 
-        var options = settingsService.Calculation switch
-        {
-            PrayerCalculation.Makkah => MakkahPrayerTimesCalculatorOptions.Instance,
-            PrayerCalculation.Egypt => EgyptPrayerTimesCalculatorOptions.Instance,
-            PrayerCalculation.Karachi => KarachiPrayerTimesCalculatorOptions.Instance,
-            PrayerCalculation.France => FrancePrayerTimesCalculatorOptions.Instance,
-            PrayerCalculation.Russia => RussiaPrayerTimesCalculatorOptions.Instance,
-            PrayerCalculation.Singapore => SingaporePrayerTimesCalculatorOptions.Instance,
-            PrayerCalculation.MuslimWorldLeague => MuslimWorldLeaguePrayerTimesCalculatorOptions.Instance,
-            PrayerCalculation.IslamicSocietyOfNorthAmerica => IslamicSocietyOfNorthAmericaPrayerTimesCalculatorOptions.Instance,
-            _ => throw new ArgumentOutOfRangeException()
-        };
-
-        var calculator = new PrayerTimesCalculator(options);
+        var calculator = new PrayerTimesCalculator(settingsService.Method.ToOptions());
         var times = calculator.Calculate(now, Location.Latitude, Location.Longitude);
 
         foreach (var pair in times)

@@ -21,16 +21,16 @@ internal sealed class SettingsService
         set => Set(value, SirajSerializerContext.Default.Theme);
     }
 
-    public CallReciter Reciter
+    public Voice Voice
     {
-        get => Get(CallReciter.MisharyAlAfasy, SirajSerializerContext.Default.CallReciter);
-        set => Set(value, SirajSerializerContext.Default.CallReciter);
+        get => Get(Voice.MisharyAlAfasy, SirajSerializerContext.Default.Voice);
+        set => Set(value, SirajSerializerContext.Default.Voice);
     }
 
-    public PrayerCalculation Calculation
+    public Method Method
     {
-        get => Get(PrayerCalculation.Makkah, SirajSerializerContext.Default.PrayerCalculation);
-        set => Set(value, SirajSerializerContext.Default.PrayerCalculation);
+        get => Get(Method.Makkah, SirajSerializerContext.Default.Method);
+        set => Set(value, SirajSerializerContext.Default.Method);
     }
 
     public bool Startup

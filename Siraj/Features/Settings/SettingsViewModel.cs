@@ -39,8 +39,8 @@ internal sealed partial class SettingsViewModel : FooterViewModel
     {
         // Write a converter?
         ThemeIndex = (int) settingsService.Theme;
-        ReciterIndex = (int) settingsService.Reciter;
-        CalculationIndex = (int) settingsService.Calculation;
+        ReciterIndex = (int) settingsService.Voice;
+        CalculationIndex = (int) settingsService.Method;
 
         Startup = settingsService.Startup;
     }
@@ -63,16 +63,16 @@ internal sealed partial class SettingsViewModel : FooterViewModel
 
     partial void OnReciterIndexChanged(int value)
     {
-        settingsService.Reciter = (CallReciter) value;
+        settingsService.Voice = (Voice) value;
     }
 
     partial void OnCalculationIndexChanged(int value)
     {
-        settingsService.Calculation = (PrayerCalculation) value;
+        settingsService.Method = (Method) value;
     }
 }
 
-internal enum CallReciter
+internal enum Voice
 {
     MisharyAlAfasy,
     Madinah,

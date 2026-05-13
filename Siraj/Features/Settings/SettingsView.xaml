@@ -43,7 +43,7 @@
                         </ComboBox>
                     </controls:SettingsCard>
 
-                    <controls:SettingsCard Header="Reciter"
+                    <controls:SettingsCard Header="Voice"
                                            Description="Change the preferred call to prayer voice">
 
                         <controls:SettingsCard.HeaderIcon>
@@ -57,7 +57,7 @@
                         </ComboBox>
                     </controls:SettingsCard>
 
-                    <controls:SettingsCard Header="Calculation"
+                    <controls:SettingsCard Header="Method"
                                            Description="Change the prayer calculation method">
 
                         <controls:SettingsCard.HeaderIcon>

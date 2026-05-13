@@ -8,7 +8,7 @@ namespace Siraj;
 [JsonSourceGenerationOptions(NumberHandling = JsonNumberHandling.AllowReadingFromString)]
 [JsonSerializable(typeof(Location[]))]
 [JsonSerializable(typeof(Theme))]
-[JsonSerializable(typeof(CallReciter))]
-[JsonSerializable(typeof(PrayerCalculation))]
+[JsonSerializable(typeof(Voice))]
+[JsonSerializable(typeof(Method))]
 [JsonSerializable(typeof(bool))]
 internal sealed partial class SirajSerializerContext : JsonSerializerContext;
