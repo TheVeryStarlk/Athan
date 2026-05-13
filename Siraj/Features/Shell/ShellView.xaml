@@ -1,0 +1,138 @@
+<ex:WindowEx xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ex="using:WinUIEx"
+             xmlns:items="using:Siraj.Features.Shell.Items"
+
+             x:Class="Siraj.Features.Shell.ShellView"
+             mc:Ignorable="d"
+             Title="Siraj"
+             Width="900"
+             Height="640"
+             MinWidth="640"
+             MinHeight="500">
+
+    <ex:WindowEx.SystemBackdrop>
+        <MicaBackdrop />
+    </ex:WindowEx.SystemBackdrop>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="TitleBar"
+              Grid.Row="0"
+              SizeChanged="TitleBarSizeChanged">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.75*" />
+                <ColumnDefinition Width="0.75*" />
+                <ColumnDefinition Width="0.75*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0"
+                        Orientation="Horizontal"
+                        Spacing="16"
+                        Margin="4 0 0 0">
+
+                <StackPanel.ChildrenTransitions>
+                    <TransitionCollection>
+                        <RepositionThemeTransition />
+                    </TransitionCollection>
+                </StackPanel.ChildrenTransitions>
+
+                <Button x:Name="ToggleButton"
+                        ToolTipService.ToolTip="Navigation"
+                        Click="ToggleButtonClick"
+                        Style="{ThemeResource TitleBarPaneToggleButtonStyle}"
+                        Width="36"
+                        Height="36" />
+
+                <Image Source="/Assets/StoreLogo.png"
+                       Width="16"
+                       Height="16" />
+
+                <TextBlock Text="Siraj"
+                           VerticalAlignment="Center"
+                           Style="{StaticResource CaptionTextBlockStyle}"
+                           Margin="8 0 0 0" />
+            </StackPanel>
+
+            <AutoSuggestBox x:Name="SearchBox"
+                            Grid.Column="1"
+                            PlaceholderText="Search for a city, region, or country"
+                            QueryIcon="Find"
+                            VerticalAlignment="Center">
+
+                <AutoSuggestBox.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="F"
+                                         Invoked="SearchInvoked"
+                                         Modifiers="Control" />
+                </AutoSuggestBox.KeyboardAccelerators>
+            </AutoSuggestBox>
+        </Grid>
+
+        <NavigationView x:Name="NavigationView"
+                        Grid.Row="1"
+                        SelectionChanged="NavigationViewSelectionChanged"
+                        MenuItemsSource="{x:Bind viewModel.Header}"
+                        FooterMenuItemsSource="{x:Bind viewModel.Footer}"
+                        SelectedItem="{x:Bind viewModel.Current, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        AlwaysShowHeader="True"
+                        IsSettingsVisible="False"
+                        IsPaneToggleButtonVisible="False"
+                        IsTitleBarAutoPaddingEnabled="False"
+                        IsBackButtonVisible="Collapsed"
+                        OpenPaneLength="225"
+                        ExpandedModeThresholdWidth="700"
+                        Margin="0 -2 0 0">
+
+            <NavigationView.MenuItemTemplateSelector>
+                <items:ItemTemplateSelector>
+                    <items:ItemTemplateSelector.HeaderTemplate>
+                        <DataTemplate x:DataType="items:HeaderViewModel">
+                            <NavigationViewItem DataContext="{x:Bind}"
+                                                Content="{x:Bind Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+                                <NavigationViewItem.Icon>
+                                    <FontIcon Glyph="{x:Bind Glyph, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              FontFamily="Segoe UI Emoji" />
+                                </NavigationViewItem.Icon>
+
+                                <NavigationViewItem.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem Text="Delete"
+                                                        Icon="Delete"
+                                                        Command="{x:Bind DeleteCommand}"
+                                                        IsEnabled="{x:Bind Deletable}" />
+                                    </MenuFlyout>
+                                </NavigationViewItem.ContextFlyout>
+                            </NavigationViewItem>
+                        </DataTemplate>
+                    </items:ItemTemplateSelector.HeaderTemplate>
+
+                    <items:ItemTemplateSelector.FooterTemplate>
+                        <DataTemplate x:DataType="items:FooterViewModel">
+                            <NavigationViewItem DataContext="{x:Bind}"
+                                                Content="{x:Bind Title}">
+
+                                <NavigationViewItem.Icon>
+                                    <FontIcon Glyph="{x:Bind Glyph}" />
+                                </NavigationViewItem.Icon>
+                            </NavigationViewItem>
+                        </DataTemplate>
+                    </items:ItemTemplateSelector.FooterTemplate>
+                </items:ItemTemplateSelector>
+            </NavigationView.MenuItemTemplateSelector>
+
+            <ScrollViewer>
+                <Frame x:Name="Frame"
+                       Loaded="FrameLoaded"
+                       Padding="36 24 36 36" />
+            </ScrollViewer>
+        </NavigationView>
+    </Grid>
+</ex:WindowEx>

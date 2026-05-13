@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Siraj (Package)": {
+      "commandName": "MsixPackage",
+      "nativeDebugging": true
+    },
+    "Siraj (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

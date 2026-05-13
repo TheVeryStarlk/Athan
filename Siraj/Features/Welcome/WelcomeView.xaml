@@ -1,0 +1,34 @@
+<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:welcome="using:Siraj.Features.Welcome"
+
+      x:Class="Siraj.Features.Welcome.WelcomeView"
+      d:DataContext="{d:DesignInstance Type=welcome:WelcomeViewModel}"
+      mc:Ignorable="d">
+
+    <StackPanel HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Spacing="36">
+
+        <FontIcon Glyph="&#xE707;"
+                  FontSize="{StaticResource DisplayTextBlockFontSize}" />
+
+        <StackPanel>
+            <TextBlock Text="{x:Bind ViewModel.Title}"
+                       Style="{StaticResource TitleTextBlockStyle}"
+                       HorizontalAlignment="Center" />
+
+            <TextBlock Text="Use your current location or search manually for a location"
+                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                       HorizontalAlignment="Center" />
+        </StackPanel>
+
+        <Button Content="Use my location"
+                Style="{StaticResource AccentButtonStyle}"
+                Command="{x:Bind ViewModel.LocateCommand}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
+    </StackPanel>
+</Page>
