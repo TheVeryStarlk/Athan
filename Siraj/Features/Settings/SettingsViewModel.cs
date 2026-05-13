@@ -18,7 +18,7 @@ internal sealed partial class SettingsViewModel : FooterViewModel
     public partial int CalculationIndex { get; set; }
 
     [ObservableProperty]
-    public partial bool LaunchStartup { get; set; }
+    public partial bool Startup { get; set; }
 
     private readonly SettingsService settingsService;
     private readonly ThemeService themeService;
@@ -37,37 +37,38 @@ internal sealed partial class SettingsViewModel : FooterViewModel
     [RelayCommand]
     private void Initialize()
     {
-        ThemeIndex = (int) settingsService.Get(Theme.System, SirajSerializerContext.Default.Theme);
-        ReciterIndex = (int) settingsService.Get(CallReciter.MisharyAlAfasy, SirajSerializerContext.Default.CallReciter);
-        CalculationIndex = (int) settingsService.Get(PrayerCalculation.Makkah, SirajSerializerContext.Default.PrayerCalculation);
-        LaunchStartup = settingsService.Get(LaunchStartup, SirajSerializerContext.Default.Boolean, nameof(LaunchStartup));
+        // Write a converter?
+        ThemeIndex = (int) settingsService.Theme;
+        ReciterIndex = (int) settingsService.Reciter;
+        CalculationIndex = (int) settingsService.Calculation;
+
+        Startup = settingsService.Startup;
     }
 
     [RelayCommand]
     private async Task SaveAsync()
     {
-        if (await startupService.TryToggle(LaunchStartup))
+        if (await startupService.TryToggle(Startup))
         {
-            settingsService.Set(LaunchStartup, SirajSerializerContext.Default.Boolean, nameof(LaunchStartup));
+            settingsService.Startup = Startup;
         }
     }
 
     partial void OnThemeIndexChanged(int value)
     {
-        var theme = (Theme) value;
+        var theme = settingsService.Theme = (Theme) value;
 
-        settingsService.Set(theme, SirajSerializerContext.Default.Theme);
         themeService.Set(theme);
     }
 
     partial void OnReciterIndexChanged(int value)
     {
-        settingsService.Set((CallReciter) value, SirajSerializerContext.Default.CallReciter);
+        settingsService.Reciter = (CallReciter) value;
     }
 
     partial void OnCalculationIndexChanged(int value)
     {
-        settingsService.Set((PrayerCalculation) value, SirajSerializerContext.Default.PrayerCalculation);
+        settingsService.Calculation = (PrayerCalculation) value;
     }
 }
 

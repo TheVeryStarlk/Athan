@@ -57,7 +57,7 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
 
         Hijri = now.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern);
 
-        var options = settingsService.Get(PrayerCalculation.Makkah, SirajSerializerContext.Default.PrayerCalculation) switch
+        var options = settingsService.Calculation switch
         {
             PrayerCalculation.Makkah => MakkahPrayerTimesCalculatorOptions.Instance,
             PrayerCalculation.Egypt => EgyptPrayerTimesCalculatorOptions.Instance,

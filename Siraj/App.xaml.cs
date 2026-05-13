@@ -14,9 +14,9 @@ public sealed partial class App : Application
 
     protected override void OnLaunched(LaunchActivatedEventArgs eventArgs)
     {
-        var theme = Bootstrapper.Services.GetRequiredService<SettingsService>().Get(Theme.System, SirajSerializerContext.Default.Theme);
+        var settingsService = Bootstrapper.Services.GetRequiredService<SettingsService>();
 
-        Bootstrapper.Services.GetRequiredService<ThemeService>().Set(theme);
+        Bootstrapper.Services.GetRequiredService<ThemeService>().Set(settingsService.Theme);
 
         Bootstrapper.Services.GetRequiredService<ShellView>().Activate();
     }

@@ -30,7 +30,7 @@
 
                 <StackPanel Spacing="4">
                     <controls:SettingsCard Header="Application theme"
-                                           Description="Change the looks of Siraj">
+                                           Description="Change the look of Siraj">
 
                         <controls:SettingsCard.HeaderIcon>
                             <FontIcon Glyph="&#xE790;" />
@@ -83,7 +83,7 @@
                             <FontIcon Glyph="&#xEC4A;" />
                         </controls:SettingsCard.HeaderIcon>
 
-                        <ToggleSwitch IsOn="{x:Bind ViewModel.LaunchStartup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <ToggleSwitch IsOn="{x:Bind ViewModel.Startup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     </controls:SettingsCard>
                 </StackPanel>
             </StackPanel>

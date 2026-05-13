@@ -2,25 +2,21 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Siraj.Features.Locations;
-using Siraj.Features.Settings;
 using Siraj.Features.Shell.Items;
 
 namespace Siraj.Features.Welcome;
 
 internal sealed partial class WelcomeViewModel : HeaderViewModel
 {
-    private readonly SettingsService settingsService;
     private readonly DialogService dialogService;
     private readonly GeopositionService geopositionService;
     private readonly LocationService locationService;
 
     public WelcomeViewModel(
-        SettingsService settingsService,
         DialogService dialogService,
         GeopositionService geopositionService,
         LocationService locationService)
     {
-        this.settingsService = settingsService;
         this.dialogService = dialogService;
         this.geopositionService = geopositionService;
         this.locationService = locationService;
@@ -40,8 +36,6 @@ internal sealed partial class WelcomeViewModel : HeaderViewModel
         };
 
         WeakReferenceMessenger.Default.Send(new AddMessage(location));
-
-        settingsService.Set([location], SirajSerializerContext.Default.LocationArray);
 
         return;
 

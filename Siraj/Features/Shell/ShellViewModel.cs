@@ -76,7 +76,7 @@ internal sealed partial class ShellViewModel : ObservableObject
     [RelayCommand]
     private void Initialize()
     {
-        var locations = settingsService.Get([], SirajSerializerContext.Default.LocationArray);
+        var locations = settingsService.Locations;
 
         if (locations.Length is 0)
         {
@@ -108,8 +108,6 @@ internal sealed partial class ShellViewModel : ObservableObject
     [RelayCommand]
     private void Save()
     {
-        settingsService.Set(
-            Header.OfType<PrayersViewModel>().Select(header => header.Location).ToArray(),
-            SirajSerializerContext.Default.LocationArray);
+        settingsService.Locations = Header.OfType<PrayersViewModel>().Select(header => header.Location).ToArray();
     }
 }
