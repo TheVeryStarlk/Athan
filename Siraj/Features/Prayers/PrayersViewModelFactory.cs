@@ -8,6 +8,6 @@ internal sealed class PrayersViewModelFactory(SettingsService settingsService, T
 {
     public PrayersViewModel Create(Location location)
     {
-        return new PrayersViewModel(location, settingsService, timerService, timeProvider);
+        return new PrayersViewModel(settingsService, timerService, timeProvider, location);
     }
 }

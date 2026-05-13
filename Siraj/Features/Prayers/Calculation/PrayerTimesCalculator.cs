@@ -6,7 +6,7 @@ namespace Siraj.Features.Prayers.Calculation;
 
 internal sealed class PrayerTimesCalculator(PrayerTimesCalculatorOptions calculatorOptions)
 {
-    public FrozenDictionary<Prayer, DateTimeOffset> Calculate(DateTimeOffset dateTimeOffset, double latitude, double longitude)
+    public FrozenDictionary<PrayerKind, DateTimeOffset> Calculate(DateTimeOffset dateTimeOffset, double latitude, double longitude)
     {
         var context = new CalculationContext(
             dateTimeOffset, 
@@ -32,29 +32,29 @@ file sealed class CalculationContext(
 {
     private readonly DateTimeOffset _universal = new(dateTimeOffset.Year, dateTimeOffset.Month, dateTimeOffset.Day, 0, 0, 0, TimeSpan.Zero);
 
-    public FrozenDictionary<Prayer, DateTimeOffset> CalculateTimes()
+    public FrozenDictionary<PrayerKind, DateTimeOffset> CalculateTimes()
     {
-        var times = new Dictionary<Prayer, double>
+        var times = new Dictionary<PrayerKind, double>
         {
-            { Prayer.Fajr, 5 },
-            { Prayer.Dhuhr, 12 },
-            { Prayer.Asr, 13 },
-            { Prayer.Maghrib, 18 },
-            { Prayer.Isha, 18 }
+            { PrayerKind.Fajr, 5 },
+            { PrayerKind.Dhuhr, 12 },
+            { PrayerKind.Asr, 13 },
+            { PrayerKind.Maghrib, 18 },
+            { PrayerKind.Isha, 18 }
         };
 
-        times[Prayer.Fajr] = AngleTime(fajrAngle, times[Prayer.Fajr], -1);
-        times[Prayer.Dhuhr] = MidDay(times[Prayer.Dhuhr]);
-        times[Prayer.Asr] = AngleTime(AsrAngle(times[Prayer.Asr]), times[Prayer.Asr]);
-        times[Prayer.Maghrib] = AngleTime(0.833, times[Prayer.Maghrib]);
-        times[Prayer.Isha] = AngleTime(ishaAngle, times[Prayer.Isha]);
+        times[PrayerKind.Fajr] = AngleTime(fajrAngle, times[PrayerKind.Fajr], -1);
+        times[PrayerKind.Dhuhr] = MidDay(times[PrayerKind.Dhuhr]);
+        times[PrayerKind.Asr] = AngleTime(AsrAngle(times[PrayerKind.Asr]), times[PrayerKind.Asr]);
+        times[PrayerKind.Maghrib] = AngleTime(0.833, times[PrayerKind.Maghrib]);
+        times[PrayerKind.Isha] = AngleTime(ishaAngle, times[PrayerKind.Isha]);
 
         if (ishaOffset.HasValue)
         {
-            times[Prayer.Isha] = times[Prayer.Maghrib] + ishaOffset.Value.TotalMinutes / 60D;
+            times[PrayerKind.Isha] = times[PrayerKind.Maghrib] + ishaOffset.Value.TotalMinutes / 60D;
         }
 
-        var result = new Dictionary<Prayer, DateTimeOffset>();
+        var result = new Dictionary<PrayerKind, DateTimeOffset>();
 
         foreach (var pair in times)
         {

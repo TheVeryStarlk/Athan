@@ -1,6 +1,6 @@
 ﻿namespace Siraj.Features.Prayers.Calculation;
 
-internal enum Prayer
+internal enum PrayerKind
 {
     Fajr,
     Dhuhr,

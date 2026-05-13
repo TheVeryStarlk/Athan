@@ -26,17 +26,17 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     public partial string? Upcoming { get; set; }
 
     [ObservableProperty]
-    public partial string? Message { get; set; }
+    public partial string? Remaining { get; set; }
 
     private readonly SettingsService settingsService;
     private readonly TimerService timerService;
     private readonly TimeProvider timeProvider;
 
     public PrayersViewModel(
-        Location location,
         SettingsService settingsService,
         TimerService timerService,
-        TimeProvider timeProvider)
+        TimeProvider timeProvider,
+        Location location)
     {
         this.settingsService = settingsService;
         this.timerService = timerService;
@@ -45,7 +45,6 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
         Location = location;
 
         Title = location.Name;
-        Glyph = "🌄";
     }
 
     [RelayCommand]
@@ -63,22 +62,15 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
         foreach (var pair in times)
         {
             var local = pair.Value.ToLocalTime();
-            Prayers.Add(new Prayer(pair.Key.ToString(), local.ToString("h:mm tt"), local));
+            Prayers.Add(new Prayer(pair.Key, local.ToString("h:mm tt"), local));
         }
-
-        Refresh();
 
         var elapsed = TimeSpan.FromTicks(now.TimeOfDay.Ticks % TimeSpan.FromMinutes(1).Ticks);
         var interval = elapsed == TimeSpan.Zero ? TimeSpan.FromMinutes(1) : TimeSpan.FromMinutes(1) - elapsed;
 
-        timerService.Start(interval, Update);
+        timerService.Start(TimeSpan.Zero, Update);
     }
 
-    private void Update()
-    {
-        Refresh();
-        timerService.Start(TimeSpan.FromMinutes(1), Update);
-    }
 
     private void Refresh()
     {
@@ -89,41 +81,40 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
         if (upcoming is null)
         {
             var prayer = Prayers[0];
-            upcoming = new Prayer(prayer.Name, prayer.Message, prayer.Time.AddDays(1));
+            upcoming = new Prayer(prayer.Kind, prayer.Message, prayer.Time.AddDays(1));
         }
 
-        Glyph = upcoming.Name switch
-        {
-            "Fajr" => "🌅",
-            "Dhuhr" => "🌄",
-            "Asr" => "🌇",
-            "Maghrib" => "🌆",
-            "Isha" => "🌌",
-            _ => throw new ArgumentOutOfRangeException()
-        };
+        Glyph = Prayer.ToEmoji(upcoming.Kind);
 
-        Upcoming = upcoming.Name;
-
-        var left = upcoming.Time - now;
-        var hours = (int) left.TotalHours;
-        var minutes = left.Minutes;
-
-        Message = (hours, minutes) switch
-        {
-            (> 0, > 0) => $"{hours} hour(s) and {minutes} minute(s) left",
-            (> 0, 0) => $"{hours} hour(s) left",
-            (0, > 0) => $"{minutes} minute(s) left",
-            (0, 0) => "Less than a minute left",
-            _ => throw new ArgumentOutOfRangeException()
-        };
+        Upcoming = upcoming.Kind.ToString();
+        Remaining = (upcoming.Time - now).ToReadable();
+    }
+    
+    private void Update()
+    {
+        Refresh();
+        timerService.Start(TimeSpan.FromMinutes(1), Update);
     }
 }
 
-internal sealed class Prayer(string name, string message, DateTimeOffset time)
+internal sealed class Prayer(PrayerKind kind, string message, DateTimeOffset time)
 {
-    public string Name => name;
+    public PrayerKind Kind => kind;
 
     public string Message => message;
 
     public DateTimeOffset Time => time;
+
+    public static string ToEmoji(PrayerKind kind)
+    {
+        return kind switch
+        {
+            PrayerKind.Fajr => "🌅",
+            PrayerKind.Dhuhr => "🌄",
+            PrayerKind.Asr => "🌇",
+            PrayerKind.Maghrib => "🌆",
+            PrayerKind.Isha => "🌌",
+            _ => throw new ArgumentOutOfRangeException()
+        };
+    }
 }

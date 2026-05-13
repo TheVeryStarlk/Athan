@@ -52,7 +52,7 @@
                                Foreground="{StaticResource SystemFillColorAttentionBrush}"
                                HorizontalAlignment="Center" />
 
-                    <TextBlock Text="{x:Bind ViewModel.Message, Mode=OneWay}"
+                    <TextBlock Text="{x:Bind ViewModel.Remaining, Mode=OneWay}"
                                TextAlignment="Center"
                                Style="{StaticResource BodyTextBlockStyle}"
                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
