@@ -109,7 +109,7 @@
 
                                 <HyperlinkButton Margin="-12 0 0 0"
                                                  Content="GitHub repository"
-                                                 NavigateUri="https://GitHub.com/TheVeryStarlk/Athan" />
+                                                 NavigateUri="https://github.com/TheVeryStarlk/Athan" />
 
                                 <TextBlock Text="Made in Riyadh with ❤️" />
                             </StackPanel>

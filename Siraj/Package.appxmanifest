@@ -59,6 +59,9 @@
                                  Square310x310Logo="Assets\LargeTile.png"/>
 
                 <uap:SplashScreen Image="Assets\SplashScreen.png"/>
+
+                <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" 
+								Notification="badge"/>
             </uap:VisualElements>
         </Application>
     </Applications>
