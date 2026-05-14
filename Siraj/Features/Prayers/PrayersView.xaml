@@ -1,10 +1,9 @@
-<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<Page x:Class="Siraj.Features.Prayers.PrayersView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:prayers="using:Siraj.Features.Prayers"
-
-      x:Class="Siraj.Features.Prayers.PrayersView"
       d:DataContext="{d:DesignInstance Type=prayers:PrayersViewModel}"
       mc:Ignorable="d">
 
@@ -17,22 +16,27 @@
         <StackPanel Grid.Row="0"
                     Margin="0 0 0 24">
 
-            <TextBlock Text="{x:Bind ViewModel.Title}"
-                       Style="{StaticResource TitleTextBlockStyle}" />
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                       Text="{x:Bind ViewModel.Title}" />
 
-            <TextBlock Text="{x:Bind ViewModel.Hijri, Mode=OneWay}"
-                       Foreground="{ThemeResource TextFillColorSecondaryBrush}" />
+            <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                       Text="{x:Bind ViewModel.Hijri, Mode=OneWay}" />
         </StackPanel>
 
-        <Grid ColumnSpacing="12"
-              RowSpacing="12"
-              Grid.Row="1">
+        <Grid Grid.Row="1"
+              ColumnSpacing="12"
+              RowSpacing="12">
 
             <Grid.Resources>
                 <Style TargetType="Border">
-                    <Setter Property="Padding" Value="20 16 20 16" />
-                    <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
-                    <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                    <Setter Property="Background"
+                            Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+
+                    <Setter Property="CornerRadius"
+                            Value="{ThemeResource ControlCornerRadius}" />
+
+                    <Setter Property="Padding"
+                            Value="20 16 20 16" />
                 </Style>
             </Grid.Resources>
 
@@ -47,16 +51,16 @@
                             VerticalAlignment="Center"
                             Spacing="8">
 
-                    <TextBlock Text="{x:Bind ViewModel.Upcoming, Mode=OneWay}"
-                               Style="{StaticResource TitleTextBlockStyle}"
+                    <TextBlock HorizontalAlignment="Center"
                                Foreground="{StaticResource SystemFillColorAttentionBrush}"
-                               HorizontalAlignment="Center" />
+                               Style="{StaticResource TitleTextBlockStyle}"
+                               Text="{x:Bind ViewModel.Upcoming, Mode=OneWay}" />
 
-                    <TextBlock Text="{x:Bind ViewModel.Remaining, Mode=OneWay}"
-                               TextAlignment="Center"
-                               Style="{StaticResource BodyTextBlockStyle}"
+                    <TextBlock HorizontalAlignment="Center"
                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                               HorizontalAlignment="Center" />
+                               Style="{StaticResource BodyTextBlockStyle}"
+                               Text="{x:Bind ViewModel.Remaining, Mode=OneWay}"
+                               TextAlignment="Center" />
                 </StackPanel>
             </Border>
         </Grid>
