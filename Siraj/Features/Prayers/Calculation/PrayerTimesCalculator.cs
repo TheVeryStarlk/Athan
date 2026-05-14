@@ -17,7 +17,7 @@ internal sealed class PrayerTimesCalculator(PrayerTimesCalculatorOptions calcula
             calculatorOptions.IshaOffset, 
             calculatorOptions.MaghribOffset);
 
-        return context.CalculateTimes();
+        return context.Calculate();
     }
 }
 
@@ -30,9 +30,9 @@ file sealed class CalculationContext(
     TimeSpan? ishaOffset,
     TimeSpan? maghribOffset)
 {
-    private readonly DateTimeOffset _universal = new(dateTimeOffset.Year, dateTimeOffset.Month, dateTimeOffset.Day, 0, 0, 0, TimeSpan.Zero);
+    private readonly DateTimeOffset universal = new(dateTimeOffset.Year, dateTimeOffset.Month, dateTimeOffset.Day, 0, 0, 0, TimeSpan.Zero);
 
-    public FrozenDictionary<PrayerKind, DateTimeOffset> CalculateTimes()
+    public FrozenDictionary<PrayerKind, DateTimeOffset> Calculate()
     {
         var times = new Dictionary<PrayerKind, double>
         {
@@ -59,7 +59,7 @@ file sealed class CalculationContext(
         foreach (var pair in times)
         {
             var time = pair.Value - longitude / 15D;
-            result[pair.Key] = _universal.AddHours(time);
+            result[pair.Key] = universal.AddHours(time);
         }
 
         return result.ToFrozenDictionary();
@@ -67,7 +67,7 @@ file sealed class CalculationContext(
 
     private (double Declination, double Equation) SunPosition(double time)
     {
-        var epoch = (_universal - new DateTimeOffset(2000, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalDays - 1 + time / 24D - longitude / 360D;
+        var epoch = (universal - new DateTimeOffset(2000, 1, 1, 0, 0, 0, TimeSpan.Zero)).TotalDays - 1 + time / 24D - longitude / 360D;
 
         var meanAnomaly = Math.Modulo(357.529 + 0.98560028 * epoch, 360);
         var meanLongitude = Math.Modulo(280.459 + 0.98564736 * epoch, 360);
