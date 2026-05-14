@@ -29,11 +29,17 @@
 
             <Grid.Resources>
                 <Style TargetType="Border">
+                    <Setter Property="BorderBrush"
+                            Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+
                     <Setter Property="Background"
                             Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
 
                     <Setter Property="CornerRadius"
                             Value="{ThemeResource ControlCornerRadius}" />
+
+                    <Setter Property="BorderThickness"
+                            Value="1" />
 
                     <Setter Property="Padding"
                             Value="20 16 20 16" />
