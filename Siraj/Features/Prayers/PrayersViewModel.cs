@@ -86,7 +86,7 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
         // Show how much is left for Fajr in the next day.
         if (time == default)
         {
-            time = times[PrayerKind.Fajr];
+            time = times[PrayerKind.Fajr].AddDays(1);
         }
 
         Glyph = Prayer.ToEmoji(kind);
