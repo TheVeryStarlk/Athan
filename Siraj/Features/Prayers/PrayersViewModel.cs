@@ -10,7 +10,6 @@ using System.Collections.Frozen;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Siraj.Features.Prayers;
 
@@ -21,6 +20,9 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     public Location Location { get; }
 
     public ObservableCollection<Prayer> Prayers { get; } = [];
+
+    [ObservableProperty]
+    public partial bool IsDefault { get; set; }
 
     [ObservableProperty]
     public partial string? Description { get; set; }
@@ -56,14 +58,14 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     }
 
     [RelayCommand]
-    private async Task Initialize()
+    private void Initialize()
     {
+        Prayers.Clear();
+
+        IsDefault = settingsService.Default?.Equals(Location) ?? false;
+
         timerService.Start();
         timerService.Tick += Refresh;
-
-        voiceService.Play(Voice.MisharyAlAfasy, false);
-
-        Prayers.Clear();
 
         var now = timeProvider.GetLocalNow();
 
@@ -100,6 +102,11 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
 
         Upcoming = kind;
         Remaining = (time - now).ToReadable();
+    }
+
+    partial void OnIsDefaultChanged(bool value)
+    {
+        settingsService.Default = value ? Location : null;
     }
 }
 

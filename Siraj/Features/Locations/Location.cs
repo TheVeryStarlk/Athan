@@ -12,4 +12,14 @@ internal sealed class Location
 
     [JsonPropertyName("lon")]
     public required double Longitude { get; init; }
+
+    public override bool Equals(object? instance)
+    {
+        if (instance is Location location)
+        {
+            return location.Latitude == Latitude && location.Longitude == Longitude;
+        }
+
+        return false;
+    }
 }

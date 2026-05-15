@@ -10,6 +10,12 @@ namespace Siraj.Features.Settings;
 
 internal sealed class SettingsService
 {
+    public Location? Default
+    {
+        get => Get(null, SirajSerializerContext.Default.Location, nameof(Default));
+        set => Set(value, SirajSerializerContext.Default.Location, nameof(Default));
+    }
+
     public Location[] Locations
     {
         get => Get([], SirajSerializerContext.Default.LocationArray);

@@ -13,16 +13,29 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0"
-                    Margin="0 0 0 24"
-                    Spacing="4">
+        <Grid Grid.Row="0"
+              Margin="0 0 0 24">
 
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}"
-                       Text="{x:Bind ViewModel.Title}" />
+            <StackPanel Spacing="4"
+                        HorizontalAlignment="Left">
 
-            <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                       Text="{x:Bind ViewModel.Description, Mode=OneWay}" />
-        </StackPanel>
+                <TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                           Text="{x:Bind ViewModel.Title}" />
+
+                <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                           Text="{x:Bind ViewModel.Description, Mode=OneWay}" />
+            </StackPanel>
+
+            <ToggleButton IsChecked="{x:Bind ViewModel.IsDefault, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                          HorizontalAlignment="Right"
+                          Width="36"
+                          Height="36"
+                          Padding="0"
+                          ToolTipService.ToolTip="Receive notifications for this location">
+
+                <FontIcon Glyph="&#xEA8F;" FontSize="16" />
+            </ToggleButton>
+        </Grid>
 
         <Grid Grid.Row="1"
               ColumnSpacing="12"
