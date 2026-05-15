@@ -13,6 +13,11 @@ internal sealed class VoiceService
 
     public void Play(Voice voice, bool isFajr)
     {
+        if (player.CurrentState is MediaPlayerState.Playing)
+        {
+            return;
+        }
+
         var file = $"{voice}{(isFajr ? "Fajr" : string.Empty)}";
         
         player.Source = MediaSource.CreateFromUri(new Uri($"ms-appx:///Assets/Voices/{file}.mp3"));

@@ -3,7 +3,7 @@ using Microsoft.UI.Dispatching;
 
 namespace Siraj.Features.Prayers;
 
-internal sealed class TimerService(TimeProvider timeProvider)
+internal sealed class TimerService
 {
     public event Action? Tick;
 
@@ -19,17 +19,13 @@ internal sealed class TimerService(TimeProvider timeProvider)
         timer = DispatcherQueue.GetForCurrentThread().CreateTimer();
 
         timer.Tick += OnTick;
-        timer.Start();
+        timer.Interval = TimeSpan.FromSeconds(1);
 
-        var elapsed = TimeSpan.FromTicks(timeProvider.GetLocalNow().TimeOfDay.Ticks % TimeSpan.FromMinutes(1).Ticks);
-        var interval = elapsed == TimeSpan.Zero ? TimeSpan.FromMinutes(1) : TimeSpan.FromMinutes(1) - elapsed;
-        
-        timer.Interval = interval;
+        timer.Start();
     }
 
     private void OnTick(DispatcherQueueTimer sender, object eventArgs)
     {
         Tick?.Invoke();
-        timer?.Interval = TimeSpan.FromMinutes(1);
     }
 }

@@ -69,6 +69,6 @@ internal sealed class DebugTimeProvider : TimeProvider
 {
     public override DateTimeOffset GetUtcNow()
     {
-        return DateTimeOffset.UtcNow;
+        return DateTimeOffset.UtcNow.AddHours(1).AddMinutes(44);
     }
 }

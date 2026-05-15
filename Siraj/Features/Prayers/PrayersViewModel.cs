@@ -98,10 +98,15 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
             time = times[PrayerKind.Fajr].AddDays(1);
         }
 
+        if (IsDefault && Upcoming != kind && !string.IsNullOrWhiteSpace(Remaining))
+        {
+            voiceService.Play(settingsService.Voice, Upcoming is PrayerKind.Fajr);
+        }
+
         Glyph = Prayer.ToEmoji(kind);
 
         Upcoming = kind;
-        Remaining = (time - now).ToReadable();
+        Remaining = (time - now).ToReadableString();
     }
 
     partial void OnIsDefaultChanged(bool value)

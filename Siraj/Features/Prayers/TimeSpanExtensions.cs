@@ -4,7 +4,7 @@ namespace Siraj.Features.Prayers;
 
 internal static class TimeSpanExtensions
 {
-    public static string ToReadable(this TimeSpan timeSpan)
+    public static string ToReadableString(this TimeSpan timeSpan)
     {
         var hours = timeSpan.Hours;
         var hoursSuffix = hours > 1 ? "hours" : "hour";
