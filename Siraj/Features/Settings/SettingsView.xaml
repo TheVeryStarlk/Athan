@@ -22,101 +22,101 @@
 
             <StackPanel Grid.Row="1"
                         VerticalAlignment="Top"
-                        Spacing="36">
+                        Spacing="4">
 
-                <StackPanel Spacing="8">
-                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}"
-                               Text="Appearance and behavior" />
+                <StackPanel.ChildrenTransitions>
+                    <RepositionThemeTransition />
+                </StackPanel.ChildrenTransitions>
 
-                    <StackPanel Spacing="4">
-                        <controls:SettingsCard Description="Change the look of Siraj"
-                                               Header="Application theme">
+                <TextBlock Margin="0 0 0 4"
+                           Style="{StaticResource BodyStrongTextBlockStyle}"
+                           Text="Appearance and behavior" />
 
-                            <controls:SettingsCard.HeaderIcon>
-                                <FontIcon Glyph="&#xE790;" />
-                            </controls:SettingsCard.HeaderIcon>
+                <controls:SettingsCard Description="Change the look of Siraj"
+                                       Header="Application theme">
 
-                            <ComboBox SelectedIndex="{x:Bind ViewModel.ThemeIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                <ComboBoxItem Content="System" />
-                                <ComboBoxItem Content="Dark" />
-                                <ComboBoxItem Content="Light" />
-                            </ComboBox>
+                    <controls:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE790;" />
+                    </controls:SettingsCard.HeaderIcon>
+
+                    <ComboBox SelectedIndex="{x:Bind ViewModel.ThemeIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBoxItem Content="System" />
+                        <ComboBoxItem Content="Dark" />
+                        <ComboBoxItem Content="Light" />
+                    </ComboBox>
+                </controls:SettingsCard>
+
+                <controls:SettingsCard Description="Change the preferred call to prayer voice"
+                                       Header="Voice">
+
+                    <controls:SettingsCard.HeaderIcon>
+                        <SymbolIcon Symbol="Volume" />
+                    </controls:SettingsCard.HeaderIcon>
+
+                    <ComboBox SelectedIndex="{x:Bind ViewModel.ReciterIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBoxItem Content="Mishary Al-Afasy" />
+                        <ComboBoxItem Content="Madinah" />
+                        <ComboBoxItem Content="Makkah" />
+                    </ComboBox>
+                </controls:SettingsCard>
+
+                <controls:SettingsCard Description="Change the prayer calculation method"
+                                       Header="Method">
+
+                    <controls:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE823;" />
+                    </controls:SettingsCard.HeaderIcon>
+
+                    <ComboBox SelectedIndex="{x:Bind ViewModel.CalculationIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBoxItem Content="Makkah" />
+                        <ComboBoxItem Content="Egypt" />
+                        <ComboBoxItem Content="Karachi" />
+                        <ComboBoxItem Content="France" />
+                        <ComboBoxItem Content="Russia" />
+                        <ComboBoxItem Content="Singapore" />
+                        <ComboBoxItem Content="Muslim world league" />
+                        <ComboBoxItem Content="Islamic society of north America" />
+                    </ComboBox>
+                </controls:SettingsCard>
+
+                <controls:SettingsCard Description="Automatically launch Siraj when your system starts"
+                                       Header="Launch at startup">
+
+                    <controls:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xEC4A;" />
+                    </controls:SettingsCard.HeaderIcon>
+
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.Startup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </controls:SettingsCard>
+
+                <TextBlock Margin="0 24 0 4"
+                           Style="{StaticResource BodyStrongTextBlockStyle}"
+                           Text="About" />
+
+                <controls:SettingsExpander Description="An Islamic prayers application"
+                                           Header="Siraj">
+
+                    <controls:SettingsExpander.HeaderIcon>
+                        <BitmapIcon ShowAsMonochrome="False"
+                                    UriSource="/Assets/StoreLogo.png" />
+                    </controls:SettingsExpander.HeaderIcon>
+
+                    <controls:SettingsExpander.Items>
+                        <controls:SettingsCard HorizontalContentAlignment="Left"
+                                               ContentAlignment="Left">
+
+                            <StackPanel Margin="0 0 0 8"
+                                        Spacing="4">
+
+                                <HyperlinkButton Margin="-12 0 0 0"
+                                                 Content="GitHub repository"
+                                                 NavigateUri="https://github.com/TheVeryStarlk/Athan" />
+
+                                <TextBlock Text="Made in Riyadh with ❤️" />
+                            </StackPanel>
                         </controls:SettingsCard>
-
-                        <controls:SettingsCard Description="Change the preferred call to prayer voice"
-                                               Header="Voice">
-
-                            <controls:SettingsCard.HeaderIcon>
-                                <SymbolIcon Symbol="Volume" />
-                            </controls:SettingsCard.HeaderIcon>
-
-                            <ComboBox SelectedIndex="{x:Bind ViewModel.ReciterIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                <ComboBoxItem Content="Mishary Al-Afasy" />
-                                <ComboBoxItem Content="Madinah" />
-                                <ComboBoxItem Content="Makkah" />
-                            </ComboBox>
-                        </controls:SettingsCard>
-
-                        <controls:SettingsCard Description="Change the prayer calculation method"
-                                               Header="Method">
-
-                            <controls:SettingsCard.HeaderIcon>
-                                <FontIcon Glyph="&#xE823;" />
-                            </controls:SettingsCard.HeaderIcon>
-
-                            <ComboBox SelectedIndex="{x:Bind ViewModel.CalculationIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                <ComboBoxItem Content="Makkah" />
-                                <ComboBoxItem Content="Egypt" />
-                                <ComboBoxItem Content="Karachi" />
-                                <ComboBoxItem Content="France" />
-                                <ComboBoxItem Content="Russia" />
-                                <ComboBoxItem Content="Singapore" />
-                                <ComboBoxItem Content="Muslim world league" />
-                                <ComboBoxItem Content="Islamic society of north America" />
-                            </ComboBox>
-                        </controls:SettingsCard>
-
-                        <controls:SettingsCard Description="Automatically launch Siraj when your system starts"
-                                               Header="Launch at startup">
-
-                            <controls:SettingsCard.HeaderIcon>
-                                <FontIcon Glyph="&#xEC4A;" />
-                            </controls:SettingsCard.HeaderIcon>
-
-                            <ToggleSwitch IsOn="{x:Bind ViewModel.Startup, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </controls:SettingsCard>
-                    </StackPanel>
-                </StackPanel>
-
-                <StackPanel Spacing="8">
-                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}"
-                               Text="About" />
-
-                    <controls:SettingsExpander Description="An Islamic prayers application"
-                                               Header="Siraj">
-
-                        <controls:SettingsExpander.HeaderIcon>
-                            <BitmapIcon ShowAsMonochrome="False"
-                                        UriSource="/Assets/StoreLogo.png" />
-                        </controls:SettingsExpander.HeaderIcon>
-
-                        <controls:SettingsExpander.Items>
-                            <controls:SettingsCard HorizontalContentAlignment="Left"
-                                                   ContentAlignment="Left">
-
-                                <StackPanel Margin="0 0 0 8"
-                                            Spacing="4">
-
-                                    <HyperlinkButton Margin="-12 0 0 0"
-                                                     Content="GitHub repository"
-                                                     NavigateUri="https://github.com/TheVeryStarlk/Athan" />
-
-                                    <TextBlock Text="Made in Riyadh with ❤️" />
-                                </StackPanel>
-                            </controls:SettingsCard>
-                        </controls:SettingsExpander.Items>
-                    </controls:SettingsExpander>
-                </StackPanel>
+                    </controls:SettingsExpander.Items>
+                </controls:SettingsExpander>
             </StackPanel>
         </Grid>
     </ScrollView>

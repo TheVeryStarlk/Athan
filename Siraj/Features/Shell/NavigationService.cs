@@ -24,7 +24,7 @@ internal sealed class NavigationService : INavigationService
             _ => throw new ArgumentOutOfRangeException()
         };
 
-        Frame?.Navigate(type, viewModel, new EntranceNavigationTransitionInfo());
+        Frame?.Navigate(type, viewModel);
     }
 }
 
