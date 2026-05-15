@@ -128,12 +128,10 @@
                 </items:ItemTemplateSelector>
             </NavigationView.MenuItemTemplateSelector>
 
-            <ScrollViewer>
-                <Frame x:Name="Frame"
-                       CornerRadius="{ThemeResource ControlCornerRadius}"
-                       Loaded="FrameLoaded"
-                       Padding="36 24 36 36" />
-            </ScrollViewer>
+            <Frame x:Name="Frame"
+                   Padding="36 24 36 36"
+                   CornerRadius="{ThemeResource ControlCornerRadius}"
+                   Loaded="FrameLoaded" />
         </NavigationView>
     </Grid>
 </ex:WindowEx>
