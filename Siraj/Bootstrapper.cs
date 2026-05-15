@@ -3,6 +3,7 @@ using CommunityToolkit.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Siraj.Features.Locations;
 using Siraj.Features.Prayers;
+using Siraj.Features.Prayers.Voices;
 using Siraj.Features.Settings;
 using Siraj.Features.Shell;
 using Siraj.Features.Tasbih;
@@ -38,6 +39,7 @@ internal static partial class Bootstrapper
 
     // Prayers.
     [Singleton(typeof(TimerService))]
+    [Singleton(typeof(VoiceService))]
 
     // Settings.
     [Singleton(typeof(SettingsService))]

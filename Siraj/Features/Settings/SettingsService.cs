@@ -4,6 +4,7 @@ using Windows.Foundation.Collections;
 using Windows.Storage;
 using Siraj.Features.Locations;
 using Siraj.Features.Prayers.Calculation;
+using Siraj.Features.Prayers.Voices;
 
 namespace Siraj.Features.Settings;
 

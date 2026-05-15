@@ -1,14 +1,16 @@
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using Siraj.Features.Locations;
+using Siraj.Features.Prayers.Calculation;
+using Siraj.Features.Prayers.Voices;
+using Siraj.Features.Settings;
+using Siraj.Features.Shell.Items;
 using System;
 using System.Collections.Frozen;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-using Siraj.Features.Locations;
-using Siraj.Features.Prayers.Calculation;
-using Siraj.Features.Settings;
-using Siraj.Features.Shell.Items;
+using System.Threading.Tasks;
 
 namespace Siraj.Features.Prayers;
 
@@ -33,16 +35,19 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
 
     private readonly SettingsService settingsService;
     private readonly TimerService timerService;
+    private readonly VoiceService voiceService;
     private readonly TimeProvider timeProvider;
 
     public PrayersViewModel(
         SettingsService settingsService,
         TimerService timerService,
+        VoiceService voiceService,
         TimeProvider timeProvider,
         Location location)
     {
         this.settingsService = settingsService;
         this.timerService = timerService;
+        this.voiceService = voiceService;
         this.timeProvider = timeProvider;
 
         Location = location;
@@ -51,10 +56,12 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     }
 
     [RelayCommand]
-    private void Initialize()
+    private async Task Initialize()
     {
         timerService.Start();
         timerService.Tick += Refresh;
+
+        voiceService.Play(Voice.MisharyAlAfasy, false);
 
         Prayers.Clear();
 

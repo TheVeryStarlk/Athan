@@ -1,6 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using Siraj.Features.Locations;
 using Siraj.Features.Prayers.Calculation;
+using Siraj.Features.Prayers.Voices;
 using Siraj.Features.Settings;
 
 namespace Siraj;

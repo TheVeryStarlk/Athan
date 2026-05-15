@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Threading.Tasks;
 using Siraj.Features.Prayers.Calculation;
 using Siraj.Features.Shell.Items;
+using Siraj.Features.Prayers.Voices;
 
 namespace Siraj.Features.Settings;
 
@@ -70,11 +71,4 @@ internal sealed partial class SettingsViewModel : FooterViewModel
     {
         settingsService.Method = (Method) value;
     }
-}
-
-internal enum Voice
-{
-    MisharyAlAfasy,
-    Madinah,
-    Makkah
 }
