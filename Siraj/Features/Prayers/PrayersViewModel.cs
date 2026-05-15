@@ -21,7 +21,7 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     public ObservableCollection<Prayer> Prayers { get; } = [];
 
     [ObservableProperty]
-    public partial string? Hijri { get; set; }
+    public partial string? Description { get; set; }
 
     [ObservableProperty]
     public partial PrayerKind? Upcoming { get; set; }
@@ -60,7 +60,7 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
 
         var now = timeProvider.GetLocalNow();
 
-        Hijri = now.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern);
+        Description = now.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern);
 
         var calculator = new PrayerTimesCalculator(settingsService.Method.ToOptions());
 

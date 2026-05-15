@@ -14,13 +14,14 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0"
-                    Margin="0 0 0 24">
+                    Margin="0 0 0 24"
+                    Spacing="4">
 
             <TextBlock Style="{StaticResource TitleTextBlockStyle}"
                        Text="{x:Bind ViewModel.Title}" />
 
             <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                       Text="{x:Bind ViewModel.Hijri, Mode=OneWay}" />
+                       Text="{x:Bind ViewModel.Description, Mode=OneWay}" />
         </StackPanel>
 
         <Grid Grid.Row="1"
