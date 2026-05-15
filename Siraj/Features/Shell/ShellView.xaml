@@ -7,7 +7,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              Title="Siraj"
              Width="900"
-             Height="625"
+             Height="630"
              MinWidth="640"
              MinHeight="500"
              mc:Ignorable="d">
@@ -27,9 +27,9 @@
               SizeChanged="TitleBarSizeChanged">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.75*" />
-                <ColumnDefinition Width="0.75*" />
-                <ColumnDefinition Width="0.75*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0"
@@ -132,7 +132,7 @@
                 <Frame x:Name="Frame"
                        CornerRadius="{ThemeResource ControlCornerRadius}"
                        Loaded="FrameLoaded"
-                       Padding="36 24 36 0" />
+                       Padding="36 24 36 36" />
             </ScrollViewer>
         </NavigationView>
     </Grid>

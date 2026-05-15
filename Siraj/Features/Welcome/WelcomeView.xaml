@@ -12,7 +12,8 @@
                 Spacing="36">
 
         <FontIcon FontSize="{StaticResource DisplayTextBlockFontSize}"
-                  Glyph="&#xE707;" />
+                  Glyph="&#xE707;"
+                  Margin="0 0 0 -4" />
 
         <StackPanel Spacing="4">
             <TextBlock HorizontalAlignment="Center"
@@ -21,7 +22,7 @@
 
             <TextBlock HorizontalAlignment="Center"
                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                       Text="Use your current location or search manually for a location" />
+                       Text="Use your location or search manually for a location" />
         </StackPanel>
 
         <Button HorizontalAlignment="Center"
