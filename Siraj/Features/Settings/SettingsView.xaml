@@ -92,8 +92,7 @@
                            Text="About" />
 
                 <controls:SettingsExpander Description="An Islamic prayers application"
-                                           Header="Siraj"
-                                           IsExpanded="True">
+                                           Header="Siraj">
 
                     <controls:SettingsExpander.HeaderIcon>
                         <BitmapIcon ShowAsMonochrome="False"
