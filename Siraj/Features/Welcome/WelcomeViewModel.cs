@@ -39,9 +39,9 @@ internal sealed partial class WelcomeViewModel : HeaderViewModel
             Longitude = 46.6753
         };
 
-        WeakReferenceMessenger.Default.Send(new AddMessage(location));
-
         settingsService.Default = location;
+
+        WeakReferenceMessenger.Default.Send(new AddMessage(location));
 
         return;
 

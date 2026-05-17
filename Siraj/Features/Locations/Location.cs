@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Text.Json.Serialization;
 
 namespace Siraj.Features.Locations;
 
@@ -13,13 +14,10 @@ internal sealed class Location
     [JsonPropertyName("lon")]
     public required double Longitude { get; init; }
 
-    public override bool Equals(object? instance)
+    public bool Equals(Location instance)
     {
-        if (instance is Location location)
-        {
-            return location.Latitude == Latitude && location.Longitude == Longitude;
-        }
+        const double tolerance = 2.5;
 
-        return false;
+        return Math.Abs(Latitude - instance.Latitude) < tolerance && Math.Abs(Longitude - instance.Longitude) < tolerance;
     }
 }
