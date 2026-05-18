@@ -10,6 +10,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using WinUIEx;
 using Microsoft.Extensions.DependencyInjection;
+using Siraj.Features.Locations;
 using Siraj.Features.Shell.Items;
 
 namespace Siraj.Features.Shell;
@@ -111,6 +112,18 @@ internal sealed partial class ShellView : WindowEx
         await viewModel.SearchAsync(SearchBox.Text);
 
         SearchBox.IsSuggestionListOpen = viewModel.SearchSuggestions.Count is not 0;
+    }
+
+    private void SearchSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs eventArgs)
+    {
+        if (eventArgs.SelectedItem is not Location location)
+        {
+            return;
+        }
+
+        searchBounceTimer.Stop();
+        viewModel.SelectSuggestion(location);
+        sender.IsSuggestionListOpen = false;
     }
 
     private void NavigationViewSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs eventArgs)

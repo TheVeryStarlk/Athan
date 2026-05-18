@@ -63,6 +63,7 @@
             <AutoSuggestBox x:Name="SearchBox"
                             Grid.Column="1"
                             ItemsSource="{x:Bind viewModel.SearchSuggestions, Mode=OneWay}"
+                            SuggestionChosen="SearchSuggestionChosen"
                             TextChanged="SearchBoxTextChanged"
                             TextMemberPath="Name"
                             VerticalAlignment="Center"

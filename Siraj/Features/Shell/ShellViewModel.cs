@@ -162,4 +162,10 @@ internal sealed partial class ShellViewModel : ObservableObject
             SearchSuggestions.Clear();
         }
     }
+
+    public void SelectSuggestion(Location location)
+    {
+        Add(this, new AddMessage(location));
+        SearchSuggestions.Clear();
+    }
 }
