@@ -62,6 +62,9 @@
 
             <AutoSuggestBox x:Name="SearchBox"
                             Grid.Column="1"
+                            ItemsSource="{x:Bind viewModel.SearchSuggestions, Mode=OneWay}"
+                            TextChanged="SearchBoxTextChanged"
+                            TextMemberPath="Name"
                             VerticalAlignment="Center"
                             PlaceholderText="Search for a city, region, or country"
                             QueryIcon="Find">

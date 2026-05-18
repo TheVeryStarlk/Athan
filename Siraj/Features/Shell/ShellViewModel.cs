@@ -3,6 +3,9 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Siraj.Features.Locations;
 using Siraj.Features.Prayers;
 using Siraj.Features.Settings;
 using Siraj.Features.Shell.Items;
@@ -17,16 +20,21 @@ internal sealed partial class ShellViewModel : ObservableObject
 
     public ObservableCollection<FooterViewModel> Footer { get; }
 
+    public ObservableCollection<Location> SearchSuggestions { get; } = [];
+
     [ObservableProperty]
     public partial ItemViewModel? Current { get; set; }
 
+    private int searchVersion;
     private readonly INavigationService navigationService;
+    private readonly LocationService locationService;
     private readonly SettingsService settingsService;
     private readonly PrayersViewModelFactory prayersViewModelFactory;
     private readonly WelcomeViewModel welcomeViewModel;
 
     public ShellViewModel(
         INavigationService navigationService,
+        LocationService locationService,
         SettingsService settingsService,
         PrayersViewModelFactory prayersViewModelFactory,
         TasbihViewModel tasbihViewModel,
@@ -34,6 +42,7 @@ internal sealed partial class ShellViewModel : ObservableObject
         SettingsViewModel settingsViewModel)
     {
         this.navigationService = navigationService;
+        this.locationService = locationService;
         this.settingsService = settingsService;
         this.prayersViewModelFactory = prayersViewModelFactory;
         this.welcomeViewModel = welcomeViewModel;
@@ -109,5 +118,43 @@ internal sealed partial class ShellViewModel : ObservableObject
     private void Save()
     {
         settingsService.Locations = Header.OfType<PrayersViewModel>().Select(header => header.Location).ToArray();
+    }
+
+    public async Task SearchAsync(string query)
+    {
+        var version = Interlocked.Increment(ref searchVersion);
+        query = query.Trim();
+
+        if (string.IsNullOrWhiteSpace(query))
+        {
+            SearchSuggestions.Clear();
+            return;
+        }
+
+        try
+        {
+            var locations = await locationService.SearchAsync(query);
+
+            if (version != searchVersion)
+            {
+                return;
+            }
+
+            SearchSuggestions.Clear();
+
+            foreach (var location in locations.Take(5))
+            {
+                SearchSuggestions.Add(location);
+            }
+        }
+        catch
+        {
+            if (version != searchVersion)
+            {
+                return;
+            }
+
+            SearchSuggestions.Clear();
+        }
     }
 }

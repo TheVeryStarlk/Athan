@@ -4,6 +4,7 @@ using Windows.Foundation;
 using Windows.Graphics;
 using Microsoft.UI.Input;
 using Microsoft.UI.Windowing;
+using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
@@ -16,6 +17,7 @@ namespace Siraj.Features.Shell;
 internal sealed partial class ShellView : WindowEx
 {
     private readonly ShellViewModel viewModel;
+    private readonly DispatcherQueueTimer searchBounceTimer;
 
     public ShellView(ShellViewModel viewModel)
     {
@@ -31,6 +33,11 @@ internal sealed partial class ShellView : WindowEx
         ExtendsContentIntoTitleBar = true;
 
         AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
+
+        searchBounceTimer = DispatcherQueue.CreateTimer();
+        searchBounceTimer.IsRepeating = false;
+        searchBounceTimer.Interval = TimeSpan.FromMilliseconds(300);
+        searchBounceTimer.Tick += SearchBounceTimerTick;
     }
 
     protected override void OnStateChanged(WindowState state)
@@ -40,6 +47,8 @@ internal sealed partial class ShellView : WindowEx
 
     private void OnClosed(object sender, WindowEventArgs eventArgs)
     {
+        searchBounceTimer.Stop();
+        searchBounceTimer.Tick -= SearchBounceTimerTick;
         viewModel.SaveCommand.Execute(null);
     }
     
@@ -82,6 +91,26 @@ internal sealed partial class ShellView : WindowEx
     private void SearchInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs eventArgs)
     {
         SearchBox.Focus(FocusState.Programmatic);
+    }
+
+    private void SearchBoxTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs eventArgs)
+    {
+        if (eventArgs.Reason is not AutoSuggestionBoxTextChangeReason.UserInput)
+        {
+            return;
+        }
+
+        searchBounceTimer.Stop();
+        searchBounceTimer.Start();
+    }
+
+    private async void SearchBounceTimerTick(DispatcherQueueTimer sender, object args)
+    {
+        sender.Stop();
+
+        await viewModel.SearchAsync(SearchBox.Text);
+
+        SearchBox.IsSuggestionListOpen = viewModel.SearchSuggestions.Count is not 0;
     }
 
     private void NavigationViewSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs eventArgs)
