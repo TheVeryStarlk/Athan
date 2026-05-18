@@ -17,6 +17,8 @@ namespace Siraj.Features.Shell;
 
 internal sealed partial class ShellView : WindowEx
 {
+    private const int SearchBounceMilliseconds = 300;
+
     private readonly ShellViewModel viewModel;
     private readonly DispatcherQueueTimer searchBounceTimer;
 
@@ -37,7 +39,7 @@ internal sealed partial class ShellView : WindowEx
 
         searchBounceTimer = DispatcherQueue.CreateTimer();
         searchBounceTimer.IsRepeating = false;
-        searchBounceTimer.Interval = TimeSpan.FromMilliseconds(300);
+        searchBounceTimer.Interval = TimeSpan.FromMilliseconds(SearchBounceMilliseconds);
         searchBounceTimer.Tick += SearchBounceTimerTick;
     }
 

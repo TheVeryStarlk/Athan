@@ -152,6 +152,7 @@ internal sealed partial class ShellViewModel : ObservableObject
         }
         catch (Exception exception)
         {
+            Debug.WriteLine("Location search failed:");
             Debug.WriteLine(exception);
 
             if (version != searchVersion)
