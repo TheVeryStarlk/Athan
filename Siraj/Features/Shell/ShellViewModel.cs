@@ -1,8 +1,10 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using System.Diagnostics;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Siraj.Features.Locations;
@@ -16,6 +18,8 @@ namespace Siraj.Features.Shell;
 
 internal sealed partial class ShellViewModel : ObservableObject
 {
+    private const int MaxSearchSuggestions = 5;
+
     public ObservableCollection<HeaderViewModel> Header { get; } = [];
 
     public ObservableCollection<FooterViewModel> Footer { get; }
@@ -142,13 +146,48 @@ internal sealed partial class ShellViewModel : ObservableObject
 
             SearchSuggestions.Clear();
 
-            foreach (var location in locations.Take(5))
+            foreach (var location in locations.Take(MaxSearchSuggestions))
             {
                 SearchSuggestions.Add(location);
             }
         }
-        catch
+        catch (HttpRequestException exception)
         {
+            Debug.WriteLine(exception);
+
+            if (version != searchVersion)
+            {
+                return;
+            }
+
+            SearchSuggestions.Clear();
+        }
+        catch (TaskCanceledException exception)
+        {
+            Debug.WriteLine(exception);
+
+            if (version != searchVersion)
+            {
+                return;
+            }
+
+            SearchSuggestions.Clear();
+        }
+        catch (System.Text.Json.JsonException exception)
+        {
+            Debug.WriteLine(exception);
+
+            if (version != searchVersion)
+            {
+                return;
+            }
+
+            SearchSuggestions.Clear();
+        }
+        catch (Exception exception)
+        {
+            Debug.WriteLine(exception);
+
             if (version != searchVersion)
             {
                 return;
