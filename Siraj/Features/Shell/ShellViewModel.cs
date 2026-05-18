@@ -1,10 +1,9 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using System.Diagnostics;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Siraj.Features.Locations;
@@ -150,39 +149,6 @@ internal sealed partial class ShellViewModel : ObservableObject
             {
                 SearchSuggestions.Add(location);
             }
-        }
-        catch (HttpRequestException exception)
-        {
-            Debug.WriteLine(exception);
-
-            if (version != searchVersion)
-            {
-                return;
-            }
-
-            SearchSuggestions.Clear();
-        }
-        catch (TaskCanceledException exception)
-        {
-            Debug.WriteLine(exception);
-
-            if (version != searchVersion)
-            {
-                return;
-            }
-
-            SearchSuggestions.Clear();
-        }
-        catch (System.Text.Json.JsonException exception)
-        {
-            Debug.WriteLine(exception);
-
-            if (version != searchVersion)
-            {
-                return;
-            }
-
-            SearchSuggestions.Clear();
         }
         catch (Exception exception)
         {
