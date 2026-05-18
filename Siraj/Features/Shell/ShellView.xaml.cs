@@ -110,8 +110,6 @@ internal sealed partial class ShellView : WindowEx
         sender.Stop();
 
         await viewModel.SearchAsync(SearchBox.Text);
-
-        SearchBox.IsSuggestionListOpen = viewModel.SearchSuggestions.Count is not 0;
     }
 
     private void SearchSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs eventArgs)
@@ -123,7 +121,6 @@ internal sealed partial class ShellView : WindowEx
 
         searchBounceTimer.Stop();
         viewModel.SelectSuggestion(location);
-        sender.IsSuggestionListOpen = false;
     }
 
     private void NavigationViewSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs eventArgs)
