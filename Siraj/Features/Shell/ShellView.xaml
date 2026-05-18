@@ -63,8 +63,11 @@
             <AutoSuggestBox x:Name="SearchBox"
                             Grid.Column="1"
                             VerticalAlignment="Center"
+                            ItemsSource="{x:Bind viewModel.Suggestions}"
                             PlaceholderText="Search for a city, region, or country"
-                            QueryIcon="Find">
+                            QueryIcon="Find"
+                            QuerySubmitted="SearchBoxOnQuerySubmitted"
+                            TextChanged="SearchBoxOnTextChanged">
 
                 <AutoSuggestBox.KeyboardAccelerators>
                     <KeyboardAccelerator Key="F"

@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Animation;
 using Siraj.Features.Prayers;
 using Siraj.Features.Settings;
 using Siraj.Features.Shell.Items;

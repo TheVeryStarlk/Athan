@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
+using Siraj.Features.Locations;
 using Siraj.Features.Prayers;
 using Siraj.Features.Settings;
 using Siraj.Features.Shell.Items;
@@ -13,6 +15,8 @@ namespace Siraj.Features.Shell;
 
 internal sealed partial class ShellViewModel : ObservableObject
 {
+    public ObservableCollection<string> Suggestions { get; } = [];
+
     public ObservableCollection<HeaderViewModel> Header { get; } = [];
 
     public ObservableCollection<FooterViewModel> Footer { get; }
@@ -20,13 +24,17 @@ internal sealed partial class ShellViewModel : ObservableObject
     [ObservableProperty]
     public partial ItemViewModel? Current { get; set; }
 
+    private Location[]? locations;
+
     private readonly INavigationService navigationService;
+    private readonly LocationService locationService;
     private readonly SettingsService settingsService;
     private readonly PrayersViewModelFactory prayersViewModelFactory;
     private readonly WelcomeViewModel welcomeViewModel;
 
     public ShellViewModel(
         INavigationService navigationService,
+        LocationService locationService,
         SettingsService settingsService,
         PrayersViewModelFactory prayersViewModelFactory,
         TasbihViewModel tasbihViewModel,
@@ -37,6 +45,7 @@ internal sealed partial class ShellViewModel : ObservableObject
         this.settingsService = settingsService;
         this.prayersViewModelFactory = prayersViewModelFactory;
         this.welcomeViewModel = welcomeViewModel;
+        this.locationService = locationService;
 
         Footer =
         [
@@ -76,20 +85,61 @@ internal sealed partial class ShellViewModel : ObservableObject
     [RelayCommand]
     private void Initialize()
     {
-        var locations = settingsService.Locations;
+        var saved = settingsService.Locations;
 
-        if (locations.Length is 0)
+        if (saved.Length is 0)
         {
             Header.Add(welcomeViewModel);
         }
         else
         {
-            foreach (var location in locations)
+            foreach (var location in saved)
             {
                 Header.Add(prayersViewModelFactory.Create(location));
             }
         }
 
+        Navigate(Header[^1]);
+    }
+
+    [RelayCommand]
+    private async Task SearchAsync(string? input)
+    {
+        Suggestions.Clear();
+
+        if (string.IsNullOrWhiteSpace(input))
+        {
+            return;
+        }
+
+        locations = await locationService.SearchAsync(input);
+
+        foreach (var location in locations)
+        {
+            Suggestions.Add(location.Name);
+        }
+    }
+
+    [RelayCommand]
+    private void Select(string? instance)
+    {
+        if (Suggestions.Count < 1)
+        {
+            return;
+        }
+
+        instance ??= Suggestions[0];
+
+        Suggestions.Clear();
+
+        var location = locations?.FirstOrDefault(location => location.Name.Equals(instance));
+
+        if (location is null)
+        {
+            return;
+        }
+
+        Header.Add(prayersViewModelFactory.Create(location));
         Navigate(Header[^1]);
     }
 

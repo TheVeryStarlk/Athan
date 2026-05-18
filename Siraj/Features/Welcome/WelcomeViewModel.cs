@@ -32,29 +32,17 @@ internal sealed partial class WelcomeViewModel : HeaderViewModel
     [RelayCommand]
     private async Task LocateAsync()
     {
-        var location = new Location
+        if (!await geopositionService.IsAllowedAsync())
         {
-            Name = "Riyadh Region, Saudi Arabia",
-            Latitude = 24.7136,
-            Longitude = 46.6753
-        };
+            await dialogService.ShowMessageAsync("Where are you?", "Make sure location access is enabled in your system");
+            return;
+        }
 
+        var geoposition = await geopositionService.GetAsync();
+        var location = await locationService.ReverseAsync(geoposition.Latitude, geoposition.Longitude);
+        
         settingsService.Default = location;
 
         WeakReferenceMessenger.Default.Send(new AddMessage(location));
-
-        return;
-
-        // if (!await geopositionService.IsAllowedAsync())
-        // {
-        //     await dialogService.ShowMessageAsync("Where are you?", "Make sure location access is enabled in your system");
-        // }
-        // else
-        // {
-        //     var geoposition = await geopositionService.GetAsync();
-        //     var location = await locationService.ReverseAsync(geoposition.Latitude, geoposition.Longitude);
-        //
-        //     WeakReferenceMessenger.Default.Send(new AddMessage(location));
-        // }
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using WinUIEx;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Dispatching;
 using Siraj.Features.Shell.Items;
 
 namespace Siraj.Features.Shell;
@@ -16,10 +17,17 @@ namespace Siraj.Features.Shell;
 internal sealed partial class ShellView : WindowEx
 {
     private readonly ShellViewModel viewModel;
+    private readonly DispatcherQueueTimer timer;
 
     public ShellView(ShellViewModel viewModel)
     {
         this.viewModel = viewModel;
+
+        timer = DispatcherQueue.GetForCurrentThread().CreateTimer();
+
+        timer.Tick += OnTick;
+        timer.Interval = TimeSpan.FromSeconds(1);
+        timer.IsRepeating = false;
 
         InitializeComponent();
         SetTitleBar(TitleBar);
@@ -33,6 +41,18 @@ internal sealed partial class ShellView : WindowEx
         AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
     }
 
+    private async void OnTick(DispatcherQueueTimer sender, object eventArgs)
+    {
+        try
+        {
+            await viewModel.SearchCommand.ExecuteAsync(SearchBox.Text);
+        }
+        catch
+        {
+            // Log.
+        }
+    }
+
     protected override void OnStateChanged(WindowState state)
     {
         NavigationView.Margin = WindowState is WindowState.Maximized ? new Thickness(0, -1, 0, 0) : new Thickness(0, -2, 0, 0);
@@ -40,6 +60,7 @@ internal sealed partial class ShellView : WindowEx
 
     private void OnClosed(object sender, WindowEventArgs eventArgs)
     {
+        timer.Tick -= OnTick;
         viewModel.SaveCommand.Execute(null);
     }
     
@@ -77,6 +98,23 @@ internal sealed partial class ShellView : WindowEx
     private void ToggleButtonClick(object sender, RoutedEventArgs eventArgs)
     {
         NavigationView.IsPaneOpen = !NavigationView.IsPaneOpen;
+    }
+
+    private void SearchBoxOnTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs eventArgs)
+    {
+        if (eventArgs.Reason is not AutoSuggestionBoxTextChangeReason.UserInput)
+        {
+            return;
+        }
+
+        timer.Stop();
+        timer.Start();
+    }
+    
+    private void SearchBoxOnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs eventArgs)
+    {
+        viewModel.SelectCommand.Execute((string?) eventArgs.ChosenSuggestion);
+        sender.Text = string.Empty;
     }
 
     private void SearchInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs eventArgs)
