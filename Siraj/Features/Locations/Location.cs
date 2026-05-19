@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Siraj.Features.Locations;
 
@@ -16,8 +15,6 @@ internal sealed class Location
 
     public bool Equals(Location instance)
     {
-        const double tolerance = 2.5;
-
-        return Math.Abs(Latitude - instance.Latitude) < tolerance && Math.Abs(Longitude - instance.Longitude) < tolerance;
+        return Latitude == instance.Latitude && Longitude == instance.Longitude;
     }
 }

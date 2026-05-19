@@ -45,15 +45,20 @@
 
                 <Grid.Resources>
                     <Style TargetType="Border">
-                        <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                        <Setter Property="Background"
+                                Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
 
-                        <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+                        <Setter Property="BorderBrush"
+                                Value="{ThemeResource CardStrokeColorDefaultBrush}" />
 
-                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="BorderThickness"
+                                Value="1" />
 
-                        <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
+                        <Setter Property="CornerRadius"
+                                Value="{ThemeResource ControlCornerRadius}" />
 
-                        <Setter Property="Padding" Value="20 16 20 16" />
+                        <Setter Property="Padding"
+                                Value="20 16 20 16" />
                     </Style>
                 </Grid.Resources>
 

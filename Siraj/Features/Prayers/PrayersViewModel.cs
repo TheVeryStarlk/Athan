@@ -55,6 +55,8 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
         Location = location;
 
         Title = location.Name;
+
+        Initialize();
     }
 
     [RelayCommand]
