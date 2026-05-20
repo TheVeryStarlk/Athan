@@ -15,7 +15,7 @@ internal sealed class LocationService(IHttpClientFactory clientFactory)
         var client = clientFactory.CreateClient();
 
         client.DefaultRequestHeaders.Add("User-Agent", nameof(Siraj));
-        client.DefaultRequestHeaders.Add("Accept-Language", CultureInfo.CurrentUICulture.Name);
+        client.DefaultRequestHeaders.Add("Accept-Language", "en-US");
 
         var result = await client.GetFromJsonAsync(
             $"{Url}search?q={Uri.EscapeDataString(query)}&format=jsonv2",
@@ -31,10 +31,10 @@ internal sealed class LocationService(IHttpClientFactory clientFactory)
         var client = clientFactory.CreateClient();
 
         client.DefaultRequestHeaders.Add("User-Agent", nameof(Siraj));
-        client.DefaultRequestHeaders.Add("Accept-Language", CultureInfo.CurrentUICulture.Name);
+        client.DefaultRequestHeaders.Add("Accept-Language", "en-US");
 
         var result = await client.GetFromJsonAsync(
-            $"{Url}reverse?lat={latitude}&lon={longitude}&zoom=5&format=jsonv2",
+            $"{Url}reverse?lat={latitude}&lon={longitude}&zoom=18&format=jsonv2",
             SirajSerializerContext.Default.Location);
 
         ArgumentNullException.ThrowIfNull(result);

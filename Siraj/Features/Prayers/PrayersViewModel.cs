@@ -71,7 +71,7 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
 
         var now = timeProvider.GetLocalNow();
 
-        Description = now.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern);
+        Description = now.ToString(CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern, new CultureInfo("ar-SA"));
 
         var calculator = new PrayerTimesCalculator(settingsService.Method.ToOptions());
 
