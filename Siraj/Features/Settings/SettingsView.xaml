@@ -102,17 +102,21 @@
                     </controls:SettingsExpander.HeaderIcon>
 
                     <controls:SettingsExpander.Items>
-                        <controls:SettingsCard HorizontalContentAlignment="Left"
-                                               ContentAlignment="Left">
+                        <controls:SettingsCard Header="Made in Riyadh with ❤️"/>
 
-                            <StackPanel Margin="0 0 0 8"
-                                        Spacing="4">
+                        <controls:SettingsCard Header="References" 
+                                               HorizontalContentAlignment="Left"
+                                               ContentAlignment="Vertical">
 
-                                <HyperlinkButton Margin="-12 0 0 0"
-                                                 Content="GitHub repository"
+                            <StackPanel Spacing="4"
+                                        Orientation="Vertical"
+                                        Margin="-12 0 0 0">
+
+                                <HyperlinkButton Content="OpenStreetMap copyright "
+                                                 NavigateUri="https://www.openstreetmap.org/copyright" />
+
+                                <HyperlinkButton Content="GitHub repository"
                                                  NavigateUri="https://github.com/TheVeryStarlk/Athan" />
-
-                                <TextBlock Text="Made in Riyadh with ❤️" />
                             </StackPanel>
                         </controls:SettingsCard>
                     </controls:SettingsExpander.Items>
