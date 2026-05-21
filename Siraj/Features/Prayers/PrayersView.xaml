@@ -47,12 +47,6 @@
                   RowSpacing="12">
 
                 <Grid.Resources>
-              
-                    <Style TargetType="StackPanel">
-                        <Setter Property="Spacing"
-                                Value="8" />
-                    </Style>
-
                     <Style TargetType="Border">
                         <Setter Property="Background"
                                 Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
@@ -77,21 +71,29 @@
                 </Grid.RowDefinitions>
 
                 <Border Grid.Row="0">
-                    <StackPanel HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Spacing="8">
+                    <Grid>
+                        <StackPanel HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Spacing="4"
+                                    Margin="24 0 0 0">
 
-                        <TextBlock HorizontalAlignment="Center"
-                                   Foreground="{StaticResource SystemFillColorAttentionBrush}"
-                                   Style="{StaticResource TitleTextBlockStyle}"
-                                   Text="{x:Bind ViewModel.Upcoming, Mode=OneWay}" />
+                            <TextBlock VerticalAlignment="Center"
+                                       Foreground="{StaticResource SystemFillColorAttentionBrush}"
+                                       Style="{StaticResource TitleTextBlockStyle}"
+                                       Text="{x:Bind ViewModel.Upcoming, Mode=OneWay}" />
 
-                        <TextBlock HorizontalAlignment="Center"
-                                   Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                   Style="{StaticResource BodyTextBlockStyle}"
-                                   Text="{x:Bind ViewModel.Remaining, Mode=OneWay}"
-                                   TextAlignment="Center" />
-                    </StackPanel>
+                            <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       VerticalAlignment="Center"
+                                       Text="{x:Bind ViewModel.Remaining, Mode=OneWay}"
+                                       TextAlignment="Center" />
+                        </StackPanel>
+
+                        <TextBlock Text="{x:Bind ViewModel.Prayers[0].Time}"
+                                   Style="{StaticResource SubtitleTextBlockStyle}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"
+                                   Margin="0 0 16 0" />
+                    </Grid>
                 </Border>
 
                 <Border Grid.Row="1">
@@ -104,56 +106,112 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <Grid VerticalAlignment="Center"  Grid.Row="0">
+                        <Grid.Resources>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Spacing"
+                                        Value="8" />
+                            </Style>
+                        </Grid.Resources>
+
+                        <Grid VerticalAlignment="Center"
+                              Grid.Row="0">
+
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="🌅" Style="{StaticResource BodyLargeTextBlockStyle}" VerticalAlignment="Center" />
-                                <TextBlock Text="{x:Bind ViewModel.Prayers[0].Kind}"  Style="{StaticResource BodyStrongTextBlockStyle}" VerticalAlignment="Center" />
+                                <TextBlock Text="🌅"
+                                           Style="{StaticResource BodyLargeTextBlockStyle}"
+                                           VerticalAlignment="Center" />
+
+                                <TextBlock Text="{x:Bind ViewModel.Prayers[0].Kind}"
+                                           Style="{StaticResource BodyStrongTextBlockStyle}"
+                                           VerticalAlignment="Center" />
                             </StackPanel>
 
-                            <TextBlock Text="{x:Bind ViewModel.Prayers[0].Time}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Right" VerticalAlignment="Center"  />
+                            <TextBlock Text="{x:Bind ViewModel.Prayers[0].Time}"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center" />
                         </Grid>
 
-                        <Grid VerticalAlignment="Center"  Grid.Row="1">
+                        <Grid VerticalAlignment="Center"
+                              Grid.Row="1">
+
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="🌄" Style="{StaticResource BodyLargeTextBlockStyle}"  VerticalAlignment="Center" />
-                                <TextBlock Text="{x:Bind ViewModel.Prayers[1].Kind}" Style="{StaticResource BodyStrongTextBlockStyle}" VerticalAlignment="Center" />
+                                <TextBlock Text="🌄"
+                                           Style="{StaticResource BodyLargeTextBlockStyle}"
+                                           VerticalAlignment="Center" />
+
+                                <TextBlock Text="{x:Bind ViewModel.Prayers[1].Kind}"
+                                           Style="{StaticResource BodyStrongTextBlockStyle}"
+                                           VerticalAlignment="Center" />
                             </StackPanel>
 
-                            <TextBlock Text="{x:Bind ViewModel.Prayers[1].Time}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Right"  VerticalAlignment="Center"  />
+                            <TextBlock Text="{x:Bind ViewModel.Prayers[1].Time}"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center" />
                         </Grid>
 
-                        <Grid VerticalAlignment="Center"  Grid.Row="2">
+                        <Grid VerticalAlignment="Center"
+                              Grid.Row="2">
+
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="🌇"  Style="{StaticResource BodyLargeTextBlockStyle}" VerticalAlignment="Center" />
-                                <TextBlock Text="{x:Bind ViewModel.Prayers[2].Kind}" Style="{StaticResource BodyStrongTextBlockStyle}" VerticalAlignment="Center" />
+                                <TextBlock Text="🌇"
+                                           Style="{StaticResource BodyLargeTextBlockStyle}"
+                                           VerticalAlignment="Center" />
+
+                                <TextBlock Text="{x:Bind ViewModel.Prayers[2].Kind}"
+                                           Style="{StaticResource BodyStrongTextBlockStyle}"
+                                           VerticalAlignment="Center" />
                             </StackPanel>
 
-                            <TextBlock Text="{x:Bind ViewModel.Prayers[2].Time}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Right" VerticalAlignment="Center"  />
+                            <TextBlock Text="{x:Bind ViewModel.Prayers[2].Time}"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center" />
                         </Grid>
 
-                        <Grid VerticalAlignment="Center"  Grid.Row="3">
+                        <Grid VerticalAlignment="Center"
+                              Grid.Row="3">
+
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="🌆" Style="{StaticResource BodyLargeTextBlockStyle}"  VerticalAlignment="Center" />
-                                <TextBlock Text="{x:Bind ViewModel.Prayers[3].Kind}"  Style="{StaticResource BodyStrongTextBlockStyle}" VerticalAlignment="Center" />
+                                <TextBlock Text="🌆"
+                                           Style="{StaticResource BodyLargeTextBlockStyle}"
+                                           VerticalAlignment="Center" />
+
+                                <TextBlock Text="{x:Bind ViewModel.Prayers[3].Kind}"
+                                           Style="{StaticResource BodyStrongTextBlockStyle}"
+                                           VerticalAlignment="Center" />
                             </StackPanel>
 
-                            <TextBlock Text="{x:Bind ViewModel.Prayers[3].Time}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Right" VerticalAlignment="Center"  />
+                            <TextBlock Text="{x:Bind ViewModel.Prayers[3].Time}"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center" />
                         </Grid>
 
-                        
-                        <Grid VerticalAlignment="Center"  Grid.Row="4">
+                        <Grid VerticalAlignment="Center"
+                              Grid.Row="4">
+
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="🌌" Style="{StaticResource BodyLargeTextBlockStyle}" VerticalAlignment="Center"  />
-                                <TextBlock Text="{x:Bind ViewModel.Prayers[4].Kind}" Style="{StaticResource BodyStrongTextBlockStyle}" VerticalAlignment="Center"  />
+                                <TextBlock Text="🌌"
+                                           Style="{StaticResource BodyLargeTextBlockStyle}"
+                                           VerticalAlignment="Center" />
+
+                                <TextBlock Text="{x:Bind ViewModel.Prayers[4].Kind}"
+                                           Style="{StaticResource BodyStrongTextBlockStyle}"
+                                           VerticalAlignment="Center" />
                             </StackPanel>
 
-                            <TextBlock Text="{x:Bind ViewModel.Prayers[0].Time}" Foreground="{ThemeResource TextFillColorSecondaryBrush}" HorizontalAlignment="Right" VerticalAlignment="Center"  />
+                            <TextBlock Text="{x:Bind ViewModel.Prayers[0].Time}"
+                                       Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center" />
                         </Grid>
 
-                        <Border Grid.Row="0" Margin="-16 0 -16 0" BorderThickness="0">
-
+                        <Border Grid.Row="0"
+                                Margin="-16 0 -16 0"
+                                BorderThickness="0">
                         </Border>
-
                     </Grid>
                 </Border>
             </Grid>
