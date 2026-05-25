@@ -102,6 +102,7 @@
 
                                 <NavigationViewItem.Icon>
                                     <FontIcon FontFamily="Segoe UI Emoji"
+                                              Margin="-4"
                                               Glyph="{x:Bind Glyph, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </NavigationViewItem.Icon>
 

@@ -7,6 +7,10 @@
       d:DataContext="{d:DesignInstance Type=prayers:PrayersViewModel}"
       mc:Ignorable="d">
 
+    <Page.Resources>
+        <prayers:UpcomingToRowConverter x:Key="UpcomingToRowConverter" />
+    </Page.Resources>
+
     <ScrollView>
         <Grid>
             <Grid.RowDefinitions>
@@ -199,7 +203,7 @@
                                        VerticalAlignment="Center" />
                         </Grid>
 
-                        <Border Grid.Row="0"
+                        <Border Grid.Row="{x:Bind ViewModel.Upcoming, Converter={StaticResource UpcomingToRowConverter}, Mode=OneWay}"
                                 Margin="-16 0 -16 0"
                                 BorderThickness="0">
                         </Border>
