@@ -23,23 +23,11 @@
                     <TextBlock Style="{StaticResource TitleTextBlockStyle}"
                                Text="{x:Bind ViewModel.Title}"
                                TextWrapping="NoWrap"
-                               TextTrimming="CharacterEllipsis"
-                               Margin="0 0 48 0" />
+                               TextTrimming="CharacterEllipsis" />
 
                     <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                Text="{x:Bind ViewModel.Description, Mode=OneWay}" />
                 </StackPanel>
-
-                <ToggleButton Width="36"
-                              Height="36"
-                              Padding="0"
-                              HorizontalAlignment="Right"
-                              IsChecked="{x:Bind ViewModel.IsDefault, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                              ToolTipService.ToolTip="Receive notifications for this location">
-
-                    <FontIcon FontSize="16"
-                              Glyph="&#xEA8F;" />
-                </ToggleButton>
             </Grid>
 
             <Grid Grid.Row="1"
@@ -71,11 +59,10 @@
                 </Grid.RowDefinitions>
 
                 <Border Grid.Row="0">
-                    <Grid>
+                    <Grid Padding="24 0 24 0">
                         <StackPanel HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    Spacing="4"
-                                    Margin="24 0 0 0">
+                                    Spacing="4">
 
                             <TextBlock VerticalAlignment="Center"
                                        Foreground="{StaticResource SystemFillColorAttentionBrush}"
@@ -84,15 +71,19 @@
 
                             <TextBlock Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                        VerticalAlignment="Center"
-                                       Text="{x:Bind ViewModel.Remaining, Mode=OneWay}"
-                                       TextAlignment="Center" />
+                                       Text="{x:Bind ViewModel.Remaining, Mode=OneWay}" />
                         </StackPanel>
 
-                        <TextBlock Text="{x:Bind ViewModel.Prayers[0].Time}"
-                                   Style="{StaticResource SubtitleTextBlockStyle}"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Right"
-                                   Margin="0 0 16 0" />
+                        <ToggleButton Width="36"
+                                      Height="36"
+                                      Padding="0"
+                                      HorizontalAlignment="Right"
+                                      IsChecked="{x:Bind ViewModel.IsDefault, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                      ToolTipService.ToolTip="Receive notifications for this location">
+
+                            <FontIcon FontSize="16"
+                                      Glyph="&#xEA8F;" />
+                        </ToggleButton>
                     </Grid>
                 </Border>
 
