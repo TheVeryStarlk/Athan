@@ -38,7 +38,7 @@
     <Applications>
         <Application Id="App"
                      Executable="$targetnametoken$.exe"
-                     EntryPoint="windows.partialTrustApplication">
+                     EntryPoint="$targetentrypoint$">
 
             <Extensions>
                 <desktop:Extension Category="windows.startupTask">
@@ -66,8 +66,7 @@
         </Application>
     </Applications>
 
-    <Capabilities>
-        <Capability Name="internetClient"/>
-        <DeviceCapability Name="location"/>
-    </Capabilities>
+	<Capabilities>
+		<rescap:Capability Name="runFullTrust" />
+	</Capabilities>
 </Package>

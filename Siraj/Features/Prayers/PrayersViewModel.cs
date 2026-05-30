@@ -36,18 +36,21 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     private FrozenDictionary<PrayerKind, DateTimeOffset>? times;
 
     private readonly SettingsService settingsService;
+    private readonly NotificationService notificationService;
     private readonly TimerService timerService;
     private readonly VoiceService voiceService;
     private readonly TimeProvider timeProvider;
 
     public PrayersViewModel(
         SettingsService settingsService,
+        NotificationService notificationService,
         TimerService timerService,
         VoiceService voiceService,
         TimeProvider timeProvider,
         Location location)
     {
         this.settingsService = settingsService;
+        this.notificationService = notificationService;
         this.timerService = timerService;
         this.voiceService = voiceService;
         this.timeProvider = timeProvider;
@@ -102,6 +105,7 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
 
         if (IsDefault && Upcoming != kind && !string.IsNullOrWhiteSpace(Remaining))
         {
+            notificationService.Show(Location.Name, $"Now is the prayer time for {Upcoming}");
             voiceService.Play(settingsService.Voice, Upcoming is PrayerKind.Fajr);
         }
 

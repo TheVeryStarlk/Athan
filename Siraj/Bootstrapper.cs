@@ -38,6 +38,7 @@ internal static partial class Bootstrapper
     [Transient(typeof(LocationService))]
 
     // Prayers.
+    [Singleton(typeof(NotificationService))]
     [Singleton(typeof(TimerService))]
     [Singleton(typeof(VoiceService))]
 
