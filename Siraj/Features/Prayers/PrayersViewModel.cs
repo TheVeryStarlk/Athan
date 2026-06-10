@@ -115,9 +115,11 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
         Remaining = (time - now).ToReadableString();
     }
 
-    partial void OnIsDefaultChanged(bool value)
+    [RelayCommand]
+    private void Close()
     {
-        settingsService.Default = value ? Location : null;
+        timerService.Tick -= Refresh;
+        settingsService.Default = IsDefault ? Location : settingsService.Default;
     }
 }
 
