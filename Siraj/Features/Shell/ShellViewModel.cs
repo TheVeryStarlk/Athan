@@ -28,6 +28,7 @@ internal sealed partial class ShellViewModel : ObservableObject
 
     private readonly INavigationService navigationService;
     private readonly LocationService locationService;
+    private readonly WindowService windowService;
     private readonly SettingsService settingsService;
     private readonly PrayersViewModelFactory prayersViewModelFactory;
     private readonly WelcomeViewModel welcomeViewModel;
@@ -35,6 +36,7 @@ internal sealed partial class ShellViewModel : ObservableObject
     public ShellViewModel(
         INavigationService navigationService,
         LocationService locationService,
+        WindowService windowService,
         SettingsService settingsService,
         PrayersViewModelFactory prayersViewModelFactory,
         TasbihViewModel tasbihViewModel,
@@ -46,6 +48,7 @@ internal sealed partial class ShellViewModel : ObservableObject
         this.prayersViewModelFactory = prayersViewModelFactory;
         this.welcomeViewModel = welcomeViewModel;
         this.locationService = locationService;
+        this.windowService = windowService;
 
         Footer =
         [
@@ -153,6 +156,18 @@ internal sealed partial class ShellViewModel : ObservableObject
 
         Current = selection;
         navigationService.Navigate(Current);
+    }
+
+    [RelayCommand]
+    private void Open()
+    {
+        windowService.Open();
+    }
+
+    [RelayCommand]
+    private void Exit()
+    {
+        windowService.Exit();
     }
 
     [RelayCommand]

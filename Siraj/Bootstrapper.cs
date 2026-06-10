@@ -49,6 +49,7 @@ internal static partial class Bootstrapper
 
     // Shell.
     [Singleton(typeof(NavigationService), typeof(INavigationService))]
+    [Singleton(typeof(WindowService))]
 
     // Welcome.
     [Transient(typeof(DialogService))]

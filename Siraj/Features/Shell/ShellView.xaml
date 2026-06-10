@@ -5,6 +5,7 @@
              xmlns:ex="using:WinUIEx"
              xmlns:items="using:Siraj.Features.Shell.Items"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:notifyIcon="using:H.NotifyIcon"
              Title="Siraj"
              Width="900"
              Height="630"
@@ -21,6 +22,23 @@
             <RowDefinition Height="48" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
+        <notifyIcon:TaskbarIcon LeftClickCommand="{x:Bind viewModel.OpenCommand}"
+                                ContextMenuMode="SecondWindow"
+                                IconSource="../../Assets/Siraj/Siraj.ico"
+                                NoLeftClickDelay="True"
+                                ToolTipText="Siraj">
+
+            <notifyIcon:TaskbarIcon.ContextFlyout>
+                <MenuFlyout>
+                    <MenuFlyoutItem Text="Open"
+                                    Command="{x:Bind viewModel.OpenCommand}" />
+
+                    <MenuFlyoutItem Text="Exit"
+                                    Command="{x:Bind viewModel.ExitCommand}" />
+                </MenuFlyout>
+            </notifyIcon:TaskbarIcon.ContextFlyout>
+        </notifyIcon:TaskbarIcon>
 
         <Grid x:Name="TitleBar"
               Grid.Row="0"

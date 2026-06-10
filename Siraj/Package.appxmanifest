@@ -3,10 +3,9 @@
          xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
          xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
          xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-         xmlns:systemai="http://schemas.microsoft.com/appx/manifest/systemai/windows10"
          xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
 
-         IgnorableNamespaces="uap rescap systemai">
+         IgnorableNamespaces="uap rescap">
 
     <Identity Name="3cda70c9-d8ca-405d-a8c9-3120af13de6e"
               Publisher="CN=Starlk"
