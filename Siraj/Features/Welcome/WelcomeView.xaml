@@ -1,9 +1,9 @@
-<Page x:Class="Siraj.Features.Welcome.WelcomeView"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:welcome="using:Siraj.Features.Welcome"
+      x:Class="Siraj.Features.Welcome.WelcomeView"
       d:DataContext="{d:DesignInstance Type=welcome:WelcomeViewModel}"
       mc:Ignorable="d">
 
@@ -11,9 +11,9 @@
                 VerticalAlignment="Center"
                 Spacing="36">
 
-        <FontIcon FontSize="{StaticResource DisplayTextBlockFontSize}"
-                  Glyph="&#xE707;"
-                  Margin="0 0 0 -4" />
+        <FontIcon Margin="0 0 0 -4"
+                  FontSize="{StaticResource DisplayTextBlockFontSize}"
+                  Glyph="&#xE707;" />
 
         <StackPanel Spacing="4">
             <TextBlock HorizontalAlignment="Center"
@@ -22,7 +22,7 @@
 
             <TextBlock HorizontalAlignment="Center"
                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                       Text="Use your location or search manually for a location" />
+                       Text="Use your location or search for a location" />
         </StackPanel>
 
         <Button HorizontalAlignment="Center"

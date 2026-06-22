@@ -105,7 +105,7 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
 
         if (IsDefault && Upcoming != kind && !string.IsNullOrWhiteSpace(Remaining))
         {
-            notificationService.Show(Location.Name, $"Now is the prayer time for {Upcoming}");
+            notificationService.Show($"Now is the prayer time for {Upcoming}", Location.Name);
             voiceService.Play(settingsService.Voice, Upcoming is PrayerKind.Fajr);
         }
 

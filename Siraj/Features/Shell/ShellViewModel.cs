@@ -155,6 +155,7 @@ internal sealed partial class ShellViewModel : ObservableObject
         }
 
         Current = selection;
+
         navigationService.Navigate(Current);
     }
 
