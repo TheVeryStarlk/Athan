@@ -55,8 +55,12 @@
 
                     <ComboBox SelectedIndex="{x:Bind ViewModel.ReciterIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <ComboBoxItem Content="Mishary Al-Afasy" />
-                        <ComboBoxItem Content="Madinah" />
-                        <ComboBoxItem Content="Makkah" />
+
+                        <ComboBoxItem Content="Madinah" 
+                                      IsEnabled="False" />
+
+                        <ComboBoxItem Content="Makkah" 
+                                      IsEnabled="False"/>
                     </ComboBox>
                 </controls:SettingsCard>
 

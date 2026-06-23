@@ -34,11 +34,16 @@ internal sealed partial class ShellView : WindowEx
 
         this.CenterOnScreen();
 
-        Closed += OnClosed;
-
         ExtendsContentIntoTitleBar = true;
 
+        AppWindow.Closing += OnClosing;
         AppWindow.TitleBar.PreferredHeightOption = TitleBarHeightOption.Tall;
+    }
+
+    private void OnClosing(AppWindow sender, AppWindowClosingEventArgs eventArgs)
+    {
+        eventArgs.Cancel = true;
+        this.Hide();
     }
 
     private async void OnTick(DispatcherQueueTimer sender, object eventArgs)
@@ -55,15 +60,14 @@ internal sealed partial class ShellView : WindowEx
 
     protected override void OnStateChanged(WindowState state)
     {
+        if (state is WindowState.Minimized)
+        {
+            this.Hide();
+        }
+        
         NavigationView.Margin = WindowState is WindowState.Maximized ? new Thickness(0, -1, 0, 0) : new Thickness(0, -2, 0, 0);
     }
 
-    private void OnClosed(object sender, WindowEventArgs eventArgs)
-    {
-        timer.Tick -= OnTick;
-        viewModel.SaveCommand.Execute(null);
-    }
-    
     // https://discord.com/channels/372137812037730304/671870147354427422/1492298194749620236
     private void TitleBarSizeChanged(object sender, SizeChangedEventArgs eventArgs)
     {
@@ -90,9 +94,7 @@ internal sealed partial class ShellView : WindowEx
             })
             .ToArray();
 
-        InputNonClientPointerSource
-            .GetForWindowId(AppWindow.Id)
-            .SetRegionRects(NonClientRegionKind.Passthrough, rects);
+        InputNonClientPointerSource.GetForWindowId(AppWindow.Id).SetRegionRects(NonClientRegionKind.Passthrough, rects);
     }
 
     private void ToggleButtonClick(object sender, RoutedEventArgs eventArgs)

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
+using WinUIEx;
 
 namespace Siraj.Features.Shell;
 
@@ -10,7 +11,11 @@ internal sealed class WindowService
     public void Open()
     {
         window ??= Bootstrapper.Services.GetRequiredService<ShellView>();
-        window.Activate();
+
+        window.WindowState = WindowState.Normal;
+        window.BringToFront();
+        
+        window.AppWindow.Show();
     }
 
     public void Exit()

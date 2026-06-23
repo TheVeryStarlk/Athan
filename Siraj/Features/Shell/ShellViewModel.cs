@@ -168,12 +168,7 @@ internal sealed partial class ShellViewModel : ObservableObject
     [RelayCommand]
     private void Exit()
     {
-        windowService.Exit();
-    }
-
-    [RelayCommand]
-    private void Save()
-    {
         settingsService.Locations = Header.OfType<PrayersViewModel>().Select(header => header.Location).ToArray();
+        windowService.Exit();
     }
 }

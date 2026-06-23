@@ -5,7 +5,12 @@ using Siraj.Features.Settings;
 
 namespace Siraj.Features.Prayers;
 
-internal sealed class PrayersViewModelFactory(SettingsService settingsService, NotificationService notificationService, TimerService timerService, VoiceService voiceService, TimeProvider timeProvider)
+internal sealed class PrayersViewModelFactory(
+    SettingsService settingsService, 
+    NotificationService notificationService, 
+    TimerService timerService,
+    VoiceService voiceService, 
+    TimeProvider timeProvider)
 {
     public PrayersViewModel Create(Location location)
     {

@@ -37,7 +37,6 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
 
     private readonly SettingsService settingsService;
     private readonly NotificationService notificationService;
-    private readonly TimerService timerService;
     private readonly VoiceService voiceService;
     private readonly TimeProvider timeProvider;
 
@@ -51,13 +50,14 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     {
         this.settingsService = settingsService;
         this.notificationService = notificationService;
-        this.timerService = timerService;
         this.voiceService = voiceService;
         this.timeProvider = timeProvider;
 
         Location = location;
-
         Title = location.Name;
+
+        timerService.Start();
+        timerService.Tick += Refresh;
 
         Initialize();
     }
@@ -65,12 +65,9 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     [RelayCommand]
     private void Initialize()
     {
-        Prayers.Clear();
-
         IsDefault = settingsService.Default?.Equals(Location) ?? false;
 
-        timerService.Start();
-        timerService.Tick += Refresh;
+        Prayers.Clear();
 
         var now = timeProvider.GetLocalNow();
 
@@ -85,13 +82,16 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
             Prayers.Add(new Prayer(pair.Key, pair.Value.ToLocalTime().ToString("h:mm tt")));
         }
 
-        // Force a refresh; Avoids in case of waiting for a minute to refresh.
+        // Force a refresh; Instead of waiting for a minute to refresh.
         Refresh();
     }
 
     private void Refresh()
     {
-        ArgumentNullException.ThrowIfNull(times);
+        if (times is null)
+        {
+            return;
+        }
 
         var now = timeProvider.GetLocalNow();
 
@@ -115,11 +115,19 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
         Remaining = (time - now).ToReadableString();
     }
 
-    [RelayCommand]
-    private void Close()
+    partial void OnIsDefaultChanged(bool value)
     {
-        timerService.Tick -= Refresh;
-        settingsService.Default = IsDefault ? Location : settingsService.Default;
+        if (value)
+        {
+            settingsService.Default = Location;
+        }
+        else
+        {
+            if (settingsService.Default?.Equals(Location) is true)
+            {
+                settingsService.Default = null;
+            }
+        }
     }
 }
 

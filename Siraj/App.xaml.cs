@@ -15,9 +15,10 @@ public sealed partial class App : Application
     protected override void OnLaunched(LaunchActivatedEventArgs eventArgs)
     {
         var settingsService = Bootstrapper.Services.GetRequiredService<SettingsService>();
-
-        Bootstrapper.Services.GetRequiredService<ThemeService>().Set(settingsService.Theme);
-
-        Bootstrapper.Services.GetRequiredService<ShellView>().Activate();
+        var themeService = Bootstrapper.Services.GetRequiredService<ThemeService>();
+        var shellView = Bootstrapper.Services.GetRequiredService<ShellView>();
+        
+        themeService.Set(settingsService.Theme);
+        shellView.Activate();
     }
 }
