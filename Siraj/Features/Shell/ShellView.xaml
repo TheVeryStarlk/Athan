@@ -119,13 +119,13 @@
                 <items:ItemTemplateSelector>
                     <items:ItemTemplateSelector.HeaderTemplate>
                         <DataTemplate x:DataType="items:HeaderViewModel">
-                            <NavigationViewItem Content="{x:Bind Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            <NavigationViewItem Content="{x:Bind Title, Mode=OneWay}"
                                                 DataContext="{x:Bind}">
 
                                 <NavigationViewItem.Icon>
                                     <FontIcon Margin="-2"
                                               FontFamily="Segoe UI Emoji"
-                                              Glyph="{x:Bind Glyph, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                              Glyph="{x:Bind Glyph, Mode=OneWay}" />
                                 </NavigationViewItem.Icon>
 
                                 <NavigationViewItem.ContextFlyout>

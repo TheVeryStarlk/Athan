@@ -9,35 +9,12 @@
       mc:Ignorable="d">
 
     <Grid RowSpacing="36">
-        <Grid.Resources>
-            <Style x:Key="BorderStyle"
-                   TargetType="Border">
-
-                <Setter Property="Background"
-                        Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
-
-                <Setter Property="BorderBrush"
-                        Value="{ThemeResource CardStrokeColorDefaultBrush}" />
-
-                <Setter Property="BorderThickness"
-                        Value="1" />
-
-                <Setter Property="CornerRadius"
-                        Value="{ThemeResource ControlCornerRadius}" />
-
-                <Setter Property="Padding"
-                        Value="20 16 20 16" />
-            </Style>
-        </Grid.Resources>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-
-
             <controls:RadialGauge Width="280"
                                   IsEnabled="True"
                                   IsInteractive="False"
@@ -48,7 +25,7 @@
                                   NeedleWidth="0"
                                   ScaleWidth="10"
                                   TickLength="0"
-                                  Value="0" />
+                                  Value="{x:Bind ViewModel.Value, Mode=OneWay}" />
 
             <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Center"
@@ -56,6 +33,7 @@
 
                 <Button Width="48"
                         Height="48"
+                        Command="{x:Bind ViewModel.AddCommand}"
                         Style="{StaticResource AccentButtonStyle}">
 
                     <SymbolIcon Symbol="Add" />
@@ -65,6 +43,7 @@
                         Height="48"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
+                        Command="{x:Bind ViewModel.ResetCommand}"
                         Style="{StaticResource SubtleButtonStyle}">
 
                     <SymbolIcon Symbol="Refresh" />
@@ -86,7 +65,8 @@
                         Width="36"
                         Height="36"
                         Margin="16"
-                        Padding="0">
+                        Padding="0"
+                        Command="{x:Bind ViewModel.LeftCommand}">
 
                     <FontIcon FontFamily="Segoe MDL2 Assets"
                               FontSize="16"
@@ -97,13 +77,15 @@
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            Style="{StaticResource TitleTextBlockStyle}"
-                           Text="سُبْحَانَ اللَّهِ وَبِحَمْدِهِ⠀" />
+                           Text="{x:Bind ViewModel.Current, Mode=OneWay}"
+                           TextAlignment="Center" />
 
                 <Button Grid.Column="2"
                         Width="36"
                         Height="36"
                         Margin="16"
-                        Padding="0">
+                        Padding="0"
+                        Command="{x:Bind ViewModel.RightCommand}">
 
                     <FontIcon FontFamily="Segoe MDL2 Assets"
                               FontSize="16"

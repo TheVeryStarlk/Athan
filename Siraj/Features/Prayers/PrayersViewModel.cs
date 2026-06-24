@@ -137,6 +137,8 @@ internal sealed class Prayer(PrayerKind kind, string time)
 
     public string Time => time;
 
+    public string Emoji => ToEmoji(kind);
+
     public static string ToEmoji(PrayerKind kind)
     {
         return kind switch
