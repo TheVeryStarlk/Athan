@@ -56,11 +56,11 @@
                     <ComboBox SelectedIndex="{x:Bind ViewModel.ReciterIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                         <ComboBoxItem Content="Mishary Al-Afasy" />
 
-                        <ComboBoxItem Content="Madinah" 
+                        <ComboBoxItem Content="Madinah"
                                       IsEnabled="False" />
 
-                        <ComboBoxItem Content="Makkah" 
-                                      IsEnabled="False"/>
+                        <ComboBoxItem Content="Makkah"
+                                      IsEnabled="False" />
                     </ComboBox>
                 </controls:SettingsCard>
 
@@ -98,7 +98,7 @@
                            Text="About" />
 
                 <controls:SettingsExpander Description="An Islamic prayers application"
-                                           Header="Siraj Preview">
+                                           Header="Siraj">
 
                     <controls:SettingsExpander.HeaderIcon>
                         <BitmapIcon ShowAsMonochrome="False"
