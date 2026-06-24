@@ -102,11 +102,8 @@
                         </Grid.RowDefinitions>
 
                         <Grid.Resources>
-                            <Style TargetType="StackPanel">
-                                <Setter Property="Spacing"
-                                        Value="8" />
-                            </Style>
-                        </Grid.Resources>
+                            <DataTemplate x:Key="PrayerTemplate"
+                                          x:DataType="prayers:Prayer">
 
                         <Grid Grid.Row="0"
                               VerticalAlignment="Center">
