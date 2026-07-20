@@ -4,15 +4,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Siraj.Features.Shell;
+using Serilog;
 
 namespace Siraj.Features.Welcome;
 
 internal sealed class DialogService
 {
     private XamlRoot? root;
-    
+
     public async Task ShowMessageAsync(string title, string message)
     {
+        Log.Debug("Showing message dialog {DialogTitle}", title);
+
         root ??= Bootstrapper.Services.GetRequiredService<ShellView>().Content.XamlRoot;
 
         var dialog = new ContentDialog

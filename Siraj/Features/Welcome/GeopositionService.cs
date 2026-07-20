@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
+using Serilog;
 
 namespace Siraj.Features.Welcome;
 
@@ -9,15 +10,30 @@ internal sealed class GeopositionService
     public async Task<bool> IsAllowedAsync()
     {
         var status = await Geolocator.RequestAccessAsync();
+
+        Log.Information("Location permission request returned {PermissionStatus}", status);
+
         return status is GeolocationAccessStatus.Allowed;
     }
 
     public async Task<Geoposition> GetAsync()
     {
-        var geolocator = new Geolocator();
-        var result = await geolocator.GetGeopositionAsync();
+        Log.Debug("Requesting the current position");
 
-        return new Geoposition(result.Coordinate.Latitude, result.Coordinate.Longitude);
+        try
+        {
+            var geolocator = new Geolocator();
+            var result = await geolocator.GetGeopositionAsync();
+
+            Log.Debug("Current position acquired");
+
+            return new Geoposition(result.Coordinate.Latitude, result.Coordinate.Longitude);
+        }
+        catch (Exception exception)
+        {
+            Log.Error(exception, "Could not acquire the current position");
+            throw;
+        }
     }
 }
 

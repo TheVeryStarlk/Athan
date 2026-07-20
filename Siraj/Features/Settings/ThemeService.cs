@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Siraj.Features.Shell;
+using Serilog;
 
 namespace Siraj.Features.Settings;
 
@@ -13,6 +14,8 @@ internal sealed class ThemeService
 
     public void Set(Theme theme)
     {
+        Log.Debug("Applying {Theme} application theme", theme);
+
         window ??= Bootstrapper.Services.GetRequiredService<ShellView>();
 
         var content = (FrameworkElement) window.Content;
@@ -24,7 +27,7 @@ internal sealed class ThemeService
             Theme.Light => ElementTheme.Light,
             _ => throw new ArgumentOutOfRangeException()
         };
-        
+
         var foreground = content.ActualTheme is ElementTheme.Dark ? Colors.White : Colors.Black;
 
         window.AppWindow.TitleBar.ButtonForegroundColor = foreground;

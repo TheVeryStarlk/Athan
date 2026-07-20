@@ -17,7 +17,7 @@ public sealed partial class App : Application
         var settingsService = Bootstrapper.Services.GetRequiredService<SettingsService>();
         var themeService = Bootstrapper.Services.GetRequiredService<ThemeService>();
         var shellView = Bootstrapper.Services.GetRequiredService<ShellView>();
-        
+
         themeService.Set(settingsService.Theme);
         shellView.Activate();
     }

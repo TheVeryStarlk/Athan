@@ -11,6 +11,7 @@ using WinUIEx;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Dispatching;
 using Siraj.Features.Shell.Items;
+using Serilog;
 
 namespace Siraj.Features.Shell;
 
@@ -52,9 +53,9 @@ internal sealed partial class ShellView : WindowEx
         {
             await viewModel.SearchCommand.ExecuteAsync(SearchBox.Text);
         }
-        catch
+        catch (Exception exception)
         {
-            // Log.
+            Log.Error(exception, "Location search failed for {Query}", SearchBox.Text);
         }
     }
 
@@ -64,7 +65,7 @@ internal sealed partial class ShellView : WindowEx
         {
             this.Hide();
         }
-        
+
         NavigationView.Margin = WindowState is WindowState.Maximized ? new Thickness(0, -1, 0, 0) : new Thickness(0, -2, 0, 0);
     }
 
@@ -112,7 +113,7 @@ internal sealed partial class ShellView : WindowEx
         timer.Stop();
         timer.Start();
     }
-    
+
     private void SearchBoxOnQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs eventArgs)
     {
         viewModel.SelectCommand.Execute((string?) eventArgs.ChosenSuggestion);

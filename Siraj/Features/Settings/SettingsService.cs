@@ -2,6 +2,7 @@
 using System.Text.Json.Serialization.Metadata;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Serilog;
 using Siraj.Features.Locations;
 using Siraj.Features.Prayers.Calculation;
 using Siraj.Features.Prayers.Voices;
@@ -50,16 +51,22 @@ internal sealed class SettingsService
 
     private T Get<T>(T fallback, JsonTypeInfo<T> typeInfo, string? name = null)
     {
-        if (!storage.TryGetValue(name ?? typeInfo.Type.Name, out var value))
+        var settingName = name ?? typeInfo.Type.Name;
+
+        if (!storage.TryGetValue(settingName, out var value))
         {
             return fallback;
         }
 
-        return JsonSerializer.Deserialize((string) value, typeInfo) ?? fallback;
+        var result = JsonSerializer.Deserialize((string) value, typeInfo) ?? fallback;
+        Log.Debug("Loaded setting {SettingName}", settingName);
+        return result;
     }
 
     private void Set<T>(T value, JsonTypeInfo<T> typeInfo, string? name = null)
     {
-        storage[name ?? typeInfo.Type.Name] = JsonSerializer.Serialize(value, typeInfo);
+        var settingName = name ?? typeInfo.Type.Name;
+        storage[settingName] = JsonSerializer.Serialize(value, typeInfo);
+        Log.Debug("Saved setting {SettingName}", settingName);
     }
 }

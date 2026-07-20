@@ -1,9 +1,11 @@
 ﻿using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
+using System;
 using CommunityToolkit.Mvvm.Messaging;
 using Siraj.Features.Locations;
 using Siraj.Features.Settings;
 using Siraj.Features.Shell.Items;
+using Serilog;
 
 namespace Siraj.Features.Welcome;
 
@@ -32,17 +34,29 @@ internal sealed partial class WelcomeViewModel : HeaderViewModel
     [RelayCommand]
     private async Task LocateAsync()
     {
-        if (!await geopositionService.IsAllowedAsync())
+        Log.Information("Starting current-location setup");
+
+        try
         {
-            await dialogService.ShowMessageAsync("Where are you?", "Make sure location access is enabled in your system");
-            return;
+            if (!await geopositionService.IsAllowedAsync())
+            {
+                Log.Warning("Location permission was not granted");
+                await dialogService.ShowMessageAsync("Where are you?", "Make sure location access is enabled in your system");
+                return;
+            }
+
+            var geoposition = await geopositionService.GetAsync();
+            var location = await locationService.ReverseAsync(geoposition.Latitude, geoposition.Longitude);
+            Log.Information("Current location resolved to {LocationName}", location.Name);
+
+            settingsService.Default = location;
+
+            WeakReferenceMessenger.Default.Send(new AddMessage(location));
         }
-
-        var geoposition = await geopositionService.GetAsync();
-        var location = await locationService.ReverseAsync(geoposition.Latitude, geoposition.Longitude);
-        
-        settingsService.Default = location;
-
-        WeakReferenceMessenger.Default.Send(new AddMessage(location));
+        catch (Exception exception)
+        {
+            Log.Error(exception, "Current-location setup failed");
+            throw;
+        }
     }
 }

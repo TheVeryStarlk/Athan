@@ -1,8 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Microsoft.VisualBasic;
 using Siraj.Features.Shell.Items;
-using System;
 
 namespace Siraj.Features.Tasbih;
 
@@ -16,7 +14,7 @@ internal sealed partial class TasbihViewModel : FooterViewModel
 
     private int index;
 
-    private readonly string[] messages = 
+    private readonly string[] messages =
     [
         "سُبْحَانَ اللَّهِ",
         "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",

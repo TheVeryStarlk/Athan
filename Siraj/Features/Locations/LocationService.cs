@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace Siraj.Features.Locations;
 
@@ -11,33 +12,55 @@ internal sealed class LocationService(IHttpClientFactory clientFactory)
 
     public async Task<Location[]> SearchAsync(string query)
     {
-        var client = clientFactory.CreateClient();
+        Log.Debug("Searching for locations matching {Query}", query);
 
-        client.DefaultRequestHeaders.Add("User-Agent", nameof(Siraj));
-        client.DefaultRequestHeaders.Add("Accept-Language", "en-US");
+        try
+        {
+            var client = clientFactory.CreateClient();
 
-        var result = await client.GetFromJsonAsync(
-            $"{Url}search?q={Uri.EscapeDataString(query)}&format=jsonv2",
-            SirajSerializerContext.Default.LocationArray);
+            client.DefaultRequestHeaders.Add("User-Agent", nameof(Siraj));
+            client.DefaultRequestHeaders.Add("Accept-Language", "en-US");
 
-        ArgumentNullException.ThrowIfNull(result);
+            var result = await client.GetFromJsonAsync(
+                $"{Url}search?q={Uri.EscapeDataString(query)}&format=jsonv2",
+                SirajSerializerContext.Default.LocationArray);
 
-        return result;
+            ArgumentNullException.ThrowIfNull(result);
+
+            Log.Debug("Location search returned {LocationCount} results", result.Length);
+            return result;
+        }
+        catch (Exception exception)
+        {
+            Log.Error(exception, "Location search failed for {Query}", query);
+            throw;
+        }
     }
 
     public async Task<Location> ReverseAsync(double latitude, double longitude)
     {
-        var client = clientFactory.CreateClient();
+        Log.Debug("Reverse geocoding the current position");
 
-        client.DefaultRequestHeaders.Add("User-Agent", nameof(Siraj));
-        client.DefaultRequestHeaders.Add("Accept-Language", "en-US");
+        try
+        {
+            var client = clientFactory.CreateClient();
 
-        var result = await client.GetFromJsonAsync(
-            $"{Url}reverse?lat={latitude}&lon={longitude}&zoom=18&format=jsonv2",
-            SirajSerializerContext.Default.Location);
+            client.DefaultRequestHeaders.Add("User-Agent", nameof(Siraj));
+            client.DefaultRequestHeaders.Add("Accept-Language", "en-US");
 
-        ArgumentNullException.ThrowIfNull(result);
+            var result = await client.GetFromJsonAsync(
+                $"{Url}reverse?lat={latitude}&lon={longitude}&zoom=18&format=jsonv2",
+                SirajSerializerContext.Default.Location);
 
-        return result;
+            ArgumentNullException.ThrowIfNull(result);
+
+            Log.Debug("Reverse geocoding resolved to {LocationName}", result.Name);
+            return result;
+        }
+        catch (Exception exception)
+        {
+            Log.Error(exception, "Reverse geocoding failed");
+            throw;
+        }
     }
 }

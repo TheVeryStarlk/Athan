@@ -10,6 +10,7 @@ using Siraj.Features.Settings;
 using Siraj.Features.Shell.Items;
 using Siraj.Features.Tasbih;
 using Siraj.Features.Welcome;
+using Serilog;
 
 namespace Siraj.Features.Shell;
 
@@ -62,6 +63,8 @@ internal sealed partial class ShellViewModel : ObservableObject
 
     private static void Add(ShellViewModel recipient, AddMessage message)
     {
+        Log.Information("Adding location {LocationName}", message.Location.Name);
+
         if (recipient.Header[0] is WelcomeViewModel)
         {
             recipient.Header.RemoveAt(0);
@@ -75,6 +78,8 @@ internal sealed partial class ShellViewModel : ObservableObject
 
     private static void Delete(ShellViewModel recipient, DeleteMessage message)
     {
+        Log.Information("Removing location {LocationName}", message.Instance.Title);
+
         recipient.Header.Remove(message.Instance);
 
         if (recipient.Header.Count is 0)
@@ -89,6 +94,8 @@ internal sealed partial class ShellViewModel : ObservableObject
     private void Initialize()
     {
         var saved = settingsService.Locations;
+
+        Log.Information("Initializing shell with {LocationCount} saved locations", saved.Length);
 
         if (saved.Length is 0)
         {
@@ -115,7 +122,11 @@ internal sealed partial class ShellViewModel : ObservableObject
             return;
         }
 
+        Log.Debug("Searching for locations matching {Query}", input);
+
         locations = await locationService.SearchAsync(input);
+
+        Log.Debug("Loaded {LocationCount} location suggestions", locations.Length);
 
         foreach (var location in locations)
         {
@@ -142,6 +153,8 @@ internal sealed partial class ShellViewModel : ObservableObject
             return;
         }
 
+        Log.Information("Selected location {LocationName}", location.Name);
+
         if (Header[0] is WelcomeViewModel)
         {
             Header.RemoveAt(0);
@@ -162,18 +175,21 @@ internal sealed partial class ShellViewModel : ObservableObject
 
         Current = selection;
 
+        Log.Debug("Selected shell item {ItemTitle}", selection.Title);
         navigationService.Navigate(Current);
     }
 
     [RelayCommand]
     private void Open()
     {
+        Log.Debug("Opening the shell window");
         windowService.Open();
     }
 
     [RelayCommand]
     private void Exit()
     {
+        Log.Information("Exiting Siraj and saving locations");
         settingsService.Locations = Header.OfType<PrayersViewModel>().Select(header => header.Location).ToArray();
         windowService.Exit();
     }

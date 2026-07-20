@@ -10,12 +10,13 @@ using System.Collections.Frozen;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using Serilog;
 
 namespace Siraj.Features.Prayers;
 
 internal sealed partial class PrayersViewModel : HeaderViewModel
 {
-    public override bool Deletable => true;
+    public override bool IsDeletable => true;
 
     public Location Location { get; }
 
@@ -65,6 +66,8 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     [RelayCommand]
     private void Initialize()
     {
+        Log.Information("Initializing prayer times for {LocationName}", Location.Name);
+
         IsDefault = settingsService.Default?.Equals(Location) ?? false;
 
         Prayers.Clear();
@@ -76,6 +79,8 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
         var calculator = new PrayerTimesCalculator(settingsService.Method.ToOptions());
 
         times = calculator.Calculate(now, Location.Latitude, Location.Longitude);
+
+        Log.Debug("Calculated {PrayerCount} prayer times for {LocationName}", times.Count, Location.Name);
 
         foreach (var pair in times)
         {
@@ -105,6 +110,8 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
 
         if (IsDefault && Upcoming != kind && !string.IsNullOrWhiteSpace(Remaining))
         {
+            Log.Information("Prayer time reached for {Prayer} at {LocationName}", Upcoming, Location.Name);
+
             notificationService.Show($"Now is the prayer time for {Upcoming}", Location.Name);
             voiceService.Play(settingsService.Voice, Upcoming is PrayerKind.Fajr);
         }
@@ -119,12 +126,14 @@ internal sealed partial class PrayersViewModel : HeaderViewModel
     {
         if (value)
         {
+            Log.Information("Set {LocationName} as the default prayer location", Location.Name);
             settingsService.Default = Location;
         }
         else
         {
             if (settingsService.Default?.Equals(Location) is true)
             {
+                Log.Information("Cleared {LocationName} as the default prayer location", Location.Name);
                 settingsService.Default = null;
             }
         }

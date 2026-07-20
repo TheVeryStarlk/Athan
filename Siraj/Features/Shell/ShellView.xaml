@@ -132,7 +132,7 @@
                                     <MenuFlyout>
                                         <MenuFlyoutItem Command="{x:Bind DeleteCommand}"
                                                         Icon="Delete"
-                                                        IsEnabled="{x:Bind Deletable}"
+                                                        IsEnabled="{x:Bind IsDeletable}"
                                                         Text="Delete" />
                                     </MenuFlyout>
                                 </NavigationViewItem.ContextFlyout>

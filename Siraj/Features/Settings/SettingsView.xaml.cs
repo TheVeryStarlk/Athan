@@ -1,6 +1,7 @@
 using System;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using Serilog;
 
 namespace Siraj.Features.Settings;
 
@@ -20,9 +21,11 @@ internal sealed partial class SettingsView : Page
     {
         InitializeComponent();
     }
-    
+
     protected override void OnNavigatedTo(NavigationEventArgs eventArgs)
     {
+        Log.Debug("Opened settings view");
+
         ViewModel = (SettingsViewModel) eventArgs.Parameter;
         ViewModel.InitializeCommand.Execute(null);
 
@@ -31,7 +34,10 @@ internal sealed partial class SettingsView : Page
 
     protected override void OnNavigatedFrom(NavigationEventArgs eventArgs)
     {
+        Log.Debug("Leaving settings view and saving settings");
+
         ViewModel.SaveCommand.Execute(null);
+
         base.OnNavigatedFrom(eventArgs);
     }
 }

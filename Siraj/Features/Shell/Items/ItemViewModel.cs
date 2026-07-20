@@ -12,7 +12,7 @@ internal abstract partial class ItemViewModel : ObservableObject
     [ObservableProperty]
     public partial string? Glyph { get; set; }
 
-    public virtual bool Deletable { get; }
+    public virtual bool IsDeletable { get; }
 }
 
 internal abstract partial class HeaderViewModel : ItemViewModel

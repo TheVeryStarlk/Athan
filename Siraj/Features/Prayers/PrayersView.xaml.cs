@@ -4,6 +4,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using Siraj.Features.Prayers.Calculation;
+using Serilog;
 using System;
 using Windows.Foundation;
 using Windows.UI;
@@ -30,6 +31,9 @@ internal sealed partial class PrayersView : Page
     protected override void OnNavigatedTo(NavigationEventArgs eventArgs)
     {
         ViewModel = (PrayersViewModel) eventArgs.Parameter;
+
+        Log.Debug("Opened prayers view for {LocationName}", ViewModel.Location.Name);
+
         ViewModel.InitializeCommand.Execute(null);
 
         base.OnNavigatedTo(eventArgs);
@@ -43,7 +47,7 @@ internal sealed partial class PrayersView : Page
             return;
         }
 
-        (int red, int blue, int green) = ViewModel.Upcoming.Value switch
+        var (red, blue, green) = ViewModel.Upcoming.Value switch
         {
             PrayerKind.Fajr => (255, 239, 120),
             PrayerKind.Dhuhr => (255, 208, 120),

@@ -1,6 +1,7 @@
 using System;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using Serilog;
 
 namespace Siraj.Features.Tasbih;
 
@@ -24,6 +25,7 @@ internal sealed partial class TasbihView : Page
     protected override void OnNavigatedTo(NavigationEventArgs eventArgs)
     {
         ViewModel = (TasbihViewModel) eventArgs.Parameter;
+        Log.Debug("Opened Tasbih view");
         base.OnNavigatedTo(eventArgs);
     }
 }
