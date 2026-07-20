@@ -95,6 +95,21 @@
 
                 <TextBlock Margin="0 24 0 4"
                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                           Text="Diagnostics" />
+
+                <controls:SettingsCard Description="Open the current log file"
+                                       Header="Log file">
+
+                    <controls:SettingsCard.HeaderIcon>
+                        <SymbolIcon Symbol="OpenFile" />
+                    </controls:SettingsCard.HeaderIcon>
+
+                    <Button Content="Open"
+                            Command="{x:Bind ViewModel.OpenLogFileCommand}" />
+                </controls:SettingsCard>
+
+                <TextBlock Margin="0 24 0 4"
+                           Style="{StaticResource BodyStrongTextBlockStyle}"
                            Text="About" />
 
                 <controls:SettingsExpander Description="An Islamic prayers application"
