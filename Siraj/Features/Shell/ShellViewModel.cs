@@ -142,7 +142,13 @@ internal sealed partial class ShellViewModel : ObservableObject
             return;
         }
 
+        if (Header[0] is WelcomeViewModel)
+        {
+            Header.RemoveAt(0);
+        }
+
         Header.Add(prayersViewModelFactory.Create(location));
+
         Navigate(Header[^1]);
     }
 
