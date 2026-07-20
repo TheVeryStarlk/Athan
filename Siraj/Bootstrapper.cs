@@ -44,6 +44,7 @@ internal static partial class Bootstrapper
 
     // Settings.
     [Singleton(typeof(SettingsService))]
+    [Transient(typeof(LogService))]
     [Transient(typeof(StartupService))]
     [Transient(typeof(ThemeService))]
 

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.System;
 using Siraj.Features.Prayers.Calculation;
 using Siraj.Features.Shell.Items;
 using Siraj.Features.Prayers.Voices;
@@ -28,12 +24,14 @@ internal sealed partial class SettingsViewModel : FooterViewModel
     private readonly SettingsService settingsService;
     private readonly ThemeService themeService;
     private readonly StartupService startupService;
+    private readonly LogService logService;
 
-    public SettingsViewModel(SettingsService settingsService, ThemeService themeService, StartupService startupService)
+    public SettingsViewModel(SettingsService settingsService, ThemeService themeService, StartupService startupService, LogService logService)
     {
         this.settingsService = settingsService;
         this.themeService = themeService;
         this.startupService = startupService;
+        this.logService = logService;
 
         Glyph = "\uE713";
         Title = "Settings";
@@ -53,17 +51,7 @@ internal sealed partial class SettingsViewModel : FooterViewModel
     [RelayCommand]
     private async Task OpenLogFileAsync()
     {
-        var roaming = await ApplicationData.Current.LocalCacheFolder.GetFolderAsync("Roaming");
-        var siraj = await roaming.GetFolderAsync("Siraj");
-        var files = await siraj.GetFilesAsync();
-        var file = files.FirstOrDefault(file => string.Equals(file.DisplayName, DateTimeOffset.UtcNow.ToString("yyyyMMdd")));
-
-        if (file is null)
-        {
-            return;
-        }
-
-        await Launcher.LaunchFileAsync(file);
+        await logService.OpenAsync();
     }
 
     [RelayCommand]
