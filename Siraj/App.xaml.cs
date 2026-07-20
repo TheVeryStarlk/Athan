@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
+using Serilog;
 using Siraj.Features.Settings;
 using Siraj.Features.Shell;
 
@@ -10,6 +11,8 @@ public sealed partial class App : Application
     public App()
     {
         InitializeComponent();
+
+        UnhandledException += OnUnhandledException;
     }
 
     protected override void OnLaunched(LaunchActivatedEventArgs eventArgs)
@@ -20,5 +23,10 @@ public sealed partial class App : Application
 
         themeService.Set(settingsService.Theme);
         shellView.Activate();
+    }
+
+    private void OnUnhandledException(object sender, UnhandledExceptionEventArgs eventArgs)
+    {
+        Log.Fatal(eventArgs.Exception, "Siraj terminated unexpectedly");
     }
 }
