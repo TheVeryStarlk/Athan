@@ -9,30 +9,6 @@
 
     <Page.Resources>
         <prayers:UpcomingToRowConverter x:Key="UpcomingToRowConverter" />
-
-        <Storyboard x:Key="FadeInStoryboard">
-            <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                             From="0"
-                             To="1"
-                             Duration="0:0:2.5">
-
-                <DoubleAnimation.EasingFunction>
-                    <QuinticEase EasingMode="EaseOut" />
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-        </Storyboard>
-
-        <Storyboard x:Key="FadeOutStoryboard">
-            <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                             From="1"
-                             To="0"
-                             Duration="0:0:1">
-
-                <DoubleAnimation.EasingFunction>
-                    <CubicEase EasingMode="EaseIn" />
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-        </Storyboard>
     </Page.Resources>
 
     <Grid>

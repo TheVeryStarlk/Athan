@@ -3,6 +3,8 @@ using Microsoft.UI.Xaml;
 using Serilog;
 using Siraj.Features.Settings;
 using Siraj.Features.Shell;
+using System;
+using System.Threading.Tasks;
 
 namespace Siraj;
 
@@ -12,7 +14,15 @@ public sealed partial class App : Application
     {
         InitializeComponent();
 
-        UnhandledException += OnUnhandledException;
+        UnhandledException += (_, eventArgs) => Log.Fatal(eventArgs.Exception, "Siraj terminated unexpectedly"); ;
+
+        AppDomain.CurrentDomain.UnhandledException += (_, eventArgs) => Log.Fatal(eventArgs.ExceptionObject as Exception, "Siraj terminated unexpectedly");
+
+        TaskScheduler.UnobservedTaskException += (_, eventArgs) =>
+        {
+            Log.Fatal(eventArgs.Exception, "Siraj terminated unexpectedly");
+            eventArgs.SetObserved();
+        };
     }
 
     protected override void OnLaunched(LaunchActivatedEventArgs eventArgs)
@@ -23,10 +33,5 @@ public sealed partial class App : Application
 
         themeService.Set(settingsService.Theme);
         shellView.Activate();
-    }
-
-    private void OnUnhandledException(object sender, UnhandledExceptionEventArgs eventArgs)
-    {
-        Log.Fatal(eventArgs.Exception, "Siraj terminated unexpectedly");
     }
 }

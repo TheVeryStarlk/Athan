@@ -76,10 +76,23 @@ internal sealed partial class PrayersView : Page
             }
         };
 
-        var storyBoard = (Storyboard) Resources["FadeInStoryboard"];
+        var animation = new DoubleAnimation
+        {
+            From = 0,
+            To = 1,
+            Duration = TimeSpan.FromSeconds(2.5),
+            EasingFunction = new QuinticEase
+            {
+                EasingMode = EasingMode.EaseOut
+            }
+        };
 
-        Storyboard.SetTarget(storyBoard, GradientRectangle);
+        Storyboard.SetTarget(animation, GradientRectangle);
+        Storyboard.SetTargetProperty(animation, nameof(GradientRectangle.Opacity));
 
-        storyBoard.Begin();
+        var storyboard = new Storyboard();
+
+        storyboard.Children.Add(animation);
+        storyboard.Begin();
     }
 }
