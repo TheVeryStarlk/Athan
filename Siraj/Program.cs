@@ -92,7 +92,7 @@ internal static partial class Program
         SetForegroundWindow(Process.GetProcessById((int) instance.ProcessId).MainWindowHandle);
     }
 
-    [LibraryImport("kernel32.dll", StringMarshalling = StringMarshalling.Utf16)]
+    [LibraryImport("kernel32.dll", EntryPoint = "CreateEventW", StringMarshalling = StringMarshalling.Utf16)]
     private static partial nint CreateEvent(nint lpEventAttributes, [MarshalAs(UnmanagedType.Bool)] bool bManualReset, [MarshalAs(UnmanagedType.Bool)] bool bInitialState, string? lpName);
 
     [LibraryImport("kernel32.dll")]
