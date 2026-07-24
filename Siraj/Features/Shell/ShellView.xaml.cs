@@ -64,6 +64,7 @@ internal sealed partial class ShellView : WindowEx
         if (state is WindowState.Minimized)
         {
             this.Hide();
+            viewModel.MinimizedCommand.Execute(null);
         }
 
         NavigationView.Margin = WindowState is WindowState.Maximized ? new Thickness(0, -1, 0, 0) : new Thickness(0, -2, 0, 0);

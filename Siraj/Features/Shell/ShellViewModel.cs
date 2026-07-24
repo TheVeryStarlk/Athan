@@ -31,6 +31,7 @@ internal sealed partial class ShellViewModel : ObservableObject
     private readonly LocationService locationService;
     private readonly WindowService windowService;
     private readonly SettingsService settingsService;
+    private readonly NotificationService notificationService;
     private readonly PrayersViewModelFactory prayersViewModelFactory;
     private readonly WelcomeViewModel welcomeViewModel;
 
@@ -39,6 +40,7 @@ internal sealed partial class ShellViewModel : ObservableObject
         LocationService locationService,
         WindowService windowService,
         SettingsService settingsService,
+        NotificationService notificationService,
         PrayersViewModelFactory prayersViewModelFactory,
         TasbihViewModel tasbihViewModel,
         WelcomeViewModel welcomeViewModel,
@@ -46,6 +48,7 @@ internal sealed partial class ShellViewModel : ObservableObject
     {
         this.navigationService = navigationService;
         this.settingsService = settingsService;
+        this.notificationService = notificationService;
         this.prayersViewModelFactory = prayersViewModelFactory;
         this.welcomeViewModel = welcomeViewModel;
         this.locationService = locationService;
@@ -192,5 +195,11 @@ internal sealed partial class ShellViewModel : ObservableObject
         Log.Information("Exiting Siraj and saving locations");
         settingsService.Locations = Header.OfType<PrayersViewModel>().Select(header => header.Location).ToArray();
         windowService.Exit();
+    }
+    
+    [RelayCommand]
+    private void OnMinimized()
+    {
+        notificationService.Show("Siraj is running", "Siraj has been minimized to the tray icon");
     }
 }

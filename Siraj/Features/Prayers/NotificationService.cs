@@ -13,7 +13,7 @@ internal sealed class NotificationService
         var notification = new AppNotificationBuilder()
             .AddText(title)
             .AddText(message)
-            .SetAudioEvent(AppNotificationSoundEvent.Reminder)
+            // .SetAudioEvent(AppNotificationSoundEvent.Reminder)
             .BuildNotification();
 
         AppNotificationManager.Default.Show(notification);
